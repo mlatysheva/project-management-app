@@ -1,6 +1,7 @@
 {
   "name": "project-management-app",
   "version": "0.1.0",
+  "homepage": "https://mlatysheva.github.io/project-management-app",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -25,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test-coverage": "npm run test -- --coverage --watchAll=false",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build -e gh-pages --message 'deploy: project-management-app to GitHub Pages'"
   },
   "eslintConfig": {
     "extends": [
