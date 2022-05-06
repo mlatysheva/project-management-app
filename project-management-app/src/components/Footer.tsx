@@ -20,9 +20,6 @@ function Footer() {
         <a href="https://github.com/julia-mironova" className="mygit">
           julia-mironova
         </a>
-        <a href="https://github.com/elMP" className="mygit">
-          elMP
-        </a>
       </div>
       
     </footer>

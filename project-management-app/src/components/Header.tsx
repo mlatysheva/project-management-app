@@ -6,8 +6,8 @@ const CurrentPage = () => {
     switch (location.pathname) {
       case '/':
         return 'Home';
-      case '/projects':
-        return 'Projects';
+      case '/create':
+        return 'Create Board';
       case '/error':
         return 'Error';
       default:
@@ -29,7 +29,7 @@ function Header() {
       <CurrentPage />
       <nav className="nav">
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/projects">Projects</NavLink>
+        <NavLink to="/create">Create Board</NavLink>
       </nav>
     </header>
   );
