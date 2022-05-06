@@ -9,7 +9,7 @@ function Home() {
   return (
     <div className="main">
       <Title title="To add title" />
-      <p>TODO: List of boards will be here</p>
+      <p>TODO: render list of boards here</p>
     </div>
   );
 }

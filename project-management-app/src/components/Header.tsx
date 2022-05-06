@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import HomeIcon from '@material-ui/icons/Home';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import { Tooltip } from '@material-ui/core';
+import HomeIcon from '@mui/icons-material/Home';
+import Tooltip from '@mui/material/Tooltip';
+import AddBoxIcon from '@mui/icons-material/AddBoxRounded';
 
 const CurrentPage = () => {
   const location = useLocation();
