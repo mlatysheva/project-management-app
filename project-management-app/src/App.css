@@ -215,3 +215,8 @@ label {
 .mygit {
   padding: 0 !important;
 }
+
+.column-container {
+  display: flex;
+  flex-direction: row;
+}
