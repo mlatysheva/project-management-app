@@ -9,6 +9,8 @@ const CurrentPage = () => {
     switch (location.pathname) {
       case '/':
         return 'Home';
+      case '/project-management-app':
+        return 'Home';
       case '/create':
         return 'Create Board';
       case '/error':

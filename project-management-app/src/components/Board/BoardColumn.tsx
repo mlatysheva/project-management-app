@@ -11,6 +11,7 @@ const styles = {
     margin: 10,
     backgroundColor: "lightgrey",
     borderRadius: 3,
+    padding: 8,
   }
 }; 
 
