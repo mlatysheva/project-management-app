@@ -2,13 +2,12 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { store } from './store/store';
 import Home from './components/Home/Home';
-import Projects from './components/Projects/Projects';
 import ErrorPage from './components/ErrorPage';
-import Header from './components/Header';
 import ErrorBoundary from './components/ErrorBoundary';
 import Footer from './components/Footer';
 import { Provider } from 'react-redux';
 import CreateBoard from './components/Home/CreateBoard';
+import Header from './components/Header';
 
 function App() {
   return (

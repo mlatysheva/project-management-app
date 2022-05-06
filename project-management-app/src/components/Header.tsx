@@ -1,4 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
+import HomeIcon from '@material-ui/icons/Home';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import { Tooltip } from '@material-ui/core';
 
 const CurrentPage = () => {
   const location = useLocation();
@@ -26,10 +29,18 @@ const CurrentPage = () => {
 function Header() {
   return (
     <header className="header">
-      <CurrentPage />
+      <CurrentPage />      
       <nav className="nav">
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/create">Create Board</NavLink>
+        <NavLink to="/">
+          <Tooltip title="Home">
+            <HomeIcon fontSize="large" />
+          </Tooltip>
+        </NavLink>
+        <NavLink to="/create">
+          <Tooltip title="Add new Board">
+            <AddBoxIcon fontSize="large" />
+          </Tooltip>
+        </NavLink>
       </nav>
     </header>
   );
