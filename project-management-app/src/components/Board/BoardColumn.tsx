@@ -1,8 +1,10 @@
 import React from 'react';
+import { TaskProps } from '../../reducers/listReducer';
 import { TaskCard } from './TaskCard';
 
 interface BoardColumnProps {
   title: string;
+  tasks: TaskProps[];
 }
 
 const styles = {

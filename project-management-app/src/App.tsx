@@ -1,11 +1,12 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home/Home';
+import { Home } from './components/Home/Home';
 import ErrorPage from './components/ErrorPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import Footer from './components/Footer';
 import CreateBoard from './components/Board/CreateBoard';
 import Header from './components/Header';
+import { initialState } from './reducers/listReducer';
 
 function App() {
   return (
@@ -14,8 +15,8 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/project-management-app" element={<Home />} />
+            <Route path="/" element={<Home lists={initialState.lists} />} />
+            <Route path="/project-management-app" element={<Home lists={initialState.lists} />} />
             <Route path="/create" element={<CreateBoard /> } />                  
             <Route path="error" element={<ErrorPage />} />
             <Route path="*" element={<ErrorPage />} />
