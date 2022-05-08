@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { ListProps, ListsProps } from '../../reducers/listReducer';
 import { BoardColumn } from '../Board/BoardColumn';
+import { BoardPreviewCard } from './BoardPreviewCard';
 
 type TitleProps = {
   title: string;
@@ -17,7 +18,7 @@ export function Home(props: ListsProps) {
   return (
     <div className="main">
       <Title title="Your boards" />
-      { lists.map((list: ListProps) => <BoardColumn title={list.title} tasks={list.tasks} />)}
+      { lists.map((list: ListProps) => <BoardPreviewCard title={list.title} noOfTasks={list.tasks.length} />)}
     </div>
   );
 }

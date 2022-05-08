@@ -2,8 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from  '../reducers';
 
 const defaultState = {
-  username: ''
+  user: {
+    userName: '',
+    login: '',
+    password: '',
+  }
 }
+
 const reducer = (state = defaultState, action: { type: string; payload: string; }) => {
   switch (action.type) {
     case "ADD_LOGIN":
