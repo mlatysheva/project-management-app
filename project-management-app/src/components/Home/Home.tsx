@@ -1,3 +1,7 @@
+import { connect } from 'react-redux';
+import { ListProps, ListsProps } from '../../reducers/listReducer';
+import { BoardColumn } from '../Board/BoardColumn';
+
 type TitleProps = {
   title: string;
   children?: string;
@@ -5,13 +9,19 @@ type TitleProps = {
 
 export const Title = ({ title = '' }: TitleProps) => <h1>{title}</h1>;
 
-function Home() {  
+export function Home(props: ListsProps) {  
+  const lists = props.lists;
+  console.dir(lists);
   return (
     <div className="main">
-      <Title title="To add title" />
-      <p>TODO: render list of boards here</p>
+      <Title title="Your boards" />
+      { lists.map((list: ListProps) => <BoardColumn title={list.title} tasks={list.tasks} />)}
     </div>
   );
 }
 
-export default Home;
+// const mapStateToProps = (state: { lists: ListProps[]; }) => ( {
+//   lists: state.lists,
+// });
+
+// export default connect(mapStateToProps)(Home);

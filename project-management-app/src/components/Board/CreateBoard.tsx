@@ -6,9 +6,9 @@ export default function CreateBoard() {
     <div className="main">
       <h1>Adding a new board</h1>
       <div className="column-container">
-        <BoardColumn title="To do"/>
-        <BoardColumn title="Doing"/>
-        <BoardColumn title="Done"/>
+        <BoardColumn title="To do" tasks={[]} />
+        <BoardColumn title="Doing" tasks={[]} />
+        <BoardColumn title="Done" tasks={[]} />
       </div>        
     </div>
   )
