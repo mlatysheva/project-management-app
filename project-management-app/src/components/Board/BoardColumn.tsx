@@ -25,4 +25,3 @@ export const BoardColumn = (props: BoardColumnProps) => {
     </div>
   )
 };
-

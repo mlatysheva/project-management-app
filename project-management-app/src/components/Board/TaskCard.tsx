@@ -1,30 +1,9 @@
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import React from 'react';
-
-const styles = {
-  box: {
-    display: 'inline-block', 
-    mx: '2px', 
-    transform: 'scale(0.8)',
-  },
-  card: {
-    minWidth: 275,
-  }
-}
-
-const bull = (
-  <Box
-    component="span"
-    style={styles.box}
-  >
-    •
-  </Box>
-);
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export const TaskCard = () => {
   return (
@@ -41,7 +20,9 @@ export const TaskCard = () => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Delete</Button>
+        <Tooltip title="Delete task">
+          <DeleteIcon />
+        </Tooltip>
       </CardActions>
     </Card>
   )
