@@ -8,7 +8,7 @@ function Footer() {
       />
       <a href="mailto:mlatysheva@gmail.com">2022</a>
       <a href="https://rs.school" className="rsschool">
-        The Rolling Slopes School
+        The Rolling Scopes School
       </a>
       <div className="githubs">
         <a href="https://github.com/mlatysheva" className="mygit">

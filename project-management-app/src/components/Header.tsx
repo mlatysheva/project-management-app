@@ -3,10 +3,12 @@ import HomeIcon from '@mui/icons-material/Home';
 import Tooltip from '@mui/material/Tooltip';
 import AddBoxIcon from '@mui/icons-material/AddBoxRounded';
 
-const CurrentPage = () => {
+function CurrentPage() {
   const location = useLocation();
   const getCurrentPage = () => {
     switch (location.pathname) {
+      case '/welcome':
+        return 'Welcome';
       case '/':
         return 'Home';
       case '/project-management-app':
@@ -26,13 +28,18 @@ const CurrentPage = () => {
       {getCurrentPage()}
     </div>
   );
-};
+}
 
 function Header() {
   return (
     <header className="header">
-      <CurrentPage />      
+      <CurrentPage />
       <nav className="nav">
+        <NavLink to="/welcome">
+        <Tooltip title="Welcome-page">
+            <AddBoxIcon fontSize="large" />
+          </Tooltip>
+      </NavLink>
         <NavLink to="/">
           <Tooltip title="Home">
             <HomeIcon fontSize="large" />
