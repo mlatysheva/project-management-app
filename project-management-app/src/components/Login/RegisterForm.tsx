@@ -6,30 +6,30 @@ function SignupForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	return (
-		<form className="login__form">
+		<form className="signup__form">
 			<h1>If you want to register 🌻:</h1>
 			<input
-				className="login__input"
+				className="signup__input"
 				type="name"
 				placeholder="Name"
 				value={name}
 				onChange={(e) => setName(e.target.value)}
 			/>
 			<input
-				className="login__input"
+				className="signup__input"
 				type="email"
 				placeholder="Email"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
 			/>
 			<input
-				className="login__input"
+				className="signup__input"
 				type="password"
 				placeholder="Password"
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
 			/>
-			<button type="submit" className="login__btn">
+			<button type="submit" className="signup__btn">
 				Register
 			</button>
 		</form>

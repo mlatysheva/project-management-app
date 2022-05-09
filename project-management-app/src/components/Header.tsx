@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import Tooltip from "@mui/material/Tooltip";
@@ -42,13 +43,19 @@ function Header() {
 		<header className="header">
 			<CurrentPage />
 			<nav className="nav">
-				{/*if not login = true change icon to logout
+				{/*if not icon changed after register to HowToRegIcon
+				login = true change icon to logout
           <NavLink to="/logout">
 					<Tooltip title="Logout">
 						<LogoutIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
           */}
+				{/*<NavLink to="/signin">
+					<Tooltip title="Signin">
+						<HowToRegIcon fontSize="large" />
+					</Tooltip>
+				</NavLink>*/}
 				<NavLink to="/signup">
 					<Tooltip title="Register">
 						<LoginIcon fontSize="large" />
