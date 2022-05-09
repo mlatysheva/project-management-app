@@ -10,10 +10,12 @@ type TitleProps = {
   children?: string;
 };
 
-export const Title = ({ title = '' }: TitleProps) => <h1>{title}</h1>;
+export function Title({ title = '' }: TitleProps) {
+  return <h1>{title}</h1>
+}
 
-export function Home (props: ListsProps) {  
-  const lists = props.lists;
+export function Home(props: ListsProps) {
+  const {lists} = props;
   console.dir(lists);
   return (
     <div className="main">
