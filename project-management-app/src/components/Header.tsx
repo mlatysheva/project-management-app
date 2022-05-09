@@ -4,6 +4,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import Tooltip from "@mui/material/Tooltip";
 import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
+import LanguageIcon from "@mui/icons-material/Language";
 
 function CurrentPage() {
 	const location = useLocation();
@@ -64,6 +65,9 @@ function Header() {
 						<AddBoxIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
+				<Tooltip title="Language">
+					<LanguageIcon fontSize="large" />
+				</Tooltip>
 			</nav>
 		</header>
 	);
