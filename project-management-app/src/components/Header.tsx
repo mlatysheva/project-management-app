@@ -12,8 +12,8 @@ function CurrentPage() {
 		switch (location.pathname) {
 			case "/":
 				return "Home";
-			case "/login":
-				return "Login";
+			case "/signup":
+				return "Register";
 			case "/logout":
 				return "Logout";
 			case "/project-management-app":
@@ -49,8 +49,8 @@ function Header() {
 					</Tooltip>
 				</NavLink>
           */}
-				<NavLink to="/login">
-					<Tooltip title="Login">
+				<NavLink to="/signup">
+					<Tooltip title="Register">
 						<LoginIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>

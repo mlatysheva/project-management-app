@@ -8,7 +8,7 @@ import CreateBoard from "./components/Board/CreateBoard";
 import Header from "./components/Header";
 import { initialState } from "./reducers/listReducer";
 import { Home } from "./components/Home/Home";
-import Login from "./components/Login/Login";
+import Register from "./components/Login/Register";
 import Logout from "./components/Logout/Logout";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
 					<Header />
 					<Routes>
 						<Route path="/" element={<Home />} />
-						<Route path="/login" element={<Login />} />
+						<Route path="/signup" element={<Register />} />
 						<Route path="/logout" element={<Logout />} />
 						<Route path="/project-management-app" element={<Home />} />
 						<Route

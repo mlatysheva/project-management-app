@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "./login.css";
+import "./signup.css";
 
-function LoginForm() {
+function SignupForm() {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	return (
 		<form className="login__form">
-			<h1>If you want to login 🌻:</h1>
+			<h1>If you want to register 🌻:</h1>
 			<input
 				className="login__input"
 				type="name"
@@ -30,10 +30,10 @@ function LoginForm() {
 				onChange={(e) => setPassword(e.target.value)}
 			/>
 			<button type="submit" className="login__btn">
-				Login
+				Register
 			</button>
 		</form>
 	);
 }
 
-export default LoginForm;
+export default SignupForm;
