@@ -1,6 +1,7 @@
 export interface TaskProps {
-  id: number;
-  text: string;
+  title: string;
+  description: string;
+  responsible: string;
 }
 
 export interface ListProps {
@@ -20,12 +21,14 @@ export const initialState: ListsProps = {
       id: 0,
       tasks: [
         {
-          id: 0,
-          text: "Deploy server",
+          title: "Initial setup",
+          description: "Set up site structure, webpack",
+          responsible: "Ivan",
         },
         {
-          id: 1,
-          text: "Setup initial structure",
+          title: "Kick-off meeting",
+          description: "Conduct meeting to assign tasks",
+          responsible: "Olga",
         }      
       ]
     },
@@ -34,12 +37,14 @@ export const initialState: ListsProps = {
       id: 0,
       tasks: [
         {
-          id: 0,
-          text: "Find a contractor",
+          title: "Marketing research",
+          description: "Identify TA, set up goals",
+          responsible: "Zhanna",
         },
         {
-          id: 1,
-          text: "Draw up the list of marketing tasks",
+          title: "Task allocation",
+          description: "Assign tasks to the team",
+          responsible: "Angela",
         }      
       ]
     },
