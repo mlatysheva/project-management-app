@@ -1,5 +1,7 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { ListProps, ListsProps } from '../../reducers/listReducer';
+import { AppDispatch, RootState } from '../../store/store';
 import { BoardColumn } from '../Board/BoardColumn';
 import { BoardPreviewCard } from './BoardPreviewCard';
 
@@ -23,8 +25,8 @@ export function Home(props: ListsProps) {
   );
 }
 
-// const mapStateToProps = (state: { lists: ListProps[]; }) => ( {
-//   lists: state.lists,
-// });
+const mapStateToProps = (state: RootState ) => ({
+  lists: state.rootReducer.lists,
+});
 
 // export default connect(mapStateToProps)(Home);
