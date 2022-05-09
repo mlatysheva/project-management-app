@@ -42,7 +42,7 @@ function Header() {
 		<header className="header">
 			<CurrentPage />
 			<nav className="nav">
-				{/*if not login change icon to logout
+				{/*if not login = true change icon to logout
           <NavLink to="/logout">
 					<Tooltip title="Logout">
 						<LogoutIcon fontSize="large" />

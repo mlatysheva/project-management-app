@@ -7,11 +7,11 @@ function openRegister() {
 function Login() {
 	return (
 		<div className="main">
-			<h1>Choose option:</h1>
+			<LoginForm />
+			{/*<h1>If you are not registered click 🗺️: </h1>
 			<button id="register" onClick={openRegister}>
 				Register
-			</button>
-			<LoginForm />
+			</button>*/}
 		</div>
 	);
 }
