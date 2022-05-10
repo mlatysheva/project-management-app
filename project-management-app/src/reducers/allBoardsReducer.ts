@@ -1,13 +1,9 @@
+import { BoardProps } from "./boardReducer";
+
 export interface TaskProps {
   title: string;
   description: string;
   responsible: string;
-}
-
-export interface BoardProps {
-  id: number;
-  title: string;  
-  description: string;
 }
 
 export interface AllBoardsProps {
@@ -29,11 +25,11 @@ export const initialState: AllBoardsProps = {
   ]
 }
 
-const boardReducer = (state = initialState, action: { type: string; }) => {
+const allBoardsReducer = (state = initialState, action: { type: string; }) => {
   switch (action.type) {
     default: 
       return state;
   }
 }
 
-export default boardReducer;
+export default allBoardsReducer;

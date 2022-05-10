@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BoardProps, AllBoardsProps } from '../../reducers/listReducer';
+import { AllBoardsProps } from '../../reducers/allBoardsReducer';
+import { BoardProps } from '../../reducers/boardReducer';
 import { RootState } from '../../store/store';
 import { AddButton } from '../Board/AddTaskButton';
 import { BoardPreviewCard } from './BoardPreviewCard';
