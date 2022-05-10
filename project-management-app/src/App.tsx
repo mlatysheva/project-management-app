@@ -24,10 +24,7 @@ function App() {
 						<Route path="/signup" element={<Register />} />
 						<Route path="/logout" element={<Logout />} />
 						<Route path="/project-management-app" element={<Home />} />
-						<Route
-							path="/boards"
-							element={<Boards lists={initialState.lists} />}
-						/>
+						<Route path="/boards" element={<Boards boards={initialState.boards} />} />
 						<Route path="/create" element={<CreateBoard />} />
 						<Route path="error" element={<ErrorPage />} />
 						<Route path="*" element={<ErrorPage />} />
@@ -37,6 +34,5 @@ function App() {
 			</ErrorBoundary>
 		</div>
 	);
-}
 
 export default App;

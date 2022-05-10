@@ -1,29 +1,21 @@
 import React from 'react';
-import { TaskProps } from '../../reducers/listReducer';
+import { TaskProps } from '../../reducers/allBoardsReducer';
+import { AddButton } from './AddTaskButton';
 import { TaskCard } from './TaskCard';
+import { ColumnProps } from '../../reducers/columnReducer';
 
 interface BoardColumnProps {
   title: string;
   tasks: TaskProps[];
 }
 
-const styles = {
-  container: {
-    width: 300,
-    margin: 10,
-    color: "black",
-    backgroundColor: "skyblue",
-    borderRadius: 3,
-    padding: 8,
-  }
-}; 
-
 export const BoardColumn = (props: BoardColumnProps) => {
   console.dir(props);
   return (
-    <div style={styles.container}>
+    <div className="column-wrapper">
       <h2>{props.title}</h2>
-      { props.tasks.map((task: TaskProps) => <TaskCard title={task.title} description={task.description} responsible={task.responsible} />)}    
+      { props.tasks.map((task: TaskProps) => <TaskCard key={(Math.random()*10).toString()} title={task.title} description={task.description} responsible={task.responsible} />)}   
+      <AddButton type="Add new task"/> 
     </div>
   )
 };
