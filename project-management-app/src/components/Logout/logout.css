@@ -1,0 +1,17 @@
+:root {
+	--name: #87ceeb;
+}
+.logout__form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20%;
+}
+
+.logout__btn {
+	border: 2px solid rgb(222, 52, 18);
+	margin-left: 30%;
+}
+
+.logout__name {
+	color: var(--name);
+}

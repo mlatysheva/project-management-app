@@ -1,72 +1,87 @@
+:root {
+	--hover-color: #87ceeb;
+	--light: white;
+	--btn-active: #87eb8a;
+}
+
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .App {
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .header {
-  width: 100%;
-  height: 80px;
-  padding: 1rem;
-  background-color: midnightblue;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+	width: 100%;
+	height: 80px;
+	padding: 1rem;
+	background-color: midnightblue;
+	color: var(--light);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .header a {
-  color: white;
+	color: var(--light);
 }
 
 .header a.active {
-  color: #87ceeb;
+	color: var(--hover-color);
 }
 
 .current-page-title {
-  margin-right: auto;
-  margin-left: 5rem;
-  font-weight: 700;
-  text-transform: uppercase;
+	margin-right: auto;
+	margin-left: 5rem;
+	font-weight: 700;
+	text-transform: uppercase;
 }
 
 .here-text {
-  font-weight: 400;
-  text-transform: none;
+	font-weight: 400;
+	text-transform: none;
 }
 
 .nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin-right: 2rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	margin-right: 2rem;
 }
 
 .main {
-  max-width: 1440px;
-  min-height: calc(100vh - 160px);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  align-items: center;
+	max-width: 1440px;
+	min-height: calc(100vh - 160px);
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	align-items: center;
 }
 
 .button {
-  display: block;
-  margin-right: 3rem;
-  margin-left: 4rem;
+	display: block;
+	margin-right: 3rem;
+	margin-left: 4rem;
+}
+
+button:hover {
+	background-color: var(--hover-color);
+	transition: 1s ease-in-out;
+}
+
+button:active {
+	background-color: var(--btn-active);
 }
 
 .add-button {
@@ -84,12 +99,12 @@
 }
 
 .field {
-  width: 400px;
-  height: 1.5rem;
-  margin-right: auto;
-  border: 1px solid grey;
-  border-radius: 5px;
-  padding-left: 1rem;
+	width: 400px;
+	height: 1.5rem;
+	margin-right: auto;
+	border: 1px solid grey;
+	border-radius: 5px;
+	padding-left: 1rem;
 }
 
 .column-wrapper {
@@ -108,139 +123,139 @@
 }
 
 .cards-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .card {
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-  cursor: pointer;
+	box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+	cursor: pointer;
 }
 
-fieldset { 
-  border: none;
-  width: 100%;
-  max-width: 600px;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-  padding: 1rem; 
-} 
-
-legend { 
-  padding: 1rem; 
-  font-size: x-large;
+fieldset {
+	border: none;
+	width: 100%;
+	max-width: 600px;
+	margin-top: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+	padding: 1rem;
 }
 
-label { 
-  color: black; 
-  font-size: large; 
-  display: block; 
-  width: 200px; 
-  float: left; 
-} 
+legend {
+	padding: 1rem;
+	font-size: x-large;
+}
+
+label {
+	color: black;
+	font-size: large;
+	display: block;
+	width: 200px;
+	float: left;
+}
 
 .form-input-field {
-  margin-right: 2rem;
-  max-width: 400px;
-  height: 1.5rem;
-  width: 300px;
-  border: 1px solid grey;
-  border-radius: 5px;
+	margin-right: 2rem;
+	max-width: 400px;
+	height: 1.5rem;
+	width: 300px;
+	border: 1px solid grey;
+	border-radius: 5px;
 }
 
 .checkbox-field {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: 1px solid grey;
-  border-radius: 4px;
-  outline: none;
-  transition-duration: 0.3s;
-  transition-property: all;
-  cursor: pointer;
-  height: 20px;
-  width: 20px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px solid grey;
+	border-radius: 4px;
+	outline: none;
+	transition-duration: 0.3s;
+	transition-property: all;
+	cursor: pointer;
+	height: 20px;
+	width: 20px;
 }
 
 .checkbox-field::before {
-  content: "\2713";
-  color: white;
-  padding-left: 2px;
-  font-size: 16px;
-  text-align: center;
+	content: "\2713";
+	color: var(--light);
+	padding-left: 2px;
+	font-size: 16px;
+	text-align: center;
 }
 
 .checkbox-field:checked {
-  background-color: midnightblue;
+	background-color: midnightblue;
 }
 
 .radio-checkbox {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin-right: 1rem;
-  width: 20px;
-  height: 20px;  
-  padding: 3px;
-  background-clip: content-box;
-  border: 2px solid #060c3b;
-  border-radius: 50%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin-right: 1rem;
+	width: 20px;
+	height: 20px;
+	padding: 3px;
+	background-clip: content-box;
+	border: 2px solid #060c3b;
+	border-radius: 50%;
 }
 
 .radio-checkbox:checked {
-  background-color: midnightblue;
+	background-color: midnightblue;
 }
 
 .radio-checkbox:hover {
-  box-shadow: 0 0 5px 0px blue inset;
+	box-shadow: 0 0 5px 0px blue inset;
 }
 
 .error-message {
-  color: red;
-  display: block;
-  margin-left: 200px;
+	color: red;
+	display: block;
+	margin-left: 200px;
 }
 
 .footer {
-  width: 100%;
-  height: 80px;
-  padding: 1rem;
-  bottom: 0;
-  background-color: midnightblue;
-  color: white;  
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+	width: 100%;
+	height: 80px;
+	padding: 1rem;
+	bottom: 0;
+	background-color: midnightblue;
+	color: var(--light);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .logo {
-  width: 100px;
-  background: rgba(255, 255, 255, 0.3);
-  margin-left: 1rem;
+	width: 100px;
+	background: rgba(255, 255, 255, 0.3);
+	margin-left: 1rem;
 }
 
 .footer a {
-  color:white;
-  display: block;
-  text-transform: none;
+	color: var(--light);
+	display: block;
+	text-transform: none;
 }
 
 .githubs {
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  columns: 2;
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+	columns: 2;
 }
 
 .mygit {
-  padding: 0 !important;
+	padding: 0 !important;
 }
 
 .column-container {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
