@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "../../store/signup/userOptions";
 import "./signup.css";
-import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
-import instaceApi, { BASE_URL } from "../services/api";
+import instaceApi from "../services/api";
 
 let dis = true;
-const unique_id = uuid();
 
 function SignupForm() {
 	const [name, setName] = useState("");
@@ -18,30 +16,32 @@ function SignupForm() {
 	const navigate = useNavigate();
 
 	const isDisabled = () => {
-		const name = (document.getElementById("name") as HTMLInputElement).value;
-		const login = (document.getElementById("login") as HTMLInputElement).value;
-		const password = (document.getElementById("password") as HTMLInputElement)
+		const namePut = (document.getElementById("name") as HTMLInputElement).value;
+		const loginPut = (document.getElementById("login") as HTMLInputElement)
 			.value;
-		if (name?.length > 1 && login?.length > 1 && password?.length > 1) {
+		const passwordPut = (
+			document.getElementById("password") as HTMLInputElement
+		).value;
+		if (
+			namePut?.length > 1 &&
+			loginPut?.length > 1 &&
+			passwordPut?.length > 1
+		) {
 			dis = false;
 		}
 		return dis;
 	};
 
-	async function toServerRegister(register: any): Promise<any> {
+	async function toServerRegister(
+		register: Record<string, string>
+	): Promise<any> {
 		try {
-			console.log("response");
-			let response = await fetch(`${BASE_URL}/signup`, {
-				method: "POST",
-				body: JSON.stringify(register),
-			});
-			let responseJson = await response.json();
-			return responseJson;
+			let response = await instaceApi.post(`/signup`, register);
+			console.log(`response ${JSON.stringify(response.data)}`);
+			return response.data;
 		} catch (e) {
 			console.error(e);
-			console.log("error");
 		} finally {
-			console.log("finally");
 		}
 	}
 
@@ -53,11 +53,12 @@ function SignupForm() {
 				login: login,
 				password: password,
 				registered: true,
-				id: unique_id,
 			})
 		);
 		//send it to teh server
-
+		toServerRegister({ name, login, password }).then((register) =>
+			console.log(register)
+		);
 		navigate("/logout");
 		dis = true;
 	};
@@ -87,7 +88,7 @@ function SignupForm() {
 				id="login"
 				value={login}
 				onChange={(e) => setLogin(e.target.value)}
-				//pattern="[A-Za-z]{4,}"
+				pattern="[A-Za-z]{4,}"
 				//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
 				title="login min 4 symbols..."
 				required
@@ -99,7 +100,7 @@ function SignupForm() {
 				id="password"
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
-				//pattern="{6,}"
+				pattern="{6,}"
 				title="Put minimum 6 symbols"
 				required
 			/>
