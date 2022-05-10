@@ -1,5 +1,6 @@
 import React from 'react';
 import { TaskProps } from '../../reducers/listReducer';
+import { AddButton } from './AddTaskButton';
 import { TaskCard } from './TaskCard';
 
 interface BoardColumnProps {
@@ -23,7 +24,8 @@ export const BoardColumn = (props: BoardColumnProps) => {
   return (
     <div style={styles.container}>
       <h2>{props.title}</h2>
-      { props.tasks.map((task: TaskProps) => <TaskCard title={task.title} description={task.description} responsible={task.responsible} />)}    
+      { props.tasks.map((task: TaskProps) => <TaskCard key={Date.now()} title={task.title} description={task.description} responsible={task.responsible} />)}   
+      <AddButton type="Add new task"/> 
     </div>
   )
 };

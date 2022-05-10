@@ -34,7 +34,7 @@ export const initialState: ListsProps = {
     },
     {
       title: "Setup CEO",
-      id: 0,
+      id: 1,
       tasks: [
         {
           title: "Marketing research",

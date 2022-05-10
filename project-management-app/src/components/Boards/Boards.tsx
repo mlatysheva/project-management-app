@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ListProps, ListsProps } from '../../reducers/listReducer';
 import { RootState } from '../../store/store';
+import { AddButton } from '../Board/AddTaskButton';
 import { BoardPreviewCard } from './BoardPreviewCard';
 
 type TitleProps = {
@@ -19,7 +20,10 @@ export function Boards(props: ListsProps) {
   return (
     <div className="main">
       <Title title="Your boards" />
-      { lists.map((list: ListProps) => <BoardPreviewCard title={list.title} noOfTasks={list.tasks.length} />)}
+      <div className="lists-container">
+        { lists.map((list: ListProps) => <BoardPreviewCard key={list.id} title={list.title} noOfTasks={list.tasks.length} />)}
+        <AddButton type="Add new board" />
+      </div>
     </div>
   );
 }
