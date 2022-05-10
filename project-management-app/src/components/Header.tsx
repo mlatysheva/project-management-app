@@ -15,6 +15,8 @@ function CurrentPage() {
 				return "Home";
 			case "/signup":
 				return "Register";
+			case "/signin":
+				return "Signin";
 			case "/logout":
 				return "Logout";
 			case "/project-management-app":

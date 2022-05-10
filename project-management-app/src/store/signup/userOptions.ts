@@ -5,6 +5,7 @@ export interface registerProps {
 	id?: number | null;
 	email?: string | null;
 	password?: string | null;
+	registered: boolean;
 }
 
 export const registerSlice = createSlice({
