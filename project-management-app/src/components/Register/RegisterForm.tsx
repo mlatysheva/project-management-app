@@ -5,7 +5,7 @@ import "./signup.css";
 import { useNavigate } from "react-router-dom";
 import instaceApi from "../services/api";
 
-let dis = true;
+let disableBtnIn = true;
 
 function SignupForm() {
 	const [name, setName] = useState("");
@@ -27,9 +27,9 @@ function SignupForm() {
 			loginPut?.length > 1 &&
 			passwordPut?.length > 1
 		) {
-			dis = false;
+			disableBtnIn = false;
 		}
-		return dis;
+		return disableBtnIn;
 	};
 
 	async function toServerRegister(
@@ -60,7 +60,7 @@ function SignupForm() {
 			console.log(register)
 		);
 		navigate("/logout");
-		dis = true;
+		disableBtnIn = true;
 	};
 
 	return (
@@ -104,7 +104,7 @@ function SignupForm() {
 				title="Put minimum 6 symbols"
 				required
 			/>
-			<button type="submit" className="signup__btn" disabled={dis}>
+			<button type="submit" className="signup__btn" disabled={disableBtnIn}>
 				Register
 			</button>
 		</form>
