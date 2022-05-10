@@ -1,6 +1,7 @@
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Icon from '@mui/material/Icon';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TextArea from 'react-textarea-autosize';
 
 interface AddButtonProps {
@@ -10,17 +11,27 @@ interface AddButtonProps {
 export function AddButton (props:AddButtonProps) {
   const [state, setState] = useState({
     formOpen: false,
+    text: '',
   });
 
   function openForm () {
     setState({
+      ...state,
       formOpen: true,
     })
   }
 
   function closeForm() {
     setState({
+      ...state,
       formOpen: false,
+    })
+  }
+
+  function handleInputChange(e: { target: { value: string; }; }) {
+    setState({
+      ...state,
+      text: e.target.value,
     })
   }
   
@@ -50,13 +61,36 @@ export function AddButton (props:AddButtonProps) {
 
     return (
       <div>
-        <Card>
+        <Card style={{
+          overflow: "visible",
+          minHeight: 80,
+          minWidth: 270,
+          padding: "6px 8 px 2px",
+        }}>
           <TextArea 
             placeholder={placeholder}
             autoFocus
             onBlur={closeForm}
+            value={state.text}
+            onChange={handleInputChange}
+            style={{
+              resize: "none",
+              width: "100%",
+              paddingTop: 10,
+              outline: "none",
+              border: "none",
+              overflow: "hidden",
+            }}
           />
         </Card>
+        <div className="add-button-container">
+          <Button variant="contained"
+            style={{color: "white", backgroundColor: "midnightblue"}}
+          >
+            {buttonTitle}{" "}
+          </Button>
+          <Icon style={{marginLeft: 8, cursor: "pointer" }}>close</Icon>
+        </div>
       </div>
     )
   }

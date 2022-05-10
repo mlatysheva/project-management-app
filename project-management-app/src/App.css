@@ -98,6 +98,12 @@ button:active {
   padding-left: 10,
 }
 
+.add-button-container {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
 .field {
 	width: 400px;
 	height: 1.5rem;
@@ -114,6 +120,7 @@ button:active {
   background-color: skyblue;
   border-radius: 3px;
   padding: 8px;
+  height: 100%;
 }
 
 .lists-container {
