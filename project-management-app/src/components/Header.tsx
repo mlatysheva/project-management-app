@@ -51,11 +51,11 @@ function Header() {
 					</Tooltip>
 				</NavLink>
           */}
-				{/*<NavLink to="/signin">
+				<NavLink to="/signin">
 					<Tooltip title="Signin">
 						<HowToRegIcon fontSize="large" />
 					</Tooltip>
-				</NavLink>*/}
+				</NavLink>
 				<NavLink to="/signup">
 					<Tooltip title="Register">
 						<LoginIcon fontSize="large" />
