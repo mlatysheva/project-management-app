@@ -1,5 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { AllBoardsProps } from '../../reducers/allBoardsReducer';
 import { BoardProps } from '../../reducers/boardReducer';
 import { RootState } from '../../store/store';
@@ -29,8 +27,3 @@ export function Boards(props: AllBoardsProps) {
   );
 }
 
-const mapStateToProps = (state: RootState ) => ({
-  lists: state.rootReducer.lists,
-});
-
-// export default connect(mapStateToProps)(Boards);

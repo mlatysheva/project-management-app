@@ -1,13 +1,27 @@
-export interface TaskProps {
-  title: string;
+export interface UserIdProps {
   description: string;
-  responsible: string;
+}
+
+export interface BoardIdProps {
+  description: string;
+}
+export interface TaskProps {
+  id:	string,
+  title:	string,
+  done?:	boolean,
+  order?:	number,
+  description?:	string,
+  userId?: UserIdProps,
+  boardId?: BoardIdProps,
+  columnId?:	string,
+  files?:	string[],
 }
 
 export const initialState: TaskProps = {
+  id: 'ab1',
   title: 'My first task',
-  description: '',
-  responsible: '',
+  description: 'Sample task',
+  userId: {description: "some user"},
 }
 
 const taskReducer = (state = initialState, action: { type: string; }) => {

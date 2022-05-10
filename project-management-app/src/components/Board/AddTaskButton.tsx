@@ -5,11 +5,6 @@ interface AddButtonProps {
   type: string,
 }
 
-// interface ListProps {
-//   id: number, 
-//   title: string
-// }
-
 export class AddButton extends React.Component<AddButtonProps> {
   
   render() {
