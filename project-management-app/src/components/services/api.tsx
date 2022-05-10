@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://project-management-app-team15.herokuapp.com/";
+export const BASE_URL = "https://project-management-app-team15.herokuapp.com/";
 
 const instaceApi = axios.create({
 	baseURL: BASE_URL,

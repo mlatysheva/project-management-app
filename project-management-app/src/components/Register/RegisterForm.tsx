@@ -4,7 +4,7 @@ import { signup } from "../../store/signup/userOptions";
 import "./signup.css";
 import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
-import instaceApi from "../services/api";
+import instaceApi, { BASE_URL } from "../services/api";
 
 let dis = true;
 const unique_id = uuid();
@@ -28,7 +28,24 @@ function SignupForm() {
 		return dis;
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	async function toServerRegister(register: any): Promise<any> {
+		try {
+			console.log("response");
+			let response = await fetch(`${BASE_URL}/signup`, {
+				method: "POST",
+				body: JSON.stringify(register),
+			});
+			let responseJson = await response.json();
+			return responseJson;
+		} catch (e) {
+			console.error(e);
+			console.log("error");
+		} finally {
+			console.log("finally");
+		}
+	}
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(
 			signup({
@@ -40,15 +57,7 @@ function SignupForm() {
 			})
 		);
 		//send it to teh server
-		try {
-			console.log("response");
-			//	await instaceApi.post(``);
-		} catch (e) {
-			console.error(e);
-			console.log("error");
-		} finally {
-			console.log("finally");
-		}
+
 		navigate("/logout");
 		dis = true;
 	};
