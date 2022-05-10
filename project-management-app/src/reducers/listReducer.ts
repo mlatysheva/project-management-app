@@ -4,58 +4,36 @@ export interface TaskProps {
   responsible: string;
 }
 
-export interface ListProps {
-  title: string;
+export interface BoardProps {
   id: number;
-  tasks: TaskProps[];
+  title: string;  
+  description: string;
 }
 
-export interface ListsProps {
-  lists: ListProps[];
+export interface AllBoardsProps {
+  boards: BoardProps[];
 }
 
-export const initialState: ListsProps = {
-  lists: [
+export const initialState: AllBoardsProps = {
+  boards: [
     {
       title: "Create website",
       id: 0,
-      tasks: [
-        {
-          title: "Initial setup",
-          description: "Set up site structure, webpack",
-          responsible: "Ivan",
-        },
-        {
-          title: "Kick-off meeting",
-          description: "Conduct meeting to assign tasks",
-          responsible: "Olga",
-        }      
-      ]
+      description: "Team work on the Louvre website",
     },
     {
       title: "Setup CEO",
       id: 1,
-      tasks: [
-        {
-          title: "Marketing research",
-          description: "Identify TA, set up goals",
-          responsible: "Zhanna",
-        },
-        {
-          title: "Task allocation",
-          description: "Assign tasks to the team",
-          responsible: "Angela",
-        }      
-      ]
+      description: "Prepare and implement marketing strategy for the website"
     },
   ]
 }
 
-const listReducer = (state = initialState, action: { type: string; }) => {
+const boardReducer = (state = initialState, action: { type: string; }) => {
   switch (action.type) {
     default: 
       return state;
   }
 }
 
-export default listReducer;
+export default boardReducer;

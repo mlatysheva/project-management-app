@@ -70,6 +70,9 @@
 }
 
 .add-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   background-color: lightgrey;
   min-width: 200px;
   margin-top: 10px;
@@ -77,6 +80,7 @@
   height: 80px;
   border-radius: 3px;
   cursor: pointer;
+  padding-left: 10,
 }
 
 .field {
@@ -86,6 +90,15 @@
   border: 1px solid grey;
   border-radius: 5px;
   padding-left: 1rem;
+}
+
+.column-wrapper {
+  width: 300px;
+  margin: 10px;
+  color: black;
+  background-color: skyblue;
+  border-radius: 3px;
+  padding: 8px;
 }
 
 .lists-container {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ListProps, ListsProps } from '../../reducers/listReducer';
+import { BoardProps, AllBoardsProps } from '../../reducers/listReducer';
 import { RootState } from '../../store/store';
 import { AddButton } from '../Board/AddTaskButton';
 import { BoardPreviewCard } from './BoardPreviewCard';
@@ -14,14 +14,14 @@ export function Title({ title = '' }: TitleProps) {
   return <h1>{title}</h1>
 }
 
-export function Boards(props: ListsProps) {
-  const {lists} = props;
-  console.dir(lists);
+export function Boards(props: AllBoardsProps) {
+  const {boards} = props;
+  console.dir(boards);
   return (
     <div className="main">
       <Title title="Your boards" />
       <div className="lists-container">
-        { lists.map((list: ListProps) => <BoardPreviewCard key={list.id} title={list.title} noOfTasks={list.tasks.length} />)}
+        { boards.map((board: BoardProps) => <BoardPreviewCard key={board.id} title={board.title} description={board.description} />)}
         <AddButton type="Add new board" />
       </div>
     </div>

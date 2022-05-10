@@ -18,7 +18,7 @@ function App() {
           <Routes>            
             <Route path="/" element={<Home />} />
             <Route path="/project-management-app" element={<Home />} />
-            <Route path="/boards" element={<Boards lists={initialState.lists} />} />            
+            <Route path="/boards" element={<Boards boards={initialState.boards} />} />            
             <Route path="/create" element={<CreateBoard />} />
             <Route path="error" element={<ErrorPage />} />
             <Route path="*" element={<ErrorPage />} />
