@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 interface BoardPreviewCardProps {
   title: string;
-  noOfTasks: number;
+  description: string;
 }
 
 const styles = {
@@ -28,7 +28,7 @@ export const BoardPreviewCard = (props: BoardPreviewCardProps) => {
       <Card className="card" sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Number of tasks: {props.noOfTasks}
+            {props.description}
           </Typography>
         </CardContent>
         <CardActions>

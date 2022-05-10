@@ -84,6 +84,20 @@ button:active {
 	background-color: var(--btn-active);
 }
 
+.add-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: lightgrey;
+  min-width: 200px;
+  margin-top: 10px;
+  padding: 3px;
+  height: 80px;
+  border-radius: 3px;
+  cursor: pointer;
+  padding-left: 10,
+}
+
 .field {
 	width: 400px;
 	height: 1.5rem;
@@ -91,6 +105,21 @@ button:active {
 	border: 1px solid grey;
 	border-radius: 5px;
 	padding-left: 1rem;
+}
+
+.column-wrapper {
+  width: 300px;
+  margin: 10px;
+  color: black;
+  background-color: skyblue;
+  border-radius: 3px;
+  padding: 8px;
+}
+
+.lists-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
 .cards-wrapper {
