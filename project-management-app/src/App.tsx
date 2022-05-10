@@ -11,11 +11,8 @@ import { Home } from "./components/Home/Home";
 import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";
 import Signin from "./components/Signin/signin";
-import { useSelector } from "react-redux";
-import { selectUser } from "./store/signup/userOptions";
 
 function App() {
-	const register = useSelector(selectUser);
 	return (
 		<div className="App">
 			<ErrorBoundary>
