@@ -1,10 +1,5 @@
-import { BoardProps } from "./boardReducer";
-
-export interface TaskProps {
-  title: string;
-  description: string;
-  responsible: string;
-}
+import { BoardProps } from './boardReducer';
+import { CONSTANTS } from '../actions/index';
 
 export interface AllBoardsProps {
   boards: BoardProps[];
@@ -27,6 +22,9 @@ export const initialState: AllBoardsProps = {
 
 const allBoardsReducer = (state = initialState, action: { type: string; }) => {
   switch (action.type) {
+    // case CONSTANTS.ADD_BOARD: {
+
+    // }
     default: 
       return state;
   }

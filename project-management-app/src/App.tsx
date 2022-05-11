@@ -6,7 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import Footer from "./components/Footer";
 import CreateBoard from "./components/Board/CreateBoard";
 import Header from "./components/Header";
-import { initialState } from "./reducers/listReducer";
+import { initialState } from "./reducers/allBoardsReducer";
 import { Home } from "./components/Home/Home";
 import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";
