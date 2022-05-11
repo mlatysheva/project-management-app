@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "../../store/signup/userOptions";
-import "./signup.css";
+import "./register.css";
 import { useNavigate } from "react-router-dom";
 import instaceApi from "../services/api";
+import {
+	applyColorLogin,
+	applyColorName,
+	applyColorPassword,
+} from "../../helpersFunct/inputcolor";
 
 let disableBtnIn = true;
 
@@ -72,6 +77,7 @@ function SignupForm() {
 			<h1>If you want to register 🌻:</h1>
 			<input
 				className="signup__input"
+				onKeyUp={applyColorName}
 				type="name"
 				placeholder="Name"
 				id="name"
@@ -83,18 +89,20 @@ function SignupForm() {
 			/>
 			<input
 				className="signup__input"
+				onKeyUp={applyColorLogin}
 				type="text"
 				placeholder="Login"
 				id="login"
 				value={login}
 				onChange={(e) => setLogin(e.target.value)}
-				pattern="[A-Za-z]{4,}"
+				pattern="{4,}"
 				//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
 				title="login min 4 symbols..."
 				required
 			/>
 			<input
 				className="signup__input"
+				onKeyUp={applyColorPassword}
 				type="password"
 				placeholder="Password"
 				id="password"

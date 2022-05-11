@@ -1,24 +1,50 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+	applyColorLogin,
+	applyColorPassword,
+} from "../../helpersFunct/inputcolor";
+
+//let disableBtnInSignin = true;
 
 function SigninForm() {
-	const [email, setEmail] = useState("");
+	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
+
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const handleSubmitSignin = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		console.log("submit");
+	};
+
 	return (
-		<form className="signup__form">
+		<form className="signup__form" onSubmit={(e) => handleSubmitSignin(e)}>
 			<h1>If you want to signin 🎫:</h1>
 			<input
 				className="signup__input"
-				type="email"
-				placeholder="Email"
-				value={email}
-				onChange={(e) => setEmail(e.target.value)}
+				onKeyUp={applyColorLogin}
+				type="text"
+				placeholder="Login"
+				id="login"
+				value={login}
+				onChange={(e) => setLogin(e.target.value)}
+				pattern="{4,}"
+				title="login min 4 symbols..."
+				required
 			/>
 			<input
 				className="signup__input"
+				onKeyUp={applyColorPassword}
 				type="password"
 				placeholder="Password"
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
+				pattern="{6,}"
+				title="Put minimum 6 symbols"
+				required
 			/>
 			<button type="submit" className="signup__btn">
 				Signin
@@ -28,3 +54,27 @@ function SigninForm() {
 }
 
 export default SigninForm;
+
+/*const isDisabled = () => {
+		const loginPut = (document.getElementById("login") as HTMLInputElement)
+			?.value;
+		const passwordPut = (
+			document.getElementById("password") as HTMLInputElement
+		).value;
+		if (loginPut?.length > 1 && passwordPut?.length > 1) {
+			disableBtnInSignin = false;
+		}
+		return disableBtnInSignin;
+	};*/
+
+/*dispatch(
+			signin({
+				login: login,
+				password: password,
+				registered: false,
+			})
+		);*/
+//send it to teh server
+
+//	navigate("/logout");
+//	disableBtnInSignin = true;
