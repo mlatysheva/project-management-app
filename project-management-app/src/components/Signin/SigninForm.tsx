@@ -5,6 +5,7 @@ import {
 	applyColorLogin,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
+import "./signin.css";
 
 let disableBtnInSignin = true;
 
@@ -37,44 +38,57 @@ function SigninForm() {
 	};
 
 	return (
-		<form
-			className="signup__form"
-			onSubmit={(e) => handleSubmitSignin(e)}
-			onChange={isDisabledSignin}
-		>
-			<h1>If you want to signin 🎫:</h1>
-			<input
-				className="signup__input"
-				onKeyUp={applyColorLogin}
-				type="text"
-				placeholder="Login"
-				id="login-signin"
-				value={login}
-				onChange={(e) => setLogin(e.target.value)}
-				pattern="{4,}"
-				title="login min 4 symbols..."
-				required
-			/>
-			<input
-				className="signup__input"
-				onKeyUp={applyColorPassword}
-				id="password-signin"
-				type="password"
-				placeholder="Password"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-				pattern="{6,}"
-				title="Put minimum 6 symbols"
-				required
-			/>
-			<button
-				type="submit"
-				className="signup__btn"
-				disabled={disableBtnInSignin}
+		<>
+			<form
+				className="signup__form"
+				onSubmit={(e) => handleSubmitSignin(e)}
+				onChange={isDisabledSignin}
 			>
-				Signin
-			</button>
-		</form>
+				<h1>If you want to signin 🎫:</h1>
+				<input
+					className="signup__input"
+					onKeyUp={applyColorLogin}
+					type="text"
+					placeholder="Login"
+					id="login-signin"
+					value={login}
+					onChange={(e) => setLogin(e.target.value)}
+					pattern="{4,}"
+					title="login min 4 symbols..."
+					required
+				/>
+				<input
+					className="signup__input"
+					onKeyUp={applyColorPassword}
+					id="password-signin"
+					type="password"
+					placeholder="Password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					pattern="{6,}"
+					title="Put minimum 6 symbols"
+					required
+				/>
+				<button
+					type="submit"
+					className="signup__btn"
+					disabled={disableBtnInSignin}
+				>
+					Signin
+				</button>
+			</form>
+			<div className="row">
+				<h2>No account?</h2>
+				<button
+					className="toRegister__btn"
+					onClick={(e) => {
+						navigate("/signup");
+					}}
+				>
+					click there
+				</button>
+			</div>
+		</>
 	);
 }
 

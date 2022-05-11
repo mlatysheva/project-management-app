@@ -53,19 +53,19 @@ function Header() {
 					</Tooltip>
 				</NavLink>
           */}
+				<NavLink to="/">
+					<Tooltip title="Home">
+						<HomeIcon fontSize="large" />
+					</Tooltip>
+				</NavLink>
 				<NavLink to="/signin">
 					<Tooltip title="Signin">
-						<HowToRegIcon fontSize="large" />
+						<LoginIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
 				<NavLink to="/signup">
 					<Tooltip title="Register">
-						<LoginIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-				<NavLink to="/">
-					<Tooltip title="Home">
-						<HomeIcon fontSize="large" />
+						<HowToRegIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
 				<NavLink to="boards">Your Boards</NavLink>
