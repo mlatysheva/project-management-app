@@ -1,5 +1,6 @@
 import React from 'react';
-import { TaskProps } from '../../reducers/listReducer';
+import { TaskProps } from '../../reducers/taskReducer';
+import { AddButton } from './AddTaskButton';
 import { TaskCard } from './TaskCard';
 
 interface BoardColumnProps {
@@ -7,23 +8,13 @@ interface BoardColumnProps {
   tasks: TaskProps[];
 }
 
-const styles = {
-  container: {
-    width: 300,
-    margin: 10,
-    color: "black",
-    backgroundColor: "skyblue",
-    borderRadius: 3,
-    padding: 8,
-  }
-}; 
-
 export const BoardColumn = (props: BoardColumnProps) => {
   console.dir(props);
   return (
-    <div style={styles.container}>
+    <div className="column-wrapper">
       <h2>{props.title}</h2>
-      { props.tasks.map((task: TaskProps) => <TaskCard title={task.title} description={task.description} responsible={task.responsible} />)}    
+      { props.tasks.map((task: TaskProps) => <TaskCard key={task.id} id={task.id} title={task.title} description={task.description} done={task.done} />)}   
+      <AddButton type="Add new task"/> 
     </div>
   )
 };
