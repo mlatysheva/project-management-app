@@ -35,6 +35,8 @@ function SigninForm() {
 		e.preventDefault();
 		console.log("submit");
 		disableBtnInSignin = true;
+		//from server get token
+		//go to navigate("/logout");
 	};
 
 	return (
