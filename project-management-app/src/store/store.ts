@@ -6,7 +6,8 @@ const defaultState = {
     userName: '',
     login: '',
     password: '',
-  }
+  },
+  lists: [],
 }
 
 const reducer = (state = defaultState, action: { type: string; payload: string; }) => {
@@ -17,6 +18,7 @@ const reducer = (state = defaultState, action: { type: string; payload: string; 
       return state;
   }
 }
+
 export const store = configureStore({
   reducer: {rootReducer}
 });

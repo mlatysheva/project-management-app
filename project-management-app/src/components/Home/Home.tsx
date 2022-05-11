@@ -1,30 +1,21 @@
-import { connect } from 'react-redux';
-import { ListProps, ListsProps } from '../../reducers/listReducer';
-import { BoardColumn } from '../Board/BoardColumn';
-import { BoardPreviewCard } from './BoardPreviewCard';
+import './Home.scss';
 
 type TitleProps = {
   title: string;
   children?: string;
 };
 
-export function Title({ title = '' }: TitleProps) {
-  return <h1>{title}</h1>
-}
+export const Title = ({ title = '' }: TitleProps) => <h1>{title}</h1>;
 
-export function Home(props: ListsProps) {
-  const {lists} = props;
-  console.dir(lists);
-  return (
+export function Home() {  
+   return (
     <div className="main">
-      <Title title="Your boards" />
-      { lists.map((list: ListProps) => <BoardPreviewCard title={list.title} noOfTasks={list.tasks.length} />)}
+      <Title title="Welcome page" />
+      <div className='welcome-page'>
+        <img src={require('../../img/Julia.jpg')} alt="Julia" />
+        <img src={require('../../img/Maria.jpg')} alt="Maria" />
+         <img src={require("../../img/Lena.jpg")} alt="Olena" />
+      </div>
     </div>
   );
 }
-
-// const mapStateToProps = (state: { lists: ListProps[]; }) => ( {
-//   lists: state.lists,
-// });
-
-// export default connect(mapStateToProps)(Home);

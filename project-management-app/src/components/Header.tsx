@@ -8,12 +8,12 @@ function CurrentPage() {
   const location = useLocation();
   const getCurrentPage = () => {
     switch (location.pathname) {
-      case '/welcome':
-        return 'Welcome';
       case '/':
         return 'Home';
       case '/project-management-app':
         return 'Home';
+      case '/boards':
+        return 'Boards';
       case '/create':
         return 'Create Board';
       case '/error':
@@ -35,16 +35,14 @@ function Header() {
   return (
     <header className="header">
       <CurrentPage />
-      <nav className="nav">
-        <NavLink to="/welcome">
-        <Tooltip title="Welcome-page">
-            <AddBoxIcon fontSize="large" />
-          </Tooltip>
-      </NavLink>
+      <nav className="nav">        
         <NavLink to="/">
           <Tooltip title="Home">
             <HomeIcon fontSize="large" />
           </Tooltip>
+        </NavLink>
+        <NavLink to="boards">
+          Your Boards
         </NavLink>
         <NavLink to="/create">
           <Tooltip title="Add new Board">

@@ -14,7 +14,8 @@ const styles = {
   container: {
     width: 300,
     margin: 10,
-    backgroundColor: "lightgrey",
+    color: "black",
+    backgroundColor: "skyblue",
     borderRadius: 3,
     padding: 8,
   }
