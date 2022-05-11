@@ -6,11 +6,26 @@ import {
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
 
-//let disableBtnInSignin = true;
+let disableBtnInSignin = true;
 
 function SigninForm() {
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
+
+	const isDisabledSignin = () => {
+		const loginPut = (
+			document.getElementById("login-signin") as HTMLInputElement
+		)?.value;
+		const passwordPut = (
+			document.getElementById("password-signin") as HTMLInputElement
+		).value;
+		if (loginPut?.length > 1 && passwordPut?.length > 1) {
+			disableBtnInSignin = false;
+		} else if (loginPut?.length === 0 || passwordPut?.length === 0) {
+			disableBtnInSignin = true;
+		}
+		return disableBtnInSignin;
+	};
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -18,17 +33,22 @@ function SigninForm() {
 	const handleSubmitSignin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log("submit");
+		disableBtnInSignin = true;
 	};
 
 	return (
-		<form className="signup__form" onSubmit={(e) => handleSubmitSignin(e)}>
+		<form
+			className="signup__form"
+			onSubmit={(e) => handleSubmitSignin(e)}
+			onChange={isDisabledSignin}
+		>
 			<h1>If you want to signin 🎫:</h1>
 			<input
 				className="signup__input"
 				onKeyUp={applyColorLogin}
 				type="text"
 				placeholder="Login"
-				id="login"
+				id="login-signin"
 				value={login}
 				onChange={(e) => setLogin(e.target.value)}
 				pattern="{4,}"
@@ -38,6 +58,7 @@ function SigninForm() {
 			<input
 				className="signup__input"
 				onKeyUp={applyColorPassword}
+				id="password-signin"
 				type="password"
 				placeholder="Password"
 				value={password}
@@ -46,7 +67,11 @@ function SigninForm() {
 				title="Put minimum 6 symbols"
 				required
 			/>
-			<button type="submit" className="signup__btn">
+			<button
+				type="submit"
+				className="signup__btn"
+				disabled={disableBtnInSignin}
+			>
 				Signin
 			</button>
 		</form>
@@ -55,17 +80,7 @@ function SigninForm() {
 
 export default SigninForm;
 
-/*const isDisabled = () => {
-		const loginPut = (document.getElementById("login") as HTMLInputElement)
-			?.value;
-		const passwordPut = (
-			document.getElementById("password") as HTMLInputElement
-		).value;
-		if (loginPut?.length > 1 && passwordPut?.length > 1) {
-			disableBtnInSignin = false;
-		}
-		return disableBtnInSignin;
-	};*/
+/**/
 
 /*dispatch(
 			signin({
