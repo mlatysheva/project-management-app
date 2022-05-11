@@ -69,53 +69,66 @@ function SignupForm() {
 	};
 
 	return (
-		<form
-			className="signup__form"
-			onSubmit={(e) => handleSubmit(e)}
-			onChange={isDisabled}
-		>
-			<h1>If you want to register 🌻:</h1>
-			<input
-				className="signup__input"
-				onKeyUp={applyColorName}
-				type="name"
-				placeholder="Name"
-				id="name"
-				value={name}
-				onChange={(e) => setName(e.target.value)}
-				//pattern="[A-Za-z]{2,}"
-				title="Just latin letters, min 2 symbols"
-				required
-			/>
-			<input
-				className="signup__input"
-				onKeyUp={applyColorLogin}
-				type="text"
-				placeholder="Login"
-				id="login"
-				value={login}
-				onChange={(e) => setLogin(e.target.value)}
-				pattern="{4,}"
-				//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
-				title="login min 4 symbols..."
-				required
-			/>
-			<input
-				className="signup__input"
-				onKeyUp={applyColorPassword}
-				type="password"
-				placeholder="Password"
-				id="password"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-				pattern="{6,}"
-				title="Put minimum 6 symbols"
-				required
-			/>
-			<button type="submit" className="signup__btn" disabled={disableBtnIn}>
-				Register
-			</button>
-		</form>
+		<>
+			<form
+				className="signup__form"
+				onSubmit={(e) => handleSubmit(e)}
+				onChange={isDisabled}
+			>
+				<h1>If you want to register 🌻:</h1>
+				<input
+					className="signup__input"
+					onKeyUp={applyColorName}
+					type="name"
+					placeholder="Name"
+					id="name"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+					//pattern="[A-Za-z]{2,}"
+					title="Just latin letters, min 2 symbols"
+					required
+				/>
+				<input
+					className="signup__input"
+					onKeyUp={applyColorLogin}
+					type="text"
+					placeholder="Login"
+					id="login"
+					value={login}
+					onChange={(e) => setLogin(e.target.value)}
+					pattern="{4,}"
+					//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
+					title="login min 4 symbols..."
+					required
+				/>
+				<input
+					className="signup__input"
+					onKeyUp={applyColorPassword}
+					type="password"
+					placeholder="Password"
+					id="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					pattern="{6,}"
+					title="Put minimum 6 symbols"
+					required
+				/>
+				<button type="submit" className="signup__btn" disabled={disableBtnIn}>
+					Register
+				</button>
+			</form>
+			<div className="row">
+				<h2>Have account?</h2>
+				<button
+					className="toRegister__btn"
+					onClick={(e) => {
+						navigate("/signin");
+					}}
+				>
+					click there
+				</button>
+			</div>
+		</>
 	);
 }
 
