@@ -1,7 +1,8 @@
 .welcome-page {
     display: flex;
     flex-direction: row;
-    width: 7rem; 
+    flex-wrap: wrap;
+    width: 6rem; 
     gap: 1rem;
     
     img {

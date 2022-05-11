@@ -69,7 +69,7 @@ function SignupForm() {
 			onSubmit={(e) => handleSubmit(e)}
 			onChange={isDisabled}
 		>
-			<h1>If you want to register 🌻:</h1>
+			<h1>If you want to register 🌻:</h1>			
 			<input
 				className="signup__input"
 				type="name"
