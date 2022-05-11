@@ -14,3 +14,10 @@
 	border: 2px solid green;
 	margin-left: 30%;
 }
+
+input:invalid {
+	border-color: red;
+}
+input:valid {
+	border-color: greenyellow;
+}

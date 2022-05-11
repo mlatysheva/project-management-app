@@ -15,6 +15,8 @@ function CurrentPage() {
 				return "Home";
 			case "/signup":
 				return "Register";
+			case "/signin":
+				return "Signin";
 			case "/logout":
 				return "Logout";
 			case "/project-management-app":
@@ -51,11 +53,11 @@ function Header() {
 					</Tooltip>
 				</NavLink>
           */}
-				{/*<NavLink to="/signin">
+				<NavLink to="/signin">
 					<Tooltip title="Signin">
 						<HowToRegIcon fontSize="large" />
 					</Tooltip>
-				</NavLink>*/}
+				</NavLink>
 				<NavLink to="/signup">
 					<Tooltip title="Register">
 						<LoginIcon fontSize="large" />

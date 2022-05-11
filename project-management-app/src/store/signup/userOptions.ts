@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface registerProps {
 	name?: string | null;
 	id?: number | null;
-	email?: string | null;
+	login?: string | null;
 	password?: string | null;
+	registered: boolean;
 }
 
 export const registerSlice = createSlice({

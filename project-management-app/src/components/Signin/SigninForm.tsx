@@ -1,20 +1,11 @@
-import React, { useState } from "react";
-import "./signup.css";
+import { useState } from "react";
 
-function SignupForm() {
-	const [name, setName] = useState("");
+function SigninForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	return (
 		<form className="signup__form">
-			<h1>If you want to register 🌻:</h1>
-			<input
-				className="signup__input"
-				type="name"
-				placeholder="Name"
-				value={name}
-				onChange={(e) => setName(e.target.value)}
-			/>
+			<h1>If you want to signin 🎫:</h1>
 			<input
 				className="signup__input"
 				type="email"
@@ -30,10 +21,10 @@ function SignupForm() {
 				onChange={(e) => setPassword(e.target.value)}
 			/>
 			<button type="submit" className="signup__btn">
-				Register
+				Signin
 			</button>
 		</form>
 	);
 }
 
-export default SignupForm;
+export default SigninForm;
