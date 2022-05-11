@@ -8,39 +8,44 @@ export default function CreateBoard() {
       <h1>Create a board</h1>
       <div className="column-container">
         <BoardColumn title="To do" tasks={[
-          {
+          { id: "01r",
             title: "Marketing research",
             description: "Identify TA, set up goals",
-            responsible: "Zhanna",
+            done: false,
           },
           {
+            id: "02r",
             title: "Task allocation",
             description: "Assign tasks to the team",
-            responsible: "Angela",
+            done: false,
           }      
         ]} />
           <BoardColumn title="Doing" tasks={[
           {
+            id: "03r",
             title: "Initial setup",
             description: "Set up site structure, webpack",
-            responsible: "Ivan",
+            done: false,
           },
           {
+            id: "04r",
             title: "Kick-off meeting",
             description: "Conduct meeting to assign tasks",
-            responsible: "Olga",
+            done: false,
           }      
         ]} />
           <BoardColumn title="Done" tasks={[
           {
+            id: "05r",
             title: "Deploy backend",
             description: "Clone repo, deploy to Heroku, set up Swagger",
-            responsible: "Oleg",
+            done: false,
           },
           {
+            id: "06r",
             title: "Set up API requests",
             description: "Set up API requests for create, update, delete user",
-            responsible: "Olga",
+            done: false,
           }      
         ]} />
         <AddButton type="Add new column" />
