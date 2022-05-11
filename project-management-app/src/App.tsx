@@ -34,5 +34,6 @@ function App() {
 			</ErrorBoundary>
 		</div>
 	);
+}
 
 export default App;
