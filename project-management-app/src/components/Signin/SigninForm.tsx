@@ -50,7 +50,6 @@ function SigninForm() {
 
 	const handleSubmitSignin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log("submit");
 		disableBtnInSignin = true;
 		dispatch(
 			signin({
@@ -58,9 +57,10 @@ function SigninForm() {
 				password: password,
 			})
 		);
-		toServerSignin({ login, password }).then((register) =>
-			console.log(register)
-		);
+		toServerSignin({ login, password }).then((register) => {
+			const token = register.token;
+			localStorage.setItem("userToken", token);
+		});
 		//from server get token
 		//navigate("/logout");
 	};
