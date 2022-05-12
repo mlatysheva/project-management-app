@@ -11,7 +11,7 @@ import "./signin.css";
 
 let disableBtnInSignin = true;
 
-function SigninForm() {
+function SigninForm({ updateToken }: any) {
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
 	const register = useSelector(selectUser);
@@ -48,19 +48,25 @@ function SigninForm() {
 		}
 	}
 
-	const handleSubmitSignin = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmitSignin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		disableBtnInSignin = true;
+
+		let signInResponse = await toServerSignin({ login, password });
+		if (!signInResponse) {
+			console.log("FUCK YOU!!!");
+			return;
+		}
+
+		const token = signInResponse.token;
+		updateToken(token);
+
 		dispatch(
 			signin({
 				login: login,
 				password: password,
 			})
 		);
-		toServerSignin({ login, password }).then((register) => {
-			const token = register.token;
-			localStorage.setItem("userToken", token);
-		});
 		navigate("/logout");
 	};
 

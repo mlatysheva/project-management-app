@@ -1,9 +1,9 @@
 import SigninForm from "./SigninForm";
 
-function Signin() {
+function Signin({ updateToken }: any) {
 	return (
 		<div className="main">
-			<SigninForm />
+			<SigninForm updateToken={updateToken} />
 		</div>
 	);
 }

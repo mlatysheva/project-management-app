@@ -45,7 +45,7 @@ export function CurrentPage() {
 	);
 }
 
-function Header() {
+function Header(localStorage: any) {
 	// Sticky Menu Area https://stackoverflow.com/questions/62970456/how-to-create-sticky-headers-on-scroll-with-react
 	useEffect(() => {
 		window.addEventListener("scroll", isSticky);
@@ -72,16 +72,33 @@ function Header() {
 				</NavLink>
 				{/* if not icon changed after register to HowToRegIcon
 				login = true change icon to logout */}
-				<NavLink to="/signin">
-					<Tooltip title="Signin">
-						<LoginIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-				<NavLink to="/signup">
-					<Tooltip title="Register">
-						<HowToRegIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
+				{localStorage.token ? (
+					<>
+						<NavLink to="/logout">
+							<Tooltip title="Logout">
+								<LogoutIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+						<NavLink to="/edit">
+							<Tooltip title="Edit profile">
+								<EditIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+					</>
+				) : (
+					<>
+						<NavLink to="/signin">
+							<Tooltip title="Signin">
+								<LoginIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+						<NavLink to="/signup">
+							<Tooltip title="Register">
+								<HowToRegIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+					</>
+				)}
 				<NavLink to="boards">Your Boards</NavLink>
 				<NavLink to="/create">
 					<Tooltip title="Add new Board">
@@ -106,10 +123,15 @@ export default Header;
 
 				{localStorage.getItem("userToken") ? (
 					<NavLink to="/logout">
-						<Tooltip title="Logout">
-							<LogoutIcon fontSize="large" />
-						</Tooltip>
-					</NavLink>
+					<Tooltip title="Logout">
+						<LogoutIcon fontSize="large" />
+					</Tooltip>
+				</NavLink>
+				<NavLink to="/edit">
+					<Tooltip title="Edit profile">
+						<EditIcon fontSize="large" />
+					</Tooltip>
+				</NavLink>
 				) : (
 					<>
 						<NavLink to="/signin">

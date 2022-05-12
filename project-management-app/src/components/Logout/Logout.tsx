@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { logout, selectUser } from "../../store/signup/userOptions";
 import "./logout.css";
 
-function Logout() {
+function Logout({ updateToken }: any) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const register = useSelector(selectUser);
@@ -14,6 +14,7 @@ function Logout() {
 		e.preventDefault();
 		dispatch(logout());
 		navigate("/");
+		updateToken("");
 		localStorage.removeItem("userToken");
 	};
 	return (
