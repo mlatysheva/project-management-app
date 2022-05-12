@@ -4,12 +4,12 @@ import { AddButton } from './AddTaskButton';
 import { TaskCard } from './TaskCard';
 
 interface BoardColumnProps {
-  title: string;
-  tasks: TaskProps[];
+	title: string;
+	tasks: TaskProps[];
 }
 
 export const BoardColumn = (props: BoardColumnProps) => {
-  console.dir(props);
+  //console.dir(props);
   return (
     <div className="column-wrapper">
       <h2>{props.title}</h2>

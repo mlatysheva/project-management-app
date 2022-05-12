@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "../../store/signup/userOptions";
-import "./signup.css";
+import "./register.css";
 import { useNavigate } from "react-router-dom";
 import instaceApi from "../services/api";
+import {
+	applyColorLogin,
+	applyColorName,
+	applyColorPassword,
+} from "../../helpersFunct/inputcolor";
 
-let dis = true;
+let disableBtnIn = true;
 
 function SignupForm() {
 	const [name, setName] = useState("");
@@ -27,9 +32,9 @@ function SignupForm() {
 			loginPut?.length > 1 &&
 			passwordPut?.length > 1
 		) {
-			dis = false;
+			disableBtnIn = false;
 		}
-		return dis;
+		return disableBtnIn;
 	};
 
 	async function toServerRegister(
@@ -60,54 +65,70 @@ function SignupForm() {
 			console.log(register)
 		);
 		navigate("/logout");
-		dis = true;
+		disableBtnIn = true;
 	};
 
 	return (
-		<form
-			className="signup__form"
-			onSubmit={(e) => handleSubmit(e)}
-			onChange={isDisabled}
-		>
-			<h1>If you want to register 🌻:</h1>
-			<input
-				className="signup__input"
-				type="name"
-				placeholder="Name"
-				id="name"
-				value={name}
-				onChange={(e) => setName(e.target.value)}
-				//pattern="[A-Za-z]{2,}"
-				title="Just latin letters, min 2 symbols"
-				required
-			/>
-			<input
-				className="signup__input"
-				type="text"
-				placeholder="Login"
-				id="login"
-				value={login}
-				onChange={(e) => setLogin(e.target.value)}
-				pattern="[A-Za-z]{4,}"
-				//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
-				title="login min 4 symbols..."
-				required
-			/>
-			<input
-				className="signup__input"
-				type="password"
-				placeholder="Password"
-				id="password"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-				pattern="{6,}"
-				title="Put minimum 6 symbols"
-				required
-			/>
-			<button type="submit" className="signup__btn" disabled={dis}>
-				Register
-			</button>
-		</form>
+		<>
+			<form
+				className="signup__form"
+				onSubmit={(e) => handleSubmit(e)}
+				onChange={isDisabled}
+			>
+				<h1>If you want to register 🌻:</h1>
+				<input
+					className="signup__input"
+					onKeyUp={applyColorName}
+					type="name"
+					placeholder="Name"
+					id="name"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+					//pattern="[A-Za-z]{2,}"
+					title="Just latin letters, min 2 symbols"
+					required
+				/>
+				<input
+					className="signup__input"
+					onKeyUp={applyColorLogin}
+					type="text"
+					placeholder="Login"
+					id="login"
+					value={login}
+					onChange={(e) => setLogin(e.target.value)}
+					pattern="{4,}"
+					//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
+					title="login min 4 symbols..."
+					required
+				/>
+				<input
+					className="signup__input"
+					onKeyUp={applyColorPassword}
+					type="password"
+					placeholder="Password"
+					id="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					pattern="{6,}"
+					title="Put minimum 6 symbols"
+					required
+				/>
+				<button type="submit" className="signup__btn" disabled={disableBtnIn}>
+					Register
+				</button>
+			</form>
+			<div className="row">
+				<h2>Have account?</h2>
+				<button
+					className="toRegister__btn"
+					onClick={(e) => {
+						navigate("/signin");
+					}}
+				>
+					click there
+				</button>
+			</div>
+		</>
 	);
 }
 

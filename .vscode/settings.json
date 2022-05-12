@@ -1,4 +1,11 @@
 {
-	"cSpell.words": ["signin", "Signup"],
+	"cSpell.words": [
+		"autosize",
+		"Funct",
+		"inputcolor",
+		"instace",
+		"signin",
+		"Signup"
+	],
 	"editor.tabSize": 2
 }
