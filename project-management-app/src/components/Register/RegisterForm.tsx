@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { signup } from "../../store/signup/userOptions";
 import "./register.css";
 import { useNavigate } from "react-router-dom";
-import instaceApi from "../services/api";
+import instaceApi from "../../services/api";
 import {
 	applyColorLogin,
 	applyColorName,

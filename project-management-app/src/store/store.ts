@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "../reducers";
+import rootReducer from "./reducers";
 import registerReducer from "./signup/userOptions";
 
 const defaultState = {

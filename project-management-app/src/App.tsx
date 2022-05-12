@@ -11,7 +11,7 @@ import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";
 import Signin from "./components/Signin/signin";
 import { EditProfile } from "./components/Edit/Edit";
-import { initialState } from "./reducers/allBoardsReducer";
+import { initialState } from "./store/reducers/allBoardsReducer";
 
 function App() {
 	return (
