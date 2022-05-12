@@ -60,7 +60,7 @@ function SignupForm() {
 				registered: true,
 			})
 		);
-		//send it to teh server
+		//send it to the server
 		toServerRegister({ name, login, password }).then((register) =>
 			console.log(register)
 		);

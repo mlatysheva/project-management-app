@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
 	applyColorLogin,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
+import { selectUser, signin } from "../../store/signup/userOptions";
 import "./signin.css";
 
 let disableBtnInSignin = true;
@@ -12,6 +13,7 @@ let disableBtnInSignin = true;
 function SigninForm() {
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
+	const register = useSelector(selectUser);
 
 	const isDisabledSignin = () => {
 		const loginPut = (
@@ -20,11 +22,12 @@ function SigninForm() {
 		const passwordPut = (
 			document.getElementById("password-signin") as HTMLInputElement
 		).value;
-		if (loginPut?.length > 1 && passwordPut?.length > 1) {
-			disableBtnInSignin = false;
-		} else if (loginPut?.length === 0 || passwordPut?.length === 0) {
+		if (loginPut?.length === 0 || passwordPut?.length === 0) {
 			disableBtnInSignin = true;
+		} else {
+			disableBtnInSignin = false;
 		}
+
 		return disableBtnInSignin;
 	};
 
@@ -35,8 +38,14 @@ function SigninForm() {
 		e.preventDefault();
 		console.log("submit");
 		disableBtnInSignin = true;
+		dispatch(
+			signin({
+				login: login,
+				password: password,
+			})
+		);
 		//from server get token
-		//go to navigate("/logout");
+		navigate("/logout");
 	};
 
 	return (
@@ -53,7 +62,7 @@ function SigninForm() {
 					type="text"
 					placeholder="Login"
 					id="login-signin"
-					value={login}
+					value={/*register.login?.toString() || */ login}
 					onChange={(e) => setLogin(e.target.value)}
 					pattern="{4,}"
 					title="login min 4 symbols..."
@@ -65,7 +74,7 @@ function SigninForm() {
 					id="password-signin"
 					type="password"
 					placeholder="Password"
-					value={password}
+					value={/*register.password?.toString() || */ password}
 					onChange={(e) => setPassword(e.target.value)}
 					pattern="{6,}"
 					title="Put minimum 6 symbols"
