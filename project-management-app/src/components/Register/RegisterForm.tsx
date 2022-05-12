@@ -57,7 +57,6 @@ function SignupForm() {
 				name: name,
 				login: login,
 				password: password,
-				registered: true,
 			})
 		);
 		//send it to the server
@@ -133,3 +132,5 @@ function SignupForm() {
 }
 
 export default SignupForm;
+
+//registered: true,

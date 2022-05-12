@@ -6,6 +6,7 @@ import {
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
 import { selectUser, signin } from "../../store/signup/userOptions";
+import instaceApi from "../services/api";
 import "./signin.css";
 
 let disableBtnInSignin = true;
@@ -34,6 +35,19 @@ function SigninForm() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	async function toServerSignin(
+		register: Record<string, string>
+	): Promise<any> {
+		try {
+			let response = await instaceApi.post(`/signin`, register);
+			console.log(`signin ${JSON.stringify(response.data)}`);
+			return response.data;
+		} catch (e) {
+			console.error(e);
+		} finally {
+		}
+	}
+
 	const handleSubmitSignin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log("submit");
@@ -44,8 +58,11 @@ function SigninForm() {
 				password: password,
 			})
 		);
+		toServerSignin({ login, password }).then((register) =>
+			console.log(register)
+		);
 		//from server get token
-		navigate("/logout");
+		//navigate("/logout");
 	};
 
 	return (
