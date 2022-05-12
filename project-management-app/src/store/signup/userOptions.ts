@@ -8,6 +8,17 @@ export interface registerProps {
 	registered: boolean;
 }
 
+export interface UserProps {
+  name: string;
+  login: string;
+  password: string;
+}
+
+export interface SigninProps {
+  login: string;
+  password: string;
+}
+
 export const registerSlice = createSlice({
 	name: "register",
 	initialState: {

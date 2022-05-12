@@ -4,4 +4,9 @@ export interface BoardProps {
   description: string;
 }
 
+export interface CreateBoardProps {
+  title: string;  
+  description: string;
+}
+
 export {};

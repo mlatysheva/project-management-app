@@ -1,5 +1,5 @@
 import { BoardProps } from './boardReducer';
-import { CONSTANTS } from '../actions/index';
+import { CONSTANTS } from '../../actions/index';
 
 export interface AllBoardsProps {
   boards: BoardProps[];

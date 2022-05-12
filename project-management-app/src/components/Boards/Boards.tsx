@@ -1,5 +1,5 @@
-import { AllBoardsProps } from '../../reducers/allBoardsReducer';
-import { BoardProps } from '../../reducers/boardReducer';
+import { AllBoardsProps } from '../../store/reducers/allBoardsReducer';
+import { BoardProps } from '../../store/reducers/boardReducer';
 import { RootState } from '../../store/store';
 import { AddButton } from '../Board/AddTaskButton';
 import { BoardPreviewCard } from './BoardPreviewCard';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TaskProps } from '../../reducers/taskReducer';
+import { TaskProps } from '../../store/reducers/taskReducer';
 import { AddButton } from './AddTaskButton';
 import { TaskCard } from './TaskCard';
 
