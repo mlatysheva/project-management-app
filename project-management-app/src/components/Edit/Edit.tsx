@@ -1,13 +1,14 @@
-import SignupForm from '../Register/RegisterForm';
+import EditForm from "./EditForm";
 
 export const h1Props = {
-  register : 'If you want to register 🌻:',
-  edit: 'If you want to edit profile 🌻:',
-}
+	register: "If you want to register 🌻:",
+	edit: "If you want to edit profile 🌻:",
+};
+
 export function EditProfile() {
 	return (
 		<div className="main">
-			<SignupForm  />
+			<EditForm />
 		</div>
 	);
 }

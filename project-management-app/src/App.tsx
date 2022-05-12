@@ -12,12 +12,15 @@ import Logout from "./components/Logout/Logout";
 import Signin from "./components/Signin/signin";
 import { EditProfile } from "./components/Edit/Edit";
 import { initialState } from "./store/reducers/allBoardsReducer";
+import HeaderIfSignin from "./components/HeaderIfLogIn";
 
 function App() {
 	return (
 		<div className="App">
 			<ErrorBoundary>
 				<Router>
+					{/*localStorage.getItem("userToken") ? <HeaderIfSignin /> : <Header />*/}
+					<HeaderIfSignin />
 					<Header />
 					<Routes>
 						<Route path="/" element={<Home />} />
