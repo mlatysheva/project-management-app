@@ -50,16 +50,16 @@ function Header() {
 			<CurrentPage />
 			<nav className="nav">
 				{/* if not icon changed after register to HowToRegIcon
-				login = true change icon to logout */}
-        	<NavLink to="/">
+				login = true change icon to logout */}        	
+				<NavLink to="/">
 					<Tooltip title="Home">
 						<HomeIcon fontSize="large" />
 					</Tooltip>
-				</NavLink> 
-         
+				</NavLink>
+
 				<NavLink to="/signin">
 					<Tooltip title="Signin">
-						<HowToRegIcon fontSize="large" />
+						<LoginIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
 				<NavLink to="/signup">
@@ -75,6 +75,7 @@ function Header() {
 				<NavLink to="/logout">
 					<Tooltip title="Logout">
 						<LogoutIcon fontSize="large" />
+						<HowToRegIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
 			
