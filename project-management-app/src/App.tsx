@@ -5,7 +5,7 @@ import ErrorPage from "./components/ErrorPage";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Footer from "./components/Footer";
 import CreateBoard from "./components/Board/CreateBoard";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import { Home } from "./components/Home/Home";
 import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";

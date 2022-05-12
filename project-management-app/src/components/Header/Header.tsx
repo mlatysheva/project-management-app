@@ -8,6 +8,9 @@ import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
 import LanguageIcon from "@mui/icons-material/Language";
 import EditIcon from "@mui/icons-material/Edit";
 
+import './Header.scss';
+import { useEffect } from "react";
+
 function CurrentPage() {
 	const location = useLocation();
 	const getCurrentPage = () => {
@@ -44,6 +47,19 @@ function CurrentPage() {
 }
 
 function Header() {
+	// Sticky Menu Area https://stackoverflow.com/questions/62970456/how-to-create-sticky-headers-on-scroll-with-react
+	useEffect(() => {
+		window.addEventListener('scroll', isSticky);
+		return () => {
+				window.removeEventListener('scroll', isSticky);
+		};
+});
+/* Method that will fix header after a specific scrollable */
+const isSticky = (e: Event) => {
+	const header = document.querySelector('.header');
+	const scrollTop = window.scrollY;
+	scrollTop >= 80 ? header?.classList.add('is-sticky') : header?.classList.remove('is-sticky');
+};
 	return (
 		<header className="header">
 			<CurrentPage />
