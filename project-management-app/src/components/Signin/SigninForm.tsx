@@ -61,8 +61,7 @@ function SigninForm() {
 			const token = register.token;
 			localStorage.setItem("userToken", token);
 		});
-		//from server get token
-		//navigate("/logout");
+		navigate("/logout");
 	};
 
 	return (

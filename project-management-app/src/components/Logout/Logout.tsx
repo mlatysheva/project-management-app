@@ -19,7 +19,8 @@ function Logout() {
 			<div className="logout__form">
 				<h1>
 					Welcome,
-					<span className="logout__name"> {register.name?.toUpperCase()}</span>!
+					<span className="logout__name"> {register.login?.toUpperCase()}</span>
+					!
 				</h1>
 				<button
 					className="logout__btn"
