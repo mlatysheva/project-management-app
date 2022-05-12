@@ -10,6 +10,7 @@ import { Home } from "./components/Home/Home";
 import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";
 import Signin from "./components/Signin/signin";
+import { EditProfile } from "./components/Edit/Edit";
 import { initialState } from "./reducers/allBoardsReducer";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/signin" element={<Signin />} />
+						<Route path="/edit" element={<EditProfile />} />
 						<Route path="/signup" element={<Register />} />
 						<Route path="/logout" element={<Logout />} />
 						<Route path="/project-management-app" element={<Home />} />

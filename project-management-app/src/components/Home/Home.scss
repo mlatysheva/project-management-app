@@ -1,10 +1,42 @@
-.welcome-page {
-    display: flex;
-    flex-direction: row;
-    width: 7rem; 
-    gap: 1rem;
-    
+h1 {
+  padding: 0 3rem;
+}
+.welcome {
+  max-width: 80%;
+  padding: 1em;
+  font-size: 1.5rem;
+  color: midnightblue;
+  text-align: center;
+  font-family: cursive;
+  background-color: skyblue;
+  border-radius: 3px;
+}
+.elephant {
+  width: 7rem;
+}
+
+.welcome-team {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  flex-direction: row;
+  gap: 1rem;
+  margin-bottom: 2rem;
+      
+  .developer {
+    padding: 1rem;
+    width: 8rem;
+    height: 7rem;
     img {
       width: 100%;
+      }
+    span {
+      color: midnightblue;
+      text-align: center;
+      font-family: cursive;
+      font-size: 1.2rem;
+      }
     }
-}
+  }

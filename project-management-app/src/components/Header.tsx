@@ -6,6 +6,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import Tooltip from "@mui/material/Tooltip";
 import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
 import LanguageIcon from "@mui/icons-material/Language";
+import EditIcon from '@mui/icons-material/Edit';
+
 
 function CurrentPage() {
 	const location = useLocation();
@@ -25,6 +27,8 @@ function CurrentPage() {
 				return "Boards";
 			case "/create":
 				return "Create Board";
+			case "/edit":
+				return "Edit";
 			case "/error":
 				return "Error";
 			default:
@@ -45,19 +49,14 @@ function Header() {
 		<header className="header">
 			<CurrentPage />
 			<nav className="nav">
-				{/*if not icon changed after register to HowToRegIcon
-				login = true change icon to logout
-          <NavLink to="/logout">
-					<Tooltip title="Logout">
-						<LogoutIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-          */}
+				{/* if not icon changed after register to HowToRegIcon
+				login = true change icon to logout */}        	
 				<NavLink to="/">
 					<Tooltip title="Home">
 						<HomeIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
+
 				<NavLink to="/signin">
 					<Tooltip title="Signin">
 						<LoginIcon fontSize="large" />
@@ -65,9 +64,21 @@ function Header() {
 				</NavLink>
 				<NavLink to="/signup">
 					<Tooltip title="Register">
+						<LoginIcon fontSize="large" />
+					</Tooltip>
+				</NavLink>
+				<NavLink to="/edit">
+					<Tooltip title="Edit profile">
+						<EditIcon fontSize="large" />
+					</Tooltip>
+				</NavLink>
+				<NavLink to="/logout">
+					<Tooltip title="Logout">
+						<LogoutIcon fontSize="large" />
 						<HowToRegIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
+			
 				<NavLink to="boards">Your Boards</NavLink>
 				<NavLink to="/create">
 					<Tooltip title="Add new Board">
