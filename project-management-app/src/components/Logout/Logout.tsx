@@ -9,10 +9,12 @@ function Logout() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const register = useSelector(selectUser);
+
 	const handleLogout = (e: any) => {
 		e.preventDefault();
 		dispatch(logout());
 		navigate("/");
+		localStorage.removeItem("userToken");
 	};
 	return (
 		<div className="main">

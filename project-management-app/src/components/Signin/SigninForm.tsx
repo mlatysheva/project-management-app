@@ -40,7 +40,7 @@ function SigninForm() {
 	): Promise<any> {
 		try {
 			let response = await instaceApi.post(`/signin`, register);
-			console.log(`signin ${JSON.stringify(response.data)}`);
+			//console.log(`signin ${JSON.stringify(response.data)}`);
 			return response.data;
 		} catch (e) {
 			console.error(e);
