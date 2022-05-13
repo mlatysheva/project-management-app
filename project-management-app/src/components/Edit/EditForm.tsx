@@ -6,8 +6,8 @@ import {
 	applyColorName,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
+import instaceApi from "../../services/api";
 import { signup } from "../../store/signup/userOptions";
-import instaceApi from "../services/api";
 
 function EditForm() {
 	const [name, setName] = useState("");
