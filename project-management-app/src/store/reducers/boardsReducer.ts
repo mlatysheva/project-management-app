@@ -1,7 +1,6 @@
 import { BoardProps } from './boardReducer';
 import { CONSTANTS } from '../../actions/index';
-import { AnyAction, PayloadAction } from '@reduxjs/toolkit';
-import { AppDispatch } from '../store';
+import { AnyAction } from '@reduxjs/toolkit';
 
 export interface AllBoardsProps {
   boards: BoardProps[];
@@ -10,18 +9,14 @@ export interface AllBoardsProps {
 export const initialState: BoardProps[] =
  [
     {
-      title: "Create website",
-      description: "Team work on the Louvre website",
-    },
-    {
-      title: "Setup CEO",
-      description: "Prepare and implement marketing strategy for the website"
+      title: "Your sample board",
+      description: "Team project on eating an elephant",
     },
   ]
 
 let boardId = '021';
 
-export const allBoardsReducer = (state = initialState, action: AnyAction ) => {
+export const boardsReducer = (state = initialState, action: AnyAction ) => {
   switch (action.type) {
     case CONSTANTS.ADD_BOARD:
       const newBoard = {

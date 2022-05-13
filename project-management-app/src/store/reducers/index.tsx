@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { allBoardsReducer } from "./allBoardsReducer";
+import { boardsReducer } from "./boardsReducer";
 
 export default combineReducers({
-  boards: allBoardsReducer,
+  boards: boardsReducer,
 });

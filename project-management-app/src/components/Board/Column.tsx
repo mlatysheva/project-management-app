@@ -1,5 +1,5 @@
 import React from 'react';
-import { TaskProps } from '../../store/reducers/taskReducer';
+import { TaskProps } from '../../store/reducers/tasksReducer';
 import { AddButton } from './AddButton';
 import { TaskCard } from './TaskCard';
 
@@ -8,7 +8,7 @@ interface BoardColumnProps {
 	tasks: TaskProps[];
 }
 
-export const BoardColumn = (props: BoardColumnProps) => {
+export const Column = (props: BoardColumnProps) => {
   //console.dir(props);
   return (
     <div className="column-wrapper">

@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppDispatch } from '../store';
 import { BoardProps } from './boardReducer';
-import { allBoardsReducer, initialState } from './allBoardsReducer';
+import { boardsReducer, initialState } from './boardsReducer';
 
 export interface CounterState {
   value: number;
 }
 
-export const allBoardsSlice = createSlice({
+export const boardsSlice = createSlice({
   name: 'boards',
   initialState,
-  reducers: { allBoardsReducer },
+  reducers: { boardsReducer },
 });
