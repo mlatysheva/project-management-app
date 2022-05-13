@@ -68,7 +68,7 @@ function SigninForm({ updateToken }: any) {
 				password: password,
 			})
 		);
-		navigate("/logout");
+		navigate("/");
 	};
 
 	return (

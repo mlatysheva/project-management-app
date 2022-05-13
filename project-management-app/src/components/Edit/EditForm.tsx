@@ -8,6 +8,7 @@ import {
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
 import { signup } from "../../store/signup/userOptions";
+import "./edit.css";
 
 function EditForm() {
 	const [name, setName] = useState("");
@@ -43,6 +44,11 @@ function EditForm() {
 		toServerRegister({ name, login, password }).then((register) =>
 			console.log(register)
 		);
+	};
+
+	const deleteUser = () => {
+		console.log("he wants to delete");
+		navigate("/");
 	};
 
 	return (
@@ -90,6 +96,9 @@ function EditForm() {
 					Edit
 				</button>
 			</form>
+			<button className="delete_user" onClick={deleteUser}>
+				Delete this user permanently
+			</button>
 		</>
 	);
 }
