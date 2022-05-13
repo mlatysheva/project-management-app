@@ -63,7 +63,7 @@ function SignupForm() {
 		toServerRegister({ name, login, password }).then((register) =>
 			console.log(register)
 		);
-		navigate("/logout");
+		navigate("/signin");
 		disableBtnIn = true;
 	};
 

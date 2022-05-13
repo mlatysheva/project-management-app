@@ -1,0 +1,9 @@
+.delete_user {
+	min-width: 300px;
+	margin-right: 10%;
+	background-color: brown;
+}
+
+.delete_user:hover {
+	background-color: red !important;
+}

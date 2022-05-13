@@ -57,7 +57,7 @@ function Header(localStorage: any) {
 	const isSticky = (e: Event) => {
 		const header = document.querySelector(".header");
 		const scrollTop = window.scrollY;
-		scrollTop >= 80
+		scrollTop > 0
 			? header?.classList.add("is-sticky")
 			: header?.classList.remove("is-sticky");
 	};
@@ -70,8 +70,6 @@ function Header(localStorage: any) {
 						<HomeIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
-				{/* if not icon changed after register to HowToRegIcon
-				login = true change icon to logout */}
 				{localStorage.token ? (
 					<>
 						<NavLink to="/logout">
@@ -114,36 +112,3 @@ function Header(localStorage: any) {
 }
 
 export default Header;
-
-/*<NavLink to="/edit">
-					<Tooltip title="Edit profile">
-						<EditIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-
-				{localStorage.getItem("userToken") ? (
-					<NavLink to="/logout">
-					<Tooltip title="Logout">
-						<LogoutIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-				<NavLink to="/edit">
-					<Tooltip title="Edit profile">
-						<EditIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-				) : (
-					<>
-						<NavLink to="/signin">
-							<Tooltip title="Signin">
-								<LoginIcon fontSize="large" />
-							</Tooltip>
-						</NavLink>
-						<NavLink to="/signup">
-							<Tooltip title="Register">
-								<HowToRegIcon fontSize="large" />
-							</Tooltip>
-						</NavLink>
-					</>
-				)}
-				*/
