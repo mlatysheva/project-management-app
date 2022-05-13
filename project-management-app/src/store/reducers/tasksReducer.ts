@@ -25,11 +25,9 @@ export const initialState: TaskProps = {
   userId: {description: "some user"},
 }
 
-const taskReducer = (state = initialState, action: { type: string; }) => {
+export const tasksReducer = (state = initialState, action: { type: string; }) => {
   switch (action.type) {
     default: 
       return state;
   }
 }
-
-export default taskReducer;

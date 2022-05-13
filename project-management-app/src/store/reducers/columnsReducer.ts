@@ -1,4 +1,4 @@
-import { TaskProps } from "./taskReducer";
+import { TaskProps } from "./tasksReducer";
 
 export interface ColumnProps {
   id?: string,
@@ -12,7 +12,7 @@ const initialState = {
   order: 1,
 }
 
-export const columnReducer = (state = initialState, action: { type: string; }) => {
+export const columnsReducer = (state = initialState, action: { type: string; }) => {
   switch (action.type) {
     default: 
       return state;

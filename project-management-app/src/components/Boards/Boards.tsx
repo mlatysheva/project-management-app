@@ -1,4 +1,4 @@
-import { AllBoardsProps } from '../../store/reducers/allBoardsReducer';
+import { AllBoardsProps } from '../../store/reducers/boardsReducer';
 import { BoardProps } from '../../store/reducers/boardReducer';
 import { RootState } from '../../store/store';
 import { AddButton } from '../Board/AddButton';
@@ -15,7 +15,7 @@ export function Title({ title = '' }: TitleProps) {
 
 export function Boards(props: AllBoardsProps) {
   const {boards} = props;
-  console.dir(props);
+  console.dir(boards);
   return (
     <div className="main">
       <Title title="Your boards" />

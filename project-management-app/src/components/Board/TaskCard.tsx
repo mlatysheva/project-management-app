@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TaskProps } from '../../store/reducers/taskReducer';
+import { TaskProps } from '../../store/reducers/tasksReducer';
 
 export const TaskCard = (props: TaskProps) => {
   return (
