@@ -1,5 +1,0 @@
-export const CONSTANTS = {
-  ADD_TASK: "ADD_TASK",
-  ADD_COLUMN: "ALL_COLUMN",
-  ADD_BOARD: "ADD_BOARD",
-}

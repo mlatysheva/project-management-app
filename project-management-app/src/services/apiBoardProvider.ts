@@ -1,7 +1,7 @@
 import axios from 'axios'; 
 import { handleResponse, handleError } from './response'; 
 import { BASE_URL } from './api';
-  import { BoardProps } from '../store/reducers/boardReducer';
+  import { BoardProps } from '../store/reducers/boardSlice';
 
 export const getAllBoards = () => { 
   return axios 
