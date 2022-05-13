@@ -1,5 +1,5 @@
 import React from 'react';
-import { AddButton } from './AddTaskButton';
+import { AddButton } from './AddButton';
 import { BoardColumn } from './BoardColumn';
 
 export default function CreateBoard() {

@@ -28,7 +28,7 @@ function App() {
 						<Route path="/project-management-app" element={<Home />} />
 						<Route
 							path="/boards"
-							element={<Boards boards={initialState.boards} />}
+							element={<Boards boards={initialState} />}
 						/>
 						<Route path="/create" element={<CreateBoard />} />
 						<Route path="error" element={<ErrorPage />} />

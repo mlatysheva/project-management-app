@@ -3,6 +3,8 @@ import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import TextArea from "react-textarea-autosize";
+import { connect, useDispatch } from "react-redux";
+import { addBoard } from "../../actions/boardsActions";
 
 interface AddButtonProps {
 	type: string;
@@ -34,6 +36,15 @@ export function AddButton(props: AddButtonProps) {
 			text: e.target.value,
 		});
 	}
+
+  function handleAddBoard () {
+    const { text } = state;
+    const type = "Add new board";
+
+    // if (text) {
+    //   dispatch(addBoard(type, text, ''));
+    // }
+  }
 
 	function renderButton() {
 		const { type } = props;
@@ -112,3 +123,5 @@ export function AddButton(props: AddButtonProps) {
 
 	return state.formOpen ? renderForm() : renderButton();
 }
+
+export default connect()(AddButton);

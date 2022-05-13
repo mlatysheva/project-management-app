@@ -1,7 +1,7 @@
 import { AllBoardsProps } from '../../store/reducers/allBoardsReducer';
 import { BoardProps } from '../../store/reducers/boardReducer';
 import { RootState } from '../../store/store';
-import { AddButton } from '../Board/AddTaskButton';
+import { AddButton } from '../Board/AddButton';
 import { BoardPreviewCard } from './BoardPreviewCard';
 
 type TitleProps = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TaskProps } from '../../store/reducers/taskReducer';
-import { AddButton } from './AddTaskButton';
+import { AddButton } from './AddButton';
 import { TaskCard } from './TaskCard';
 
 interface BoardColumnProps {

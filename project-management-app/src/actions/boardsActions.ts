@@ -1,6 +1,7 @@
 export const addBoard
- = (title: string) => {
+ = (type: string, title: string, description: string) => {
   return {
-    title
+    title,
+    description,
   }
 }

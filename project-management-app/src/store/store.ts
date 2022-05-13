@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
+import allBoardsReducer from "./reducers/allBoardsReducer";
 import registerReducer from "./signup/userOptions";
 
 const defaultState = {
@@ -27,6 +28,7 @@ export const store = configureStore({
 	reducer: {
 		rootReducer,
 		register: registerReducer,
+    boards: allBoardsReducer,
 	},
 });
 
