@@ -12,6 +12,7 @@
 
 .signup__btn {
 	border: 2px solid green;
+	min-width: 150px;
 	margin-left: 30%;
 }
 

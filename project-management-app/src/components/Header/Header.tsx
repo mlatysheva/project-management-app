@@ -7,11 +7,10 @@ import Tooltip from "@mui/material/Tooltip";
 import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
 import LanguageIcon from "@mui/icons-material/Language";
 import EditIcon from "@mui/icons-material/Edit";
-
-import './Header.scss';
+import "./Header.scss";
 import { useEffect } from "react";
 
-function CurrentPage() {
+export function CurrentPage() {
 	const location = useLocation();
 	const getCurrentPage = () => {
 		switch (location.pathname) {
@@ -46,20 +45,22 @@ function CurrentPage() {
 	);
 }
 
-function Header() {
+function Header(localStorage: any) {
 	// Sticky Menu Area https://stackoverflow.com/questions/62970456/how-to-create-sticky-headers-on-scroll-with-react
 	useEffect(() => {
-		window.addEventListener('scroll', isSticky);
+		window.addEventListener("scroll", isSticky);
 		return () => {
-				window.removeEventListener('scroll', isSticky);
+			window.removeEventListener("scroll", isSticky);
 		};
-});
-/* Method that will fix header after a specific scrollable */
-const isSticky = (e: Event) => {
-	const header = document.querySelector('.header');
-	const scrollTop = window.scrollY;
-	scrollTop >= 80 ? header?.classList.add('is-sticky') : header?.classList.remove('is-sticky');
-};
+	});
+	/* Method that will fix header after a specific scrollable */
+	const isSticky = (e: Event) => {
+		const header = document.querySelector(".header");
+		const scrollTop = window.scrollY;
+		scrollTop >= 80
+			? header?.classList.add("is-sticky")
+			: header?.classList.remove("is-sticky");
+	};
 	return (
 		<header className="header">
 			<CurrentPage />
@@ -71,16 +72,33 @@ const isSticky = (e: Event) => {
 				</NavLink>
 				{/* if not icon changed after register to HowToRegIcon
 				login = true change icon to logout */}
-				<NavLink to="/signin">
-					<Tooltip title="Signin">
-						<LoginIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-				<NavLink to="/signup">
-					<Tooltip title="Register">
-						<HowToRegIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
+				{localStorage.token ? (
+					<>
+						<NavLink to="/logout">
+							<Tooltip title="Logout">
+								<LogoutIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+						<NavLink to="/edit">
+							<Tooltip title="Edit profile">
+								<EditIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+					</>
+				) : (
+					<>
+						<NavLink to="/signin">
+							<Tooltip title="Signin">
+								<LoginIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+						<NavLink to="/signup">
+							<Tooltip title="Register">
+								<HowToRegIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+					</>
+				)}
 				<NavLink to="boards">Your Boards</NavLink>
 				<NavLink to="/create">
 					<Tooltip title="Add new Board">
@@ -103,10 +121,29 @@ export default Header;
 					</Tooltip>
 				</NavLink>
 
-				<NavLink to="/logout">
+				{localStorage.getItem("userToken") ? (
+					<NavLink to="/logout">
 					<Tooltip title="Logout">
 						<LogoutIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
+				<NavLink to="/edit">
+					<Tooltip title="Edit profile">
+						<EditIcon fontSize="large" />
+					</Tooltip>
+				</NavLink>
+				) : (
+					<>
+						<NavLink to="/signin">
+							<Tooltip title="Signin">
+								<LoginIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+						<NavLink to="/signup">
+							<Tooltip title="Register">
+								<HowToRegIcon fontSize="large" />
+							</Tooltip>
+						</NavLink>
+					</>
+				)}
 				*/
-

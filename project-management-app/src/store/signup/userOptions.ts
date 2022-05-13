@@ -28,13 +28,16 @@ export const registerSlice = createSlice({
 		signup: (state, action) => {
 			state.register = action.payload;
 		},
+		signin: (state, action) => {
+			state.register = action.payload;
+		},
 		logout: (state) => {
 			state.register = null;
 		},
 	},
 });
 
-export const { signup, logout } = registerSlice.actions;
+export const { signup, signin, logout } = registerSlice.actions;
 
 export const selectUser = (state: { register: { register: registerProps } }) =>
 	state.register.register;
