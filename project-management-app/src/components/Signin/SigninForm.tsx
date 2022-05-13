@@ -5,8 +5,9 @@ import {
 	applyColorLogin,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
+import instaceApi from "../../services/api";
 import { selectUser, signin } from "../../store/signup/userOptions";
-import instaceApi from "../services/api";
+
 import "./signin.css";
 
 let disableBtnInSignin = true;
