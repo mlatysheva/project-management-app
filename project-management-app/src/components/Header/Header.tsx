@@ -114,36 +114,3 @@ function Header(localStorage: any) {
 }
 
 export default Header;
-
-/*<NavLink to="/edit">
-					<Tooltip title="Edit profile">
-						<EditIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-
-				{localStorage.getItem("userToken") ? (
-					<NavLink to="/logout">
-					<Tooltip title="Logout">
-						<LogoutIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-				<NavLink to="/edit">
-					<Tooltip title="Edit profile">
-						<EditIcon fontSize="large" />
-					</Tooltip>
-				</NavLink>
-				) : (
-					<>
-						<NavLink to="/signin">
-							<Tooltip title="Signin">
-								<LoginIcon fontSize="large" />
-							</Tooltip>
-						</NavLink>
-						<NavLink to="/signup">
-							<Tooltip title="Register">
-								<HowToRegIcon fontSize="large" />
-							</Tooltip>
-						</NavLink>
-					</>
-				)}
-				*/
