@@ -1,17 +1,21 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
 	applyColorLogin,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
+import instaceApi from "../../services/api";
+import { selectUser, signin } from "../../store/signup/userOptions";
+
 import "./signin.css";
 
 let disableBtnInSignin = true;
 
-function SigninForm() {
+function SigninForm({ updateToken }: any) {
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
+	const register = useSelector(selectUser);
 
 	const isDisabledSignin = () => {
 		const loginPut = (
@@ -20,23 +24,51 @@ function SigninForm() {
 		const passwordPut = (
 			document.getElementById("password-signin") as HTMLInputElement
 		).value;
-		if (loginPut?.length > 1 && passwordPut?.length > 1) {
-			disableBtnInSignin = false;
-		} else if (loginPut?.length === 0 || passwordPut?.length === 0) {
+		if (loginPut?.length === 0 || passwordPut?.length === 0) {
 			disableBtnInSignin = true;
+		} else {
+			disableBtnInSignin = false;
 		}
+
 		return disableBtnInSignin;
 	};
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const handleSubmitSignin = (e: React.FormEvent<HTMLFormElement>) => {
+	async function toServerSignin(
+		register: Record<string, string>
+	): Promise<any> {
+		try {
+			let response = await instaceApi.post(`/signin`, register);
+			//console.log(`signin ${JSON.stringify(response.data)}`);
+			return response.data;
+		} catch (e) {
+			console.error(e);
+		} finally {
+		}
+	}
+
+	const handleSubmitSignin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log("submit");
 		disableBtnInSignin = true;
-		//from server get token
-		//go to navigate("/logout");
+
+		let signInResponse = await toServerSignin({ login, password });
+		if (!signInResponse) {
+			console.log("FUCK YOU!!!");
+			return;
+		}
+
+		const token = signInResponse.token;
+		updateToken(token);
+
+		dispatch(
+			signin({
+				login: login,
+				password: password,
+			})
+		);
+		navigate("/logout");
 	};
 
 	return (
@@ -53,7 +85,7 @@ function SigninForm() {
 					type="text"
 					placeholder="Login"
 					id="login-signin"
-					value={login}
+					value={/*register.login?.toString() || */ login}
 					onChange={(e) => setLogin(e.target.value)}
 					pattern="{4,}"
 					title="login min 4 symbols..."
@@ -65,7 +97,7 @@ function SigninForm() {
 					id="password-signin"
 					type="password"
 					placeholder="Password"
-					value={password}
+					value={/*register.password?.toString() || */ password}
 					onChange={(e) => setPassword(e.target.value)}
 					pattern="{6,}"
 					title="Put minimum 6 symbols"

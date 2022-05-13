@@ -1,41 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { signup } from "../../store/signup/userOptions";
-import "./register.css";
 import { useNavigate } from "react-router-dom";
-import instaceApi from "../../services/api";
 import {
 	applyColorLogin,
 	applyColorName,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
+import instaceApi from "../../services/api";
+import { signup } from "../../store/signup/userOptions";
 
-let disableBtnIn = true;
-
-function SignupForm() {
+function EditForm() {
 	const [name, setName] = useState("");
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	const isDisabled = () => {
-		const namePut = (document.getElementById("name") as HTMLInputElement).value;
-		const loginPut = (document.getElementById("login") as HTMLInputElement)
-			.value;
-		const passwordPut = (
-			document.getElementById("password") as HTMLInputElement
-		).value;
-		if (
-			namePut?.length > 1 &&
-			loginPut?.length > 1 &&
-			passwordPut?.length > 1
-		) {
-			disableBtnIn = false;
-		}
-		return disableBtnIn;
-	};
 
 	async function toServerRegister(
 		register: Record<string, string>
@@ -63,18 +43,12 @@ function SignupForm() {
 		toServerRegister({ name, login, password }).then((register) =>
 			console.log(register)
 		);
-		navigate("/logout");
-		disableBtnIn = true;
 	};
 
 	return (
 		<>
-			<form
-				className="signup__form"
-				onSubmit={(e) => handleSubmit(e)}
-				onChange={isDisabled}
-			>
-				<h1>If you want to register 🌻:</h1>
+			<form className="signup__form" onSubmit={(e) => handleSubmit(e)}>
+				<h1>Edit your profile 👀:</h1>
 				<input
 					className="signup__input"
 					onKeyUp={applyColorName}
@@ -112,25 +86,12 @@ function SignupForm() {
 					title="Put minimum 6 symbols"
 					required
 				/>
-				<button type="submit" className="signup__btn" disabled={disableBtnIn}>
-					Register
+				<button type="submit" className="signup__btn">
+					Edit
 				</button>
 			</form>
-			<div className="row">
-				<h2>Have account?</h2>
-				<button
-					className="toRegister__btn"
-					onClick={(e) => {
-						navigate("/signin");
-					}}
-				>
-					click there
-				</button>
-			</div>
 		</>
 	);
 }
 
-export default SignupForm;
-
-//registered: true,
+export default EditForm;

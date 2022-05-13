@@ -5,21 +5,25 @@ import { useNavigate } from "react-router-dom";
 import { logout, selectUser } from "../../store/signup/userOptions";
 import "./logout.css";
 
-function Logout() {
+function Logout({ updateToken }: any) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const register = useSelector(selectUser);
+
 	const handleLogout = (e: any) => {
 		e.preventDefault();
 		dispatch(logout());
 		navigate("/");
+		updateToken("");
+		localStorage.removeItem("userToken");
 	};
 	return (
 		<div className="main">
 			<div className="logout__form">
 				<h1>
-					Welcome{" "}
-					{/* <span className="logout__name">{register.name?.toUpperCase()}</span>! */}
+					Welcome,
+					<span className="logout__name"> {register.login?.toUpperCase()}</span>
+					!
 				</h1>
 				<button
 					className="logout__btn"

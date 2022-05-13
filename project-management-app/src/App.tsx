@@ -5,26 +5,47 @@ import ErrorPage from "./components/ErrorPage";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Footer from "./components/Footer";
 import CreateBoard from "./components/Board/CreateBoard";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import { Home } from "./components/Home/Home";
 import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";
 import Signin from "./components/Signin/signin";
 import { EditProfile } from "./components/Edit/Edit";
 import { initialState } from "./store/reducers/allBoardsReducer";
+import { useCallback, useEffect, useState } from "react";
+
+function useLocalStorage(key: string, initialState: string) {
+	const [value, setValue] = useState(localStorage.getItem(key) ?? initialState);
+	const updatedSetValue = useCallback(
+		(newValue: string) => {
+			if (newValue === initialState || typeof newValue === "undefined") {
+				localStorage.removeItem(key);
+			} else {
+				localStorage.setItem(key, newValue);
+			}
+			setValue(newValue ?? initialState);
+		},
+		[initialState, key]
+	);
+	return [value, updatedSetValue];
+}
 
 function App() {
+	let [localStorage, setToken] = useLocalStorage("userToken", "");
+
 	return (
 		<div className="App">
 			<ErrorBoundary>
 				<Router>
-					<Header />
+					{/*localStorage.getItem("userToken") ? <HeaderIfSignin /> : <Header />}
+					<HeaderIfSignin />*/}
+					<Header token={localStorage} />
 					<Routes>
 						<Route path="/" element={<Home />} />
-						<Route path="/signin" element={<Signin />} />
+						<Route path="/signin" element={<Signin updateToken={setToken} />} />
 						<Route path="/edit" element={<EditProfile />} />
 						<Route path="/signup" element={<Register />} />
-						<Route path="/logout" element={<Logout />} />
+						<Route path="/logout" element={<Logout updateToken={setToken} />} />
 						<Route path="/project-management-app" element={<Home />} />
 						<Route
 							path="/boards"
