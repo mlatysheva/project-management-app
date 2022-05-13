@@ -1,7 +1,7 @@
 import axios from 'axios'; 
 import { handleResponse, handleError } from './response'; 
 import { BASE_URL } from './api';
-  import { CreateBoardProps } from '../store/reducers/boardReducer';
+  import { BoardProps } from '../store/reducers/boardReducer';
 
 export const getAllBoards = () => { 
   return axios 
@@ -10,7 +10,7 @@ export const getAllBoards = () => {
     .catch(handleError); 
 };
 
-export const createBoard = (board: CreateBoardProps) => {
+export const createBoard = (board: BoardProps) => {
   return axios 
     .post(`${BASE_URL}/boards`, board) 
     .then(handleResponse) 
@@ -31,7 +31,7 @@ export const deleteBoard = (userId: string) => {
     .catch(handleError);
 }
 
-export const updateBoard = (boardId: string, boardData: CreateBoardProps) => { 
+export const updateBoard = (boardId: string, boardData: BoardProps) => { 
   return axios 
     .put(`${BASE_URL}/boards/${boardId}`, boardData) 
     .then(handleResponse) 

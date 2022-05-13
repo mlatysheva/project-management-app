@@ -5,6 +5,7 @@ export interface UserIdProps {
 export interface BoardIdProps {
   description: string;
 }
+
 export interface TaskProps {
   id:	string,
   title:	string,
