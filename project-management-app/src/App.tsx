@@ -11,8 +11,10 @@ import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";
 import Signin from "./components/Signin/signin";
 import { EditProfile } from "./components/Edit/Edit";
-import { initialState } from "./store/reducers/boardsReducer";
+import { initialState } from "./store/reducers/boardsSlice";
 import { useCallback, useEffect, useState } from "react";
+import { store } from "./store/store";
+import { useAppSelector } from "./store/hooks";
 
 function useLocalStorage(key: string, initialState: string) {
 	const [value, setValue] = useState(localStorage.getItem(key) ?? initialState);
@@ -32,6 +34,7 @@ function useLocalStorage(key: string, initialState: string) {
 
 function App() {
 	let [localStorage, setToken] = useLocalStorage("userToken", "");
+  const boards = useAppSelector((state) => state.boards);
 
 	return (
 		<div className="App">
@@ -49,7 +52,7 @@ function App() {
 						<Route path="/project-management-app" element={<Home />} />
 						<Route
 							path="/boards"
-							element={<Boards boards={initialState} />}
+							element={<Boards boards={boards} />}
 						/>
 						<Route path="/create" element={<CreateBoard />} />
 						<Route path="error" element={<ErrorPage />} />

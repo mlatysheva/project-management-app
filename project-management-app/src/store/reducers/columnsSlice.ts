@@ -1,4 +1,4 @@
-import { TaskProps } from "./tasksReducer";
+import { TaskProps } from "./tasksSlice";
 
 export interface ColumnProps {
   id?: string,

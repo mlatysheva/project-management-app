@@ -1,4 +1,4 @@
-import { ColumnProps } from "./columnsReducer";
+import { ColumnProps } from "./columnsSlice";
 
 export interface BoardProps {
   id?: string | undefined;

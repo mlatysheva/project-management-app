@@ -4,7 +4,7 @@ import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import TextArea from "react-textarea-autosize";
 import { connect, useDispatch } from "react-redux";
-import { addBoard } from "../../actions/boardsActions";
+import { addBoard } from "../../store/reducers/boardsActions";
 
 interface AddButtonProps {
 	type: string;
@@ -13,10 +13,13 @@ interface AddButtonProps {
 export function AddButton(props: AddButtonProps) {
 	const [state, setState] = useState({
 		formOpen: false,
-		text: "",
+		title: "",
 	});
 
+  const dispatch = useDispatch();
+
 	function openForm() {
+    console.log(`we are in openForm`);
 		setState({
 			...state,
 			formOpen: true,
@@ -24,6 +27,7 @@ export function AddButton(props: AddButtonProps) {
 	}
 
 	function closeForm() {
+    console.log(`we are in closeForm`);
 		setState({
 			...state,
 			formOpen: false,
@@ -33,17 +37,17 @@ export function AddButton(props: AddButtonProps) {
 	function handleInputChange(e: { target: { value: string } }) {
 		setState({
 			...state,
-			text: e.target.value,
+			title: e.target.value,
 		});
 	}
 
   function handleAddBoard () {
-    const { text } = state;
-    const type = "Add new board";
-
-    // if (text) {
-    //   dispatch(addBoard(type, text, ''));
-    // }
+    const { title } = state;
+    console.log(`we are in handleAddBoard`);
+    console.log(`title is ${title}`);
+    if (title) {
+      dispatch(addBoard(title));      
+    }
   }
 
 	function renderButton() {
@@ -95,8 +99,8 @@ export function AddButton(props: AddButtonProps) {
 					<TextArea
 						placeholder={placeholder}
 						autoFocus
-						onBlur={closeForm}
-						value={state.text}
+						// onBlur={closeForm}
+						value={state.title}
 						onChange={handleInputChange}
 						style={{
 							resize: "none",
@@ -109,13 +113,13 @@ export function AddButton(props: AddButtonProps) {
 					/>
 				</Card>
 				<div className="add-button-container">
-					<Button
-						variant="contained"
+					<Button						
 						style={{ color: "white", backgroundColor: "midnightblue" }}
+            onClick={handleAddBoard}
 					>
 						{buttonTitle}{" "}
 					</Button>
-					<Icon style={{ marginLeft: 8, cursor: "pointer" }}>close</Icon>
+          <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 				</div>
 			</div>
 		);
