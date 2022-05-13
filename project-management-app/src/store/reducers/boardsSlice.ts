@@ -1,6 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppDispatch } from '../store';
-import { BoardProps } from './boardReducer';
+import { createSlice } from '@reduxjs/toolkit';
 import { boardsReducer, initialState } from './boardsReducer';
 
 export interface CounterState {

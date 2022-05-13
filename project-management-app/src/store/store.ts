@@ -6,27 +6,6 @@ import { columnsReducer } from "./reducers/columnsReducer";
 import { tasksReducer } from "./reducers/tasksReducer";
 import registerReducer from "./signup/userOptions";
 
-// const defaultState = {
-// 	user: {
-// 		userName: "",
-// 		login: "",
-// 		password: "",
-// 	},
-// 	lists: [],
-// };
-
-// const reducer = (
-// 	state = defaultState,
-// 	action: { type: string; payload: string }
-// ) => {
-// 	switch (action.type) {
-// 		case "ADD_LOGIN":
-// 			return { ...state, username: action.payload };
-// 		default:
-// 			return state;
-// 	}
-// };
-
 export const store = configureStore({
 	reducer: {
 		// rootReducer,
@@ -35,10 +14,8 @@ export const store = configureStore({
     // user: userReducer,
     boards: boardsReducer,
     board: boardReducer,
-    // columns: allColumnsReducer,
-    column: columnsReducer,
-    // tasks: allTasksReducer,
-    task: tasksReducer,
+    columns: columnsReducer,
+    tasks: tasksReducer,
 	},
 });
 
