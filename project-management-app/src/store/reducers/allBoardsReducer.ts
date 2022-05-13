@@ -7,23 +7,21 @@ export interface AllBoardsProps {
   boards: BoardProps[];
 }
 
-let boardId = '021';
-
 export const initialState: BoardProps[] =
-  [
+ [
     {
       title: "Create website",
-      id: '012',
       description: "Team work on the Louvre website",
     },
     {
       title: "Setup CEO",
-      id: '123',
       description: "Prepare and implement marketing strategy for the website"
     },
   ]
 
-const allBoardsReducer = (state = initialState, action: AnyAction ) => {
+let boardId = '021';
+
+export const allBoardsReducer = (state = initialState, action: AnyAction ) => {
   switch (action.type) {
     case CONSTANTS.ADD_BOARD:
       const newBoard = {
@@ -37,5 +35,3 @@ const allBoardsReducer = (state = initialState, action: AnyAction ) => {
       return state;
   }
 }
-
-export default allBoardsReducer;

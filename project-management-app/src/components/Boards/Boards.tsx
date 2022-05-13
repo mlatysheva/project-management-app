@@ -15,12 +15,12 @@ export function Title({ title = '' }: TitleProps) {
 
 export function Boards(props: AllBoardsProps) {
   const {boards} = props;
-  console.dir(boards);
+  console.dir(props);
   return (
     <div className="main">
       <Title title="Your boards" />
       <div className="lists-container">
-        { boards.map((board: BoardProps) => <BoardPreviewCard key={board.id} title={board.title} description={board.description} />)}
+        {boards.map((board: BoardProps) => <BoardPreviewCard key={board.id} title={board.title} description={board.description} />)}
         <AddButton type="Add new board" />
       </div>
     </div>
