@@ -46,6 +46,11 @@ function EditForm() {
 		);
 	};
 
+	const deleteUser = () => {
+		console.log("he wants to delete");
+		navigate("/");
+	};
+
 	return (
 		<>
 			<form className="signup__form" onSubmit={(e) => handleSubmit(e)}>
@@ -91,7 +96,9 @@ function EditForm() {
 					Edit
 				</button>
 			</form>
-			<button className="delete_user">Delete this user permanently</button>
+			<button className="delete_user" onClick={deleteUser}>
+				Delete this user permanently
+			</button>
 		</>
 	);
 }
