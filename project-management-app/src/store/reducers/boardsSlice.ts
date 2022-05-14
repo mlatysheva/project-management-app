@@ -27,6 +27,7 @@ export const boardsReducer = (state = initialState, action: AnyAction ) => {
       }
       boardId++;
       console.dir(state);
+      console.log(`in boardsReduce title is ${newBoard.title}`);
       return [...state, newBoard];
     default: 
       return state;
