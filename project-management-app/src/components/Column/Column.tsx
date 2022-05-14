@@ -1,7 +1,7 @@
 import React from 'react';
 import { TaskProps } from '../../store/reducers/tasksSlice';
-import { AddButton } from './AddButton';
-import { TaskCard } from './TaskCard';
+import { AddButton } from '../Board/AddButton';
+import { TaskCard } from '../Board/TaskCard';
 
 interface BoardColumnProps {
 	title: string;

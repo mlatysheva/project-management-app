@@ -1,6 +1,7 @@
 import React from 'react';
+import AddColumnButton from '../Column/AddColumnButton';
 import { AddButton } from './AddButton';
-import { Column } from './Column';
+import { Column } from '../Column/Column';
 
 export default function CreateBoard() {
   return (
@@ -14,7 +15,7 @@ export default function CreateBoard() {
             done: false,
           },      
         ]} />
-        <AddButton type="Add new column" />
+        <AddColumnButton type="Add new column" />
       </div>        
     </div>
   )
