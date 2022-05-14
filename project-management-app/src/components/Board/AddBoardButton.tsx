@@ -19,7 +19,6 @@ export function AddBoardButton(props: AddButtonProps) {
   const dispatch = useDispatch();
 
 	function openForm() {
-    console.log(`we are in openForm`);
 		setState({
 			...state,
 			formOpen: true,
@@ -27,7 +26,6 @@ export function AddBoardButton(props: AddButtonProps) {
 	}
 
 	function closeForm() {
-    console.log(`we are in closeForm`);
 		setState({
 			...state,
 			formOpen: false,
@@ -43,8 +41,6 @@ export function AddBoardButton(props: AddButtonProps) {
 
   function handleAddBoard () {
     const { title } = state;
-    console.log(`we are in handleAddBoard`);
-    console.log(`title is ${title}`);
     if (title) {
       dispatch(addBoard(title));      
     }
@@ -52,9 +48,9 @@ export function AddBoardButton(props: AddButtonProps) {
 
 	function renderButton() {
 		const { type } = props;
-		const buttonTextOpasity = type == "Add new task" ? 1 : 0.5;
-		const buttonTextColor = type == "Add new task" ? "white" : "inherit";
-		const buttonBackground = type == "Add new task" ? "inherit" : "ligthgrey";
+		const buttonTextOpasity = 0.5;
+		const buttonTextColor = "inherit";
+		const buttonBackground = "ligthgrey";
 		return (
 			<div
 				className="add-button"
@@ -73,18 +69,8 @@ export function AddBoardButton(props: AddButtonProps) {
 
 	function renderForm() {
 		const { type } = props;
-		const placeholder =
-			type === "Add new task"
-				? "Enter the title of the task"
-				: type === "Add new board"
-				? "Enter the title of the board"
-				: "Enter the title of the column";
-		const buttonTitle =
-			type === "Add new task"
-				? "Add task"
-				: type === "Add new board"
-				? "Add board"
-				: "Add column";
+		const placeholder = "Add new board";
+		const buttonTitle = "Add board";
 
 		return (
 			<div>

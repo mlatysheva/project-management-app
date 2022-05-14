@@ -11,8 +11,6 @@ interface BoardColumnProps {
 
 export const Column = (props: BoardColumnProps) => {
   const tasks = useAppSelector((state) => state.tasks);
-  console.dir(tasks);
-  //console.dir(props);
   return (
     <div className="column-wrapper">
       <h2>{props.title}</h2>
