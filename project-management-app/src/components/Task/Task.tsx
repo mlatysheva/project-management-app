@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TaskProps } from '../../store/reducers/tasksSlice';
 
-export const TaskCard = (props: TaskProps) => {
+export const Task = (props: TaskProps) => {
   return (
     <Card className="card" sx={{ minWidth: 275, minHeight: 200, marginBottom: 1.5 }}>
       <CardContent>

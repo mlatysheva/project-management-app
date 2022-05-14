@@ -1,7 +1,7 @@
-export const addColumn
+export const addTask
  = (title: string) => {
   return {
-    type: "add_column",
+    type: "add_task",
     payload: {title: title},
   }
 }
