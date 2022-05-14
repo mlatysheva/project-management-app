@@ -5,7 +5,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import Tooltip from "@mui/material/Tooltip";
 import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
-import LanguageIcon from "@mui/icons-material/Language";
+import SelectLanguage from "../SelectLanguage/SelectLanguage";
 import EditIcon from "@mui/icons-material/Edit";
 import "./Header.scss";
 import { useEffect } from "react";
@@ -104,7 +104,7 @@ function Header(localStorage: any) {
 					</Tooltip>
 				</NavLink>
 				<Tooltip title="Language">
-					<LanguageIcon fontSize="large" />
+					<SelectLanguage />
 				</Tooltip>
 			</nav>
 		</header>
