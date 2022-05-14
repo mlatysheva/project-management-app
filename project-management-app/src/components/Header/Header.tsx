@@ -26,8 +26,10 @@ export function CurrentPage() {
 				return "Home";
 			case "/boards":
 				return "Boards";
-			case "/create":
+			case "/createboard":
 				return "Create Board";
+      case "/editboard":
+				return "Edit Board";
 			case "/edit":
 				return "Edit";
 			case "/error":
@@ -98,7 +100,7 @@ function Header(localStorage: any) {
 					</>
 				)}
 				<NavLink to="boards">Your Boards</NavLink>
-				<NavLink to="/create">
+				<NavLink to="/createboard">
 					<Tooltip title="Add new Board">
 						<AddBoxIcon fontSize="large" />
 					</Tooltip>

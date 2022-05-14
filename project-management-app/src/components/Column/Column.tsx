@@ -1,7 +1,8 @@
 import React from 'react';
 import { TaskProps } from '../../store/reducers/tasksSlice';
-import { AddButton } from '../Board/AddButton';
-import { TaskCard } from '../Board/TaskCard';
+import { AddTaskButton } from '../Task/AddTaskButton';
+import { Task } from '../Task/Task';
+import { useAppSelector } from '../../store/hooks';
 
 interface BoardColumnProps {
 	title: string;
@@ -9,12 +10,14 @@ interface BoardColumnProps {
 }
 
 export const Column = (props: BoardColumnProps) => {
+  const tasks = useAppSelector((state) => state.tasks);
+  console.dir(tasks);
   //console.dir(props);
   return (
     <div className="column-wrapper">
       <h2>{props.title}</h2>
-      { props.tasks.map((task: TaskProps) => <TaskCard key={task.id} id={task.id} title={task.title} description={task.description} done={task.done} />)}   
-      <AddButton type="Add new task"/> 
+      { tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} title={task.title} description={task.description} done={task.done} />)}   
+      <AddTaskButton type="Add new task"/> 
     </div>
   )
 };
