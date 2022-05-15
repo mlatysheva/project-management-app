@@ -6,11 +6,7 @@ import TextArea from "react-textarea-autosize";
 import { connect, useDispatch } from "react-redux";
 import { addBoard } from "../../store/reducers/boardsActions";
 
-interface AddButtonProps {
-	type: string;
-}
-
-export function AddBoardButton(props: AddButtonProps) {
+export function AddBoardButton() {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
@@ -47,28 +43,23 @@ export function AddBoardButton(props: AddButtonProps) {
   }
 
 	function renderButton() {
-		const { type } = props;
-		const buttonTextOpasity = 0.5;
-		const buttonTextColor = "inherit";
-		const buttonBackground = "ligthgrey";
 		return (
 			<div
 				className="add-button"
 				style={{
-					opacity: buttonTextOpasity,
-					color: buttonTextColor,
-					backgroundColor: buttonBackground,
+					opacity: 0.5,
+					color: "inherit",
+					backgroundColor: "ligthgrey",
 				}}
 				onClick={openForm}
 			>
 				<Icon>add</Icon>
-				<p>{type}</p>
+				<p>Add Board</p>
 			</div>
 		);
 	}
 
 	function renderForm() {
-		const { type } = props;
 		const placeholder = "Add new board";
 		const buttonTitle = "Add board";
 
