@@ -9,6 +9,7 @@ import SelectLanguage from "../SelectLanguage/SelectLanguage";
 import EditIcon from "@mui/icons-material/Edit";
 import "./Header.scss";
 import { useEffect } from "react";
+import { useTranslation} from 'react-i18next';
 
 export function CurrentPage() {
 	const location = useLocation();
@@ -63,12 +64,13 @@ function Header(localStorage: any) {
 			? header?.classList.add("is-sticky")
 			: header?.classList.remove("is-sticky");
 	};
+	const { t } = useTranslation();
 	return (
 		<header className="header">
 			<CurrentPage />
 			<nav className="nav">
 				<NavLink to="/">
-					<Tooltip title="Home">
+					<Tooltip title={t('home')}>
 						<HomeIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
