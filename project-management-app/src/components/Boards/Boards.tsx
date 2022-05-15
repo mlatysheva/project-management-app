@@ -1,7 +1,6 @@
 import { AllBoardsProps } from '../../store/reducers/boardsSlice';
 import { BoardProps } from '../../store/reducers/boardSlice';
-import { RootState } from '../../store/store';
-import { AddButton } from '../Board/AddButton';
+import AddBoardButton from '../Board/AddBoardButton';
 import { BoardPreviewCard } from './BoardPreviewCard';
 
 type TitleProps = {
@@ -15,13 +14,13 @@ export function Title({ title = '' }: TitleProps) {
 
 export function Boards(props: AllBoardsProps) {
   const {boards} = props;
-  console.dir(boards);
+
   return (
     <div className="main">
       <Title title="Your boards" />
       <div className="lists-container">
         {boards.map((board: BoardProps) => <BoardPreviewCard key={board.id} title={board.title} description={board.description} />)}
-        <AddButton type="Add new board" />
+        <AddBoardButton type="Add new board" />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete'
+import { useNavigate } from 'react-router-dom';
 
 interface BoardPreviewCardProps {
   title: string;
@@ -22,8 +23,12 @@ const styles = {
 }; 
 
 export const BoardPreviewCard = (props: BoardPreviewCardProps) => {
+  const navigate = useNavigate();
+  
   return (
-    <div style={styles.container}>
+    <div style={styles.container}
+      onClick={() => navigate('/editboard')}
+    >
       <h2>{props.title}</h2>
       <Card className="card" sx={{ minWidth: 275 }}>
         <CardContent>

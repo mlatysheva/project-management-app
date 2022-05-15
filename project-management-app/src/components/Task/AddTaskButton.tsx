@@ -5,12 +5,13 @@ import { useState } from "react";
 import TextArea from "react-textarea-autosize";
 import { connect, useDispatch } from "react-redux";
 import { addBoard } from "../../store/reducers/boardsActions";
+import { addTask } from "../../store/reducers/taskActions";
 
 interface AddButtonProps {
 	type: string;
 }
 
-export function AddButton(props: AddButtonProps) {
+export function AddTaskButton(props: AddButtonProps) {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
@@ -41,12 +42,12 @@ export function AddButton(props: AddButtonProps) {
 		});
 	}
 
-  function handleAddBoard () {
+  function handleAddTask () {
     const { title } = state;
-    console.log(`we are in handleAddBoard`);
+    console.log(`we are in handleAddTask`);
     console.log(`title is ${title}`);
     if (title) {
-      dispatch(addBoard(title));      
+      dispatch(addTask(title));      
     }
   }
 
@@ -73,18 +74,8 @@ export function AddButton(props: AddButtonProps) {
 
 	function renderForm() {
 		const { type } = props;
-		const placeholder =
-			type === "Add new task"
-				? "Enter the title of the task"
-				: type === "Add new board"
-				? "Enter the title of the board"
-				: "Enter the title of the column";
-		const buttonTitle =
-			type === "Add new task"
-				? "Add task"
-				: type === "Add new board"
-				? "Add board"
-				: "Add column";
+		const placeholder =	"Add new task";
+		const buttonTitle = "Add new task";
 
 		return (
 			<div>
@@ -115,7 +106,7 @@ export function AddButton(props: AddButtonProps) {
 				<div className="add-button-container">
 					<Button						
 						style={{ color: "white", backgroundColor: "midnightblue" }}
-            onClick={handleAddBoard}
+            onClick={handleAddTask}
 					>
 						{buttonTitle}{" "}
 					</Button>
@@ -128,4 +119,4 @@ export function AddButton(props: AddButtonProps) {
 	return state.formOpen ? renderForm() : renderButton();
 }
 
-export default connect()(AddButton);
+export default connect()(AddTaskButton);
