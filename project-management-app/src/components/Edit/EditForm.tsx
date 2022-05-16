@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useTranslation} from 'react-i18next';
+
 import {
 	applyColorLogin,
 	applyColorName,
@@ -8,6 +10,7 @@ import {
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
 import { signup } from "../../store/signup/userOptions";
+import { deleteUser, updateUser } from '../../services/apiUserProvider'
 import "./edit.css";
 
 function EditForm() {
@@ -17,6 +20,8 @@ function EditForm() {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const { t } = useTranslation();
 
 	async function toServerRegister(
 		register: Record<string, string>
@@ -28,11 +33,22 @@ function EditForm() {
 		} catch (e) {
 			console.error(e);
 		} finally {
+			const {id }= register;
+			localStorage.setItem('id', id);
+			
 		}
 	}
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const id = localStorage.getItem("id");
+		if (id !== null) {
+		updateUser(id, {
+			name: name,
+			login: login,
+			password: password,
+			})
+		};
 		dispatch(
 			signup({
 				name: name,
@@ -42,24 +58,35 @@ function EditForm() {
 		);
 		//send it to the server
 		toServerRegister({ name, login, password }).then((register) =>
-			console.log(register)
+			{	const {name, login, id } = register;
+			console.log(name, login);
+			localStorage.setItem('id', id);
+			}
+
 		);
 	};
 
-	const deleteUser = () => {
+	const deleteUserById = () => {
 		console.log("he wants to delete");
-		navigate("/");
+		const id = localStorage.getItem("id");
+		if (id) {
+			deleteUser(id).then((res) => {
+				console.log(res);
+				localStorage.removeItem("id");
+			});
+		}
+	
 	};
 
 	return (
 		<>
 			<form className="signup__form" onSubmit={(e) => handleSubmit(e)}>
-				<h1>Edit your profile 👀:</h1>
+				<h1>{t('edit')} 👀:</h1>
 				<input
 					className="signup__input"
 					onKeyUp={applyColorName}
 					type="name"
-					placeholder="Name"
+					placeholder={t('name')}
 					id="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
@@ -71,7 +98,7 @@ function EditForm() {
 					className="signup__input"
 					onKeyUp={applyColorLogin}
 					type="text"
-					placeholder="Login"
+					placeholder={t('login')}
 					id="login"
 					value={login}
 					onChange={(e) => setLogin(e.target.value)}
@@ -84,7 +111,7 @@ function EditForm() {
 					className="signup__input"
 					onKeyUp={applyColorPassword}
 					type="password"
-					placeholder="Password"
+					placeholder={t('password')}
 					id="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
@@ -93,11 +120,11 @@ function EditForm() {
 					required
 				/>
 				<button type="submit" className="signup__btn">
-					Edit
+					{t('editBtn')}
 				</button>
 			</form>
-			<button className="delete_user" onClick={deleteUser}>
-				Delete this user permanently
+			<button className="delete_user" onClick={deleteUserById}>
+				{t('deleteBtn')}
 			</button>
 		</>
 	);
