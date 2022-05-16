@@ -20,7 +20,7 @@ export function Boards(props: AllBoardsProps) {
       <Title title="Your boards" />
       <div className="lists-container">
         {boards.map((board: BoardProps) => <BoardPreviewCard key={board.id} title={board.title} description={board.description} />)}
-        <AddBoardButton type="Add new board" />
+        <AddBoardButton />
       </div>
     </div>
   );

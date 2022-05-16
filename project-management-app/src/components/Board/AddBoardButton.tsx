@@ -2,18 +2,16 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
-import TextArea from "react-textarea-autosize";
 import { connect, useDispatch } from "react-redux";
-import { addBoard } from "../../store/reducers/boardsActions";
+import { add_board } from "../../store/reducers/boardsSlice";
+import { TextField } from "@mui/material";
+import { createBoard } from "../../services/apiBoardProvider";
 
-interface AddButtonProps {
-	type: string;
-}
-
-export function AddBoardButton(props: AddButtonProps) {
+export function AddBoardButton() {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
+    description: "",
 	});
 
   const dispatch = useDispatch();
@@ -32,75 +30,100 @@ export function AddBoardButton(props: AddButtonProps) {
 		});
 	}
 
-	function handleInputChange(e: { target: { value: string } }) {
+	function handleInputTitleChange(e: { target: { value: string } }) {
 		setState({
 			...state,
 			title: e.target.value,
 		});
 	}
 
-  function handleAddBoard () {
-    const { title } = state;
+  function handleInputDescriptionChange(e: { target: { value: string } }) {
+		setState({
+			...state,
+			description: e.target.value,
+		});
+	}
+
+  async function handleAddBoard () {
+    const { title, description } = state;
+
     if (title) {
-      dispatch(addBoard(title));      
+      dispatch(add_board({
+        title: title,
+        description: description,
+      })); 
+      setState({
+        ...state,
+        title: '',
+        description: '',
+      });
+      const boardApi = await createBoard({
+        title: title,
+        description: description,
+      });
+      console.dir(boardApi);
     }
   }
 
 	function renderButton() {
-		const { type } = props;
-		const buttonTextOpasity = 0.5;
-		const buttonTextColor = "inherit";
-		const buttonBackground = "ligthgrey";
 		return (
 			<div
 				className="add-button"
 				style={{
-					opacity: buttonTextOpasity,
-					color: buttonTextColor,
-					backgroundColor: buttonBackground,
+					opacity: 0.5,
+					color: "inherit",
+					backgroundColor: "ligthgrey",
 				}}
 				onClick={openForm}
 			>
 				<Icon>add</Icon>
-				<p>{type}</p>
+				<p>Add Board</p>
 			</div>
 		);
 	}
 
 	function renderForm() {
-		const { type } = props;
-		const placeholder = "Add new board";
 		const buttonTitle = "Add board";
 
 		return (
 			<div>
 				<Card
 					style={{
+            display: "flex",
+            flexDirection: "column",
 						overflow: "visible",
 						minHeight: 80,
-						minWidth: 270,
-						padding: "6px 8 px 2px",
+						minWidth: 250,
+						padding: "6px 8px 2px",
+            border: "none",
+            boxShadow: "none",
 					}}
 				>
-					<TextArea
-						placeholder={placeholder}
+          <TextField
+            placeholder="Enter title"
 						autoFocus
-						// onBlur={closeForm}
 						value={state.title}
-						onChange={handleInputChange}
+						onChange={handleInputTitleChange}
 						style={{
 							resize: "none",
 							width: "100%",
-							paddingTop: 10,
-							outline: "none",
-							border: "none",
-							overflow: "hidden",
+							paddingTop: 5,
 						}}
-					/>
+          />
+          <TextField
+            placeholder="Enter description"
+						value={state.description}
+						onChange={handleInputDescriptionChange}
+						style={{
+							resize: "none",
+							width: "100%",
+							paddingTop: 5,
+						}}
+          />
 				</Card>
 				<div className="add-button-container">
 					<Button						
-						style={{ color: "white", backgroundColor: "midnightblue" }}
+						style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 8 }}
             onClick={handleAddBoard}
 					>
 						{buttonTitle}{" "}
