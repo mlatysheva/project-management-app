@@ -24,7 +24,7 @@ export const boardsSlice = createSlice({
       const newBoard = {
         id: boardId.toString(),
         title: action.payload.title,
-        description: 'new description',
+        description: action.payload.description,
       }
       boardId++;
       console.dir(state);
