@@ -21,6 +21,7 @@ i18n
       en: {
         translation: {
           // here we will place our translations...
+          here_text:'Current page: ',
           home: 'Home',
           title: 'Manage simple to complex projects and everything in between with Elefant',
           h2: 'The project management software that will actually work for your team',
@@ -35,12 +36,20 @@ i18n
           name1: 'Julia',
           name2: 'Maria',
           name3: 'Olena',
+          edit: 'Edit your profile',
+          registerBtn: 'Register',
+          editBtn: 'Edit',
+          deleteBtn: 'Delete this user permanently',
+          name: 'Name',
+          login: 'Login',
+          password: 'Password',
          
         },
       },
       ru: {
           translation: {
             // here we will place our translations...
+            here_text:'Текущая страница: ', 
             home: 'Главная',
             title: 'Управляйте простыми и сложными проектами и всем между ними с помощью Elefant',
             h2: 'Программное обеспечение для управления проектами, которое действительно работает для вашей команды',
@@ -55,6 +64,13 @@ i18n
             name1: 'Юлия',
             name2: 'Мария',
             name3: 'Елена',
+            edit: 'Редактировать профайл',
+            registerBtn: 'Зарегистрироваться',
+            editBtn: 'Редактировать',
+            deleteBtn: 'Удалить профайл',
+            name: 'Имя',
+            login: 'Логин',
+            password: 'Пароль',
 
          
       }

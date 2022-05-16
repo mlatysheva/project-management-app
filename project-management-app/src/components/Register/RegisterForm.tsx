@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "../../store/signup/userOptions";
-import "./register.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import instaceApi from "../../services/api";
 import {
 	applyColorLogin,
 	applyColorName,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
+import "./register.css";
 
 let disableBtnIn = true;
 
@@ -19,6 +20,8 @@ function SignupForm() {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const { t } = useTranslation();
 
 	const isDisabled = () => {
 		const namePut = (document.getElementById("name") as HTMLInputElement).value;
@@ -79,7 +82,7 @@ function SignupForm() {
 					className="signup__input"
 					onKeyUp={applyColorName}
 					type="name"
-					placeholder="Name"
+					placeholder={t("name")}
 					id="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
@@ -91,7 +94,7 @@ function SignupForm() {
 					className="signup__input"
 					onKeyUp={applyColorLogin}
 					type="text"
-					placeholder="Login"
+					placeholder={t("login")}
 					id="login"
 					value={login}
 					onChange={(e) => setLogin(e.target.value)}
@@ -104,7 +107,7 @@ function SignupForm() {
 					className="signup__input"
 					onKeyUp={applyColorPassword}
 					type="password"
-					placeholder="Password"
+					placeholder={t("password")}
 					id="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
@@ -113,7 +116,7 @@ function SignupForm() {
 					required
 				/>
 				<button type="submit" className="signup__btn" disabled={disableBtnIn}>
-					Register
+					{t('registerBtn')}
 				</button>
 			</form>
 			<div className="row">

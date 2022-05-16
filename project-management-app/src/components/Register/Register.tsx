@@ -1,5 +1,4 @@
 import SignupForm from "./RegisterForm";
-import  { h1Props } from '../Edit/Edit';
 
 function openRegister() {
 	console.log("Have to register");

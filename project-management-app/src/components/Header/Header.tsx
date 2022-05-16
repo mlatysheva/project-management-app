@@ -40,9 +40,11 @@ export function CurrentPage() {
 		}
 	};
 
+	const { t } = useTranslation();
+
 	return (
 		<div className="current-page-title">
-			<span className="here-text">Current page: </span>
+			<span className="here-text">{t('here_text')} </span>
 			{getCurrentPage()}
 		</div>
 	);
