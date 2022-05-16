@@ -1,5 +1,5 @@
 import { BoardProps } from './boardSlice';
-import { AnyAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface AllBoardsProps {
   boards: BoardProps[];
@@ -14,42 +14,26 @@ export const initialState: BoardProps[] =
     },
   ]
 
-
 let boardId = 13;
 
-export const boardsReducer = (state = initialState, action: AnyAction ) => {
-  switch (action.type) {
-    case "add_board":
+export const boardsSlice = createSlice({
+  name: 'boards',
+  initialState,
+  reducers: {
+    add_board: (state = initialState, action) => {
       const newBoard = {
         id: boardId.toString(),
         title: action.payload.title,
-        description: action.payload.description,
+        description: 'new description',
       }
       boardId++;
       console.dir(state);
       console.log(`in boardsReduce title is ${newBoard.title}`);
       return [...state, newBoard];
-    default: 
-      return state;
+    }
   }
-}
-
-export const boardsSlice = createSlice({
-  name: 'boards',
-  initialState,
-  reducers: { boardsReducer },
-  // reducers: {
-  //   add_board: (state, action) =>{
-  //     const newBoard = {
-  //       title: action.payload.title,
-  //       description: action.payload.description,
-  //     }
-  //     console.dir(state);
-  //     return [...state, newBoard];
-  //   }
-  // }
 });
 
-// export const { add_board } = boardsSlice.actions;
+export const { add_board } = boardsSlice.actions;
 
 export default boardsSlice.reducer;

@@ -5,6 +5,7 @@ import { useState } from "react";
 import TextArea from "react-textarea-autosize";
 import { connect, useDispatch } from "react-redux";
 import { addBoard } from "../../store/reducers/boardsActions";
+import { add_board } from "../../store/reducers/boardsSlice";
 
 export function AddBoardButton() {
 	const [state, setState] = useState({
@@ -38,7 +39,8 @@ export function AddBoardButton() {
   function handleAddBoard () {
     const { title } = state;
     if (title) {
-      dispatch(addBoard(title));      
+      // dispatch(addBoard(title));
+      dispatch(add_board({title: title})); 
     }
   }
 
