@@ -2,11 +2,10 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
-import TextArea from "react-textarea-autosize";
 import { connect, useDispatch } from "react-redux";
 import { add_board } from "../../store/reducers/boardsSlice";
-import { Description } from "@mui/icons-material";
 import { TextField } from "@mui/material";
+import { createBoard } from "../../services/apiBoardProvider";
 
 export function AddBoardButton() {
 	const [state, setState] = useState({
@@ -45,8 +44,9 @@ export function AddBoardButton() {
 		});
 	}
 
-  function handleAddBoard () {
+  async function handleAddBoard () {
     const { title, description } = state;
+
     if (title) {
       dispatch(add_board({
         title: title,
@@ -57,6 +57,11 @@ export function AddBoardButton() {
         title: '',
         description: '',
       });
+      const boardApi = await createBoard({
+        title: title,
+        description: description,
+      });
+      console.dir(boardApi);
     }
   }
 
@@ -107,7 +112,6 @@ export function AddBoardButton() {
           />
           <TextField
             placeholder="Enter description"
-						// autoFocus
 						value={state.description}
 						onChange={handleInputDescriptionChange}
 						style={{
