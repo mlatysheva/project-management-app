@@ -14,7 +14,7 @@ export const initialState: BoardProps[] =
     },
   ]
 
-let boardId = 13;
+// let boardId = 13;
 
 export const boardsSlice = createSlice({
   name: 'boards',
@@ -22,11 +22,12 @@ export const boardsSlice = createSlice({
   reducers: {
     add_board: (state = initialState, action) => {
       const newBoard = {
-        id: boardId.toString(),
+        // id: boardId.toString(),
+        id: action.payload.title,
         title: action.payload.title,
         description: action.payload.description,
       }
-      boardId++;
+      // boardId++;
       console.dir(state);
       console.log(`in boardsReduce title is ${newBoard.title}`);
       return [...state, newBoard];
