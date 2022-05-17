@@ -1,11 +1,8 @@
 import axios from 'axios'; 
 import { handleResponse, handleError } from './response'; 
-import { BASE_URL, userCredentials } from './api';
+import { BASE_URL, config } from './api';
 import { SigninProps, UserProps } from '../store/signup/userOptions';
 
-const config = {
-  headers: { Authorization: `Bearer ${userCredentials.token}` }
-};
 
 export const getAllUsers = () => { 
   return axios 

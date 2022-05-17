@@ -12,4 +12,8 @@ export const userCredentials = {
   userId: "3080df58-6af2-446b-89af-d9f201291383",
 }
 
+export const config = {
+  headers: { Authorization: `Bearer ${userCredentials.token}` }
+};
+
 export default instaceApi;
