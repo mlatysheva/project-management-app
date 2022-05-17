@@ -50,13 +50,10 @@ export function AddBoardButton() {
 
     if (title) {
       const boardApi = await createBoard({
-        id: id,
         title: title,
         description: description,
       });
-      console.dir(boardApi);
       const boardId = boardApi.id;
-      console.log(`boardId is ${boardId}`);
       dispatch(add_board({
         id: boardId,
         title: title,

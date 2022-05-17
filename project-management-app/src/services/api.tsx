@@ -6,7 +6,6 @@ const instaceApi = axios.create({
 	timeout: 5000,
 });
 
-// TODO: сохранять токен в ЛС и записывать его сюда оттуда
 export const userCredentials = {
   token: localStorage.getItem('userToken'),
 }

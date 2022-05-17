@@ -1,7 +1,6 @@
-import { AllBoardsProps, delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
+import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
 import { BoardProps } from '../../store/reducers/boardSlice';
 import AddBoardButton from '../Board/AddBoardButton';
-import { BoardPreviewCard } from './BoardPreviewCard';
 import { deleteBoard, getAllBoards } from '../../services/apiBoardProvider';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,7 +12,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useNavigate } from 'react-router-dom';
-import { Description } from '@mui/icons-material';
 
 type TitleProps = {
   title: string;
@@ -24,40 +22,26 @@ export function Title({ title = '' }: TitleProps) {
   return <h1>{title}</h1>
 }
 
-// export async function getBoards() {
-//   return await getAllBoards();
-// }
-
 export function Boards() {
   const dispatch = useDispatch();
   let boards = useAppSelector((state) => state.boards);
-  let boardId = '';
 
   useEffect(() => {
     const fetchData = async () => {
       boards = await getAllBoards();
-      console.dir(boards);
-      dispatch(get_allBoards(boards));
+      if (boards.length === 0 ) {
+        boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
+      }
+      dispatch(get_allBoards(boards));      
     }
     fetchData()
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      boards = await deleteBoard(boardId);
-      dispatch(delete_board(boardId));
-    }
-    fetchData()
-      .catch(console.error);
-  }, []);
-
-  if (boards == undefined ) {
-    boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}]
-  }
-
-  function handleDeleteBoard(id: string) {
-    alert(`The board with id: ${id} will be removed!`);
+  async function handleDeleteBoard(boardId: string) {
+    alert(`The board with id: ${boardId} will be removed!`);
+    dispatch(delete_board(boardId));
+    await deleteBoard(boardId);
   }
 
   const styles = {
@@ -78,7 +62,6 @@ export function Boards() {
       <Title title="Your boards" />
       <div className="boards-container">
         {boards.map((board: BoardProps) => 
-        // <BoardPreviewCard key={board.id} id={board.id} title={board.title} description={board.description} />
           <div style={styles.container}>
             <h2 onClick={() => navigate('/editboard')}>{board.title}</h2>
             <Card className="card" sx={{ minWidth: 275 }}>

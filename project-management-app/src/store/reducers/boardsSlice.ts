@@ -34,8 +34,11 @@ export const boardsSlice = createSlice({
 
     delete_board: (state, action) => {
       const boardId = action.payload;
-      const newState = state.filter(board => board.id != boardId);
-      return newState;
+      let newList = state.filter(board => board.id != boardId);
+      if (newList === []) {
+        newList = initialState;
+      }
+      return newList;
     }
   }
 });
