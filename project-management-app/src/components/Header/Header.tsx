@@ -109,9 +109,7 @@ function Header(localStorage: any) {
 						<AddBoxIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
-				<Tooltip title="Language">
 					<SelectLanguage />
-				</Tooltip>
 			</nav>
 		</header>
 	);

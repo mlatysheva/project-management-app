@@ -3,6 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useTranslation} from 'react-i18next';
+import Tooltip from "@mui/material/Tooltip";
 
 interface Lngs {
   [key: string]: string | undefined;
@@ -27,7 +28,9 @@ export default function SelectLanguage() {
 
   return (
     <div>
-      <LanguageIcon style={{cursor: 'pointer'}} fontSize="large" onClick={handleMenu}></LanguageIcon>
+      <Tooltip title="Language">
+        <LanguageIcon style={{cursor: 'pointer'}} fontSize="large" onClick={handleMenu}></LanguageIcon>
+      </Tooltip>
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}
