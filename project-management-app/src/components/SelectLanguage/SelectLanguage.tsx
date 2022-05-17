@@ -3,6 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useTranslation} from 'react-i18next';
+import Tooltip from "@mui/material/Tooltip";
 
 interface Lngs {
   [key: string]: string | undefined;
@@ -15,7 +16,7 @@ const lngs:Lngs = {
 export default function SelectLanguage() {
   
   const [anchorEl, setAnchorEl] = React.useState<null | SVGElement>(null);
-  const {i18n} = useTranslation();
+  const {i18n, t } = useTranslation();
 
    const handleMenu = (event: React.MouseEvent<SVGElement>) => {
     setAnchorEl(event.currentTarget);
@@ -27,7 +28,9 @@ export default function SelectLanguage() {
 
   return (
     <div>
-      <LanguageIcon style={{cursor: 'pointer'}} fontSize="large" onClick={handleMenu}></LanguageIcon>
+      <Tooltip title={t("language")}>
+        <LanguageIcon style={{cursor: 'pointer'}} fontSize="large" onClick={handleMenu}></LanguageIcon>
+      </Tooltip>
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}
