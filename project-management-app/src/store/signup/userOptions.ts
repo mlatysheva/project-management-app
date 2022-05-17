@@ -9,14 +9,14 @@ export interface registerProps {
 }
 
 export interface UserProps {
-  name: string;
-  login: string;
-  password: string;
+	name: string;
+	login: string;
+	password: string;
 }
 
 export interface SigninProps {
-  login: string;
-  password: string;
+	login: string;
+	password: string;
 }
 
 export const registerSlice = createSlice({
@@ -34,10 +34,13 @@ export const registerSlice = createSlice({
 		logout: (state) => {
 			state.register = null;
 		},
+		edit: (state, action) => {
+			state.register = action.payload;
+		},
 	},
 });
 
-export const { signup, signin, logout } = registerSlice.actions;
+export const { signup, signin, logout, edit } = registerSlice.actions;
 
 export const selectUser = (state: { register: { register: registerProps } }) =>
 	state.register.register;

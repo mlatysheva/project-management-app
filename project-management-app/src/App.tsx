@@ -33,7 +33,7 @@ function useLocalStorage(key: string, initialState: string) {
 
 function App() {
 	let [localStorage, setToken] = useLocalStorage("userToken", "");
-  const boards = useAppSelector((state) => state.boards);
+	const boards = useAppSelector((state) => state.boards);
 
 	return (
 		<div className="App">
@@ -45,16 +45,16 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/signin" element={<Signin updateToken={setToken} />} />
-						<Route path="/edit" element={<EditProfile />} />
+						<Route
+							path="/edit"
+							element={<EditProfile updateToken={setToken} />}
+						/>
 						<Route path="/signup" element={<Register />} />
 						<Route path="/logout" element={<Logout updateToken={setToken} />} />
 						<Route path="/project-management-app" element={<Home />} />
-						<Route
-							path="/boards"
-							element={<Boards boards={boards} />}
-						/>
+						<Route path="/boards" element={<Boards boards={boards} />} />
 						<Route path="/createboard" element={<CreateBoard />} />
-            <Route path="/editboard" element={<EditBoard />} />
+						<Route path="/editboard" element={<EditBoard />} />
 						<Route path="error" element={<ErrorPage />} />
 						<Route path="*" element={<ErrorPage />} />
 					</Routes>
