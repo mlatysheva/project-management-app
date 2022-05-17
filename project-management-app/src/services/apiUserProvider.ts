@@ -16,7 +16,20 @@ export const getUser = (userId: string) => {
     .get(`${BASE_URL}users/${userId}`, config) 
     .then(handleResponse) 
     .catch(handleError); 
-}; 
+};
+
+interface UserIdProps {
+  id: string,
+  name: string,
+  login: string,
+}
+
+export async function getUserByLogin(login: string) {
+  const users = await getAllUsers();
+  const soughtUser: UserIdProps = users.filter((user: UserIdProps) => user.login == login)[0];
+  console.log(soughtUser.id);
+  return soughtUser.id;
+}
 
 export const deleteUser = (userId: string) => {
   return axios
