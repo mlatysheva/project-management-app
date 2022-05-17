@@ -6,22 +6,35 @@ import { useTranslation } from "react-i18next";
 import {
 	applyColorLogin,
 	applyColorName,
-	applyColorPassword,
+	applyColorPasswordShow,
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
 import { edit, signup } from "../../store/signup/userOptions";
 import { deleteUser, updateUser } from "../../services/apiUserProvider";
 import "./edit.css";
+import "../passwordShowHide/passwordField.css";
 
 function EditForm({ updateToken }: any) {
 	const [name, setName] = useState("");
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
+	const [show, setShow] = useState("Show");
+	const [passwordShown, setPasswordShown] = useState(false);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const { t } = useTranslation();
+
+	const togglePassword = () => {
+		setPasswordShown(!passwordShown);
+		if (!passwordShown) {
+			setShow("Hide");
+		}
+		if (passwordShown) {
+			setShow("Show");
+		}
+	};
 
 	async function toServerEdit(register: Record<string, string>): Promise<any> {
 		//should be put
@@ -106,18 +119,23 @@ function EditForm({ updateToken }: any) {
 					title="login min 4 symbols..."
 					required
 				/>
-				<input
-					className="signup__input"
-					onKeyUp={applyColorPassword}
-					type="password"
-					placeholder={t("password")}
-					id="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					pattern="{6,}"
-					title="Put minimum 6 symbols"
-					required
-				/>
+				<div className="row__password">
+					<input
+						className="password__input"
+						onKeyUp={applyColorPasswordShow}
+						type={passwordShown ? "text" : "password"}
+						id="password"
+						placeholder={t("password")}
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						pattern="{6,}"
+						title="Put minimum 6 symbols"
+						required
+					/>
+					<button className="show__btn" onClick={togglePassword}>
+						{show}
+					</button>
+				</div>
 				<button type="submit" className="signup__btn">
 					{t("editBtn")}
 				</button>
