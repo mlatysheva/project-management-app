@@ -18,7 +18,7 @@ function EditForm({ updateToken }: any) {
 	const [name, setName] = useState("");
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
-	const [show, setShow] = useState("Show");
+	const [show, setShow] = useState("🙈");
 	const [passwordShown, setPasswordShown] = useState(false);
 
 	const dispatch = useDispatch();
@@ -29,10 +29,10 @@ function EditForm({ updateToken }: any) {
 	const togglePassword = () => {
 		setPasswordShown(!passwordShown);
 		if (!passwordShown) {
-			setShow("Hide");
+			setShow("🙉");
 		}
 		if (passwordShown) {
-			setShow("Show");
+			setShow("🙈");
 		}
 	};
 
@@ -77,7 +77,7 @@ function EditForm({ updateToken }: any) {
 	};
 
 	const deleteUserById = () => {
-		alert("Are you sure that you want delete this user?");
+		alert(t("alert"));
 		const id = localStorage.getItem("id");
 		if (id) {
 			deleteUser(id).then((res) => {
