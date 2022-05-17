@@ -4,7 +4,6 @@ import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import TextArea from "react-textarea-autosize";
 import { connect, useDispatch } from "react-redux";
-import { addBoard } from "../../store/reducers/boardsActions";
 import { addTask } from "../../store/reducers/taskActions";
 
 interface AddButtonProps {

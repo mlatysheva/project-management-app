@@ -10,6 +10,7 @@ import { createBoard } from "../../services/apiBoardProvider";
 export function AddBoardButton() {
 	const [state, setState] = useState({
 		formOpen: false,
+    id: "",
 		title: "",
     description: "",
 	});
@@ -45,10 +46,11 @@ export function AddBoardButton() {
 	}
 
   async function handleAddBoard () {
-    const { title, description } = state;
+    const { id, title, description } = state;
 
     if (title) {
       const boardApi = await createBoard({
+        id: id,
         title: title,
         description: description,
       });
@@ -64,8 +66,7 @@ export function AddBoardButton() {
         ...state,
         title: '',
         description: '',
-      });
-      
+      });      
     }
   }
 

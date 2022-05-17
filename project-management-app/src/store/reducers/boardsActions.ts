@@ -1,4 +1,4 @@
-export const addBoard
+export const addBoard2
  = (title: string) => {
   return {
     type: "add_board",

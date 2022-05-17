@@ -5,7 +5,7 @@ import { BoardProps } from '../store/reducers/boardSlice';
 
 export const getAllBoards = () => { 
   return axios 
-    .get(`${BASE_URL}boards`) 
+    .get(`${BASE_URL}boards`, config) 
     .then(handleResponse) 
     .catch(handleError); 
 };
@@ -24,9 +24,9 @@ export const getBoard = (boardId: string) => {
     .catch(handleError); 
 }; 
 
-export const deleteBoard = (userId: string) => {
+export const deleteBoard = (boardId: string) => {
   return axios
-    .delete(`${BASE_URL}boards/${userId}`)
+    .delete(`${BASE_URL}boards/${boardId}`)
     .then(handleResponse)
     .catch(handleError);
 }

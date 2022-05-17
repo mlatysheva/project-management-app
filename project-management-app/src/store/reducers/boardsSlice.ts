@@ -14,27 +14,32 @@ export const initialState: BoardProps[] =
     },
   ]
 
-// let boardId = 13;
-
 export const boardsSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
+    get_allBoards: (state: BoardProps[] = [], action) => {
+      const boards: BoardProps[] = action.payload;
+      return [...boards];
+    },
+
     add_board: (state = initialState, action) => {
       const newBoard = {
-        // id: boardId.toString(),
-        id: action.payload.title,
+        id: action.payload.id,
         title: action.payload.title,
         description: action.payload.description,
       }
-      // boardId++;
-      console.dir(state);
-      console.log(`in boardsReduce title is ${newBoard.title}`);
       return [...state, newBoard];
+    },
+
+    delete_board: (state, action) => {
+      const boardId = action.payload;
+      const newState = state.filter(board => board.id != boardId);
+      return newState;
     }
   }
 });
 
-export const { add_board } = boardsSlice.actions;
+export const { add_board, get_allBoards, delete_board } = boardsSlice.actions;
 
 export default boardsSlice.reducer;
