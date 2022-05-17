@@ -123,9 +123,11 @@ button:active {
 	height: 100%;
 }
 
-.lists-container {
+.boards-container {
+  max-width: 1440px;
 	display: flex;
 	flex-direction: row;
+  flex-wrap: wrap;
 	justify-content: flex-start;
 }
 
