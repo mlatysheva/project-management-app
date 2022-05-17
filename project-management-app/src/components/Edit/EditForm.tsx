@@ -6,34 +6,47 @@ import { useTranslation } from "react-i18next";
 import {
 	applyColorLogin,
 	applyColorName,
-	applyColorPassword,
+	applyColorPasswordShow,
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
 import { edit, signup } from "../../store/signup/userOptions";
 import { deleteUser, updateUser } from "../../services/apiUserProvider";
 import "./edit.css";
+import "../passwordShowHide/passwordField.css";
 
 function EditForm({ updateToken }: any) {
 	const [name, setName] = useState("");
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
+	const [show, setShow] = useState("🙈");
+	const [passwordShown, setPasswordShown] = useState(false);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const { t } = useTranslation();
 
+	const togglePassword = () => {
+		setPasswordShown(!passwordShown);
+		if (!passwordShown) {
+			setShow("🙉");
+		} else {
+			setShow("🙈");
+		}
+	};
+
 	async function toServerEdit(register: Record<string, string>): Promise<any> {
 		//should be put
 		try {
 			let response = await instaceApi.post(`/signup`, register);
-			console.log(`response ${JSON.stringify(response.data)}`);
+			//console.log(`response ${JSON.stringify(response.data)}`);
 			return response.data;
 		} catch (e) {
 			console.error(e);
 		} finally {
 			const { id } = register;
 			localStorage.setItem("id", id);
+			console.log(`register in edit = ${register}`);
 		}
 	}
 
@@ -60,11 +73,12 @@ function EditForm({ updateToken }: any) {
 			const { name, login, id } = register;
 			console.log(name, login);
 			localStorage.setItem("id", id);
+			console.log(`register in handleSubmit name= ${name}, login= ${login} `);
 		});
 	};
 
 	const deleteUserById = () => {
-		alert("Are you sure that you want delete this user?");
+		alert(t("alert"));
 		const id = localStorage.getItem("id");
 		if (id) {
 			deleteUser(id).then((res) => {
@@ -91,7 +105,6 @@ function EditForm({ updateToken }: any) {
 					onChange={(e) => setName(e.target.value)}
 					//pattern="[A-Za-z]{2,}"
 					title="Just latin letters, min 2 symbols"
-					required
 				/>
 				<input
 					className="signup__input"
@@ -104,20 +117,23 @@ function EditForm({ updateToken }: any) {
 					pattern="{4,}"
 					//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
 					title="login min 4 symbols..."
-					required
 				/>
-				<input
-					className="signup__input"
-					onKeyUp={applyColorPassword}
-					type="password"
-					placeholder={t("password")}
-					id="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					pattern="{6,}"
-					title="Put minimum 6 symbols"
-					required
-				/>
+				<div className="row__password">
+					<input
+						className="password__input"
+						onKeyUp={applyColorPasswordShow}
+						type={passwordShown ? "text" : "password"}
+						id="password"
+						placeholder={t("password")}
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						pattern="{6,}"
+						title="Put minimum 6 symbols"
+					/>
+					<button className="show__btn" onClick={togglePassword}>
+						{show}
+					</button>
+				</div>
 				<button type="submit" className="signup__btn">
 					{t("editBtn")}
 				</button>
