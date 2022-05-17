@@ -1,9 +1,9 @@
 import EditForm from "./EditForm";
 
-export function EditProfile() {
+export function EditProfile({ updateToken }: any) {
 	return (
 		<div className="main">
-			<EditForm />
+			<EditForm updateToken={updateToken} />
 		</div>
 	);
 }
