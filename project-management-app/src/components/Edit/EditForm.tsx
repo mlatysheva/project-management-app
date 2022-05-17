@@ -30,8 +30,7 @@ function EditForm({ updateToken }: any) {
 		setPasswordShown(!passwordShown);
 		if (!passwordShown) {
 			setShow("🙉");
-		}
-		if (passwordShown) {
+		} else {
 			setShow("🙈");
 		}
 	};
@@ -40,13 +39,14 @@ function EditForm({ updateToken }: any) {
 		//should be put
 		try {
 			let response = await instaceApi.post(`/signup`, register);
-			console.log(`response ${JSON.stringify(response.data)}`);
+			//console.log(`response ${JSON.stringify(response.data)}`);
 			return response.data;
 		} catch (e) {
 			console.error(e);
 		} finally {
 			const { id } = register;
 			localStorage.setItem("id", id);
+			console.log(`register in edit = ${register}`);
 		}
 	}
 
@@ -73,6 +73,7 @@ function EditForm({ updateToken }: any) {
 			const { name, login, id } = register;
 			console.log(name, login);
 			localStorage.setItem("id", id);
+			console.log(`register in handleSubmit name= ${name}, login= ${login} `);
 		});
 	};
 
@@ -104,7 +105,6 @@ function EditForm({ updateToken }: any) {
 					onChange={(e) => setName(e.target.value)}
 					//pattern="[A-Za-z]{2,}"
 					title="Just latin letters, min 2 symbols"
-					required
 				/>
 				<input
 					className="signup__input"
@@ -117,7 +117,6 @@ function EditForm({ updateToken }: any) {
 					pattern="{4,}"
 					//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
 					title="login min 4 symbols..."
-					required
 				/>
 				<div className="row__password">
 					<input
@@ -130,7 +129,6 @@ function EditForm({ updateToken }: any) {
 						onChange={(e) => setPassword(e.target.value)}
 						pattern="{6,}"
 						title="Put minimum 6 symbols"
-						required
 					/>
 					<button className="show__btn" onClick={togglePassword}>
 						{show}
