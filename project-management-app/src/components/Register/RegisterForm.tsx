@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { signup } from "../../store/signup/userOptions";
+import { signup } from "../../store/user/userOptions";
 import "./register.css";
 import { useNavigate } from "react-router-dom";
 import instaceApi from "../../services/api";
@@ -60,9 +60,9 @@ function SignupForm() {
 			})
 		);
 		//send it to the server
-		toServerRegister({ name, login, password }).then((register) =>
-			console.log(register)
-		);
+		toServerRegister({ name, login, password }).then((register) => {
+			console.log(register);
+		});
 		navigate("/signin");
 		disableBtnIn = true;
 	};

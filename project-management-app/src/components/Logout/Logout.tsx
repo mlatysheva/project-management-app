@@ -2,7 +2,7 @@ import { MouseEvent } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout, selectUser } from "../../store/signup/userOptions";
+import { logout, selectUser } from "../../store/user/userOptions";
 import "./logout.css";
 
 function Logout({ updateToken }: any) {

@@ -6,8 +6,8 @@ import {
 	applyColorName,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
-import instaceApi from "../../services/api";
-import { signup } from "../../store/signup/userOptions";
+import { signup } from "../../store/user/userOptions";
+import toEditInServer from "../../withServerContacts/forEdit";
 import "./edit.css";
 
 function EditForm() {
@@ -15,21 +15,8 @@ function EditForm() {
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
 
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	async function toServerRegister(
-		register: Record<string, string>
-	): Promise<any> {
-		try {
-			let response = await instaceApi.post(`/signup`, register);
-			console.log(`response ${JSON.stringify(response.data)}`);
-			return response.data;
-		} catch (e) {
-			console.error(e);
-		} finally {
-		}
-	}
+	const dispatch = useDispatch();
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -40,9 +27,8 @@ function EditForm() {
 				password: password,
 			})
 		);
-		//send it to the server
-		toServerRegister({ name, login, password }).then((register) =>
-			console.log(register)
+		toEditInServer({ name, login, password }).then((register) =>
+			console.log(`register=${register}`)
 		);
 	};
 
