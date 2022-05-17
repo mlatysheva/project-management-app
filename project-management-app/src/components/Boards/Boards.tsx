@@ -62,7 +62,7 @@ export function Boards() {
       <Title title="Your boards" />
       <div className="boards-container">
         {boards.map((board: BoardProps) => 
-          <div style={styles.container}>
+          <div style={styles.container} key={board.id}>
             <h2 onClick={() => navigate('/editboard')}>{board.title}</h2>
             <Card className="card" sx={{ minWidth: 275 }}>
               <CardContent>
