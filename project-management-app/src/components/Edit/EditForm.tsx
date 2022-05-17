@@ -10,7 +10,11 @@ import {
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
 import { edit, signup } from "../../store/signup/userOptions";
-import { deleteUser, updateUser } from "../../services/apiUserProvider";
+import {
+	deleteUser,
+	getUserByLogin,
+	updateUser,
+} from "../../services/apiUserProvider";
 import "./edit.css";
 import "../passwordShowHide/passwordField.css";
 
@@ -35,46 +39,39 @@ function EditForm({ updateToken }: any) {
 		}
 	};
 
-	async function toServerEdit(register: Record<string, string>): Promise<any> {
+	/*async function toServerEdit(register: Record<string, string>): Promise<any> {
 		//should be put
 		try {
-			let response = await instaceApi.post(`/signup`, register);
+			let response = await instaceApi.put(`/signup/${id}`, register);
 			//console.log(`response ${JSON.stringify(response.data)}`);
 			return response.data;
 		} catch (e) {
 			console.error(e);
 		} finally {
-			const { id } = register;
-			localStorage.setItem("id", id);
 			console.log(`register in edit = ${register}`);
 		}
-	}
+	}*/
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const id = localStorage.getItem("id");
+		/*const id = localStorage.getItem("id");
 		if (id !== null) {
 			updateUser(id, {
 				name: name,
 				login: login,
 				password: password,
 			});
-		}
+		}*/
 		dispatch(
-			//should be edit
-			signup({
+			edit({
 				name: name,
 				login: login,
 				password: password,
 			})
 		);
+
+		await getUserByLogin("cat15");
 		//send it to the server
-		toServerEdit({ name, login, password }).then((register) => {
-			const { name, login, id } = register;
-			console.log(name, login);
-			localStorage.setItem("id", id);
-			console.log(`register in handleSubmit name= ${name}, login= ${login} `);
-		});
 	};
 
 	const deleteUserById = () => {

@@ -7,11 +7,23 @@ const instaceApi = axios.create({
 });
 
 export const userCredentials = {
-  token: localStorage.getItem('userToken'),
-}
+	token: localStorage.getItem("userToken"),
+};
 
 export const config = {
-  headers: { Authorization: `Bearer ${userCredentials.token}` }
+	headers: { Authorization: `Bearer ${userCredentials.token}` },
+};
+
+export const userCredentialsWorking = () => {
+	return {
+		token: localStorage.getItem("userToken"),
+	};
+};
+
+export const configWorking = () => {
+	return {
+		headers: { Authorization: `Bearer ${userCredentialsWorking().token}` },
+	};
 };
 
 export default instaceApi;
