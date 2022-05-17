@@ -6,6 +6,7 @@ import { connect, useDispatch } from "react-redux";
 import { add_board } from "../../store/reducers/boardsSlice";
 import { TextField } from "@mui/material";
 import { createBoard } from "../../services/apiBoardProvider";
+import { getAllUsers, getUserByLogin } from "../../services/apiUserProvider";
 
 export function AddBoardButton() {
 	const [state, setState] = useState({
@@ -65,6 +66,7 @@ export function AddBoardButton() {
         description: '',
       });      
     }
+    // await getUserByLogin('pila15');
   }
 
 	function renderButton() {
