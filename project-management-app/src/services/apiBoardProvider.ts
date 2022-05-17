@@ -1,15 +1,11 @@
 import axios from 'axios'; 
 import { handleResponse, handleError } from './response'; 
-import { BASE_URL, userCredentials } from './api';
+import { BASE_URL, config } from './api';
 import { BoardProps } from '../store/reducers/boardSlice';
-
-const config = {
-  headers: { Authorization: `Bearer ${userCredentials.token}` }
-};
 
 export const getAllBoards = () => { 
   return axios 
-    .get(`${BASE_URL}/boards`) 
+    .get(`${BASE_URL}boards`) 
     .then(handleResponse) 
     .catch(handleError); 
 };
