@@ -26,7 +26,7 @@ interface UserIdProps {
 
 export async function getUserByLogin(login: string) {
   const users = await getAllUsers();
-  const soughtUser: UserIdProps = users.filter((user: UserIdProps) => user.login == login)[0];
+  const soughtUser: UserIdProps = users.filter((user: UserIdProps) => user.login === login)[0];
   console.log(soughtUser.id);
   return soughtUser.id;
 }
