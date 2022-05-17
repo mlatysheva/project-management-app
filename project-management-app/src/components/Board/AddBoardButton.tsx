@@ -48,7 +48,15 @@ export function AddBoardButton() {
     const { title, description } = state;
 
     if (title) {
+      const boardApi = await createBoard({
+        title: title,
+        description: description,
+      });
+      console.dir(boardApi);
+      const boardId = boardApi.id;
+      console.log(`boardId is ${boardId}`);
       dispatch(add_board({
+        id: boardId,
         title: title,
         description: description,
       })); 
@@ -57,11 +65,7 @@ export function AddBoardButton() {
         title: '',
         description: '',
       });
-      const boardApi = await createBoard({
-        title: title,
-        description: description,
-      });
-      console.dir(boardApi);
+      
     }
   }
 
