@@ -7,6 +7,7 @@ import {
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
 import { selectUser, signin } from "../../store/signup/userOptions";
+import { useTranslation } from "react-i18next";
 
 import "./signin.css";
 
@@ -71,6 +72,8 @@ function SigninForm({ updateToken }: any) {
 		navigate("/");
 	};
 
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<form
@@ -78,12 +81,12 @@ function SigninForm({ updateToken }: any) {
 				onSubmit={(e) => handleSubmitSignin(e)}
 				onChange={isDisabledSignin}
 			>
-				<h1>If you want to signin 🎫:</h1>
+				<h1>{t('h1_signin')} 🎫:</h1>
 				<input
 					className="signup__input"
 					onKeyUp={applyColorLogin}
 					type="text"
-					placeholder="Login"
+					placeholder={t("login")}
 					id="login-signin"
 					value={/*register.login?.toString() || */ login}
 					onChange={(e) => setLogin(e.target.value)}
@@ -96,7 +99,7 @@ function SigninForm({ updateToken }: any) {
 					onKeyUp={applyColorPassword}
 					id="password-signin"
 					type="password"
-					placeholder="Password"
+					placeholder={t("password")}
 					value={/*register.password?.toString() || */ password}
 					onChange={(e) => setPassword(e.target.value)}
 					pattern="{6,}"
@@ -108,18 +111,18 @@ function SigninForm({ updateToken }: any) {
 					className="signup__btn"
 					disabled={disableBtnInSignin}
 				>
-					Signin
+					{t("signin")}
 				</button>
 			</form>
 			<div className="row">
-				<h2>No account?</h2>
+				<h2>{t('no_account')}</h2>
 				<button
 					className="toRegister__btn"
 					onClick={(e) => {
 						navigate("/signup");
 					}}
 				>
-					click there
+					{t('click')}
 				</button>
 			</div>
 		</>
