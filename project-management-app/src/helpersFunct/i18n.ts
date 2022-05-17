@@ -1,7 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import { RuleFolder } from "@mui/icons-material";
 
 i18n
 	// detect user language
@@ -51,6 +50,14 @@ i18n
 					show: "Show",
 					hide: "Hide",
 					alert: "Are you sure that you want delete this user?",
+					logout: "Logout",
+					signin: "Sign in",
+					signup: "Sign up",
+					add: "Add new board",
+					language: "Language",
+					boards: "Your boards",
+					create: "Create new board",
+					error: "Error",
 				},
 			},
 			ru: {
@@ -88,6 +95,14 @@ i18n
 					show: "Показать",
 					hide: "Скрыть",
 					alert: "Ты уверен, что хочешь удалиться навсегда?",
+					logout: "Выйти",
+					signin: "Войти",
+					signup: "Зарегистрироваться",
+					add: "Добавить проект",
+					language: "Язык",
+					boards: "Ваши доски",
+					create: "Создать доску",
+					error: "Ошибка",
 				},
 			},
 		},

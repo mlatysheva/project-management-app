@@ -13,34 +13,33 @@ import { useTranslation} from 'react-i18next';
 
 export function CurrentPage() {
 	const location = useLocation();
+	const { t } = useTranslation();
 	const getCurrentPage = () => {
 		switch (location.pathname) {
 			case "/":
-				return "Home";
+				return t('home');
 			case "/signup":
-				return "Register";
+				return t("signup");
 			case "/signin":
-				return "Signin";
+				return t("signin");
 			case "/logout":
-				return "Logout";
+				return t("logout");
 			case "/project-management-app":
-				return "Home";
+				return t('home');
 			case "/boards":
-				return "Boards";
+				return t("boards");
 			case "/createboard":
-				return "Create Board";
+				return t("create");
       case "/editboard":
-				return "Edit Board";
+				return t("edit");
 			case "/edit":
-				return "Edit";
+				return t("edit");
 			case "/error":
 				return "Error";
 			default:
-				return "Error";
+				return t("error");
 		}
 	};
-
-	const { t } = useTranslation();
 
 	return (
 		<div className="current-page-title">
@@ -79,12 +78,12 @@ function Header(localStorage: any) {
 				{localStorage.token ? (
 					<>
 						<NavLink to="/logout">
-							<Tooltip title="Logout">
+							<Tooltip title={t("logout")}>
 								<LogoutIcon fontSize="large" />
 							</Tooltip>
 						</NavLink>
 						<NavLink to="/edit">
-							<Tooltip title="Edit profile">
+							<Tooltip title={t("edit")}>
 								<EditIcon fontSize="large" />
 							</Tooltip>
 						</NavLink>
@@ -92,24 +91,24 @@ function Header(localStorage: any) {
 				) : (
 					<>
 						<NavLink to="/signin">
-							<Tooltip title="Signin">
+							<Tooltip title={t("signin")}>
 								<LoginIcon fontSize="large" />
 							</Tooltip>
 						</NavLink>
 						<NavLink to="/signup">
-							<Tooltip title="Register">
+							<Tooltip title={t("signup")}>
 								<HowToRegIcon fontSize="large" />
 							</Tooltip>
 						</NavLink>
 					</>
 				)}
-				<NavLink to="boards">Your Boards</NavLink>
+				<NavLink to="boards">{t('boards')}</NavLink>
 				<NavLink to="/createboard">
-					<Tooltip title="Add new Board">
+					<Tooltip title={t("add")}>
 						<AddBoxIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
-					<SelectLanguage />
+				<SelectLanguage />
 			</nav>
 		</header>
 	);

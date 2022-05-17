@@ -16,7 +16,7 @@ const lngs:Lngs = {
 export default function SelectLanguage() {
   
   const [anchorEl, setAnchorEl] = React.useState<null | SVGElement>(null);
-  const {i18n} = useTranslation();
+  const {i18n, t } = useTranslation();
 
    const handleMenu = (event: React.MouseEvent<SVGElement>) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +28,7 @@ export default function SelectLanguage() {
 
   return (
     <div>
-      <Tooltip title="Language">
+      <Tooltip title={t("language")}>
         <LanguageIcon style={{cursor: 'pointer'}} fontSize="large" onClick={handleMenu}></LanguageIcon>
       </Tooltip>
       <Menu
