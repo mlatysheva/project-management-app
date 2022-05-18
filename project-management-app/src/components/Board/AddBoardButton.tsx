@@ -6,11 +6,12 @@ import { connect, useDispatch } from "react-redux";
 import { add_board } from "../../store/reducers/boardsSlice";
 import { TextField } from "@mui/material";
 import { createBoard } from "../../services/apiBoardProvider";
-import { getAllUsers, getUserByLogin } from "../../services/apiUserProvider";
+import { create_board } from "../../store/reducers/boardSlice";
 
-export function AddBoardButton() {
+export function AddBoardButton(props: {formOpen: boolean, toHide: boolean}) {
 	const [state, setState] = useState({
-		formOpen: false,
+		formOpen: props.formOpen,
+    toHide: props.toHide,
     id: "",
 		title: "",
     description: "",
@@ -59,18 +60,24 @@ export function AddBoardButton() {
         id: boardId,
         title: title,
         description: description,
+      }));
+      dispatch(create_board({
+        id: boardId,
+        title: title,
+        description: description,
       })); 
       setState({
         ...state,
         title: '',
         description: '',
-      });      
+        formOpen: false,
+        toHide: props.toHide,
+      });
     }
-    // await getUserByLogin('pila15');
   }
 
 	function renderButton() {
-		return (
+    return state.toHide ? null : (
 			<div
 				className="add-button"
 				style={{

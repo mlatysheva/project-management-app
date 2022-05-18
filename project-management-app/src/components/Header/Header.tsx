@@ -29,9 +29,9 @@ export function CurrentPage() {
 			case "/boards":
 				return t("boards");
 			case "/createboard":
-				return t("create");
+				return t("create_board");
       case "/editboard":
-				return t("edit");
+				return t("edit_board");
 			case "/edit":
 				return t("edit");
 			case "/error":

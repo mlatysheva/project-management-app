@@ -1,7 +1,5 @@
 import { BoardProps } from './boardSlice';
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllBoards } from '../../services/apiBoardProvider';
-
 export interface AllBoardsProps {
   boards: BoardProps[];
 }

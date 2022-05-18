@@ -1,3 +1,4 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { ColumnProps } from "./columnsSlice";
 
 export interface BoardProps {
@@ -8,14 +9,26 @@ export interface BoardProps {
 }
 
 const initialState: BoardProps = {
-  id: '01',
-  title: "Task: figure out how this crazy shit works",  
-  description: "My mind is going to blow out",
+  id: '',
+  title: '',  
+  description: '',
 }
 
-export const boardReducer = (state = initialState, action: { type: string; }) => {
-  switch (action.type) {
-    default: 
-      return state;
+export const boardSlice = createSlice({
+  name: 'board',
+  initialState,
+  reducers: {
+    create_board: (state: BoardProps = initialState, action) => {
+      const board: BoardProps = action.payload;
+      return board;
+    },
+    clear_board: () => {
+      const newState = initialState; 
+      return newState;
+    }
   }
-}
+});
+
+export const { create_board, clear_board } = boardSlice.actions;
+
+export default boardSlice.reducer;

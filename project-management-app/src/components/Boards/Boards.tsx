@@ -25,8 +25,19 @@ export function Title({ title = '' }: TitleProps) {
 
 export function Boards() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const styles = {
+    container: {
+      width: 300,
+      margin: 10,
+      color: "black",
+      backgroundColor: "skyblue",
+      borderRadius: 3,
+      padding: 8,
+    }
+  };
+
   let boards = useAppSelector((state) => state.boards);
-  console.dir(boards);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,20 +59,8 @@ export function Boards() {
 
   async function handleEditBoard(boardId: string) {
     alert(`Do you want to edit the board with id: ${boardId}?`);
+    navigate('/editboard');
   }
-
-  const styles = {
-    container: {
-      width: 300,
-      margin: 10,
-      color: "black",
-      backgroundColor: "skyblue",
-      borderRadius: 3,
-      padding: 8,
-    }
-  };
-
-  const navigate = useNavigate();
 
   return (
     <div className="main">
@@ -87,7 +86,7 @@ export function Boards() {
             </Card>
           </div>
           )}
-        <AddBoardButton />
+        <AddBoardButton formOpen={false} toHide={false} />
       </div>
     </div>
   );
