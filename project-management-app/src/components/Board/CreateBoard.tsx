@@ -35,8 +35,8 @@ export default function CreateBoard() {
   function handleBoardComplete() {
     dispatch(clear_board());
     navigate('/boards');    
-  }
-  
+  }  
+
   return (
     <div className="main">
       <h1>Create a new board</h1>
