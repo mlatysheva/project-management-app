@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 type TitleProps = {
   title: string;
@@ -63,32 +64,46 @@ export function Boards() {
   }
 
   return (
+    
     <div className="main">
-      <Title title="Your boards" />
-      <div className="boards-container">
-        {boards.map((board: BoardProps) => 
-          <div style={styles.container} key={board.id}>
-            <h2 onClick={() => navigate('/editboard')}>{board.title}</h2>
-            <Card className="card" sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => navigate('/editboard')}>
-                  {board.description}
-                </Typography>
-              </CardContent>
-              <CardActions className='button-wrapper'>
-                <Tooltip title="Delete board">
-                  <DeleteIcon onClick={() => handleDeleteBoard(board.id)}/>
-                </Tooltip>
-                <Tooltip title="Edit board">
-                  <EditIcon onClick={() => handleEditBoard(board.id)}/>
-                </Tooltip>
-              </CardActions>
-            </Card>
-          </div>
-          )}
-        <AddBoardButton formOpen={false} toHide={false} />
+        <Title title="Your boards" />
+        <DragDropContext onDragEnd={(result, provided) => {
+  // TODO: implement onDragEnd
+    }}>
+          <Droppable droppableId="droppable">
+          {(provided) => (
+            <div className="boards-container"  id="droppable" {...provided.droppableProps} ref={provided.innerRef}>
+          {boards.map((board: BoardProps, index: number) =>
+              <Draggable key={board.id} draggableId={board.id} index={index}>
+              {(provided) => (
+            <div style={styles.container} key={board.id} id="draggable" {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+              <h2 onClick={() => navigate('/editboard')}>{board.title}</h2>
+                <Card className="card"  sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => navigate('/editboard')}>
+                    {board.description}
+                  </Typography>
+                </CardContent>
+                <CardActions className='button-wrapper'>
+                  <Tooltip title="Delete board">
+                    <DeleteIcon onClick={() => handleDeleteBoard(board.id)}/>
+                  </Tooltip>
+                  <Tooltip title="Edit board">
+                    <EditIcon onClick={() => handleEditBoard(board.id)}/>
+                  </Tooltip>
+                </CardActions>
+                </Card>
+            </div>
+              )}
+              </Draggable>
+            )}
+          <AddBoardButton formOpen={false} toHide={false} />
+        </div>
+        )}
+          </Droppable>
+        </DragDropContext>
+
       </div>
-    </div>
   );
 }
 
