@@ -12,6 +12,8 @@ import { clear_board } from '../../store/reducers/boardSlice';
 export default function CreateBoard() {
   const columns = useAppSelector((state) => state.columns);
   const board = useAppSelector((state) => state.board);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [state, setState] = useState({
     toHide: true,
@@ -20,8 +22,10 @@ export default function CreateBoard() {
     // description: "",
 	});
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  function handleBoardComplete() {
+    dispatch(clear_board());
+    navigate('/boards');    
+  }  
 
   function TitleDescription() {
     return state.toHide ? (
@@ -31,11 +35,6 @@ export default function CreateBoard() {
       </div>
     ) : null;
   }
-
-  function handleBoardComplete() {
-    dispatch(clear_board());
-    navigate('/boards');    
-  }  
 
   return (
     <div className="main">
