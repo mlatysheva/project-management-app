@@ -10,6 +10,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import "./Header.scss";
 import { useEffect } from "react";
 import { useTranslation} from 'react-i18next';
+import { clear_board } from "../../store/reducers/boardSlice";
+import { useDispatch } from "react-redux";
 
 export function CurrentPage() {
 	const location = useLocation();
@@ -66,6 +68,12 @@ function Header(localStorage: any) {
 			: header?.classList.remove("is-sticky");
 	};
 	const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  function handleCreateBoard() {
+    dispatch(clear_board());
+  }
+
 	return (
 		<header className="header">
 			<CurrentPage />
@@ -105,7 +113,7 @@ function Header(localStorage: any) {
 				<NavLink to="boards">{t('boards')}</NavLink>
 				<NavLink to="/createboard">
 					<Tooltip title={t("add")}>
-						<AddBoxIcon fontSize="large" />
+						<AddBoxIcon fontSize="large" onClick={handleCreateBoard} />
 					</Tooltip>
 				</NavLink>
 				<SelectLanguage />
