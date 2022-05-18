@@ -18,7 +18,7 @@ export const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    create_board: (state: BoardProps = initialState, action) => {
+    set_board: (state: BoardProps = initialState, action) => {
       const board: BoardProps = action.payload;
       return board;
     },
@@ -29,6 +29,6 @@ export const boardSlice = createSlice({
   }
 });
 
-export const { create_board, clear_board } = boardSlice.actions;
+export const { set_board, clear_board } = boardSlice.actions;
 
 export default boardSlice.reducer;
