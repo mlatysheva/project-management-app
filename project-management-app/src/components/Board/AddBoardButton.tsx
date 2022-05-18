@@ -6,7 +6,7 @@ import { connect, useDispatch } from "react-redux";
 import { add_board } from "../../store/reducers/boardsSlice";
 import { TextField } from "@mui/material";
 import { createBoard } from "../../services/apiBoardProvider";
-import { create_board } from "../../store/reducers/boardSlice";
+import { set_board } from "../../store/reducers/boardSlice";
 
 export function AddBoardButton(props: {formOpen: boolean, toHide: boolean}) {
 	const [state, setState] = useState({
@@ -61,7 +61,7 @@ export function AddBoardButton(props: {formOpen: boolean, toHide: boolean}) {
         title: title,
         description: description,
       }));
-      dispatch(create_board({
+      dispatch(set_board({
         id: boardId,
         title: title,
         description: description,

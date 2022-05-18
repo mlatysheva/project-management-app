@@ -1,5 +1,5 @@
 import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
-import { BoardProps } from '../../store/reducers/boardSlice';
+import { BoardProps, set_board } from '../../store/reducers/boardSlice';
 import AddBoardButton from '../Board/AddBoardButton';
 import { deleteBoard, getAllBoards } from '../../services/apiBoardProvider';
 import { useEffect } from 'react';
@@ -57,9 +57,14 @@ export function Boards() {
     await deleteBoard(boardId);
   }
 
-  async function handleEditBoard(boardId: string) {
+  async function handleEditBoard(boardId: string, title: string, description: string) {
     alert(`Do you want to edit the board with id: ${boardId}?`);
     navigate('/editboard');
+    dispatch(set_board({
+      id: boardId,
+      title: title,
+      description: description,
+    }));
   }
 
   return (
@@ -68,10 +73,10 @@ export function Boards() {
       <div className="boards-container">
         {boards.map((board: BoardProps) => 
           <div style={styles.container} key={board.id}>
-            <h2 onClick={() => navigate('/editboard')}>{board.title}</h2>
+            <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
             <Card className="card" sx={{ minWidth: 275 }}>
               <CardContent>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => navigate('/editboard')}>
+                <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id, board.title, board.description)}>
                   {board.description}
                 </Typography>
               </CardContent>
@@ -80,7 +85,7 @@ export function Boards() {
                   <DeleteIcon onClick={() => handleDeleteBoard(board.id)}/>
                 </Tooltip>
                 <Tooltip title="Edit board">
-                  <EditIcon onClick={() => handleEditBoard(board.id)}/>
+                  <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
                 </Tooltip>
               </CardActions>
             </Card>

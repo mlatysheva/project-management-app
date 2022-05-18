@@ -15,9 +15,9 @@ export default function CreateBoard() {
 
   const [state, setState] = useState({
     toHide: true,
-    id: "",
-		title: "",
-    description: "",
+    // id: "",
+		// title: "",
+    // description: "",
 	});
 
   const dispatch = useDispatch();

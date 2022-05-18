@@ -285,4 +285,7 @@ label {
 .column-container {
 	display: flex;
 	flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  margin-left: 20px;
 }
