@@ -10,7 +10,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 
 type TitleProps = {
@@ -25,6 +26,7 @@ export function Title({ title = '' }: TitleProps) {
 export function Boards() {
   const dispatch = useDispatch();
   let boards = useAppSelector((state) => state.boards);
+  console.dir(boards);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +44,10 @@ export function Boards() {
     alert(`The board with id: ${boardId} will be removed!`);
     dispatch(delete_board(boardId));
     await deleteBoard(boardId);
+  }
+
+  async function handleEditBoard(boardId: string) {
+    alert(`Do you want to edit the board with id: ${boardId}?`);
   }
 
   const styles = {
@@ -70,9 +76,12 @@ export function Boards() {
                   {board.description}
                 </Typography>
               </CardContent>
-              <CardActions>
+              <CardActions className='button-wrapper'>
                 <Tooltip title="Delete board">
                   <DeleteIcon onClick={() => handleDeleteBoard(board.id)}/>
+                </Tooltip>
+                <Tooltip title="Edit board">
+                  <EditIcon onClick={() => handleEditBoard(board.id)}/>
                 </Tooltip>
               </CardActions>
             </Card>
