@@ -1,11 +1,10 @@
 import { BoardProps } from './boardSlice';
 import { createSlice } from '@reduxjs/toolkit';
-
 export interface AllBoardsProps {
   boards: BoardProps[];
 }
 
-export const initialState: BoardProps[] =
+export const initialState: BoardProps[] = 
  [
     { 
       id: '012',

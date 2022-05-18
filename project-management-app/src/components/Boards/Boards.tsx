@@ -10,7 +10,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 
 type TitleProps = {
@@ -24,6 +25,18 @@ export function Title({ title = '' }: TitleProps) {
 
 export function Boards() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const styles = {
+    container: {
+      width: 300,
+      margin: 10,
+      color: "black",
+      backgroundColor: "skyblue",
+      borderRadius: 3,
+      padding: 8,
+    }
+  };
+
   let boards = useAppSelector((state) => state.boards);
 
   useEffect(() => {
@@ -44,18 +57,10 @@ export function Boards() {
     await deleteBoard(boardId);
   }
 
-  const styles = {
-    container: {
-      width: 300,
-      margin: 10,
-      color: "black",
-      backgroundColor: "skyblue",
-      borderRadius: 3,
-      padding: 8,
-    }
-  };
-
-  const navigate = useNavigate();
+  async function handleEditBoard(boardId: string) {
+    alert(`Do you want to edit the board with id: ${boardId}?`);
+    navigate('/editboard');
+  }
 
   return (
     <div className="main">
@@ -70,15 +75,18 @@ export function Boards() {
                   {board.description}
                 </Typography>
               </CardContent>
-              <CardActions>
+              <CardActions className='button-wrapper'>
                 <Tooltip title="Delete board">
                   <DeleteIcon onClick={() => handleDeleteBoard(board.id)}/>
+                </Tooltip>
+                <Tooltip title="Edit board">
+                  <EditIcon onClick={() => handleEditBoard(board.id)}/>
                 </Tooltip>
               </CardActions>
             </Card>
           </div>
           )}
-        <AddBoardButton />
+        <AddBoardButton formOpen={false} toHide={false} />
       </div>
     </div>
   );
