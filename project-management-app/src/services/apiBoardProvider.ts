@@ -37,7 +37,12 @@ export const deleteBoard = (boardId: string) => {
     .catch(handleError);
 }
 
-export const updateBoard = (boardId: string, boardData: BoardProps) => { 
+interface UpdateBoardProps {
+  title: string;
+  description: string;
+}
+
+export const updateBoard = (boardId: string, boardData: UpdateBoardProps) => { 
   return axios 
     .put(`${BASE_URL}boards/${boardId}`, boardData, config) 
     .then(handleResponse) 

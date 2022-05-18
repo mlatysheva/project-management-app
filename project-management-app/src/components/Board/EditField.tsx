@@ -7,6 +7,10 @@ import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
+import { update_board } from "../../store/reducers/boardsSlice";
+import { set_board } from "../../store/reducers/boardSlice";
+import { useAppSelector } from "../../store/hooks";
+import { updateBoard } from "../../services/apiBoardProvider";
 
 interface EditFieldProps {
   buttonName: string; // Update
@@ -16,12 +20,15 @@ interface EditFieldProps {
 }
 
 export function EditField(props: EditFieldProps) {
-	const [state, setState] = useState({
+  const board = useAppSelector((state) => state.board);
+  const dispatch = useDispatch();
+
+  const [state, setState] = useState({
 		formOpen: false,
     field: props.field,
+    title: board.title,
+    description: board.description,
 	});
-
-  const dispatch = useDispatch();
 
 	function openForm() {
 		setState({
@@ -37,12 +44,85 @@ export function EditField(props: EditFieldProps) {
 		});
 	}
 
-	function handleFieldUpdate(e: { target: { value: string } }) {
+	function handleFieldChange(e: { target: { value: string } }) {
 		setState({
 			...state,
 			field: e.target.value,
 		});
 	}
+
+  async function handleFieldUpdate() {
+    let body: { title: string; description: string; };
+    if (props.type === "title") {
+      body = {
+        title: state.field,
+        description: board.description,
+      };    
+      setState({
+        ...state,
+        title: state.field,
+      });
+      dispatch(update_board({
+        ...body,
+        title: state.field,
+      }));
+    } else {
+      body = {
+        title: board.title,
+        description: state.field,
+      }
+      setState({
+        ...state,
+        description: state.field,
+      });
+      dispatch(update_board({
+        ...body,
+        description: state.field,
+      }));
+    }
+    const boardApi = await updateBoard(board.id, body);
+    console.dir(boardApi);
+    
+    // dispatch(set_board({
+    //   id: board.id,
+    //   title: board.title,
+    //   description: board.description,
+    // }));
+
+    setState({
+      ...state,
+      formOpen: false,
+    })
+  }
+
+  // async function handleAddBoard () {
+  //   const { id, title, description } = state;
+
+  //   if (title) {
+  //     const boardApi = await createBoard({
+  //       title: title,
+  //       description: description,
+  //     });
+  //     const boardId = boardApi.id;
+  //     dispatch(add_board({
+  //       id: boardId,
+  //       title: title,
+  //       description: description,
+  //     }));
+  //     dispatch(set_board({
+  //       id: boardId,
+  //       title: title,
+  //       description: description,
+  //     })); 
+  //     setState({
+  //       ...state,
+  //       title: '',
+  //       description: '',
+  //       formOpen: false,
+  //       toHide: props.toHide,
+  //     });
+  //   }
+  // }
 
 	function renderField() {
 		return (
@@ -58,41 +138,30 @@ export function EditField(props: EditFieldProps) {
 	function renderForm() {
 		return (
 			<React.Fragment>
-				<Card
-					style={{
-						overflow: "visible",
-						minHeight: 80,
-						minWidth: 270,
-						padding: "6px 8 px 2px",
-					}}
-				>
-					<TextField
-            placeholder="Enter new title"
-						autoFocus
-						value={state.field}
-						onChange={handleFieldUpdate}
-						style={{
-							resize: "none",
-							width: "100%",
-							paddingTop: 5,
-						}}
-          />
-				</Card>
-				<div className="add-button-container">
-					<Button						
-						style={{ color: "white", backgroundColor: "midnightblue" }}
-            onClick={() => console.log(`we are in button`)}
-					>
-						Update{" "}
-					</Button>
-          <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
-				</div>
+        <TextField
+          placeholder="Enter new title"
+          autoFocus
+          value={state.field}
+          onChange={handleFieldChange}
+          style={{
+            resize: "none",
+            width: "100%",
+            paddingTop: 5,
+          }}
+        />
+        <Button						
+          style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 20 }}
+          onClick={handleFieldUpdate}
+        >
+          Update{" "}
+        </Button>
+        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 			</React.Fragment>
 		);
 	}
 
 	return (
-    <div className="title-description-wrapper">
+    <div className="title-description-wrapper-update">
       <label htmlFor={props.type}>{props.type}</label>
       {state.formOpen ? renderForm() : renderField()}
     </div>
