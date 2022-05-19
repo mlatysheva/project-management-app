@@ -7,12 +7,13 @@ import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
-import { update_board } from "../../store/reducers/boardsSlice";
+import { update_board } from "../../store/reducers/boardSlice";
 import { set_board } from "../../store/reducers/boardSlice";
 import { useAppSelector } from "../../store/hooks";
 import { updateBoard } from "../../services/apiBoardProvider";
 
 interface EditFieldProps {
+  formOpen?: boolean;
   buttonName: string; // Update
   placeholder: string; // Enter new title
   type: string; // Title
@@ -24,10 +25,10 @@ export function EditField(props: EditFieldProps) {
   const dispatch = useDispatch();
 
   const [state, setState] = useState({
-		formOpen: false,
+		formOpen: props.formOpen || false,
     field: props.field,
-    title: board.title,
-    description: board.description,
+    // title: board.title,
+    // description: board.description,
 	});
 
 	function openForm() {
@@ -57,11 +58,8 @@ export function EditField(props: EditFieldProps) {
       body = {
         title: state.field,
         description: board.description,
-      };    
-      setState({
-        ...state,
-        title: state.field,
-      });
+      };
+
       dispatch(update_board({
         ...body,
         title: state.field,
@@ -71,23 +69,12 @@ export function EditField(props: EditFieldProps) {
         title: board.title,
         description: state.field,
       }
-      setState({
-        ...state,
-        description: state.field,
-      });
+
       dispatch(update_board({
         ...body,
         description: state.field,
       }));
     }
-    const boardApi = await updateBoard(board.id, body);
-    console.dir(boardApi);
-    
-    // dispatch(set_board({
-    //   id: board.id,
-    //   title: board.title,
-    //   description: board.description,
-    // }));
 
     setState({
       ...state,
@@ -95,40 +82,11 @@ export function EditField(props: EditFieldProps) {
     })
   }
 
-  // async function handleAddBoard () {
-  //   const { id, title, description } = state;
-
-  //   if (title) {
-  //     const boardApi = await createBoard({
-  //       title: title,
-  //       description: description,
-  //     });
-  //     const boardId = boardApi.id;
-  //     dispatch(add_board({
-  //       id: boardId,
-  //       title: title,
-  //       description: description,
-  //     }));
-  //     dispatch(set_board({
-  //       id: boardId,
-  //       title: title,
-  //       description: description,
-  //     })); 
-  //     setState({
-  //       ...state,
-  //       title: '',
-  //       description: '',
-  //       formOpen: false,
-  //       toHide: props.toHide,
-  //     });
-  //   }
-  // }
-
 	function renderField() {
 		return (
       <React.Fragment>
-        <h2>{props.field}</h2>
-        <Tooltip title="Edit board">
+        <h2>{state.field}</h2>
+        <Tooltip title={`Edit ${props.type}`}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
       </React.Fragment>			

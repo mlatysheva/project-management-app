@@ -25,10 +25,18 @@ export const boardSlice = createSlice({
     clear_board: () => {
       const newState = initialState; 
       return newState;
+    },
+    update_board: (state, action) => {
+      const updatedBoard= {
+        ...state,
+        title: action.payload.title,
+        description: action.payload.description,
+      }
+      return updatedBoard;
     }
   }
 });
 
-export const { set_board, clear_board } = boardSlice.actions;
+export const { set_board, clear_board, update_board } = boardSlice.actions;
 
 export default boardSlice.reducer;
