@@ -107,8 +107,9 @@ button:active {
 
 .add-section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
+  margin: 20px;
 }
 
 .title-description-wrapper {
@@ -187,8 +188,9 @@ label {
 	color: black;
 	font-size: large;
 	display: block;
-	width: 200px;
-	float: left;
+	min-width: 200px;
+  margin-right: 20px;
+	text-align: right;
 }
 
 .form-input-field {

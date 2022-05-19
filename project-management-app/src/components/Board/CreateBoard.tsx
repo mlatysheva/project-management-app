@@ -1,13 +1,11 @@
 import AddColumnButton from '../Column/AddColumnButton';
 import { useAppSelector } from '../../store/hooks';
-import { ColumnProps } from '../../store/reducers/columnsSlice';
-import { Column } from '../Column/Column';
 import { Button} from "@mui/material";
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import AddBoardButton from './AddBoardButton';
 import { useNavigate } from 'react-router-dom';
 import { clear_board } from '../../store/reducers/boardSlice';
+import EditField from './EditField';
+import { createBoard } from '../../services/apiBoardProvider';
 
 export default function CreateBoard() {
   const columns = useAppSelector((state) => state.columns);
@@ -15,33 +13,23 @@ export default function CreateBoard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [state, setState] = useState({
-    toHide: true,
-    // id: "",
-		// title: "",
-    // description: "",
-	});
-
-  function handleBoardComplete() {
+  async function handleBoardComplete() {
     dispatch(clear_board());
-    navigate('/boards');    
+    navigate('/boards');
+    const body = {
+      title: board.title,
+      description: board.description,
+    }
+    const boardApi = await createBoard(body);
+    console.dir(boardApi);   
   }  
-
-  function TitleDescription() {
-    return state.toHide ? (
-      <div className='title-description-wrapper'>
-        <h2>Title: {board.title}</h2>
-        <h2>Description: {board.description}</h2>        
-      </div>
-    ) : null;
-  }
 
   return (
     <div className="main">
       <h1>Create a new board</h1>
       <div className="add-section">
-      ` <TitleDescription />
-        <AddBoardButton formOpen={true} toHide={true}/>
+        <EditField formOpen={true} buttonName="Title" placeholder="Enter title" type="title" field="" />
+        <EditField formOpen={true} buttonName="Description" placeholder="Enter description" type="description" field="" />
       </div>
       <div className="column-container">
         {/* {columns.map((column: ColumnProps) => <Column id="01" key={column.id} title={column.title} tasks={[

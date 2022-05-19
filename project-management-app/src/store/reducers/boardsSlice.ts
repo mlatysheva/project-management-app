@@ -39,18 +39,9 @@ export const boardsSlice = createSlice({
       }
       return newList;
     },
-
-    update_board: (state, action) => {
-      const updatedBoard= {
-        id: action.payload.id,
-        title: action.payload.title,
-        description: action.payload.description,
-      }
-      return [...state, updatedBoard];
-    }
   }
 });
 
-export const { add_board, get_allBoards, delete_board, update_board } = boardsSlice.actions;
+export const { add_board, get_allBoards, delete_board } = boardsSlice.actions;
 
 export default boardsSlice.reducer;
