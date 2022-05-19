@@ -58,7 +58,6 @@ function EditForm({ updateToken }: any) {
 
 	const deleteUserById = async () => {
 		alert(t("alert"));
-		//TODO:
 		if (register.id) {
 			deleteUserPermanently(register.id);
 		}

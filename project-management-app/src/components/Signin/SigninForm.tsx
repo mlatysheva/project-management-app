@@ -57,25 +57,26 @@ function SigninForm({ updateToken }: any) {
 
 		let signInResponse = await toServerSignin({ login, password });
 		if (!signInResponse) {
-			console.log("You are not come to server :(!!!");
-			return;
+			alert("Maybe you aren't register yet...");
+			setPassword("");
+			setLogin("");
+		} else {
+			const token = signInResponse.token;
+			updateToken(token);
+
+			const userID = await getUserByLogin(login);
+			const userName = await getUserName(userID);
+
+			dispatch(
+				signin({
+					login: login,
+					password: password,
+					id: userID,
+					name: userName,
+				})
+			);
+			navigate("/");
 		}
-
-		const token = signInResponse.token;
-		updateToken(token);
-
-		const userID = await getUserByLogin(login);
-		const userName = await getUserName(userID);
-
-		dispatch(
-			signin({
-				login: login,
-				password: password,
-				id: userID,
-				name: userName,
-			})
-		);
-		navigate("/");
 	};
 
 	const { t } = useTranslation();

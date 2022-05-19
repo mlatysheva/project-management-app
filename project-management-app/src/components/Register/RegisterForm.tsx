@@ -11,6 +11,7 @@ import {
 } from "../../helpersFunct/inputcolor";
 import "./register.css";
 import { toServerRegister } from "../../services/apiUserProvider";
+import { AxiosError } from "axios";
 
 let disableBtnIn = true;
 
@@ -41,7 +42,7 @@ function SignupForm() {
 		return disableBtnIn;
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(
 			signup({
@@ -51,11 +52,21 @@ function SignupForm() {
 			})
 		);
 		//send it to the server
-		toServerRegister({ name, login, password }).then((register) =>
-			console.log(register)
-		);
-		navigate("/signin");
-		disableBtnIn = true;
+		let resultOfSignUpCallToServer = await toServerRegister({
+			name,
+			login,
+			password,
+		});
+		if (resultOfSignUpCallToServer instanceof AxiosError) {
+			if (resultOfSignUpCallToServer.response?.data?.message) {
+				alert(resultOfSignUpCallToServer.response?.data.message);
+			} else {
+				alert("Check your internet connection!");
+			}
+		} else {
+			navigate("/signin");
+			disableBtnIn = true;
+		}
 	};
 
 	return (

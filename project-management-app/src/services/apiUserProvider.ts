@@ -77,10 +77,9 @@ export async function toServerRegister(userData: UserProps) {
 	try {
 		let response = await axios.post(`${BASE_URL}signup`, userData);
 		console.log(`response ${JSON.stringify(response.data)}`);
-		return response.data;
+		return response;
 	} catch (e) {
-		console.error(e);
-	} finally {
+		return e;
 	}
 }
 
