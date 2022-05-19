@@ -15,6 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import './Board.scss';
+
 type TitleProps = {
   title: string;
   children?: string;
@@ -27,16 +28,6 @@ export function Title({ title = '' }: TitleProps) {
 export function Boards() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const styles = {
-  //   container: {
-  //     width: 300,
-  //     margin: 10,
-  //     color: "black",
-  //     backgroundColor: "skyblue",
-  //     borderRadius: 3,
-  //     padding: 8,
-  //   }
-  // };
 
   let boards = useAppSelector((state) => state.boards);
   
@@ -50,7 +41,6 @@ export function Boards() {
     items.splice(result.destination.index, 0, reorderedItem);
     setBoards(items);
   }
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,44 +70,43 @@ export function Boards() {
     }));
   }
 
-  return (
-    
+  return (    
     <div className="main">
-        <Title title="Your boards" />
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="droppable">
-          {(provided) => (
-            <div className="boards-container"  id="droppable" {...provided.droppableProps} ref={provided.innerRef}>
-          {boards.map((board: BoardProps, index: number) =>
-              <Draggable key={board.id} draggableId={board.id} index={index}>
-              {(provided) => (
-            <div className= "board" style={styles.container} key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-              <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
-                <Card className="card"  sx={{ minWidth: 275 }}>
-                <CardContent>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id, board.title, board.description)}>
-                    {board.description}
-                  </Typography>
-                </CardContent>
-                <CardActions className='button-wrapper'>
-                  <Tooltip title="Delete board">
-                    <DeleteIcon onClick={() => handleDeleteBoard(board.id)}/>
-                  </Tooltip>
-                  <Tooltip title="Edit board">
-                    <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
-                  </Tooltip>
-                </CardActions>
-                </Card>
-            </div>
-              )}
-              </Draggable>
+      <Title title="Your boards" />
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="droppable">
+        {(provided) => (
+          <div className="boards-container"  id="droppable" {...provided.droppableProps} ref={provided.innerRef}>
+        {boards.map((board: BoardProps, index: number) =>
+            <Draggable key={board.id} draggableId={board.id} index={index}>
+            {(provided) => (
+          <div className= "board" key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+            <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
+              <Card className="card"  sx={{ minWidth: 275 }}>
+              <CardContent>
+                <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id, board.title, board.description)}>
+                  {board.description}
+                </Typography>
+              </CardContent>
+              <CardActions className='button-wrapper'>
+                <Tooltip title="Delete board">
+                  <DeleteIcon onClick={() => handleDeleteBoard(board.id)}/>
+                </Tooltip>
+                <Tooltip title="Edit board">
+                  <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
+                </Tooltip>
+              </CardActions>
+              </Card>
+          </div>
             )}
-          <AddBoardButton formOpen={false} toHide={false} />
-          {provided.placeholder}
-        </div>
-        )}
-          </Droppable>
-        </DragDropContext>
+            </Draggable>
+          )}
+        <AddBoard formOpen={false} toHide={false} />
+        {provided.placeholder}
       </div>
+      )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   );
 }
