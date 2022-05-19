@@ -10,6 +10,7 @@ import {
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
 import "./register.css";
+import { toServerRegister } from "../../services/apiUserProvider";
 
 let disableBtnIn = true;
 
@@ -39,19 +40,6 @@ function SignupForm() {
 		}
 		return disableBtnIn;
 	};
-
-	async function toServerRegister(
-		register: Record<string, string>
-	): Promise<any> {
-		try {
-			let response = await instaceApi.post(`/signup`, register);
-			console.log(`response ${JSON.stringify(response.data)}`);
-			return response.data;
-		} catch (e) {
-			console.error(e);
-		} finally {
-		}
-	}
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -116,7 +104,7 @@ function SignupForm() {
 					required
 				/>
 				<button type="submit" className="signup__btn" disabled={disableBtnIn}>
-					{t('registerBtn')}
+					{t("registerBtn")}
 				</button>
 			</form>
 			<div className="row">

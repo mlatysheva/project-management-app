@@ -10,7 +10,11 @@ import {
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
 import { edit, selectUser, signup } from "../../store/signup/userOptions";
-import { deleteUserPermanently } from "../../services/apiUserProvider";
+import {
+	deleteUserPermanently,
+	getAllUsers,
+	toServerEdit,
+} from "../../services/apiUserProvider";
 import "./edit.css";
 import "../passwordShowHide/passwordField.css";
 
@@ -45,13 +49,20 @@ function EditForm({ updateToken }: any) {
 				password: password,
 			})
 		);
-
 		//send it to the server
+		if (register.id) {
+			await toServerEdit(register.id, { name, login, password });
+		}
+		await getAllUsers();
 	};
 
 	const deleteUserById = async () => {
 		alert(t("alert"));
-		//TODO:await deleteUserPermanently(register.id);
+		//TODO:
+		if (register.id) {
+			deleteUserPermanently(register.id);
+		}
+
 		dispatch(
 			edit({
 				login: null,
@@ -63,6 +74,7 @@ function EditForm({ updateToken }: any) {
 		const token = localStorage.setItem("userToken", "");
 		updateToken(token);
 		navigate("/");
+		getAllUsers();
 	};
 
 	return (
@@ -105,7 +117,7 @@ function EditForm({ updateToken }: any) {
 						pattern="{6,}"
 						title="Put minimum 6 symbols"
 					/>
-					<button className="show__btn" onClick={togglePassword}>
+					<button type="button" className="show__btn" onClick={togglePassword}>
 						{show}
 					</button>
 				</div>

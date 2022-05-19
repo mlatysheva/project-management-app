@@ -71,7 +71,7 @@ function SigninForm({ updateToken }: any) {
 			signin({
 				login: login,
 				password: password,
-				userID: userID,
+				id: userID,
 				name: userName,
 			})
 		);
@@ -94,7 +94,7 @@ function SigninForm({ updateToken }: any) {
 					type="text"
 					placeholder={t("login")}
 					id="login-signin"
-					value={/*register.login?.toString() || */ login}
+					value={login}
 					onChange={(e) => setLogin(e.target.value)}
 					pattern="{4,}"
 					title="login min 4 symbols..."
@@ -106,7 +106,7 @@ function SigninForm({ updateToken }: any) {
 					id="password-signin"
 					type="password"
 					placeholder={t("password")}
-					value={/*register.password?.toString() || */ password}
+					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 					pattern="{6,}"
 					title="Put minimum 6 symbols"

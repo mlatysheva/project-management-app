@@ -11,6 +11,7 @@ interface UserIdProps {
 
 export const getAllUsers = async () => {
 	let result = await axios.get(`${BASE_URL}users`, configWorking());
+	console.log(`getAllUsers = ${JSON.stringify(result.data)}`);
 	return result.data;
 };
 
@@ -39,11 +40,9 @@ export async function getUserName(userId: string) {
 	const userName = user.name;
 	return userName;
 }
-export const deleteUserPermanently = (userId: string) => {
-	return axios
-		.delete(`${BASE_URL}users/${userId}`, configWorking())
-		.then(handleResponse)
-		.catch(handleError);
+
+export const deleteUserPermanently = async (userId: string) => {
+	return await axios.delete(`${BASE_URL}users/${userId}`, configWorking());
 };
 
 export const deleteUser = (userId: string) => {
@@ -73,3 +72,22 @@ export const signupUser = (userData: UserProps) => {
 		.then(handleResponse)
 		.catch(handleError);
 };
+
+export async function toServerRegister(userData: UserProps) {
+	try {
+		let response = await axios.post(`${BASE_URL}signup`, userData);
+		console.log(`response ${JSON.stringify(response.data)}`);
+		return response.data;
+	} catch (e) {
+		console.error(e);
+	} finally {
+	}
+}
+
+export async function toServerEdit(userId: string, userData: UserProps) {
+	return await axios.put(
+		`${BASE_URL}users/${userId}`,
+		userData,
+		configWorking()
+	);
+}
