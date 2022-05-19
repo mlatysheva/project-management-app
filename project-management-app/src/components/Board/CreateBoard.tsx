@@ -25,16 +25,16 @@ export default function CreateBoard() {
     const boardApi = await createBoard(body);
     console.dir(boardApi);   
   }  
-
+  console.dir(columns);
   return (
     <div className="main">
       <h1>Create a new board</h1>
       <div className="add-section">
-        <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field="" />
-        <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field="" />
+        <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field="" category="board" />
+        <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field="" category="board" />
       </div>
       <div className="column-container">
-        {columns.map((column: ColumnProps) => <Column id="01" key={column.id} title={column.title} tasks={[
+        {columns.map((column: ColumnProps) => <Column id={column.order.toString()} key={column.id} title={column.title} tasks={[
           { id: "01r",
             title: "Your sample task",
             description: "Visualise your elephant",

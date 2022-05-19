@@ -108,8 +108,9 @@ button:active {
 .add-section {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin: 20px;
+  align-items: flex-end;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .title-description-wrapper {
@@ -188,8 +189,8 @@ label {
 	color: black;
 	font-size: large;
 	display: block;
-	min-width: 200px;
-  margin-right: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 	text-align: right;
 }
 
@@ -295,6 +296,5 @@ label {
 	display: flex;
 	flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  margin: 20px;
 }

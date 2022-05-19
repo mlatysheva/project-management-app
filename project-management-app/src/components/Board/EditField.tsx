@@ -11,6 +11,7 @@ import { update_board } from "../../store/reducers/boardSlice";
 import { set_board } from "../../store/reducers/boardSlice";
 import { useAppSelector } from "../../store/hooks";
 import { updateBoard } from "../../services/apiBoardProvider";
+import { add_column } from "../../store/reducers/columnsSlice";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -18,6 +19,8 @@ interface EditFieldProps {
   placeholder: string; // Enter new title
   type: string; // Title
 	field: string; // Title value
+  onClick?: () => void;
+  category?: string; // Board/Column/Task
 }
 
 export function EditField(props: EditFieldProps) {
@@ -27,8 +30,6 @@ export function EditField(props: EditFieldProps) {
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
     field: props.field,
-    // title: board.title,
-    // description: board.description,
 	});
 
 	function openForm() {
@@ -74,7 +75,7 @@ export function EditField(props: EditFieldProps) {
         ...body,
         description: state.field,
       }));
-    }
+    }  
 
     setState({
       ...state,
@@ -85,7 +86,7 @@ export function EditField(props: EditFieldProps) {
 	function renderField() {
 		return (
       <React.Fragment>
-        <h2>{state.field}</h2>
+        <h2 style={{ textAlign: "left" }}>{state.field}</h2>
         <Tooltip title={`Edit ${props.type}`}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
@@ -104,11 +105,15 @@ export function EditField(props: EditFieldProps) {
           style={{
             resize: "none",
             width: "100%",
-            paddingTop: 5,
+            minWidth: 40,
+            backgroundColor: "white",
+            borderRadius: 4,
+            marginTop: 5,
+            marginBottom: 10,
           }}
         />
         <Button						
-          style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 20 }}
+          style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 20, width: 100 }}
           onClick={handleFieldUpdate}
         >
           {props.buttonName}{" "}
