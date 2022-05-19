@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import AddColumnButton from '../Column/AddColumnButton';
 import { Column } from '../Column/Column';
 import { useAppSelector } from '../../store/hooks';
@@ -8,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clear_board } from '../../store/reducers/boardSlice';
 import { EditField } from './EditField';
+import { updateBoard } from '../../services/apiBoardProvider';
 
 export default function EditBoard() {
   const columns = useAppSelector((state) => state.columns);
@@ -15,17 +15,17 @@ export default function EditBoard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleBoardComplete() {
+  async function handleBoardComplete() {
     dispatch(clear_board());
-    navigate('/boards');    
+    navigate('/boards');
+    const boardId = board.id;
+    const body = {
+      title: board.title,
+      description: board.description,
+    }
+    const boardApi = await updateBoard(boardId, body);
+    console.dir(boardApi);   
   }
-
-  const [state, setState] = useState({
-    toHide: true,
-    // id: "",
-		// title: "",
-    // description: "",
-	});
 
   return (
     <div className="main">
