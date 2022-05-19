@@ -111,7 +111,7 @@ export function EditField(props: EditFieldProps) {
           style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 20 }}
           onClick={handleFieldUpdate}
         >
-          Update{" "}
+          {props.buttonName}{" "}
         </Button>
         <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 			</React.Fragment>

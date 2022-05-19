@@ -1,6 +1,6 @@
 import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
 import { BoardProps, set_board } from '../../store/reducers/boardSlice';
-import AddBoardButton from '../Board/AddBoardButton';
+import AddBoard from '../Board/AddBoard';
 import { deleteBoard, getAllBoards } from '../../services/apiBoardProvider';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -91,7 +91,7 @@ export function Boards() {
             </Card>
           </div>
           )}
-        <AddBoardButton formOpen={false} toHide={false} />
+        <AddBoard formOpen={false} toHide={false} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import AddColumnButton from '../Column/AddColumnButton';
+import AddColumn from '../Column/AddColumn';
 import { Column } from '../Column/Column';
 import { useAppSelector } from '../../store/hooks';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
@@ -41,7 +41,7 @@ export default function EditBoard() {
             // },      
           ]} />
         )}
-        <AddColumnButton type="Add new column" />
+        <AddColumn type="Add new column" />
       </div>
       <Button onClick={handleBoardComplete}>Complete</Button>        
     </div>

@@ -10,7 +10,7 @@ interface AddButtonProps {
 	type: string;
 }
 
-export function AddColumnButton(props: AddButtonProps) {
+export function AddColumn(props: AddButtonProps) {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
@@ -117,4 +117,4 @@ export function AddColumnButton(props: AddButtonProps) {
 	return state.formOpen ? renderForm() : renderButton();
 }
 
-export default connect()(AddColumnButton);
+export default connect()(AddColumn);
