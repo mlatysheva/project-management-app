@@ -5,12 +5,15 @@ import {
 	applyColorLogin,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
-import instaceApi from "../../services/api";
 import { selectUser, signin } from "../../store/signup/userOptions";
 import { useTranslation } from "react-i18next";
 
 import "./signin.css";
-import { getUserByLogin, getUserName } from "../../services/apiUserProvider";
+import {
+	getUserByLogin,
+	getUserName,
+	toServerSignin,
+} from "../../services/apiUserProvider";
 
 let disableBtnInSignin = true;
 
@@ -38,26 +41,13 @@ function SigninForm({ updateToken }: any) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	async function toServerSignin(
-		register: Record<string, string>
-	): Promise<any> {
-		try {
-			let response = await instaceApi.post(`/signin`, register);
-			//console.log(`signin ${JSON.stringify(response.data)}`);
-			return response.data;
-		} catch (e) {
-			console.error(e);
-		} finally {
-		}
-	}
-
 	const handleSubmitSignin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		disableBtnInSignin = true;
 
 		let signInResponse = await toServerSignin({ login, password });
 		if (!signInResponse) {
-			alert("Maybe you aren't register yet...");
+			alert(t("no_register"));
 			setPassword("");
 			setLogin("");
 		} else {
@@ -137,17 +127,3 @@ function SigninForm({ updateToken }: any) {
 }
 
 export default SigninForm;
-
-/**/
-
-/*dispatch(
-			signin({
-				login: login,
-				password: password,
-				registered: false,
-			})
-		);*/
-//send it to teh server
-
-//	navigate("/logout");
-//	disableBtnInSignin = true;

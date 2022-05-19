@@ -61,7 +61,7 @@ function SignupForm() {
 			if (resultOfSignUpCallToServer.response?.data?.message) {
 				alert(resultOfSignUpCallToServer.response?.data.message);
 			} else {
-				alert("Check your internet connection!");
+				alert(t("no_internet_connection"));
 			}
 		} else {
 			navigate("/signin");
@@ -76,7 +76,7 @@ function SignupForm() {
 				onSubmit={(e) => handleSubmit(e)}
 				onChange={isDisabled}
 			>
-				<h1>If you want to register 🌻:</h1>
+				<h1>{t("register")} 🌻:</h1>
 				<input
 					className="signup__input"
 					onKeyUp={applyColorName}
@@ -119,14 +119,14 @@ function SignupForm() {
 				</button>
 			</form>
 			<div className="row">
-				<h2>Have account?</h2>
+				<h2>{t("have_account")}</h2>
 				<button
 					className="toRegister__btn"
 					onClick={(e) => {
 						navigate("/signin");
 					}}
 				>
-					click there
+					{t("click")}
 				</button>
 			</div>
 		</>

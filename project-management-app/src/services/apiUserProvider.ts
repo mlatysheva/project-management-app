@@ -11,7 +11,6 @@ interface UserIdProps {
 
 export const getAllUsers = async () => {
 	let result = await axios.get(`${BASE_URL}users`, configWorking());
-	console.log(`getAllUsers = ${JSON.stringify(result.data)}`);
 	return result.data;
 };
 
@@ -76,10 +75,19 @@ export const signupUser = (userData: UserProps) => {
 export async function toServerRegister(userData: UserProps) {
 	try {
 		let response = await axios.post(`${BASE_URL}signup`, userData);
-		console.log(`response ${JSON.stringify(response.data)}`);
 		return response;
 	} catch (e) {
 		return e;
+	}
+}
+
+export async function toServerSignin(userData: SigninProps) {
+	try {
+		let response = await axios.post(`${BASE_URL}signin`, userData);
+		return response.data;
+	} catch (e) {
+		console.error(e);
+	} finally {
 	}
 }
 
