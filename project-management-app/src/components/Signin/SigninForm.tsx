@@ -10,7 +10,7 @@ import { selectUser, signin } from "../../store/signup/userOptions";
 import { useTranslation } from "react-i18next";
 
 import "./signin.css";
-import { getUserByLogin } from "../../services/apiUserProvider";
+import { getUserByLogin, getUserName } from "../../services/apiUserProvider";
 
 let disableBtnInSignin = true;
 
@@ -57,19 +57,22 @@ function SigninForm({ updateToken }: any) {
 
 		let signInResponse = await toServerSignin({ login, password });
 		if (!signInResponse) {
-			console.log("FUCK YOU!!!");
+			console.log("You are not come to server :(!!!");
 			return;
 		}
 
 		const token = signInResponse.token;
 		updateToken(token);
 
-		await getUserByLogin(login);
+		const userID = await getUserByLogin(login);
+		const userName = await getUserName(userID);
 
 		dispatch(
 			signin({
 				login: login,
 				password: password,
+				userID: userID,
+				name: userName,
 			})
 		);
 		navigate("/");

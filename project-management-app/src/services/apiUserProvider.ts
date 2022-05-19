@@ -9,6 +9,11 @@ export const getAllUsers = async () => {
 	return result.data;
 };
 
+export const getUserForName = async (userId: string) => {
+	let result = await axios(`${BASE_URL}users/${userId}`, configWorking());
+	return result.data;
+};
+
 export const getUser = (userId: string) => {
 	return axios
 		.get(`${BASE_URL}users/${userId}`, config)
@@ -29,6 +34,12 @@ export async function getUserByLogin(login: string) {
 	)[0];
 	console.log(`id user =${soughtUser.id}`);
 	return soughtUser.id;
+}
+
+export async function getUserName(userId: string) {
+	const user = await getUserForName(userId);
+	const userName = user.name;
+	return userName;
 }
 
 export const deleteUser = (userId: string) => {
