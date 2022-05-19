@@ -3,8 +3,13 @@ import { handleResponse, handleError } from "./response";
 import { BASE_URL, config, configWorking } from "./api";
 import { SigninProps, UserProps } from "../store/signup/userOptions";
 
+interface UserIdProps {
+	id: string;
+	name: string;
+	login: string;
+}
+
 export const getAllUsers = async () => {
-	console.log(JSON.stringify(configWorking()));
 	let result = await axios.get(`${BASE_URL}users`, configWorking());
 	return result.data;
 };
@@ -21,18 +26,11 @@ export const getUser = (userId: string) => {
 		.catch(handleError);
 };
 
-interface UserIdProps {
-	id: string;
-	name: string;
-	login: string;
-}
-
 export async function getUserByLogin(login: string) {
 	const users = await getAllUsers();
 	const soughtUser: UserIdProps = users.filter(
 		(user: UserIdProps) => user.login == login
 	)[0];
-	console.log(`id user =${soughtUser.id}`);
 	return soughtUser.id;
 }
 
@@ -41,6 +39,12 @@ export async function getUserName(userId: string) {
 	const userName = user.name;
 	return userName;
 }
+export const deleteUserPermanently = (userId: string) => {
+	return axios
+		.delete(`${BASE_URL}users/${userId}`, configWorking())
+		.then(handleResponse)
+		.catch(handleError);
+};
 
 export const deleteUser = (userId: string) => {
 	return axios

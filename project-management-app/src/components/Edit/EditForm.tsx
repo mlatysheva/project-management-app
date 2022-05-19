@@ -10,11 +10,7 @@ import {
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
 import { edit, selectUser, signup } from "../../store/signup/userOptions";
-import {
-	deleteUser,
-	getUserByLogin,
-	updateUser,
-} from "../../services/apiUserProvider";
+import { deleteUserPermanently } from "../../services/apiUserProvider";
 import "./edit.css";
 import "../passwordShowHide/passwordField.css";
 
@@ -53,18 +49,20 @@ function EditForm({ updateToken }: any) {
 		//send it to the server
 	};
 
-	const deleteUserById = () => {
+	const deleteUserById = async () => {
 		alert(t("alert"));
-
-		if (register.id) {
-			deleteUser(register.id).then((res) => {
-				console.log(res);
-				console.log(`user with id deleted =${register.id}`);
-			});
-			const token = localStorage.setItem("userToken", "");
-			updateToken(token);
-			navigate("/");
-		}
+		//TODO:await deleteUserPermanently(register.id);
+		dispatch(
+			edit({
+				login: null,
+				password: null,
+				userID: null,
+				name: null,
+			})
+		);
+		const token = localStorage.setItem("userToken", "");
+		updateToken(token);
+		navigate("/");
 	};
 
 	return (
