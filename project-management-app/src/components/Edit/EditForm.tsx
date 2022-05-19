@@ -70,7 +70,6 @@ function EditForm({ updateToken }: any) {
 			})
 		);
 
-		await getUserByLogin("cat15");
 		//send it to the server
 	};
 

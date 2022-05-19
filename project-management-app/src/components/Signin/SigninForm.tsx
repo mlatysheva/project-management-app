@@ -10,6 +10,7 @@ import { selectUser, signin } from "../../store/signup/userOptions";
 import { useTranslation } from "react-i18next";
 
 import "./signin.css";
+import { getUserByLogin } from "../../services/apiUserProvider";
 
 let disableBtnInSignin = true;
 
@@ -63,6 +64,8 @@ function SigninForm({ updateToken }: any) {
 		const token = signInResponse.token;
 		updateToken(token);
 
+		await getUserByLogin(login);
+
 		dispatch(
 			signin({
 				login: login,
@@ -81,7 +84,7 @@ function SigninForm({ updateToken }: any) {
 				onSubmit={(e) => handleSubmitSignin(e)}
 				onChange={isDisabledSignin}
 			>
-				<h1>{t('h1_signin')} 🎫:</h1>
+				<h1>{t("h1_signin")} 🎫:</h1>
 				<input
 					className="signup__input"
 					onKeyUp={applyColorLogin}
@@ -115,14 +118,14 @@ function SigninForm({ updateToken }: any) {
 				</button>
 			</form>
 			<div className="row">
-				<h2>{t('no_account')}</h2>
+				<h2>{t("no_account")}</h2>
 				<button
 					className="toRegister__btn"
 					onClick={(e) => {
 						navigate("/signup");
 					}}
 				>
-					{t('click')}
+					{t("click")}
 				</button>
 			</div>
 		</>
