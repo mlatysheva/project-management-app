@@ -5,16 +5,21 @@ import { TaskProps } from "./tasksSlice";
 export interface ColumnProps {
   id?: string,
   title: string,
-  order: number,
+  order?: number,
   tasks?: TaskProps[];
 }
 
-let columnId = 2;
 let columnOrder = 0;
 
-const initialState: ColumnProps[] = [];
+const initialState: ColumnProps =
+  {
+    title: '',
+    order: columnOrder,
+  }
 
-// export const columnsReducer = (state = initialState, action: AnyAction ) => {
+let columnId = 2;
+
+// export const columnReducer = (state = initialState, action: AnyAction ) => {
 //   switch (action.type) {
 //     case "add_column":
 //       const newColumn = {
@@ -32,32 +37,25 @@ const initialState: ColumnProps[] = [];
 //   }
 // }
 
-export const columnsSlice = createSlice({
-  name: 'columns',
+export const columnSlice = createSlice({
+  name: 'column',
   initialState,
   reducers: {
-
-    add_column: (state = initialState, action) => {
-      console.log('we are in add_column');
+    add_column: (state: ColumnProps, action: { payload: { title: string; }; }) => {
       const newColumn = {
+        id: columnId.toString(),
         title: action.payload.title,
         order: columnOrder,
       }
+      columnId++;
       columnOrder++;
-      return [...state, newColumn];
-    },
-
-    delete_column: (state, action) => {
-      const columnId = action.payload;
-      let newList = state.filter(column => column.id != columnId);
-      if (newList === []) {
-        newList = initialState;
-      }
-      return newList;
-    },
+      console.dir(state);
+      console.log(`in columnsReducer title is ${newColumn.title}`);
+      return newColumn;
+    }
   }
 });
 
-export const { add_column, delete_column } = columnsSlice.actions;
+export const { add_column } = columnSlice.actions;
 
-export default columnsSlice.reducer;
+export default columnSlice.reducer;

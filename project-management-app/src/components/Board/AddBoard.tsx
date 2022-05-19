@@ -8,7 +8,7 @@ import { TextField } from "@mui/material";
 import { createBoard } from "../../services/apiBoardProvider";
 import { set_board } from "../../store/reducers/boardSlice";
 
-export function AddBoardButton(props: {formOpen: boolean, toHide: boolean}) {
+export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 	const [state, setState] = useState({
 		formOpen: props.formOpen,
     toHide: props.toHide,
@@ -148,4 +148,4 @@ export function AddBoardButton(props: {formOpen: boolean, toHide: boolean}) {
 	return state.formOpen ? renderForm() : renderButton();
 }
 
-export default connect()(AddBoardButton);
+export default connect()(AddBoard);

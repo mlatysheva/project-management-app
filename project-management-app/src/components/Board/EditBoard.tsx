@@ -1,4 +1,4 @@
-import AddColumnButton from '../Column/AddColumnButton';
+import AddColumn from '../Column/AddColumn';
 import { Column } from '../Column/Column';
 import { useAppSelector } from '../../store/hooks';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
@@ -30,8 +30,8 @@ export default function EditBoard() {
   return (
     <div className="main">
       <h1>Edit the board</h1>
-      <EditField buttonName="Update" placeholder="Enter new title" type="title" field={board.title} />
-      <EditField buttonName="Update" placeholder="Enter new description" type="description" field={board.description} />
+      <EditField buttonName="Update" placeholder="Enter new title" type="title" field={board.title} category="board"/>
+      <EditField buttonName="Update" placeholder="Enter new description" type="description" field={board.description} category="board"/>
       <div className="column-container">
         {columns.map((column: ColumnProps) => <Column id="02" key={column.id} title={column.title} tasks={[
             // { id: "01r",
@@ -41,7 +41,7 @@ export default function EditBoard() {
             // },      
           ]} />
         )}
-        <AddColumnButton type="Add new column" />
+        <AddColumn type="Add new column" />
       </div>
       <Button onClick={handleBoardComplete}>Complete</Button>        
     </div>

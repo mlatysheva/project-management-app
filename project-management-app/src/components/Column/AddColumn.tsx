@@ -1,16 +1,15 @@
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
-import TextArea from "react-textarea-autosize";
 import { connect, useDispatch } from "react-redux";
-import { addColumn } from "../../store/reducers/columnsActions";
+import { add_column } from "../../store/reducers/columnsSlice";
+import TextField from "@mui/material/TextField";
 
-interface AddButtonProps {
+interface AddColumnProps {
 	type: string;
 }
 
-export function AddColumnButton(props: AddButtonProps) {
+export function AddColumn(props: AddColumnProps) {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
@@ -19,7 +18,6 @@ export function AddColumnButton(props: AddButtonProps) {
   const dispatch = useDispatch();
 
 	function openForm() {
-    console.log(`we are in openForm`);
 		setState({
 			...state,
 			formOpen: true,
@@ -27,7 +25,6 @@ export function AddColumnButton(props: AddButtonProps) {
 	}
 
 	function closeForm() {
-    console.log(`we are in closeForm`);
 		setState({
 			...state,
 			formOpen: false,
@@ -41,20 +38,23 @@ export function AddColumnButton(props: AddButtonProps) {
 		});
 	}
 
-  function handleAddColumn () {
+  function handleSetTitle () {
     const { title } = state;
-    console.log(`we are in handleAddColumn`);
-    console.log(`title is ${title}`);
     if (title) {
-      dispatch(addColumn(title));      
+      dispatch(add_column({title: title}));      
     }
+    setState({
+      ...state,
+      title: '',
+      formOpen: false,
+    });
   }
 
 	function renderButton() {
 		const { type } = props;
-		const buttonTextOpasity = type == "Add new task" ? 1 : 0.5;
-		const buttonTextColor = type == "Add new task" ? "white" : "inherit";
-		const buttonBackground = type == "Add new task" ? "inherit" : "ligthgrey";
+		const buttonTextOpasity = 0.5;
+		const buttonTextColor = "inherit";
+		const buttonBackground = "ligthgrey";
 		return (
 			<div
 				className="add-button"
@@ -77,34 +77,25 @@ export function AddColumnButton(props: AddButtonProps) {
 
 		return (
 			<div>
-				<Card
-					style={{
-						overflow: "visible",
-						minHeight: 80,
-						minWidth: 270,
-						padding: "6px 8 px 2px",
-					}}
-				>
-					<TextArea
-						placeholder={placeholder}
-						autoFocus
-						// onBlur={closeForm}
-						value={state.title}
-						onChange={handleInputChange}
-						style={{
-							resize: "none",
-							width: "100%",
-							paddingTop: 10,
-							outline: "none",
-							border: "none",
-							overflow: "hidden",
-						}}
-					/>
-				</Card>
+        <TextField
+          placeholder="Enter new title"
+          autoFocus
+          value={state.title}
+          onChange={handleInputChange}
+          style={{
+            resize: "none",
+            width: "100%",
+            minWidth: 40,
+            backgroundColor: "white",
+            borderRadius: 4,
+            marginTop: 5,
+            marginBottom: 10,
+          }}
+        />
 				<div className="add-button-container">
 					<Button						
 						style={{ color: "white", backgroundColor: "midnightblue" }}
-            onClick={handleAddColumn}
+            onClick={handleSetTitle}
 					>
 						{buttonTitle}{" "}
 					</Button>
@@ -117,4 +108,4 @@ export function AddColumnButton(props: AddButtonProps) {
 	return state.formOpen ? renderForm() : renderButton();
 }
 
-export default connect()(AddColumnButton);
+export default connect()(AddColumn);

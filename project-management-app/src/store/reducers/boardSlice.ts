@@ -12,6 +12,7 @@ const initialState: BoardProps = {
   id: '',
   title: '',  
   description: '',
+  columns: [],
 }
 
 export const boardSlice = createSlice({

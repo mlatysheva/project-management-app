@@ -1,6 +1,6 @@
 import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
 import { BoardProps, set_board } from '../../store/reducers/boardSlice';
-import AddBoardButton from '../Board/AddBoardButton';
+import AddBoard from '../Board/AddBoard';
 import { deleteBoard, getAllBoards } from '../../services/apiBoardProvider';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -91,7 +91,7 @@ export function Boards() {
           {boards.map((board: BoardProps, index: number) =>
               <Draggable key={board.id} draggableId={board.id} index={index}>
               {(provided) => (
-            <div className= "board"  key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+            <div className= "board" style={styles.container} key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
               <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
                 <Card className="card"  sx={{ minWidth: 275 }}>
                 <CardContent>
@@ -118,7 +118,6 @@ export function Boards() {
         )}
           </Droppable>
         </DragDropContext>
-
       </div>
   );
 }
