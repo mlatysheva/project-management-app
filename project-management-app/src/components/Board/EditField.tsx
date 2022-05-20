@@ -1,5 +1,3 @@
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
@@ -8,9 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
-import { set_board } from "../../store/reducers/boardSlice";
 import { useAppSelector } from "../../store/hooks";
-import { updateBoard } from "../../services/apiBoardProvider";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -18,6 +14,8 @@ interface EditFieldProps {
   placeholder: string; // Enter new title
   type: string; // Title
 	field: string; // Title value
+  onClick?: () => void;
+  category?: string; // Board/Column/Task
 }
 
 export function EditField(props: EditFieldProps) {
@@ -27,8 +25,6 @@ export function EditField(props: EditFieldProps) {
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
     field: props.field,
-    // title: board.title,
-    // description: board.description,
 	});
 
 	function openForm() {
@@ -53,39 +49,35 @@ export function EditField(props: EditFieldProps) {
 	}
 
   async function handleFieldUpdate() {
-    let body: { title: string; description: string; };
+    let body: {id: string; title: string; description: string; };
     if (props.type === "title") {
       body = {
+        id: board.id,
         title: state.field,
         description: board.description,
-      };
-
-      dispatch(update_board({
-        ...body,
-        title: state.field,
-      }));
+      }
     } else {
       body = {
+        id: board.id,
         title: board.title,
         description: state.field,
       }
-
-      dispatch(update_board({
-        ...body,
-        description: state.field,
-      }));
     }
+
+    dispatch(update_board({...body}));
 
     setState({
       ...state,
       formOpen: false,
-    })
+    });
+
+    closeForm();
   }
 
 	function renderField() {
 		return (
       <React.Fragment>
-        <h2>{state.field}</h2>
+        <h2 style={{ textAlign: "left" }}>{state.field}</h2>
         <Tooltip title={`Edit ${props.type}`}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
@@ -104,16 +96,14 @@ export function EditField(props: EditFieldProps) {
           style={{
             resize: "none",
             width: "100%",
-            paddingTop: 5,
+            minWidth: 40,
+            backgroundColor: "white",
+            borderRadius: 4,
+            marginTop: 5,
+            marginBottom: 10,
           }}
         />
-        <Button						
-          style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 20 }}
-          onClick={handleFieldUpdate}
-        >
-          Update{" "}
-        </Button>
-        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
+        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={handleFieldUpdate}>close</Icon>
 			</React.Fragment>
 		);
 	}

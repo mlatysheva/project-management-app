@@ -31,9 +31,10 @@ function useLocalStorage(key: string, initialState: string) {
 	return [value, updatedSetValue];
 }
 
+//localStorage.removeItem("userToken");
+
 function App() {
 	let [localStorage, setToken] = useLocalStorage("userToken", "");
-
 	return (
 		<div className="App">
 			<ErrorBoundary>

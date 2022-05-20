@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -9,11 +9,11 @@ import {
 	applyColorPasswordShow,
 } from "../../helpersFunct/inputcolor";
 import instaceApi from "../../services/api";
-import { edit, signup } from "../../store/signup/userOptions";
+import { edit, selectUser, signup } from "../../store/signup/userOptions";
 import {
-	deleteUser,
-	getUserByLogin,
-	updateUser,
+	deleteUserPermanently,
+	getAllUsers,
+	toServerEdit,
 } from "../../services/apiUserProvider";
 import "./edit.css";
 import "../passwordShowHide/passwordField.css";
@@ -27,6 +27,7 @@ function EditForm({ updateToken }: any) {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const register = useSelector(selectUser);
 
 	const { t } = useTranslation();
 
@@ -39,29 +40,8 @@ function EditForm({ updateToken }: any) {
 		}
 	};
 
-	/*async function toServerEdit(register: Record<string, string>): Promise<any> {
-		//should be put
-		try {
-			let response = await instaceApi.put(`/signup/${id}`, register);
-			//console.log(`response ${JSON.stringify(response.data)}`);
-			return response.data;
-		} catch (e) {
-			console.error(e);
-		} finally {
-			console.log(`register in edit = ${register}`);
-		}
-	}*/
-
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		/*const id = localStorage.getItem("id");
-		if (id !== null) {
-			updateUser(id, {
-				name: name,
-				login: login,
-				password: password,
-			});
-		}*/
 		dispatch(
 			edit({
 				name: name,
@@ -69,23 +49,31 @@ function EditForm({ updateToken }: any) {
 				password: password,
 			})
 		);
-
-		await getUserByLogin("cat15");
 		//send it to the server
+		if (register.id) {
+			await toServerEdit(register.id, { name, login, password });
+		}
+		//await getAllUsers();
 	};
 
-	const deleteUserById = () => {
-		alert(t("alert"));
-		const id = localStorage.getItem("id");
-		if (id) {
-			deleteUser(id).then((res) => {
-				console.log(res);
-				localStorage.removeItem("id");
-			});
+	const deleteUserById = async () => {
+		alert(t("alert_delete_user"));
+		if (register.id) {
+			deleteUserPermanently(register.id);
 		}
+
+		dispatch(
+			edit({
+				login: null,
+				password: null,
+				userID: null,
+				name: null,
+			})
+		);
 		const token = localStorage.setItem("userToken", "");
 		updateToken(token);
 		navigate("/");
+		getAllUsers();
 	};
 
 	return (
@@ -98,7 +86,7 @@ function EditForm({ updateToken }: any) {
 					type="name"
 					placeholder={t("name")}
 					id="name"
-					value={name}
+					defaultValue={register.name?.toString()}
 					onChange={(e) => setName(e.target.value)}
 					//pattern="[A-Za-z]{2,}"
 					title="Just latin letters, min 2 symbols"
@@ -109,7 +97,8 @@ function EditForm({ updateToken }: any) {
 					type="text"
 					placeholder={t("login")}
 					id="login"
-					value={login}
+					defaultValue={register.login?.toString()}
+					//value={login}
 					onChange={(e) => setLogin(e.target.value)}
 					pattern="{4,}"
 					//pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"-for email
@@ -122,12 +111,12 @@ function EditForm({ updateToken }: any) {
 						type={passwordShown ? "text" : "password"}
 						id="password"
 						placeholder={t("password")}
-						value={password}
+						defaultValue={register.password?.toString()}
 						onChange={(e) => setPassword(e.target.value)}
 						pattern="{6,}"
 						title="Put minimum 6 symbols"
 					/>
-					<button className="show__btn" onClick={togglePassword}>
+					<button type="button" className="show__btn" onClick={togglePassword}>
 						{show}
 					</button>
 				</div>

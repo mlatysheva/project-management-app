@@ -5,11 +5,15 @@ import {
 	applyColorLogin,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
-import instaceApi from "../../services/api";
 import { selectUser, signin } from "../../store/signup/userOptions";
 import { useTranslation } from "react-i18next";
 
 import "./signin.css";
+import {
+	getUserByLogin,
+	getUserName,
+	toServerSignin,
+} from "../../services/apiUserProvider";
 
 let disableBtnInSignin = true;
 
@@ -37,39 +41,46 @@ function SigninForm({ updateToken }: any) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	async function toServerSignin(
-		register: Record<string, string>
-	): Promise<any> {
-		try {
-			let response = await instaceApi.post(`/signin`, register);
-			//console.log(`signin ${JSON.stringify(response.data)}`);
-			return response.data;
-		} catch (e) {
-			console.error(e);
-		} finally {
-		}
-	}
-
 	const handleSubmitSignin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		disableBtnInSignin = true;
 
 		let signInResponse = await toServerSignin({ login, password });
 		if (!signInResponse) {
-			console.log("FUCK YOU!!!");
-			return;
+			alert(t("no_register"));
+			setPassword("");
+			setLogin("");
+		} else {
+			const token = signInResponse.token;
+			updateToken(token);
+
+			const userID = await getUserByLogin(login);
+			const userName = await getUserName(userID);
+
+			localStorage.setItem("userID", userID);
+			localStorage.setItem("userLogin", login);
+			localStorage.setItem("userPassword", password);
+			localStorage.setItem("userName", userName);
+
+			dispatch(
+				signin({
+					login: localStorage.getItem("userLogin"),
+					password: localStorage.getItem("userPassword"),
+					id: localStorage.getItem("userID"),
+					name: localStorage.getItem("userName"),
+				})
+			);
+
+			/*	dispatch(
+				signin({
+					login: login,
+					password: password,
+					id: localStorage.getItem("userID"),
+					name: userName,
+				})
+			);*/
+			navigate("/");
 		}
-
-		const token = signInResponse.token;
-		updateToken(token);
-
-		dispatch(
-			signin({
-				login: login,
-				password: password,
-			})
-		);
-		navigate("/");
 	};
 
 	const { t } = useTranslation();
@@ -81,14 +92,14 @@ function SigninForm({ updateToken }: any) {
 				onSubmit={(e) => handleSubmitSignin(e)}
 				onChange={isDisabledSignin}
 			>
-				<h1>{t('h1_signin')} 🎫:</h1>
+				<h1>{t("h1_signin")} 🎫:</h1>
 				<input
 					className="signup__input"
 					onKeyUp={applyColorLogin}
 					type="text"
 					placeholder={t("login")}
 					id="login-signin"
-					value={/*register.login?.toString() || */ login}
+					value={login}
 					onChange={(e) => setLogin(e.target.value)}
 					pattern="{4,}"
 					title="login min 4 symbols..."
@@ -100,7 +111,7 @@ function SigninForm({ updateToken }: any) {
 					id="password-signin"
 					type="password"
 					placeholder={t("password")}
-					value={/*register.password?.toString() || */ password}
+					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 					pattern="{6,}"
 					title="Put minimum 6 symbols"
@@ -115,14 +126,14 @@ function SigninForm({ updateToken }: any) {
 				</button>
 			</form>
 			<div className="row">
-				<h2>{t('no_account')}</h2>
+				<h2>{t("no_account")}</h2>
 				<button
 					className="toRegister__btn"
 					onClick={(e) => {
 						navigate("/signup");
 					}}
 				>
-					{t('click')}
+					{t("click")}
 				</button>
 			</div>
 		</>
@@ -130,17 +141,3 @@ function SigninForm({ updateToken }: any) {
 }
 
 export default SigninForm;
-
-/**/
-
-/*dispatch(
-			signin({
-				login: login,
-				password: password,
-				registered: false,
-			})
-		);*/
-//send it to teh server
-
-//	navigate("/logout");
-//	disableBtnInSignin = true;

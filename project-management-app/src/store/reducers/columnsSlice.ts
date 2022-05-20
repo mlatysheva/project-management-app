@@ -1,37 +1,44 @@
-import { AnyAction } from "redux";
+import { createSlice } from "@reduxjs/toolkit";
 import { TaskProps } from "./tasksSlice";
 
 export interface ColumnProps {
-  id?: string,
+  id: string,
   title: string,
   order: number,
   tasks?: TaskProps[];
 }
 
-const initialState: ColumnProps[] = [
-  {
-    title: 'todo column',
-    order: 1,
-  }
-]
+const initialState: ColumnProps[] = [];
 
-let columnId = 2;
-let columnOrder = 0;
+export const columnsSlice = createSlice({
+  name: 'columns',
+  initialState,
+  reducers: {
 
-export const columnsReducer = (state = initialState, action: AnyAction ) => {
-  switch (action.type) {
-    case "add_column":
+    add_column: (state = initialState, action) => {
+      console.log(`in add column order is ${action.payload.order}`);
       const newColumn = {
-        id: columnId.toString(),
+        id: action.payload.id,
         title: action.payload.title,
-        order: columnOrder,
+        order: action.payload.title,
       }
-      columnId++;
-      columnOrder++;
-      console.dir(state);
-      console.log(`in columnsReducer title is ${newColumn.title}`);
       return [...state, newColumn];
-    default: 
-      return state;
+    },
+
+    delete_column: (state, action) => {
+      const columnId = action.payload;
+      console.dir(state);
+      console.log(`in reducer column with id ${columnId} will be deleted`);
+      let newList = state.filter(column => column.id != columnId);
+      console.dir(newList);
+      if (newList === []) {
+        newList = initialState;
+      }
+      return newList;
+    },
   }
-}
+});
+
+export const { add_column, delete_column } = columnsSlice.actions;
+
+export default columnsSlice.reducer;

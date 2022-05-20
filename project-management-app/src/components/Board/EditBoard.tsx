@@ -1,4 +1,4 @@
-import AddColumnButton from '../Column/AddColumnButton';
+import AddColumn from '../Column/AddColumn';
 import { Column } from '../Column/Column';
 import { useAppSelector } from '../../store/hooks';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
@@ -15,9 +15,8 @@ export default function EditBoard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  async function handleBoardComplete() {
+  async function handleBoardSave() {
     dispatch(clear_board());
-    navigate('/boards');
     const boardId = board.id;
     const body = {
       title: board.title,
@@ -30,10 +29,10 @@ export default function EditBoard() {
   return (
     <div className="main">
       <h1>Edit the board</h1>
-      <EditField buttonName="Update" placeholder="Enter new title" type="title" field={board.title} />
-      <EditField buttonName="Update" placeholder="Enter new description" type="description" field={board.description} />
+      <EditField buttonName="Update" placeholder="Enter new title" type="title" field={board.title} category="board"/>
+      <EditField buttonName="Update" placeholder="Enter new description" type="description" field={board.description} category="board"/>
       <div className="column-container">
-        {columns.map((column: ColumnProps) => <Column id="02" key={column.id} title={column.title} tasks={[
+        {columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} tasks={[
             // { id: "01r",
             //   title: "Your sample task",
             //   description: "Visualise your elephant",
@@ -41,9 +40,9 @@ export default function EditBoard() {
             // },      
           ]} />
         )}
-        <AddColumnButton type="Add new column" />
+        <AddColumn type="Add new column" />
       </div>
-      <Button onClick={handleBoardComplete}>Complete</Button>        
+      <Button style={{marginTop: 40}} onClick={handleBoardSave}>Save</Button>
     </div>
   )
 }

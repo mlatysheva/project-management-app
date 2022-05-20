@@ -10,6 +10,8 @@ import {
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
 import "./register.css";
+import { toServerRegister } from "../../services/apiUserProvider";
+import { AxiosError } from "axios";
 
 let disableBtnIn = true;
 
@@ -40,20 +42,7 @@ function SignupForm() {
 		return disableBtnIn;
 	};
 
-	async function toServerRegister(
-		register: Record<string, string>
-	): Promise<any> {
-		try {
-			let response = await instaceApi.post(`/signup`, register);
-			console.log(`response ${JSON.stringify(response.data)}`);
-			return response.data;
-		} catch (e) {
-			console.error(e);
-		} finally {
-		}
-	}
-
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(
 			signup({
@@ -63,11 +52,23 @@ function SignupForm() {
 			})
 		);
 		//send it to the server
-		toServerRegister({ name, login, password }).then((register) =>
-			console.log(register)
-		);
-		navigate("/signin");
-		disableBtnIn = true;
+		let resultOfSignUpCallToServer = await toServerRegister({
+			name,
+			login,
+			password,
+		});
+		if (resultOfSignUpCallToServer instanceof AxiosError) {
+			if (resultOfSignUpCallToServer.response?.data?.message) {
+				//alert(resultOfSignUpCallToServer.response?.data.message);
+				alert("something goes wrong");
+				setLogin("");
+			} else {
+				alert(t("no_internet_connection"));
+			}
+		} else {
+			navigate("/signin");
+			disableBtnIn = true;
+		}
 	};
 
 	return (
@@ -77,7 +78,7 @@ function SignupForm() {
 				onSubmit={(e) => handleSubmit(e)}
 				onChange={isDisabled}
 			>
-				<h1>If you want to register 🌻:</h1>
+				<h1>{t("register")} 🌻:</h1>
 				<input
 					className="signup__input"
 					onKeyUp={applyColorName}
@@ -116,18 +117,18 @@ function SignupForm() {
 					required
 				/>
 				<button type="submit" className="signup__btn" disabled={disableBtnIn}>
-					{t('registerBtn')}
+					{t("registerBtn")}
 				</button>
 			</form>
 			<div className="row">
-				<h2>Have account?</h2>
+				<h2>{t("have_account")}</h2>
 				<button
 					className="toRegister__btn"
 					onClick={(e) => {
 						navigate("/signin");
 					}}
 				>
-					click there
+					{t("click")}
 				</button>
 			</div>
 		</>
