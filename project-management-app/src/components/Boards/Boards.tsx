@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
+
 import './Board.scss';
 type TitleProps = {
   title: string;
@@ -27,28 +28,28 @@ export function Title({ title = '' }: TitleProps) {
 export function Boards() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const styles = {
-  //   container: {
-  //     width: 300,
-  //     margin: 10,
-  //     color: "black",
-  //     backgroundColor: "skyblue",
-  //     borderRadius: 3,
-  //     padding: 8,
-  //   }
-  // };
-
+  
   let boards = useAppSelector((state) => state.boards);
   
-  const [board, setBoards] = useState([]);
+  const [board, setBoards] = useState(boards);
 
   function handleOnDragEnd(result: DropResult, provided: ResponderProvided) {
-    console.log(result);
-    if (!result.destination) return;
-    const items = Array.from(board);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setBoards(items);
+    const { destination, source } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+   
+    const newItems = [...boards];
+    const [removed] = newItems.splice(result.source.index, 1);
+    newItems.splice(destination.index, 0, removed);
+    //setBoards(newItems);
+    dispatch(set_board(newItems));
   }
 
 
