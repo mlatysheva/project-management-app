@@ -32,8 +32,9 @@ export default function EditBoard() {
       <h1>Edit the board</h1>
       <EditField buttonName="Update" placeholder="Enter new title" type="title" field={board.title} category="board"/>
       <EditField buttonName="Update" placeholder="Enter new description" type="description" field={board.description} category="board"/>
+      <Button style={{marginTop: 40}} onClick={handleBoardComplete}>Save</Button>
       <div className="column-container">
-        {columns.map((column: ColumnProps) => <Column id="02" key={column.id} title={column.title} tasks={[
+        {columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} tasks={[
             // { id: "01r",
             //   title: "Your sample task",
             //   description: "Visualise your elephant",
@@ -43,7 +44,6 @@ export default function EditBoard() {
         )}
         <AddColumn type="Add new column" />
       </div>
-      <Button onClick={handleBoardComplete}>Complete</Button>        
     </div>
   )
 }

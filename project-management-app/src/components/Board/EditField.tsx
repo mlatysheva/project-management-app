@@ -75,12 +75,14 @@ export function EditField(props: EditFieldProps) {
         ...body,
         description: state.field,
       }));
-    }  
+    }; 
 
     setState({
       ...state,
       formOpen: false,
-    })
+    });
+
+    closeForm();
   }
 
 	function renderField() {
@@ -112,13 +114,7 @@ export function EditField(props: EditFieldProps) {
             marginBottom: 10,
           }}
         />
-        <Button						
-          style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 20, width: 100 }}
-          onClick={handleFieldUpdate}
-        >
-          {props.buttonName}{" "}
-        </Button>
-        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
+        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={handleFieldUpdate}>close</Icon>
 			</React.Fragment>
 		);
 	}

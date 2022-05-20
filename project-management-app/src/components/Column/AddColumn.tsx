@@ -52,16 +52,13 @@ export function AddColumn(props: AddColumnProps) {
 
 	function renderButton() {
 		const { type } = props;
-		const buttonTextOpasity = 0.5;
-		const buttonTextColor = "inherit";
-		const buttonBackground = "ligthgrey";
 		return (
 			<div
 				className="add-button"
 				style={{
-					opacity: buttonTextOpasity,
-					color: buttonTextColor,
-					backgroundColor: buttonBackground,
+					opacity: 0.5,
+					color: "inherit",
+					backgroundColor: "ligthgrey",
 				}}
 				onClick={openForm}
 			>
@@ -72,13 +69,10 @@ export function AddColumn(props: AddColumnProps) {
 	}
 
 	function renderForm() {
-		const placeholder = "Enter the title of the column";
-		const buttonTitle = "Add column";
-
 		return (
 			<div>
         <TextField
-          placeholder="Enter new title"
+          placeholder="Enter title"
           autoFocus
           value={state.title}
           onChange={handleInputChange}
@@ -97,7 +91,7 @@ export function AddColumn(props: AddColumnProps) {
 						style={{ color: "white", backgroundColor: "midnightblue" }}
             onClick={handleSetTitle}
 					>
-						{buttonTitle}{" "}
+						Add column
 					</Button>
           <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 				</div>

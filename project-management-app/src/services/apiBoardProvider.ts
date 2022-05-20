@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 import { handleResponse, handleError } from './response'; 
-import { BASE_URL, config } from './api';
+import { BASE_URL, config, configWorking } from './api';
 import { BoardProps } from '../store/reducers/boardSlice';
 
 interface ShortBoardProps {
@@ -11,7 +11,7 @@ interface ShortBoardProps {
 
 export const getAllBoards = () => { 
   return axios 
-    .get(`${BASE_URL}boards`, config) 
+    .get(`${BASE_URL}boards`, configWorking()) 
     .then(handleResponse) 
     .catch(handleError); 
 };
