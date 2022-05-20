@@ -84,6 +84,9 @@ button:active {
 	background-color: var(--btn-active);
 }
 
+.page-title {
+  margin-top: 3rem;
+}
 .add-button {
 	display: flex;
 	flex-direction: row;
@@ -91,7 +94,6 @@ button:active {
 	background-color: lightgrey;
 	min-width: 200px;
 	margin: 10px;
-  margin-bottom: 20px;
 	padding: 3px;
 	height: 80px;
 	border-radius: 3px;
@@ -106,6 +108,7 @@ button:active {
 }
 
 .add-section {
+  width: 600px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -120,9 +123,11 @@ button:active {
 }
 
 .title-description-wrapper-update {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .button-wrapper {
@@ -189,9 +194,10 @@ label {
 	color: black;
 	font-size: large;
 	display: block;
+  min-width: 130px;
   margin-right: 10px;
   margin-left: 10px;
-	text-align: right;
+	text-align: left;
 }
 
 .form-input-field {

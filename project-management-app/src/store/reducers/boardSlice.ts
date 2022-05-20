@@ -37,10 +37,9 @@ export const boardSlice = createSlice({
       return updatedBoard;
     },
     add_column_to_board: (state, action) => {
-      const newColumn = action.payload;
       const updatedBoard = {
         ...state,
-        columns: [...state.columns!, newColumn]
+        columns: [...state.columns!, action.payload]
       }
       return updatedBoard;
     }
