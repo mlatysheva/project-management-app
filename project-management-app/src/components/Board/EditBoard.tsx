@@ -15,7 +15,7 @@ export default function EditBoard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  async function handleBoardComplete() {
+  async function handleBoardSave() {
     dispatch(clear_board());
     navigate('/boards');
     const boardId = board.id;
@@ -32,7 +32,7 @@ export default function EditBoard() {
       <h1>Edit the board</h1>
       <EditField buttonName="Update" placeholder="Enter new title" type="title" field={board.title} category="board"/>
       <EditField buttonName="Update" placeholder="Enter new description" type="description" field={board.description} category="board"/>
-      <Button style={{marginTop: 40}} onClick={handleBoardComplete}>Save</Button>
+      <Button style={{marginTop: 40}} onClick={handleBoardSave}>Save</Button>
       <div className="column-container">
         {columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} tasks={[
             // { id: "01r",

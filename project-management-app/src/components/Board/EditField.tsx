@@ -59,23 +59,15 @@ export function EditField(props: EditFieldProps) {
       body = {
         title: state.field,
         description: board.description,
-      };
-
-      dispatch(update_board({
-        ...body,
-        title: state.field,
-      }));
+      }
     } else {
       body = {
         title: board.title,
         description: state.field,
       }
+    }
 
-      dispatch(update_board({
-        ...body,
-        description: state.field,
-      }));
-    }; 
+    dispatch(update_board({...body}));
 
     setState({
       ...state,

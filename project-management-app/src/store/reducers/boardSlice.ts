@@ -32,6 +32,7 @@ export const boardSlice = createSlice({
         ...state,
         title: action.payload.title,
         description: action.payload.description,
+        id: action.payload.id,
       }
       return updatedBoard;
     }
