@@ -8,10 +8,16 @@ import EditField from './EditField';
 import { createBoard } from '../../services/apiBoardProvider';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
 import { Column } from '../Column/Column';
+import { useState } from 'react';
 
 export default function CreateBoard() {
   const columns = useAppSelector((state) => state.columns);
   const board = useAppSelector((state) => state.board);
+
+  const [state, setState] = useState({
+		isColumnSaved: false,
+	});
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,7 +33,10 @@ export default function CreateBoard() {
       ...body,
       id: boardId,
     }));
-    console.dir(boardApi);
+    setState({
+			...state,
+			isColumnSaved: true,
+		});
   }  
 
   return (
@@ -37,17 +46,20 @@ export default function CreateBoard() {
         <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field="" category="board" />
         <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field="" category="board" />
       </div>
-      <div className="column-container">
-        {columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
-          { id: "01r",
-            title: "Your sample task",
-            description: "Visualise your elephant",
-            done: false,
-          },      
-        ]} />)}
-        <AddColumn type="Add new column" />
-      </div>
-      <Button style={{marginTop: 40}} onClick={handleBoardSave}>Save</Button>
+      <Button style={{marginTop: 40}} onClick={handleBoardSave}>Create board</Button>
+
+      {state.isColumnSaved ? (
+        <div className="column-container">
+          {columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
+            { id: "01r",
+              title: "Your sample task",
+              description: "Visualise your elephant",
+              done: false,
+            },      
+          ]} />)}
+          <AddColumn type="Add new column" />
+        </div>
+      ) : null }
     </div>
   )
 }
