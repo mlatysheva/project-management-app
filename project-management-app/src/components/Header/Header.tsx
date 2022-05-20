@@ -52,6 +52,8 @@ export function CurrentPage() {
 	);
 }
 
+
+
 function Header(localStorage: any) {
 	// Sticky Menu Area https://stackoverflow.com/questions/62970456/how-to-create-sticky-headers-on-scroll-with-react
 	useEffect(() => {
@@ -60,6 +62,7 @@ function Header(localStorage: any) {
 			window.removeEventListener("scroll", isSticky);
 		};
 	});
+
 	/* Method that will fix header after a specific scrollable */
 	const isSticky = (e: Event) => {
 		const header = document.querySelector(".header");
@@ -74,6 +77,30 @@ function Header(localStorage: any) {
   function handleCreateBoard() {
     dispatch(clear_board());
   }
+
+	const isSmallScreen =( e:Event) => { 
+		const menu = document.querySelector(".menu");
+		const nav = document.querySelector(".nav");
+		
+	 	if (window.innerWidth < 600) {
+			 menu?.classList.remove('hidden');
+			 nav?.classList.add('hidden');
+
+		 }
+		 else {
+			 menu?.classList.add('hidden');
+			 nav?.classList.remove('hidden');
+		 }
+			
+	}
+
+	
+	useEffect(() => {
+		window.addEventListener("resize", isSmallScreen);
+		return () => {
+			window.removeEventListener("resize", isSmallScreen);
+		};
+	});
 
 	return (
 		<header className="header">
@@ -118,8 +145,8 @@ function Header(localStorage: any) {
 					</Tooltip>
 				</NavLink>
 				<SelectLanguage />
-				<MenuIcon className="hidden" fontSize="large"/>
 			</nav>
+				<MenuIcon className="hidden menu" fontSize="large"/>
 		</header>
 	);
 }

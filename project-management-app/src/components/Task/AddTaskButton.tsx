@@ -52,16 +52,15 @@ export function AddTaskButton(props: AddButtonProps) {
 
 	function renderButton() {
 		const { type } = props;
-		const buttonTextOpasity = type == "Add new task" ? 1 : 0.5;
-		const buttonTextColor = type == "Add new task" ? "white" : "inherit";
-		const buttonBackground = type == "Add new task" ? "inherit" : "ligthgrey";
+
 		return (
 			<div
 				className="add-button"
 				style={{
-					opacity: buttonTextOpasity,
-					color: buttonTextColor,
-					backgroundColor: buttonBackground,
+					opacity: 1,
+          height: 40,
+					color: "white",
+					backgroundColor: "inherit",
 				}}
 				onClick={openForm}
 			>
