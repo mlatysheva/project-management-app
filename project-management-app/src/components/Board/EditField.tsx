@@ -54,14 +54,16 @@ export function EditField(props: EditFieldProps) {
 	}
 
   async function handleFieldUpdate() {
-    let body: { title: string; description: string; };
+    let body: {id: string; title: string; description: string; };
     if (props.type === "title") {
       body = {
+        id: board.id,
         title: state.field,
         description: board.description,
       }
     } else {
       body = {
+        id: board.id,
         title: board.title,
         description: state.field,
       }

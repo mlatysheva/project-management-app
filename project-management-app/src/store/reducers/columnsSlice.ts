@@ -20,13 +20,13 @@ export const columnsSlice = createSlice({
   reducers: {
 
     add_column: (state = initialState, action) => {
-      console.log('we are in add_column');
+      console.log(`in add column order is ${action.payload.order}`);
       const newColumn = {
         id: columnId.toString(),
         title: action.payload.title,
-        order: columnOrder,
+        order: action.payload.title,
       }
-      columnOrder++;
+      // columnOrder++;
       columnId++;
       return [...state, newColumn];
     },

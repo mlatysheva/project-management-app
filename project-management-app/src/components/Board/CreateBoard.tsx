@@ -37,7 +37,6 @@ export default function CreateBoard() {
         <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field="" category="board" />
         <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field="" category="board" />
       </div>
-      <Button style={{marginTop: 40}} onClick={handleBoardSave}>Save</Button>
       <div className="column-container">
         {columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
           { id: "01r",
@@ -48,6 +47,7 @@ export default function CreateBoard() {
         ]} />)}
         <AddColumn type="Add new column" />
       </div>
+      <Button style={{marginTop: 40}} onClick={handleBoardSave}>Save</Button>
     </div>
   )
 }

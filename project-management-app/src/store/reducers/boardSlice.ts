@@ -28,7 +28,7 @@ export const boardSlice = createSlice({
       return newState;
     },
     update_board: (state, action) => {
-      const updatedBoard= {
+      const updatedBoard = {
         ...state,
         title: action.payload.title,
         description: action.payload.description,

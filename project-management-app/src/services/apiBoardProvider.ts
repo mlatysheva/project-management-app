@@ -47,4 +47,17 @@ export const updateBoard = (boardId: string, boardData: UpdateBoardProps) => {
     .put(`${BASE_URL}boards/${boardId}`, boardData, config) 
     .then(handleResponse) 
     .catch(handleError); 
-}; 
+};
+
+interface ColumnProps {
+  title: string;
+  order: number;
+}
+
+export const createColumn = (boardId: string, columnData: ColumnProps) => {
+  return axios 
+    .post(`${BASE_URL}boards/${boardId}/columns`, columnData, config)
+    .then(handleResponse) 
+    .catch(handleError);
+}
+

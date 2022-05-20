@@ -4,17 +4,21 @@ import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { add_column } from "../../store/reducers/columnsSlice";
 import TextField from "@mui/material/TextField";
+import { useAppSelector } from "../../store/hooks";
+import { createColumn } from "../../services/apiBoardProvider";
 
 interface AddColumnProps {
 	type: string;
 }
+
+let columnOrder = 0;
 
 export function AddColumn(props: AddColumnProps) {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
 	});
-
+  let board = useAppSelector((state) => state.board);
   const dispatch = useDispatch();
 
 	function openForm() {
@@ -38,10 +42,18 @@ export function AddColumn(props: AddColumnProps) {
 		});
 	}
 
-  function handleSetTitle () {
+  async function handleAddColumn () {
     const { title } = state;
     if (title) {
-      dispatch(add_column({title: title}));      
+      dispatch(add_column({title: title}));
+      console.log(`columnOrder is ${columnOrder}`);
+      const body = {
+        title: state.title,
+        order: columnOrder,
+      }
+      columnOrder++;
+      const apiData = await createColumn(board.id, body);
+      console.dir(apiData);
     }
     setState({
       ...state,
@@ -89,7 +101,7 @@ export function AddColumn(props: AddColumnProps) {
 				<div className="add-button-container">
 					<Button						
 						style={{ color: "white", backgroundColor: "midnightblue" }}
-            onClick={handleSetTitle}
+            onClick={handleAddColumn}
 					>
 						Add column
 					</Button>
