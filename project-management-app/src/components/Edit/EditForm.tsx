@@ -53,11 +53,11 @@ function EditForm({ updateToken }: any) {
 		if (register.id) {
 			await toServerEdit(register.id, { name, login, password });
 		}
-		await getAllUsers();
+		//await getAllUsers();
 	};
 
 	const deleteUserById = async () => {
-		alert(t("alert"));
+		alert(t("alert_delete_user"));
 		if (register.id) {
 			deleteUserPermanently(register.id);
 		}
