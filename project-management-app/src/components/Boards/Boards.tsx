@@ -101,7 +101,7 @@ const [showModal, setShowModal] = useState(false);
       <div className="modal">
         <section className="modal-main">
           <div className="title-container">
-            <h1 className="modal-title">Do you really want to delete your board?</h1>
+            <Title title="Do you really want to delete your board?" />
           </div>
           <button
             className="modal-close"

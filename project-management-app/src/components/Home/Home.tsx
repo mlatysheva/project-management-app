@@ -19,13 +19,21 @@ export function Home() {
 		<div className="main">
 			<Title title={t('title')}/>
 			<Elefant />
-			<h2>{t('h2')}</h2>
-			<p className='welcome'>{t('welcome1')}</p>
-			<p className='welcome'>{t('welcome2')}</p>
-			<h2>{t('h2_plan')}</h2>
-			<p className='welcome'>{t('welcome3')}</p>
-			<h2>{t('h2_use')}</h2>
-			<p className='welcome'>{t('welcome4')}</p>
+			<div className="main_container">
+				<div className="advantage">
+					<h2>{t('h2')}</h2>
+					<p className='welcome'>{t('welcome1')}</p>
+					<p className='welcome'>{t('welcome2')}</p>
+				</div>
+				<div className="advantage">
+					<h2>{t('h2_plan')}</h2>
+					<p className='welcome'>{t('welcome3')}</p>
+			  </div>
+				<div className="advantage">
+					<h2>{t('h2_use')}</h2>
+					<p className='welcome'>{t('welcome4')}</p>
+				</div>
+			</div>
 			<h2>{t('h2_made')} React 2022 Q1 in <a href="https://rs.school" className="rsschool">
         The Rolling Scopes School
       </a> {t('team')}</h2>
