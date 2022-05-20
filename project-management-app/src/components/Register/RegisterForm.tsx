@@ -59,7 +59,9 @@ function SignupForm() {
 		});
 		if (resultOfSignUpCallToServer instanceof AxiosError) {
 			if (resultOfSignUpCallToServer.response?.data?.message) {
-				alert(resultOfSignUpCallToServer.response?.data.message);
+				//alert(resultOfSignUpCallToServer.response?.data.message);
+				alert("something goes wrong");
+				setLogin("");
 			} else {
 				alert(t("no_internet_connection"));
 			}
