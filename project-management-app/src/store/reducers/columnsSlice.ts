@@ -22,12 +22,12 @@ export const columnsSlice = createSlice({
     add_column: (state = initialState, action) => {
       console.log(`in add column order is ${action.payload.order}`);
       const newColumn = {
-        id: columnId.toString(),
+        id: action.payload.id,
         title: action.payload.title,
         order: action.payload.title,
       }
       // columnOrder++;
-      columnId++;
+      // columnId++;
       return [...state, newColumn];
     },
 

@@ -45,7 +45,6 @@ export function AddColumn(props: AddColumnProps) {
   async function handleAddColumn () {
     const { title } = state;
     if (title) {
-      dispatch(add_column({title: title}));
       console.log(`columnOrder is ${columnOrder}`);
       const body = {
         title: state.title,
@@ -54,6 +53,8 @@ export function AddColumn(props: AddColumnProps) {
       columnOrder++;
       const apiData = await createColumn(board.id, body);
       console.dir(apiData);
+      const columnId = apiData.id;
+      dispatch(add_column({...body, id: columnId}));
     }
     setState({
       ...state,
