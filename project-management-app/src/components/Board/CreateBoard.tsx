@@ -69,8 +69,8 @@ export default function CreateBoard() {
         </div>
       ) : null }
       <div className="save-cancel-section">
-        <Button style={{marginTop: 30, marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>Cancel</Button>
-        <Button style={{marginTop: 30, minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Save</Button>
+        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>Cancel</Button>
+        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Save</Button>
       </div>
     </div>
   )

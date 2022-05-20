@@ -85,7 +85,7 @@ button:active {
 }
 
 .page-title {
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 .add-button {
 	display: flex;
@@ -94,7 +94,6 @@ button:active {
 	background-color: lightgrey;
 	min-width: 200px;
 	margin: 10px;
-  margin-bottom: 20px;
 	padding: 3px;
 	height: 80px;
 	border-radius: 3px;

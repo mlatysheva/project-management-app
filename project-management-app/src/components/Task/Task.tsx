@@ -8,7 +8,7 @@ import { TaskProps } from '../../store/reducers/tasksSlice';
 
 export const Task = (props: TaskProps) => {
   return (
-    <Card className="card" sx={{ minWidth: 275, minHeight: 200, marginBottom: 1.5 }}>
+    <Card className="card" sx={{ minWidth: 275, minHeight: 150, marginBottom: 1.5 }}>
       <CardContent>
         <Typography variant="h5" component="div">
           {props.title}
