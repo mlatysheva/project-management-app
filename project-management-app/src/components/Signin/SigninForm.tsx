@@ -58,15 +58,27 @@ function SigninForm({ updateToken }: any) {
 			const userName = await getUserName(userID);
 
 			localStorage.setItem("userID", userID);
+			localStorage.setItem("userLogin", login);
+			localStorage.setItem("userPassword", password);
+			localStorage.setItem("userName", userName);
 
 			dispatch(
+				signin({
+					login: localStorage.getItem("userLogin"),
+					password: localStorage.getItem("userPassword"),
+					id: localStorage.getItem("userID"),
+					name: localStorage.getItem("userName"),
+				})
+			);
+
+			/*	dispatch(
 				signin({
 					login: login,
 					password: password,
 					id: localStorage.getItem("userID"),
 					name: userName,
 				})
-			);
+			);*/
 			navigate("/");
 		}
 	};

@@ -1,5 +1,4 @@
 import { t } from "i18next";
-import { MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -20,7 +19,11 @@ function Logout({ updateToken }: any) {
 		updateToken("");
 		localStorage.removeItem("userToken");
 		localStorage.removeItem("userID");
+		localStorage.removeItem("userName");
+		localStorage.removeItem("userLogin");
+		localStorage.removeItem("userPassword");
 	};
+
 	return (
 		<div className="main">
 			<div className="logout__form">
