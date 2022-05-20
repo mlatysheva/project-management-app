@@ -8,8 +8,7 @@ import { createBoard, deleteBoard } from '../../services/apiBoardProvider';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
 import { Column } from '../Column/Column';
 import { useState } from 'react';
-import { delete_board } from '../../store/reducers/boardsSlice';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateBoard() {
   const columns = useAppSelector((state) => state.board.columns);
@@ -34,6 +33,7 @@ export default function CreateBoard() {
       ...body,
       id: boardId,
     }));
+
     setState({
 			...state,
 			isColumnSaved: true,
@@ -44,13 +44,13 @@ export default function CreateBoard() {
     const boardId = board.id;
     alert(`The board will not be saved`);
     await deleteBoard(boardId);
-    dispatch(clear_board);
+    dispatch(clear_board());
     navigate('/boards');
   }
 
   return (
     <div className="main">
-      <h1>Create a new board</h1>
+      <h1 className="page-title">Create a new board</h1>
       <div className="add-section">
         <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field="" category="board" />
         <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field="" category="board" />
@@ -70,7 +70,7 @@ export default function CreateBoard() {
       ) : null }
       <div className="save-cancel-section">
         <Button style={{marginTop: 30, marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>Cancel</Button>
-        <Button style={{marginTop: 30, minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Create board</Button>
+        <Button style={{marginTop: 30, minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Save</Button>
       </div>
     </div>
   )

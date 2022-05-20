@@ -1,5 +1,5 @@
 import Icon from "@mui/material/Icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
@@ -21,11 +21,18 @@ interface EditFieldProps {
 export function EditField(props: EditFieldProps) {
   const board = useAppSelector((state) => state.board);
   const dispatch = useDispatch();
+  const boardId = board.id;
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
     field: props.field,
 	});
+
+  useEffect(() => {
+    if (board.id != '') {
+      closeForm();
+    }
+  }, [boardId]);
 
 	function openForm() {
 		setState({
@@ -65,13 +72,6 @@ export function EditField(props: EditFieldProps) {
     }
 
     dispatch(update_board({...body}));
-
-    setState({
-      ...state,
-      formOpen: false,
-    });
-
-    closeForm();
   }
 
 	function renderField() {
@@ -93,6 +93,7 @@ export function EditField(props: EditFieldProps) {
           autoFocus
           value={state.field}
           onChange={handleFieldChange}
+          onBlur={handleFieldUpdate}
           style={{
             resize: "none",
             width: "100%",
@@ -103,7 +104,7 @@ export function EditField(props: EditFieldProps) {
             marginBottom: 10,
           }}
         />
-        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={handleFieldUpdate}>close</Icon>
+        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 			</React.Fragment>
 		);
 	}

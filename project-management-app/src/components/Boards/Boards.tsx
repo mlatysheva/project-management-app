@@ -22,7 +22,7 @@ type TitleProps = {
 };
 
 export function Title({ title = '' }: TitleProps) {
-  return <h1>{title}</h1>
+  return <h1 className="page-title">{title}</h1>
 }
 
 export function Boards() {
