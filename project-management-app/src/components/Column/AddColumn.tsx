@@ -2,10 +2,10 @@ import Button from "@mui/material/Button";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { add_column } from "../../store/reducers/columnsSlice";
 import TextField from "@mui/material/TextField";
 import { useAppSelector } from "../../store/hooks";
 import { createColumn } from "../../services/apiBoardProvider";
+import { add_column_to_board } from "../../store/reducers/boardSlice";
 
 interface AddColumnProps {
 	type: string;
@@ -45,16 +45,13 @@ export function AddColumn(props: AddColumnProps) {
   async function handleAddColumn () {
     const { title } = state;
     if (title) {
-      console.log(`columnOrder is ${columnOrder}`);
       const body = {
         title: state.title,
         order: columnOrder,
       }
       columnOrder++;
       const apiData = await createColumn(board.id, body);
-      console.dir(apiData);
-      const columnId = apiData.id;
-      dispatch(add_column({...body, id: columnId}));
+      dispatch(add_column_to_board({id: apiData.id, order: apiData.order, title: apiData.title}));
     }
     setState({
       ...state,

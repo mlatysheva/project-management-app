@@ -1,5 +1,3 @@
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
@@ -8,10 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
-import { set_board } from "../../store/reducers/boardSlice";
 import { useAppSelector } from "../../store/hooks";
-import { updateBoard } from "../../services/apiBoardProvider";
-import { add_column } from "../../store/reducers/columnsSlice";
 
 interface EditFieldProps {
   formOpen?: boolean;

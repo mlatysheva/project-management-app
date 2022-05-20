@@ -2,8 +2,7 @@ import AddColumn from '../Column/AddColumn';
 import { useAppSelector } from '../../store/hooks';
 import { Button} from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { clear_board, update_board } from '../../store/reducers/boardSlice';
+import { update_board } from '../../store/reducers/boardSlice';
 import EditField from './EditField';
 import { createBoard } from '../../services/apiBoardProvider';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
@@ -11,7 +10,7 @@ import { Column } from '../Column/Column';
 import { useState } from 'react';
 
 export default function CreateBoard() {
-  const columns = useAppSelector((state) => state.columns);
+  const columns = useAppSelector((state) => state.board.columns);
   const board = useAppSelector((state) => state.board);
 
   const [state, setState] = useState({
@@ -19,7 +18,6 @@ export default function CreateBoard() {
 	});
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   async function handleBoardSave() {
     let body = {
@@ -50,13 +48,13 @@ export default function CreateBoard() {
 
       {state.isColumnSaved ? (
         <div className="column-container">
-          {columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
+          {(columns != undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
             { id: "01r",
               title: "Your sample task",
               description: "Visualise your elephant",
               done: false,
             },      
-          ]} />)}
+          ]} />): null }
           <AddColumn type="Add new column" />
         </div>
       ) : null }

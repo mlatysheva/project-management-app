@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AnyAction } from "redux";
 import { TaskProps } from "./tasksSlice";
 
 export interface ColumnProps {
@@ -8,9 +7,6 @@ export interface ColumnProps {
   order: number,
   tasks?: TaskProps[];
 }
-
-let columnOrder = 0;
-let columnId = 10;
 
 const initialState: ColumnProps[] = [];
 
@@ -26,8 +22,6 @@ export const columnsSlice = createSlice({
         title: action.payload.title,
         order: action.payload.title,
       }
-      // columnOrder++;
-      // columnId++;
       return [...state, newColumn];
     },
 

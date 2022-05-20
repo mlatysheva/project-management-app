@@ -1,4 +1,3 @@
-import React from 'react';
 import { TaskProps } from '../../store/reducers/tasksSlice';
 import { AddTaskButton } from '../Task/AddTaskButton';
 import { Task } from '../Task/Task';
@@ -21,7 +20,6 @@ export const Column = (props: BoardColumnProps) => {
   const dispatch = useDispatch();
 
   function handleDeleteColumn(columnId: string) {
-    console.log(`column with id ${columnId} will be deleted`);
     dispatch(delete_column(columnId));
   }
   return (

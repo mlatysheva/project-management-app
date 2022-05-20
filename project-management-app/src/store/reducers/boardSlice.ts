@@ -35,10 +35,18 @@ export const boardSlice = createSlice({
         id: action.payload.id,
       }
       return updatedBoard;
+    },
+    add_column_to_board: (state, action) => {
+      const newColumn = action.payload;
+      const updatedBoard = {
+        ...state,
+        columns: [...state.columns!, newColumn]
+      }
+      return updatedBoard;
     }
   }
 });
 
-export const { set_board, clear_board, update_board } = boardSlice.actions;
+export const { set_board, clear_board, update_board, add_column_to_board } = boardSlice.actions;
 
 export default boardSlice.reducer;

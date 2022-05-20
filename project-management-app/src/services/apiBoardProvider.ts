@@ -11,7 +11,7 @@ interface ShortBoardProps {
 
 export const getAllBoards = () => { 
   return axios 
-    .get(`${BASE_URL}boards`, configWorking()) 
+    .get(`${BASE_URL}boards`, config) 
     .then(handleResponse) 
     .catch(handleError); 
 };
