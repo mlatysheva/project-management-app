@@ -66,6 +66,8 @@ i18n
 					register: "If you want to register",
 					have_account: "Do you have account?",
 					no_register: "Maybe you aren't register yet...",
+					logout_component: ", do you want logout?",
+					logout_btn: "Logout",
 				},
 			},
 			ru: {
@@ -119,6 +121,8 @@ i18n
 					register: "Для регистрации, заполните",
 					have_account: "Уже есть аккаунт?",
 					no_register: "Возможно вы не зарегистрированы еще...",
+					logout_component: ", хотите выйти из личного кабинета?",
+					logout_btn: "Выйти",
 				},
 			},
 		},

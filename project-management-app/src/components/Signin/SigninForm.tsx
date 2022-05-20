@@ -57,11 +57,13 @@ function SigninForm({ updateToken }: any) {
 			const userID = await getUserByLogin(login);
 			const userName = await getUserName(userID);
 
+			localStorage.setItem("userID", userID);
+
 			dispatch(
 				signin({
 					login: login,
 					password: password,
-					id: userID,
+					id: localStorage.getItem("userID"),
 					name: userName,
 				})
 			);

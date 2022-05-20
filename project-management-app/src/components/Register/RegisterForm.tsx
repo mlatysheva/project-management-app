@@ -60,6 +60,7 @@ function SignupForm() {
 		if (resultOfSignUpCallToServer instanceof AxiosError) {
 			if (resultOfSignUpCallToServer.response?.data?.message) {
 				alert(resultOfSignUpCallToServer.response?.data.message);
+				setLogin("");
 			} else {
 				alert(t("no_internet_connection"));
 			}
