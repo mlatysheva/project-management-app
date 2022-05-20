@@ -7,11 +7,12 @@ import Tooltip from "@mui/material/Tooltip";
 import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
 import SelectLanguage from "../SelectLanguage/SelectLanguage";
 import EditIcon from "@mui/icons-material/Edit";
-import "./Header.scss";
+import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 import { useTranslation} from 'react-i18next';
 import { clear_board } from "../../store/reducers/boardSlice";
 import { useDispatch } from "react-redux";
+import "./Header.scss";
 
 export function CurrentPage() {
 	const location = useLocation();
@@ -117,6 +118,7 @@ function Header(localStorage: any) {
 					</Tooltip>
 				</NavLink>
 				<SelectLanguage />
+				<MenuIcon className="hidden" fontSize="large"/>
 			</nav>
 		</header>
 	);

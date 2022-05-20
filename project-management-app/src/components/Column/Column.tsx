@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
 import { delete_column } from '../../store/reducers/columnsSlice';
 
-interface BoardColumnProps {
+export interface BoardColumnProps {
   id: string;
 	title: string;
 	tasks: TaskProps[];

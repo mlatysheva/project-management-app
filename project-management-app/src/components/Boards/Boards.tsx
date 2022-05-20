@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import  { Modal } from '../Modal/Modal';
 
+
 import './Board.scss';
 
 type TitleProps = {
@@ -96,7 +97,8 @@ const [showModal, setShowModal] = useState(false);
  };
 
 
-  const modal = showModal ? (
+  const modal =  showModal? (
+
     <Modal show={false} >
       <div className="modal">
         <section className="modal-main">
@@ -109,7 +111,7 @@ const [showModal, setShowModal] = useState(false);
               e.preventDefault();
               e.stopPropagation();
               handleHide();
-              //handleDeleteBoard(board.id);
+             // handleDeleteBoard(board.id);
             }}
           >
             ×
@@ -134,13 +136,16 @@ const [showModal, setShowModal] = useState(false);
     </Modal>
   ) : null;
 
+
   return (    
     <div className="main" id="modal-root">
       <Title title="Your boards" />
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="droppable">
         {(provided) => (
+          <>
           <div className="boards-container"  id="droppable" {...provided.droppableProps} ref={provided.innerRef}>
+            <>
         {boards.map((board: BoardProps, index: number) =>
             <Draggable key={board.id} draggableId={board.id} index={index}>
             {(provided) => (
@@ -171,7 +176,9 @@ const [showModal, setShowModal] = useState(false);
         <AddBoard formOpen={false} toHide={false} />
         {provided.placeholder}
         {modal}
+        </>
       </div>
+      </>
       )}
       
         </Droppable>
