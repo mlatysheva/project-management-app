@@ -2,19 +2,23 @@ import Button from "@mui/material/Button";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { add_column } from "../../store/reducers/columnsSlice";
 import TextField from "@mui/material/TextField";
+import { useAppSelector } from "../../store/hooks";
+import { createColumn } from "../../services/apiBoardProvider";
+import { add_column_to_board } from "../../store/reducers/boardSlice";
 
 interface AddColumnProps {
 	type: string;
 }
+
+let columnOrder = 0;
 
 export function AddColumn(props: AddColumnProps) {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
 	});
-
+  let board = useAppSelector((state) => state.board);
   const dispatch = useDispatch();
 
 	function openForm() {
@@ -38,10 +42,16 @@ export function AddColumn(props: AddColumnProps) {
 		});
 	}
 
-  function handleSetTitle () {
+  async function handleAddColumn () {
     const { title } = state;
     if (title) {
-      dispatch(add_column({title: title}));      
+      const body = {
+        title: state.title,
+        order: columnOrder,
+      }
+      columnOrder++;
+      const apiData = await createColumn(board.id, body);
+      dispatch(add_column_to_board({id: apiData.id, order: apiData.order, title: apiData.title}));
     }
     setState({
       ...state,
@@ -52,16 +62,13 @@ export function AddColumn(props: AddColumnProps) {
 
 	function renderButton() {
 		const { type } = props;
-		const buttonTextOpasity = 0.5;
-		const buttonTextColor = "inherit";
-		const buttonBackground = "ligthgrey";
 		return (
 			<div
 				className="add-button"
 				style={{
-					opacity: buttonTextOpasity,
-					color: buttonTextColor,
-					backgroundColor: buttonBackground,
+					opacity: 0.5,
+					color: "inherit",
+					backgroundColor: "ligthgrey",
 				}}
 				onClick={openForm}
 			>
@@ -72,13 +79,10 @@ export function AddColumn(props: AddColumnProps) {
 	}
 
 	function renderForm() {
-		const placeholder = "Enter the title of the column";
-		const buttonTitle = "Add column";
-
 		return (
 			<div>
         <TextField
-          placeholder="Enter new title"
+          placeholder="Enter title"
           autoFocus
           value={state.title}
           onChange={handleInputChange}
@@ -95,9 +99,9 @@ export function AddColumn(props: AddColumnProps) {
 				<div className="add-button-container">
 					<Button						
 						style={{ color: "white", backgroundColor: "midnightblue" }}
-            onClick={handleSetTitle}
+            onClick={handleAddColumn}
 					>
-						{buttonTitle}{" "}
+						Add column
 					</Button>
           <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 				</div>

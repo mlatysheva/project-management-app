@@ -1,5 +1,3 @@
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
@@ -8,10 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
-import { set_board } from "../../store/reducers/boardSlice";
 import { useAppSelector } from "../../store/hooks";
-import { updateBoard } from "../../services/apiBoardProvider";
-import { add_column } from "../../store/reducers/columnsSlice";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -54,33 +49,29 @@ export function EditField(props: EditFieldProps) {
 	}
 
   async function handleFieldUpdate() {
-    let body: { title: string; description: string; };
+    let body: {id: string; title: string; description: string; };
     if (props.type === "title") {
       body = {
+        id: board.id,
         title: state.field,
         description: board.description,
-      };
-
-      dispatch(update_board({
-        ...body,
-        title: state.field,
-      }));
+      }
     } else {
       body = {
+        id: board.id,
         title: board.title,
         description: state.field,
       }
+    }
 
-      dispatch(update_board({
-        ...body,
-        description: state.field,
-      }));
-    }  
+    dispatch(update_board({...body}));
 
     setState({
       ...state,
       formOpen: false,
-    })
+    });
+
+    closeForm();
   }
 
 	function renderField() {
@@ -112,13 +103,7 @@ export function EditField(props: EditFieldProps) {
             marginBottom: 10,
           }}
         />
-        <Button						
-          style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 20, width: 100 }}
-          onClick={handleFieldUpdate}
-        >
-          {props.buttonName}{" "}
-        </Button>
-        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
+        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={handleFieldUpdate}>close</Icon>
 			</React.Fragment>
 		);
 	}
