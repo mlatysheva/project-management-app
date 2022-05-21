@@ -83,6 +83,7 @@ function Header(localStorage: any) {
 
 	const isSmallScreen =( e:Event) => { 
 	 	if (window.innerWidth < 600) {
+			 console.log(window.innerWidth);
 			 menu?.classList.remove('hidden');
 			 nav?.classList.add('hidden');
 
@@ -154,7 +155,7 @@ function Header(localStorage: any) {
 					</>
 				)}
 				<NavLink to={`${baseUrl}/boards`}>
-				  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+				  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={removeNav}>
 				   {t('boards')}
         	</Typography>
 				</NavLink>

@@ -18,6 +18,7 @@ import  { Modal } from '../Modal/Modal';
 
 
 import './Board.scss';
+import { baseUrl } from '../../App';
 
 type TitleProps = {
   title: string;
@@ -77,7 +78,7 @@ export function Boards() {
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
     alert(`Do you want to edit the board with id: ${boardId}?`);
-    navigate('/editboard');
+    navigate(`/${baseUrl}/editboard`);
     dispatch(set_board({
       id: boardId,
       title: title,

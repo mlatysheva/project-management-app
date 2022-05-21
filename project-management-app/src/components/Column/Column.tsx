@@ -8,6 +8,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
 import { delete_column } from '../../store/reducers/columnsSlice';
+import { deleteColumn } from '../../services/apiBoardProvider';
+import { delete_column_from_board } from '../../store/reducers/boardSlice';
 
 export interface BoardColumnProps {
   id: string;
@@ -17,10 +19,12 @@ export interface BoardColumnProps {
 
 export const Column = (props: BoardColumnProps) => {
   const tasks = useAppSelector((state) => state.tasks);
+  const boardId = useAppSelector((state) => state.board.id);
   const dispatch = useDispatch();
 
-  function handleDeleteColumn(columnId: string) {
-    dispatch(delete_column(columnId));
+  function handleDeleteColumn(columnId: string) {    
+    deleteColumn(boardId, columnId);
+    dispatch(delete_column_from_board(columnId));
   }
   return (
     <div className="column-wrapper">

@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import { useAppSelector } from "../../store/hooks";
 import { createColumn } from "../../services/apiBoardProvider";
 import { add_column_to_board } from "../../store/reducers/boardSlice";
+import React from "react";
 
 interface AddColumnProps {
 	type: string;
@@ -80,7 +81,7 @@ export function AddColumn(props: AddColumnProps) {
 
 	function renderForm() {
 		return (
-			<div>
+			<div className="column-form">
         <TextField
           placeholder="Enter title"
           autoFocus
@@ -92,7 +93,6 @@ export function AddColumn(props: AddColumnProps) {
             minWidth: 40,
             backgroundColor: "white",
             borderRadius: 4,
-            marginTop: 5,
             marginBottom: 10,
           }}
         />
