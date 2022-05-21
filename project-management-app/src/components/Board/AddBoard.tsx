@@ -61,11 +61,11 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
         title: title,
         description: description,
       }));
-      dispatch(set_board({
-        id: boardId,
-        title: title,
-        description: description,
-      })); 
+      // dispatch(set_board({
+      //   id: boardId,
+      //   title: title,
+      //   description: description,
+      // })); 
       setState({
         ...state,
         title: '',

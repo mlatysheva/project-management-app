@@ -7,17 +7,19 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clear_board } from '../../store/reducers/boardSlice';
 import { EditField } from './EditField';
-import { updateBoard } from '../../services/apiBoardProvider';
+import { deleteBoard, updateBoard } from '../../services/apiBoardProvider';
+import { baseUrl } from '../../App';
 
 export default function EditBoard() {
-  const columns = useAppSelector((state) => state.columns);
+  const columns = useAppSelector((state) => state.board.columns);
   const board = useAppSelector((state) => state.board);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const boardId = board.id;
+
   async function handleBoardSave() {
-    dispatch(clear_board());
-    const boardId = board.id;
+    // dispatch(clear_board());
     const body = {
       title: board.title,
       description: board.description,
@@ -26,23 +28,33 @@ export default function EditBoard() {
     console.dir(boardApi);   
   }
 
+  async function handleDeleteBoard() {    
+    alert(`The board will be deleted`);
+    await deleteBoard(boardId);
+    dispatch(clear_board());
+    navigate(`/${baseUrl}/boards`);
+  }
+
   return (
     <div className="main">
       <h1 className="page-title">Edit the board</h1>
       <EditField buttonName="Update" placeholder="Enter new title" type="title" field={board.title} category="board"/>
       <EditField buttonName="Update" placeholder="Enter new description" type="description" field={board.description} category="board"/>
       <div className="column-container">
-        {columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} tasks={[
-            // { id: "01r",
-            //   title: "Your sample task",
-            //   description: "Visualise your elephant",
-            //   done: false,
-            // },      
+        {(columns != undefined) ? columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} tasks={[
+            { id: "01r",
+              title: "Your sample task",
+              description: "Visualise your elephant",
+              done: false,
+            },      
           ]} />
-        )}
+        ) : null }
         <AddColumn type="Add new column" />
       </div>
-      <Button style={{marginTop: 40}} onClick={handleBoardSave}>Save</Button>
+      <div className="save-cancel-section">
+        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>Delete board</Button>
+        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Save board</Button>
+      </div>
     </div>
   )
 }

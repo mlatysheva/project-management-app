@@ -7,7 +7,7 @@ import EditField from './EditField';
 import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
 import { Column } from '../Column/Column';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
 
@@ -22,6 +22,10 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
   const [state, setState] = useState({
 		isColumnSaved: false,
 	});
+
+  // useEffect(() => {
+  //   dispatch(clear_board)
+  // }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

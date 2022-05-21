@@ -70,7 +70,6 @@ export function EditField(props: EditFieldProps) {
         description: state.field,
       }
     }
-
     dispatch(update_board({...body}));
   }
 
