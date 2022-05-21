@@ -11,7 +11,7 @@ import { delete_column } from '../../store/reducers/columnsSlice';
 import { deleteColumn } from '../../services/apiBoardProvider';
 import { delete_column_from_board } from '../../store/reducers/boardSlice';
 
-interface BoardColumnProps {
+export interface BoardColumnProps {
   id: string;
 	title: string;
 	tasks: TaskProps[];
