@@ -6,13 +6,15 @@ export class Modal extends React.Component<Record<string, React.ReactNode>, { sh
   el: HTMLDivElement;
   showModal: (() => boolean) | undefined;
   
+   
   constructor(props: Record<string, React.ReactNode>) {
     super(props);
     this.el = document.createElement('div');
-  }
+    }
 
   componentDidMount() {
     document.getElementById('modal-root')?.appendChild(this.el);
+    
   }
 
   componentWillUnmount() {

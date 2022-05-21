@@ -61,17 +61,17 @@ export function Boards() {
   useEffect(() => {
     const fetchData = async () => {
       boards = await getAllBoards();
+      console.log(...boards.map(board => board.id));
       if (boards.length === 0 ) {
         boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
       }
-      dispatch(get_allBoards(boards));      
+       dispatch(get_allBoards(boards));      
     }
     fetchData()
       .catch(console.error);
   }, []);
 
   async function handleDeleteBoard(boardId: string) {
-    alert(`The board with id: ${boardId} will be removed!`);
     dispatch(delete_board(boardId));
     await deleteBoard(boardId);
   }
@@ -112,7 +112,7 @@ const [showModal, setShowModal] = useState(false);
               e.preventDefault();
               e.stopPropagation();
               handleHide();
-             // handleDeleteBoard(board.id);
+              //handleDeleteBoard(board.id);
             }}
           >
             ×
@@ -124,7 +124,6 @@ const [showModal, setShowModal] = useState(false);
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  
                   handleHide();
                 }}
               >
@@ -168,6 +167,7 @@ const [showModal, setShowModal] = useState(false);
                 </Tooltip>
               </CardActions>
               </Card>
+              {modal} (id= {board.id})
           </div>
           
             )}
