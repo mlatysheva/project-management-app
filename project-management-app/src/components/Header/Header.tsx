@@ -21,14 +21,14 @@ export function CurrentPage() {
 		switch (location.pathname) {
 			case `/${baseUrl}`:
 				return t('home');
+        case `/${baseUrl}/`:
+				return t('home');
 			case `/${baseUrl}/signup`:
 				return t("signup");
 			case `/${baseUrl}/signin`:
 				return t("signin");
 			case `/${baseUrl}/logout`:
 				return t("logout");
-			// case "/project-management-app":
-			// 	return t('home');
 			case `/${baseUrl}/boards`:
 				return t("boards");
 			case `/${baseUrl}/createboard`:
