@@ -61,7 +61,6 @@ export function Boards() {
   useEffect(() => {
     const fetchData = async () => {
       boards = await getAllBoards();
-      console.log(...boards.map(board => board.id));
       if (boards.length === 0 ) {
         boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
       }
@@ -167,7 +166,7 @@ const [showModal, setShowModal] = useState(false);
                 </Tooltip>
               </CardActions>
               </Card>
-              {modal} (id= {board.id})
+              {modal}  id = {board.id}
           </div>
           
             )}
