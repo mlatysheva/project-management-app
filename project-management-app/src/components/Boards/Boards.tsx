@@ -14,6 +14,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
+import  { Modal } from '../Modal/Modal';
+
+
 import './Board.scss';
 import { baseUrl } from '../../App';
 
@@ -29,34 +32,46 @@ export function Title({ title = '' }: TitleProps) {
 export function Boards() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   let boards = useAppSelector((state) => state.boards);
   
-  const [board, setBoards] = useState([]);
+
+  //drag-and-drop
+  //const [board, setBoards] = useState(boards);
 
   function handleOnDragEnd(result: DropResult, provided: ResponderProvided) {
-    console.log(result);
-    if (!result.destination) return;
-    const items = Array.from(board);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setBoards(items);
+    const { destination, source } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+   
+    const newItems = [...boards];
+    const [removed] = newItems.splice(result.source.index, 1);
+    newItems.splice(destination.index, 0, removed);
+    //setBoards(newItems);
+    dispatch(set_board(newItems));
   }
 
+ 
   useEffect(() => {
     const fetchData = async () => {
       boards = await getAllBoards();
+      console.log(...boards.map(board => board.id));
       if (boards.length === 0 ) {
         boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
       }
-      dispatch(get_allBoards(boards));      
+       dispatch(get_allBoards(boards));      
     }
     fetchData()
       .catch(console.error);
   }, []);
 
   async function handleDeleteBoard(boardId: string) {
-    alert(`The board with id: ${boardId} will be removed!`);
     dispatch(delete_board(boardId));
     await deleteBoard(boardId);
   }
@@ -70,17 +85,71 @@ export function Boards() {
       description: description,
     }));
   }
+ //modal
+
+const [showModal, setShowModal] = useState(false);
+
+ const handleShow = () => {
+   setShowModal(true);
+ };
+
+ const handleHide = () => {
+   setShowModal(false);
+ };
+
+
+  const modal =  showModal? (
+
+    <Modal show={false} >
+      <div className="modal">
+        <section className="modal-main">
+          <div className="title-container">
+            <Title title="Do you really want to delete your board?" />
+          </div>
+          <button
+            className="modal-close"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleHide();
+              //handleDeleteBoard(board.id);
+            }}
+          >
+            ×
+          </button>
+          <div className="main-container">
+            <div className="modal-buttons">
+              <button
+                className="modal-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleHide();
+                }}
+              >
+                DELETE
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </Modal>
+  ) : null;
+
 
   return (    
-    <div className="main">
+    <div className="main" id="modal-root">
       <Title title="Your boards" />
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="droppable">
         {(provided) => (
+          <>
           <div className="boards-container"  id="droppable" {...provided.droppableProps} ref={provided.innerRef}>
+            <>
         {boards.map((board: BoardProps, index: number) =>
             <Draggable key={board.id} draggableId={board.id} index={index}>
             {(provided) => (
+              
           <div className= "board" key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
             <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
               <Card className="card"  sx={{ minWidth: 275 }}>
@@ -91,21 +160,28 @@ export function Boards() {
               </CardContent>
               <CardActions className='button-wrapper'>
                 <Tooltip title="Delete board">
-                  <DeleteIcon onClick={() => handleDeleteBoard(board.id)}/>
+                  <DeleteIcon  onClick={() => handleShow()}/>
                 </Tooltip>
                 <Tooltip title="Edit board">
                   <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
                 </Tooltip>
               </CardActions>
               </Card>
+              {modal} (id= {board.id})
           </div>
+          
             )}
             </Draggable>
+            
           )}
         <AddBoard formOpen={false} toHide={false} />
         {provided.placeholder}
+        {modal}
+        </>
       </div>
+      </>
       )}
+      
         </Droppable>
       </DragDropContext>
     </div>

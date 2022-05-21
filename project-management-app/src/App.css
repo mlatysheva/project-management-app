@@ -56,7 +56,7 @@
 	text-transform: none;
 }
 
-.nav {
+nav {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
