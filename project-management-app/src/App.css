@@ -46,6 +46,11 @@
 	text-transform: uppercase;
 }
 
+.save-cancel-section {
+  margin-top: 2rem;
+  margin-left: 20px;
+}
+
 .here-text {
 	font-weight: 400;
 	text-transform: none;

@@ -15,6 +15,8 @@ import { useCallback, useState } from "react";
 import { useAppSelector } from "./store/hooks";
 import EditBoard from "./components/Board/EditBoard";
 
+export const baseUrl = "project-management-app";
+
 function useLocalStorage(key: string, initialState: string) {
 	const [value, setValue] = useState(localStorage.getItem(key) ?? initialState);
 	const updatedSetValue = useCallback(
@@ -43,20 +45,20 @@ function App() {
 					<HeaderIfSignin />*/}
 					<Header token={localStorage} />
 					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/signin" element={<Signin updateToken={setToken} />} />
+						<Route path={`/${baseUrl}`} element={<Home />} />
+						<Route path={`/${baseUrl}/signin`} element={<Signin updateToken={setToken} />} />
 						<Route
-							path="/edit"
+							path={`/${baseUrl}/edit`}
 							element={<EditProfile updateToken={setToken} />}
 						/>
-						<Route path="/signup" element={<Register />} />
-						<Route path="/logout" element={<Logout updateToken={setToken} />} />
-						<Route path="/project-management-app" element={<Home />} />
-						<Route path="/boards" element={<Boards />} />
-						<Route path="/createboard" element={<CreateBoard />} />
-						<Route path="/editboard" element={<EditBoard />} />
-						<Route path="error" element={<ErrorPage />} />
-						<Route path="*" element={<ErrorPage />} />
+						<Route path={`/${baseUrl}/signup`} element={<Register />} />
+						<Route path={`/${baseUrl}/logout`} element={<Logout updateToken={setToken} />} />
+						{/* <Route path={`/${baseUrl}`} element={<Home />} /> */}
+						<Route path={`/${baseUrl}/boards`} element={<Boards />} />
+						<Route path={`/${baseUrl}/createboard`} element={<CreateBoard />} />
+						<Route path={`/${baseUrl}/editboard`} element={<EditBoard />} />
+						<Route path={`/${baseUrl}/error`} element={<ErrorPage />} />
+						<Route path={`/${baseUrl}/*`} element={<ErrorPage />} />
 					</Routes>
 					<Footer />
 				</Router>

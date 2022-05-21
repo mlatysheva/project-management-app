@@ -12,31 +12,32 @@ import { useEffect } from "react";
 import { useTranslation} from 'react-i18next';
 import { clear_board } from "../../store/reducers/boardSlice";
 import { useDispatch } from "react-redux";
+import { baseUrl } from "../../App";
 
 export function CurrentPage() {
 	const location = useLocation();
 	const { t } = useTranslation();
 	const getCurrentPage = () => {
 		switch (location.pathname) {
-			case "/":
+			case `/${baseUrl}`:
 				return t('home');
-			case "/signup":
+        case `/${baseUrl}/`:
+				return t('home');
+			case `/${baseUrl}/signup`:
 				return t("signup");
-			case "/signin":
+			case `/${baseUrl}/signin`:
 				return t("signin");
-			case "/logout":
+			case `/${baseUrl}/logout`:
 				return t("logout");
-			case "/project-management-app":
-				return t('home');
-			case "/boards":
+			case `/${baseUrl}/boards`:
 				return t("boards");
-			case "/createboard":
+			case `/${baseUrl}/createboard`:
 				return t("create_board");
-      case "/editboard":
+      case `/${baseUrl}/editboard`:
 				return t("edit_board");
-			case "/edit":
+			case `/${baseUrl}/edit`:
 				return t("edit");
-			case "/error":
+			case `/${baseUrl}/error`:
 				return "Error";
 			default:
 				return t("error");
@@ -78,19 +79,19 @@ function Header(localStorage: any) {
 		<header className="header">
 			<CurrentPage />
 			<nav className="nav">
-				<NavLink to="/">
+				<NavLink to={`/${baseUrl}`}>
 					<Tooltip title={t('home')}>
 						<HomeIcon fontSize="large" />
 					</Tooltip>
 				</NavLink>
 				{localStorage.token ? (
 					<>
-						<NavLink to="/logout">
+						<NavLink to={`${baseUrl}/logout`}>
 							<Tooltip title={t("logout")}>
 								<LogoutIcon fontSize="large" />
 							</Tooltip>
 						</NavLink>
-						<NavLink to="/edit">
+						<NavLink to={`${baseUrl}/edit`}>
 							<Tooltip title={t("edit")}>
 								<EditIcon fontSize="large" />
 							</Tooltip>
@@ -98,20 +99,20 @@ function Header(localStorage: any) {
 					</>
 				) : (
 					<>
-						<NavLink to="/signin">
+						<NavLink to={`${baseUrl}/signin`}>
 							<Tooltip title={t("signin")}>
 								<LoginIcon fontSize="large" />
 							</Tooltip>
 						</NavLink>
-						<NavLink to="/signup">
+						<NavLink to={`${baseUrl}/signup`}>
 							<Tooltip title={t("signup")}>
 								<HowToRegIcon fontSize="large" />
 							</Tooltip>
 						</NavLink>
 					</>
 				)}
-				<NavLink to="boards">{t('boards')}</NavLink>
-				<NavLink to="/createboard">
+				<NavLink to={`${baseUrl}/boards`}>{t('boards')}</NavLink>
+				<NavLink to={`${baseUrl}/createboard`}>
 					<Tooltip title={t("add")}>
 						<AddBoxIcon fontSize="large" onClick={handleCreateBoard} />
 					</Tooltip>
