@@ -92,6 +92,7 @@ button:active {
 .page-title {
   margin-top: 3rem;
 }
+
 .add-button {
 	display: flex;
 	flex-direction: row;
@@ -104,6 +105,11 @@ button:active {
 	border-radius: 3px;
 	cursor: pointer;
 	padding-left: 10;
+}
+
+.column-form {
+  margin: 10px;
+  padding: 3px;
 }
 
 .add-button-container {

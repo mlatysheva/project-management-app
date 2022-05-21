@@ -10,6 +10,8 @@ export interface ColumnProps {
 
 const initialState: ColumnProps[] = [];
 
+// TODO: Delete the file - it is not used now
+
 export const columnsSlice = createSlice({
   name: 'columns',
   initialState,
@@ -27,7 +29,8 @@ export const columnsSlice = createSlice({
 
     delete_column: (state, action) => {
       const columnId = action.payload;
-      console.dir(state);
+      // console.dir(state);
+      state.forEach(column => console.log(column.id));
       console.log(`in reducer column with id ${columnId} will be deleted`);
       let newList = state.filter(column => column.id != columnId);
       console.dir(newList);
