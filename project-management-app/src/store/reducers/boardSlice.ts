@@ -42,10 +42,24 @@ export const boardSlice = createSlice({
         columns: [...state.columns!, action.payload]
       }
       return updatedBoard;
-    }
+    },
+    delete_column_from_board: (state, action) => {
+      const columnId = action.payload;
+      if (state.columns === undefined) {
+        return state
+      } else {
+        let newList = state.columns.filter(column => column.id != columnId);
+        console.dir(newList);
+        const updatedBoard = {
+          ...state,
+          columns: newList,
+        };
+        return updatedBoard;
+      }
+    },
   }
 });
 
-export const { set_board, clear_board, update_board, add_column_to_board } = boardSlice.actions;
+export const { set_board, clear_board, update_board, add_column_to_board, delete_column_from_board } = boardSlice.actions;
 
 export default boardSlice.reducer;

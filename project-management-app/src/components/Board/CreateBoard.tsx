@@ -4,13 +4,18 @@ import { Button} from "@mui/material";
 import { useDispatch } from 'react-redux';
 import { clear_board, update_board } from '../../store/reducers/boardSlice';
 import EditField from './EditField';
-import { createBoard, deleteBoard } from '../../services/apiBoardProvider';
+import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
 import { Column } from '../Column/Column';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from '../../App';
 
-export default function CreateBoard() {
+interface CreateUpdateBoardProps {
+  action: string;
+}
+
+export default function CreateBoard(props: CreateUpdateBoardProps) {
   const columns = useAppSelector((state) => state.board.columns);
   const board = useAppSelector((state) => state.board);
 
@@ -26,8 +31,16 @@ export default function CreateBoard() {
       title: board.title,
       description: board.description,
     }
-    const boardApi = await createBoard(body);
-    const boardId = boardApi.id;
+    let boardApi;
+    let boardId;
+    if (board.id === '') {
+      boardApi = await createBoard(body);
+      boardId = boardApi.id;
+    } else {
+      boardId = board.id;
+      boardApi = await updateBoard(boardId, body);
+    }
+    // const boardApi = await createBoard(body);
     
     dispatch(update_board({
       ...body,
@@ -38,6 +51,8 @@ export default function CreateBoard() {
 			...state,
 			isColumnSaved: true,
 		});
+
+    alert(`The board was saved.`);
   }
 
   async function handleDeleteBoard() {
@@ -45,15 +60,15 @@ export default function CreateBoard() {
     alert(`The board will not be saved`);
     await deleteBoard(boardId);
     dispatch(clear_board());
-    navigate('/boards');
+    navigate(`/${baseUrl}/boards`);
   }
 
   return (
     <div className="main">
-      <h1 className="page-title">Create a new board</h1>
+      <h1 className="page-title">{props.action} board</h1>
       <div className="add-section">
-        <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field="" category="board" />
-        <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field="" category="board" />
+        <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field={board.title} category="board" />
+        <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field={board.description} category="board" />
       </div>
 
       {state.isColumnSaved ? (

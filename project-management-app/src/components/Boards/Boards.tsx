@@ -15,6 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import './Board.scss';
+import { baseUrl } from '../../App';
 
 type TitleProps = {
   title: string;
@@ -62,7 +63,7 @@ export function Boards() {
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
     alert(`Do you want to edit the board with id: ${boardId}?`);
-    navigate('/editboard');
+    navigate(`/${baseUrl}/editboard`);
     dispatch(set_board({
       id: boardId,
       title: title,

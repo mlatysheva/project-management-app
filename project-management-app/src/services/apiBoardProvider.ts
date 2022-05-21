@@ -61,3 +61,10 @@ export const createColumn = (boardId: string, columnData: ColumnProps) => {
     .catch(handleError);
 }
 
+export const deleteColumn = (boardId: string, columnId: string) => {
+  return axios 
+    .delete(`${BASE_URL}boards/${boardId}/columns/${columnId}`, config)
+    .then(handleResponse) 
+    .catch(handleError);
+}
+
