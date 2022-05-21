@@ -8,36 +8,38 @@ import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
 import SelectLanguage from "../SelectLanguage/SelectLanguage";
 import EditIcon from "@mui/icons-material/Edit";
 import MenuIcon from '@mui/icons-material/Menu';
+import Typography from '@mui/material/Typography';
 import { useEffect } from "react";
 import { useTranslation} from 'react-i18next';
 import { clear_board } from "../../store/reducers/boardSlice";
 import { useDispatch } from "react-redux";
-import "./Header.scss";
+import { baseUrl } from "../../App";
+import './Header.scss';
 
 export function CurrentPage() {
 	const location = useLocation();
 	const { t } = useTranslation();
 	const getCurrentPage = () => {
 		switch (location.pathname) {
-			case "/":
+			case `/${baseUrl}`:
 				return t('home');
-			case "/signup":
+      case `/${baseUrl}/`:
+				return t('home');
+			case `/${baseUrl}/signup`:
 				return t("signup");
-			case "/signin":
+			case `/${baseUrl}/signin`:
 				return t("signin");
-			case "/logout":
+			case `/${baseUrl}/logout`:
 				return t("logout");
-			case "/project-management-app":
-				return t('home');
-			case "/boards":
+			case `/${baseUrl}/boards`:
 				return t("boards");
-			case "/createboard":
+			case `/${baseUrl}/createboard`:
 				return t("create_board");
-      case "/editboard":
+      case `/${baseUrl}/editboard`:
 				return t("edit_board");
-			case "/edit":
+			case `/${baseUrl}/edit`:
 				return t("edit");
-			case "/error":
+			case `/${baseUrl}/error`:
 				return "Error";
 			default:
 				return t("error");
@@ -52,9 +54,9 @@ export function CurrentPage() {
 	);
 }
 
-
-
 function Header(localStorage: any) {
+	const menu = document.querySelector(".menu");
+	const nav = document.querySelector("nav");
 	// Sticky Menu Area https://stackoverflow.com/questions/62970456/how-to-create-sticky-headers-on-scroll-with-react
 	useEffect(() => {
 		window.addEventListener("scroll", isSticky);
@@ -76,12 +78,10 @@ function Header(localStorage: any) {
 
   function handleCreateBoard() {
     dispatch(clear_board());
+		removeNav();
   }
 
 	const isSmallScreen =( e:Event) => { 
-		const menu = document.querySelector(".menu");
-		const nav = document.querySelector(".nav");
-		
 	 	if (window.innerWidth < 600) {
 			 menu?.classList.remove('hidden');
 			 nav?.classList.add('hidden');
@@ -90,8 +90,23 @@ function Header(localStorage: any) {
 		 else {
 			 menu?.classList.add('hidden');
 			 nav?.classList.remove('hidden');
+			 nav?.classList.remove("nav-active");
 		 }
 			
+	}
+ function handleNav() {
+	const nav= document.querySelector("nav");
+	nav?.classList.toggle('hidden');
+	nav?.classList.toggle('nav-active');
+	}
+	
+	function removeNav() {
+		if (nav?.classList.contains("nav-active")) {
+			nav?.classList.remove("nav-active");
+			if (window.innerWidth < 600) {
+				nav?.classList.toggle('hidden');
+			}
+		}
 	}
 
 	
@@ -105,48 +120,54 @@ function Header(localStorage: any) {
 	return (
 		<header className="header">
 			<CurrentPage />
-			<nav className="nav">
-				<NavLink to="/">
+			<nav >
+				<NavLink to={`/${baseUrl}`}>
 					<Tooltip title={t('home')}>
-						<HomeIcon fontSize="large" />
+						<HomeIcon fontSize="large" onClick={removeNav}/>
 					</Tooltip>
 				</NavLink>
 				{localStorage.token ? (
 					<>
-						<NavLink to="/logout">
+						<NavLink to={`${baseUrl}/logout`}>
 							<Tooltip title={t("logout")}>
-								<LogoutIcon fontSize="large" />
+								<LogoutIcon fontSize="large" onClick={removeNav}/>
 							</Tooltip>
 						</NavLink>
-						<NavLink to="/edit">
+						<NavLink to={`${baseUrl}/edit`}>
 							<Tooltip title={t("edit")}>
-								<EditIcon fontSize="large" />
+								<EditIcon fontSize="large" onClick={removeNav}/>
 							</Tooltip>
 						</NavLink>
 					</>
 				) : (
 					<>
-						<NavLink to="/signin">
+						<NavLink to={`${baseUrl}/signin`}>
 							<Tooltip title={t("signin")}>
-								<LoginIcon fontSize="large" />
+								<LoginIcon fontSize="large" onClick={removeNav}/>
 							</Tooltip>
 						</NavLink>
-						<NavLink to="/signup">
+						<NavLink to={`${baseUrl}/signup`}>
 							<Tooltip title={t("signup")}>
 								<HowToRegIcon fontSize="large" />
 							</Tooltip>
 						</NavLink>
 					</>
 				)}
-				<NavLink to="boards">{t('boards')}</NavLink>
-				<NavLink to="/createboard">
+				<NavLink to={`${baseUrl}/boards`}>
+				  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+				   {t('boards')}
+        	</Typography>
+				</NavLink>
+				<NavLink to={`${baseUrl}/createboard`}>
 					<Tooltip title={t("add")}>
 						<AddBoxIcon fontSize="large" onClick={handleCreateBoard} />
 					</Tooltip>
 				</NavLink>
 				<SelectLanguage />
 			</nav>
-				<MenuIcon className="hidden menu" fontSize="large"/>
+			<div className="menu hidden">
+				<MenuIcon  fontSize="large" onClick= {handleNav}/>
+			</div>
 		</header>
 	);
 }
