@@ -83,7 +83,6 @@ function Header(localStorage: any) {
 
 	const isSmallScreen =( e:Event) => { 
 	 	if (window.innerWidth < 600) {
-			 console.log(window.innerWidth);
 			 menu?.classList.remove('hidden');
 			 nav?.classList.add('hidden');
 
