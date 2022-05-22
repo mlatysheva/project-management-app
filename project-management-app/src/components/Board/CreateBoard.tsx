@@ -20,7 +20,7 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
   const board = useAppSelector((state) => state.board);
 
   const [state, setState] = useState({
-		isColumnSaved: false,
+		isBoardSaved: false,
 	});
 
   // useEffect(() => {
@@ -53,7 +53,7 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
 
     setState({
 			...state,
-			isColumnSaved: true,
+			isBoardSaved: true,
 		});
 
     alert(`The board was saved.`);
@@ -75,7 +75,7 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
         <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field={board.description} category="board" />
       </div>
 
-      {state.isColumnSaved ? (
+      {state.isBoardSaved ? (
         <div className="column-container">
           {(columns != undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
             { id: "01r",

@@ -20,6 +20,7 @@ export const boardSlice = createSlice({
   initialState,
   reducers: {
     set_board: (state: BoardProps = initialState, action) => {
+      console.dir(action.payload);
       const board: BoardProps = action.payload;
       return board;
     },
@@ -37,9 +38,12 @@ export const boardSlice = createSlice({
       return updatedBoard;
     },
     add_column_to_board: (state, action) => {
+      if (state.columns == undefined) {
+        state.columns = [];
+      }
       const updatedBoard = {
         ...state,
-        columns: [...state.columns!, action.payload]
+        columns: [...state.columns, action.payload]
       }
       return updatedBoard;
     },

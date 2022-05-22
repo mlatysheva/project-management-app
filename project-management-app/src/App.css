@@ -134,7 +134,8 @@ button:active {
 }
 
 .title-description-wrapper-update {
-  width: 100%;
+  /* width: 100%; */
+  width: 600px;
   display: flex;
   flex-direction: row;
   align-items: center;
