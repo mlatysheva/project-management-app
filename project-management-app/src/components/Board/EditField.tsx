@@ -23,6 +23,12 @@ export function EditField(props: EditFieldProps) {
   const board = useAppSelector((state) => state.board);
   const dispatch = useAppDispatch();
   const boardId = board.id;
+  let value: string;
+  if (props.type == "title") {
+    value = board.title;
+  } else {
+    value = board.description;
+  }
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
@@ -77,7 +83,8 @@ export function EditField(props: EditFieldProps) {
 	function renderField() {
 		return (
       <React.Fragment>
-        <h2 style={{ textAlign: "left" }}>{state.field}</h2>
+        {/* <h2 style={{ textAlign: "left" }}>{state.field}</h2> */}
+        <h2 style={{ textAlign: "left" }}>{value}</h2>
         <Tooltip title={`Edit ${props.type}`}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
