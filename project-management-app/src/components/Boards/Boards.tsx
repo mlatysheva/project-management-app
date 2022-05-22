@@ -1,7 +1,7 @@
 import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
 import { BoardProps, set_board } from '../../store/reducers/boardSlice';
 import AddBoard from '../Board/AddBoard';
-import { deleteBoard, getAllBoards } from '../../services/apiBoardProvider';
+import { deleteBoard, getAllBoards, getColumns } from '../../services/apiBoardProvider';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../store/hooks';
@@ -79,10 +79,12 @@ export function Boards() {
   async function handleEditBoard(boardId: string, title: string, description: string) {
     alert(`Do you want to edit the board with id: ${boardId}?`);
     navigate(`/${baseUrl}/editboard`);
+    const apiColumns = await getColumns(boardId);
     dispatch(set_board({
       id: boardId,
       title: title,
       description: description,
+      columns: apiColumns,
     }));
   }
  //modal
@@ -112,7 +114,7 @@ const [showModal, setShowModal] = useState(false);
               e.preventDefault();
               e.stopPropagation();
               handleHide();
-              //handleDeleteBoard(board.id);
+              // handleDeleteBoard(board.id);
             }}
           >
             ×
@@ -160,7 +162,8 @@ const [showModal, setShowModal] = useState(false);
               </CardContent>
               <CardActions className='button-wrapper'>
                 <Tooltip title="Delete board">
-                  <DeleteIcon  onClick={() => handleShow()}/>
+                  {/* <DeleteIcon  onClick={() => handleShow()}/> */}
+                  <DeleteIcon onClick={() => handleDeleteBoard(board.id)} />
                 </Tooltip>
                 <Tooltip title="Edit board">
                   <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>

@@ -22,7 +22,8 @@ export const Column = (props: BoardColumnProps) => {
   const boardId = useAppSelector((state) => state.board.id);
   const dispatch = useDispatch();
 
-  function handleDeleteColumn(columnId: string) {    
+  function handleDeleteColumn(columnId: string) {
+    alert(`Column ${columnId} will be deleted!`);  
     deleteColumn(boardId, columnId);
     dispatch(delete_column_from_board(columnId));
   }

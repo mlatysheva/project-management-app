@@ -19,6 +19,7 @@ interface EditFieldProps {
 }
 
 export function EditField(props: EditFieldProps) {
+  console.dir(props);
   const board = useAppSelector((state) => state.board);
   const dispatch = useDispatch();
   const boardId = board.id;
@@ -70,7 +71,6 @@ export function EditField(props: EditFieldProps) {
         description: state.field,
       }
     }
-
     dispatch(update_board({...body}));
   }
 

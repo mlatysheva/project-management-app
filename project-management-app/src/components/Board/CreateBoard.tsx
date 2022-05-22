@@ -7,7 +7,7 @@ import EditField from './EditField';
 import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
 import { Column } from '../Column/Column';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
 
@@ -20,8 +20,12 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
   const board = useAppSelector((state) => state.board);
 
   const [state, setState] = useState({
-		isColumnSaved: false,
+		isBoardSaved: false,
 	});
+
+  // useEffect(() => {
+  //   dispatch(clear_board)
+  // }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,7 +53,7 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
 
     setState({
 			...state,
-			isColumnSaved: true,
+			isBoardSaved: true,
 		});
 
     alert(`The board was saved.`);
@@ -71,7 +75,7 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
         <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field={board.description} category="board" />
       </div>
 
-      {state.isColumnSaved ? (
+      {state.isBoardSaved ? (
         <div className="column-container">
           {(columns != undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
             { id: "01r",
