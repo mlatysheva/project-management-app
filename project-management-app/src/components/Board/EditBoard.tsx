@@ -1,28 +1,40 @@
 import AddColumn from '../Column/AddColumn';
 import { Column } from '../Column/Column';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { ColumnProps } from '../../store/reducers/columnsSlice';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { clear_board, update_board } from '../../store/reducers/boardSlice';
+import { clear_board, set_board, update_board } from '../../store/reducers/boardSlice';
 import { EditField } from './EditField';
-import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
+import { createBoard, deleteBoard, getBoard, updateBoard } from '../../services/apiBoardProvider';
 import { baseUrl } from '../../App';
+import { useEffect } from 'react';
 
 export default function EditBoard() {
   const board = useAppSelector((state) => state.board);
   const columns = useAppSelector((state) => state.board.columns);
-  console.dir(columns);
-  console.log(`board title is ${board.title}`);
-  console.log(`board description is ${board.description}`);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const boardId = board.id;
 
+  // useEffect(() => {
+  //   const fetchBoard = async () => {
+  //     const board = await getBoard(boardId);
+  //     dispatch(set_board(board));      
+  //   }
+  //   fetchBoard()
+  //     .catch(console.error);
+  // }, []);
+
+  console.dir(board);
+  console.log(`board title is ${board.title}`);
+  console.log(`board description is ${board.description}`);
+
+  
+
   async function handleBoardSave() {
-    // dispatch(clear_board());
+    dispatch(clear_board());
     const body = {
       title: board.title,
       description: board.description,
@@ -56,8 +68,8 @@ export default function EditBoard() {
 		// 	...state,
 		// 	isBoardSaved: true,
 		// });
-    
-    dispatch(clear_board());
+
+    // dispatch(clear_board());
 
     alert(`The board was saved.`);
   }
