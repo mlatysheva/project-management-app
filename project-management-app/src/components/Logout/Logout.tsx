@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../../App";
 import { logout, selectUser } from "../../store/signup/userOptions";
 import "./logout.css";
 
@@ -15,7 +16,7 @@ function Logout({ updateToken }: any) {
 	const handleLogout = (e: any) => {
 		e.preventDefault();
 		dispatch(logout());
-		navigate("/");
+		navigate(`/${baseUrl}`);
 		updateToken("");
 		localStorage.removeItem("userToken");
 		localStorage.removeItem("userID");

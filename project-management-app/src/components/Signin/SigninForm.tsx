@@ -71,15 +71,6 @@ function SigninForm({ updateToken }: any) {
 					name: localStorage.getItem("userName"),
 				})
 			);
-
-			/*	dispatch(
-				signin({
-					login: login,
-					password: password,
-					id: localStorage.getItem("userID"),
-					name: userName,
-				})
-			);*/
 			navigate(`/${baseUrl}`);
 		}
 	};
