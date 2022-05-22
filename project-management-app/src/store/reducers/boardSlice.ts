@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getBoard } from "../../services/apiBoardProvider";
 import { ColumnProps } from "./columnsSlice";
 
 export interface BoardProps {
@@ -14,6 +15,19 @@ const initialState: BoardProps = {
   description: '',
   columns: [],
 }
+
+export const fetchBoard = createAsyncThunk(
+  'board/fetchBoard',
+  async (boardId: string, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await getBoard(boardId);
+      console.dir(response);
+      dispatch(set_board(response));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const boardSlice = createSlice({
   name: 'board',

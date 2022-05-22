@@ -1,10 +1,10 @@
 import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
-import { BoardProps, set_board } from '../../store/reducers/boardSlice';
+import { BoardProps, fetchBoard, set_board } from '../../store/reducers/boardSlice';
 import AddBoard from '../Board/AddBoard';
 import { deleteBoard, getAllBoards, getColumns } from '../../services/apiBoardProvider';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -30,7 +30,7 @@ export function Title({ title = '' }: TitleProps) {
 }
 
 export function Boards() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   let boards = useAppSelector((state) => state.boards);
   
@@ -78,14 +78,15 @@ export function Boards() {
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
     alert(`Do you want to edit the board with id: ${boardId}?`);
+    dispatch(fetchBoard(boardId));
     navigate(`/${baseUrl}/editboard`);
-    const apiColumns = await getColumns(boardId);
-    dispatch(set_board({
-      id: boardId,
-      title: title,
-      description: description,
-      columns: apiColumns,
-    }));
+    // const apiColumns = await getColumns(boardId);
+    // dispatch(set_board({
+    //   id: boardId,
+    //   title: title,
+    //   description: description,
+    //   columns: apiColumns,
+    // }));
   }
  //modal
 

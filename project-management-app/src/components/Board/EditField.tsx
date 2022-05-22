@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -21,7 +21,7 @@ interface EditFieldProps {
 export function EditField(props: EditFieldProps) {
   console.dir(props);
   const board = useAppSelector((state) => state.board);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const boardId = board.id;
 
   const [state, setState] = useState({
