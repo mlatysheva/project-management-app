@@ -1,4 +1,4 @@
-import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
+import { delete_board, drag_and_drop, get_allBoards } from '../../store/reducers/boardsSlice';
 import { BoardProps, set_board } from '../../store/reducers/boardSlice';
 import AddBoard from '../Board/AddBoard';
 import { deleteBoard, getAllBoards } from '../../services/apiBoardProvider';
@@ -33,34 +33,10 @@ export function Boards() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let boards = useAppSelector((state) => state.boards);
-  
-
-  //drag-and-drop
-  //const [board, setBoards] = useState(boards);
-
-  function handleOnDragEnd(result: DropResult, provided: ResponderProvided) {
-    const { destination, source } = result;
-    if (!destination) {
-      return;
-    }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-   
-    const newItems = [...boards];
-    const [removed] = newItems.splice(result.source.index, 1);
-    newItems.splice(destination.index, 0, removed);
-    //setBoards(newItems);
-    dispatch(set_board(newItems));
-  }
-
- 
+  //https://github.com/facebook/react/issues/14920 fix for useEffect 
   useEffect(() => {
-    const fetchData = async () => {
-      boards = await getAllBoards();
+    async function fetchData () {
+     let boards = await getAllBoards();
       if (boards.length === 0 ) {
         boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
       }
@@ -68,7 +44,7 @@ export function Boards() {
     }
     fetchData()
       .catch(console.error);
-  }, []);
+  }, [dispatch]);
 
   async function handleDeleteBoard(boardId: string) {
     dispatch(delete_board(boardId));
@@ -84,6 +60,34 @@ export function Boards() {
       description: description,
     }));
   }
+
+
+  //drag-and-drop
+  const [board, setBoards] = useState(boards);
+
+  function handleOnDragEnd(result: DropResult, provided: ResponderProvided) {
+    const { destination, source } = result;
+    console.log(result.draggableId);
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+   
+    const newItems = [...boards];
+    const [removed] = newItems.splice(result.source.index, 1);
+    newItems.splice(destination.index, 0, removed);
+    setBoards(newItems);
+    dispatch(drag_and_drop(boards));
+
+  }
+ 
+
+
  //modal
 
 const [showModal, setShowModal] = useState(false);
@@ -166,7 +170,7 @@ const [showModal, setShowModal] = useState(false);
                 </Tooltip>
               </CardActions>
               </Card>
-              {modal}  id = {board.id}
+              {modal}  
           </div>
           
             )}
