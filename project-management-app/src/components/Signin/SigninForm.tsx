@@ -14,6 +14,7 @@ import {
 	getUserName,
 	toServerSignin,
 } from "../../services/apiUserProvider";
+import { baseUrl } from "../../App";
 
 let disableBtnInSignin = true;
 
@@ -79,7 +80,7 @@ function SigninForm({ updateToken }: any) {
 					name: userName,
 				})
 			);*/
-			navigate("/");
+			navigate(`/${baseUrl}`);
 		}
 	};
 
