@@ -71,7 +71,6 @@ export const boardSlice = createSlice({
         return state
       } else {
         let newList = state.columns.filter(column => column.id != columnId);
-        console.dir(newList);
         const updatedBoard = {
           ...state,
           columns: newList,
