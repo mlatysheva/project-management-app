@@ -107,7 +107,7 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 					}}
 				>
           <TextField
-            placeholder="Enter title"
+            placeholder={t('placeholder_title')}
 						autoFocus
 						value={state.title}
 						onChange={handleInputTitleChange}
@@ -135,7 +135,7 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 					>
 						{buttonTitle}{" "}
 					</Button>
-          <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>{t('close')}</Icon>
+          <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 				</div>
 			</div>
 		);

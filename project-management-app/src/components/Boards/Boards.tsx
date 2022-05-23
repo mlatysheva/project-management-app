@@ -32,7 +32,7 @@ export function Title({ title = '' }: TitleProps) {
 export function Boards() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const t = useTranslation();
+  
   
   let [boards, setBoards] = useState(useAppSelector((state) => state.boards));
  // boards = useAppSelector((state) => state.boards);
@@ -131,10 +131,10 @@ const [showModal, setShowModal] = useState(false);
     </Modal>
   ) : null;
 
-
+  const { t } = useTranslation();
   return (    
     <div className="main" id="modal-root">
-      <Title title="Your boards" />
+      <Title title={t('boards')}/>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="droppable">
         {(provided) => (
