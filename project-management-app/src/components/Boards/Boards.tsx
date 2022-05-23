@@ -3,7 +3,7 @@ import { BoardProps, fetchBoard, set_board } from '../../store/reducers/boardSli
 import AddBoard from '../Board/AddBoard';
 import { deleteBoard, getAllBoards, getColumns } from '../../services/apiBoardProvider';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -32,6 +32,8 @@ export function Title({ title = '' }: TitleProps) {
 export function Boards() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const t = useTranslation();
+  
   let [boards, setBoards] = useState(useAppSelector((state) => state.boards));
  // boards = useAppSelector((state) => state.boards);
 

@@ -3,6 +3,7 @@ import { Column } from '../Column/Column';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { clear_board, ColumnProps, update_board } from '../../store/reducers/boardSlice';
 import { EditField } from './EditField';
 import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
@@ -45,6 +46,7 @@ export default function EditBoard() {
     dispatch(clear_board());
     navigate(`/${baseUrl}/boards`);
   }
+  const { t } = useTranslation();
 
   return (
     <div className="main">
@@ -54,8 +56,8 @@ export default function EditBoard() {
       <div className="column-container">
         {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} tasks={[
             { id: "01r",
-              title: "Your sample task",
-              description: "Visualise your elephant",
+              title:t('title_task'),
+              description:t('description_task'),
               done: false,
             },      
           ]} />
