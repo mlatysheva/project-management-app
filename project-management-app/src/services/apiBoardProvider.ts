@@ -1,7 +1,6 @@
 import axios from 'axios'; 
 import { handleResponse, handleError } from './response'; 
 import { BASE_URL, config, configWorking } from './api';
-import { BoardProps } from '../store/reducers/boardSlice';
 
 interface ShortBoardProps {
   id?: string;
@@ -51,7 +50,6 @@ export const updateBoard = (boardId: string, boardData: UpdateBoardProps) => {
 
 interface ColumnProps {
   title: string;
-  order: number;
 }
 
 export const createColumn = (boardId: string, columnData: ColumnProps) => {
