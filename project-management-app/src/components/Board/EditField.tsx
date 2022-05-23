@@ -13,6 +13,7 @@ interface EditFieldProps {
   placeholder: string; // Enter new title
   type: string; // Title
 	field: string; // Title value
+  category?: string; // create or edit
 }
 
 export function EditField(props: EditFieldProps) {
@@ -20,32 +21,14 @@ export function EditField(props: EditFieldProps) {
   const dispatch = useAppDispatch();
   const boardId = board.id;
   let value: string;
-  setTimeout(() => {
-    if (props.type == "title") {
-      value = board.title;
-    } else {
-      value = board.description;
-    }
-    console.log(`value is ${value}`);
-  }, 0)
-  // useEffect(() => {
-  //   if (props.type == "title") {
-  //     value = board.title;
-  //   } else {
-  //     value = board.description;
-  //   }
-  //   console.log(`value is ${value}`);
-  // }, [board]);
   if (props.type == "title") {
     value = board.title;
   } else {
     value = board.description;
   }
-  
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
-    // field: props.field,
     field: value,
 	});
 
@@ -86,7 +69,9 @@ export function EditField(props: EditFieldProps) {
       }
     }
     dispatch(update_board({...body}));
-    // closeForm();
+    if (props.category === 'edit') {
+      closeForm();
+    }
   }
 
 	function renderField() {
@@ -106,8 +91,7 @@ export function EditField(props: EditFieldProps) {
         <TextField
           placeholder="Enter new title"
           autoFocus
-          // value={value}
-          value={state.field}
+          defaultValue={value}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
           style={{

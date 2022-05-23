@@ -55,7 +55,7 @@ function App() {
 						<Route path={`/${baseUrl}/signup`} element={<Register />} />
 						<Route path={`/${baseUrl}/logout`} element={<Logout updateToken={setToken} />} />
 						<Route path={`/${baseUrl}/boards`} element={<Boards />} />
-						<Route path={`/${baseUrl}/createboard`} element={<CreateBoard action={"Create"} />} />
+						<Route path={`/${baseUrl}/createboard`} element={<CreateBoard />} />
 						<Route path={`/${baseUrl}/editboard`} element={<EditBoard />} />
 						<Route path={`/${baseUrl}/error`} element={<ErrorPage />} />
 						<Route path={`/${baseUrl}/*`} element={<ErrorPage />} />
