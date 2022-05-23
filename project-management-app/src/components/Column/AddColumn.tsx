@@ -12,8 +12,6 @@ interface AddColumnProps {
 	type: string;
 }
 
-// let columnOrder = 0;
-
 export function AddColumn(props: AddColumnProps) {
 	const [state, setState] = useState({
 		formOpen: false,
@@ -48,9 +46,7 @@ export function AddColumn(props: AddColumnProps) {
     if (title) {
       const body = {
         title: state.title,
-        // order: columnOrder,
       }
-      // columnOrder++;
       const apiData = await createColumn(board.id, body);
       dispatch(add_column_to_board({id: apiData.id, title: apiData.title}));
     }
