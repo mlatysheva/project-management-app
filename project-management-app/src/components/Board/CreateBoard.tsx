@@ -10,11 +10,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
 
-interface CreateUpdateBoardProps {
-  action: string;
-}
-
-export default function CreateBoard(props: CreateUpdateBoardProps) {
+export default function CreateBoard() {
   const columns = useAppSelector((state) => state.board.columns);
   const board = useAppSelector((state) => state.board);
 
@@ -63,7 +59,7 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
 
   return (
     <div className="main">
-      <h1 className="page-title">{props.action} board</h1>
+      <h1 className="page-title">Create board</h1>
       <div className="add-section">
         <EditField formOpen={true} placeholder="Enter title" type="title" field={board.title} />
         <EditField formOpen={true} placeholder="Enter description" type="description" field={board.description} />

@@ -49,8 +49,8 @@ export default function EditBoard() {
   return (
     <div className="main">
       <h1 className="page-title">Edit the board</h1>
-      <EditField placeholder="Enter new title" type="title" field={board.title} />
-      <EditField placeholder="Enter new description" type="description" field={board.description} />
+      <EditField placeholder="Enter new title" type="title" field={board.title} category="edit"/>
+      <EditField placeholder="Enter new description" type="description" field={board.description} category="edit"/>
       <div className="column-container">
         {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} tasks={[
             { id: "01r",
