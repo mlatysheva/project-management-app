@@ -12,7 +12,7 @@ interface AddColumnProps {
 	type: string;
 }
 
-let columnOrder = 0;
+// let columnOrder = 0;
 
 export function AddColumn(props: AddColumnProps) {
 	const [state, setState] = useState({
@@ -48,11 +48,11 @@ export function AddColumn(props: AddColumnProps) {
     if (title) {
       const body = {
         title: state.title,
-        order: columnOrder,
+        // order: columnOrder,
       }
-      columnOrder++;
+      // columnOrder++;
       const apiData = await createColumn(board.id, body);
-      dispatch(add_column_to_board({id: apiData.id, order: apiData.order, title: apiData.title}));
+      dispatch(add_column_to_board({id: apiData.id, title: apiData.title}));
     }
     setState({
       ...state,
