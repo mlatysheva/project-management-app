@@ -61,7 +61,7 @@ export default function CreateBoard() {
 
   return (
     <div className="main">
-      <h1 className="page-title">Create board</h1>
+      <h1 className="page-title">{t('create_title')}</h1>
       <div className="add-section">
         <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={board.title} />
         <EditField formOpen={true} placeholder={t('placeholder_description')} type="description" field={board.description} />
@@ -80,8 +80,8 @@ export default function CreateBoard() {
         </div>
       ) : null }
       <div className="save-cancel-section">
-        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>Cancel</Button>
-        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Save</Button>
+        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>{t('cancel')}</Button>
+        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>{t('save')}</Button>
       </div>
     </div>
   )
