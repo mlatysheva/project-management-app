@@ -32,7 +32,9 @@ export function Title({ title = '' }: TitleProps) {
 export function Boards() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let boards = useAppSelector((state) => state.boards);
+  let [boards, setBoards] = useState(useAppSelector((state) => state.boards));
+ // boards = useAppSelector((state) => state.boards);
+
   //https://github.com/facebook/react/issues/14920 fix for useEffect 
   useEffect(() => {
     async function fetchData () {
@@ -63,26 +65,11 @@ export function Boards() {
 
 
   //drag-and-drop
-  const [board, setBoards] = useState(boards);
+  
 
   function handleOnDragEnd(result: DropResult, provided: ResponderProvided) {
-    const { destination, source } = result;
-    console.log(result.draggableId);
-    if (!destination) {
-      return;
-    }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-   
-    const newItems = [...boards];
-    const [removed] = newItems.splice(result.source.index, 1);
-    newItems.splice(destination.index, 0, removed);
-    setBoards(newItems);
-    dispatch(drag_and_drop(boards));
+     dispatch(drag_and_drop(boards));
+    setBoards(boards);
 
   }
  
