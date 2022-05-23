@@ -14,6 +14,7 @@ import {
 	getUserName,
 	toServerSignin,
 } from "../../services/apiUserProvider";
+import { baseUrl } from "../../App";
 
 let disableBtnInSignin = true;
 
@@ -70,16 +71,7 @@ function SigninForm({ updateToken }: any) {
 					name: localStorage.getItem("userName"),
 				})
 			);
-
-			/*	dispatch(
-				signin({
-					login: login,
-					password: password,
-					id: localStorage.getItem("userID"),
-					name: userName,
-				})
-			);*/
-			navigate("/");
+			navigate(`/${baseUrl}`);
 		}
 	};
 

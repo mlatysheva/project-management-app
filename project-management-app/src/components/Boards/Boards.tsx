@@ -1,10 +1,10 @@
 import { delete_board, drag_and_drop, get_allBoards } from '../../store/reducers/boardsSlice';
-import { BoardProps, set_board } from '../../store/reducers/boardSlice';
+import { BoardProps, fetchBoard, set_board } from '../../store/reducers/boardSlice';
 import AddBoard from '../Board/AddBoard';
-import { deleteBoard, getAllBoards } from '../../services/apiBoardProvider';
+import { deleteBoard, getAllBoards, getColumns } from '../../services/apiBoardProvider';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -30,7 +30,7 @@ export function Title({ title = '' }: TitleProps) {
 }
 
 export function Boards() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   let [boards, setBoards] = useState(useAppSelector((state) => state.boards));
  // boards = useAppSelector((state) => state.boards);
@@ -55,12 +55,15 @@ export function Boards() {
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
     alert(`Do you want to edit the board with id: ${boardId}?`);
+    dispatch(fetchBoard(boardId));
     navigate(`/${baseUrl}/editboard`);
-    dispatch(set_board({
-      id: boardId,
-      title: title,
-      description: description,
-    }));
+    // const apiColumns = await getColumns(boardId);
+    // dispatch(set_board({
+    //   id: boardId,
+    //   title: title,
+    //   description: description,
+    //   columns: apiColumns,
+    // }));
   }
 
 
@@ -102,7 +105,7 @@ const [showModal, setShowModal] = useState(false);
               e.preventDefault();
               e.stopPropagation();
               handleHide();
-              //handleDeleteBoard(board.id);
+              // handleDeleteBoard(board.id);
             }}
           >
             ×
@@ -150,7 +153,8 @@ const [showModal, setShowModal] = useState(false);
               </CardContent>
               <CardActions className='button-wrapper'>
                 <Tooltip title="Delete board">
-                  <DeleteIcon  onClick={() => handleShow()}/>
+                  {/* <DeleteIcon  onClick={() => handleShow()}/> */}
+                  <DeleteIcon onClick={() => handleDeleteBoard(board.id)} />
                 </Tooltip>
                 <Tooltip title="Edit board">
                   <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>

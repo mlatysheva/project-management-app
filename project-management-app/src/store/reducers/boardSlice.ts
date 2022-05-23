@@ -1,6 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ColumnProps } from "./columnsSlice";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getBoard } from "../../services/apiBoardProvider";
+import { TaskProps } from "./tasksSlice";
 
+export interface ColumnProps {
+  id: string,
+  title: string,
+  order: number,
+  tasks?: TaskProps[];
+}
 export interface BoardProps {
   id: string;
   title: string;
@@ -14,6 +21,18 @@ const initialState: BoardProps = {
   description: '',
   columns: [],
 }
+
+export const fetchBoard = createAsyncThunk(
+  'board/fetchBoard',
+  async (boardId: string, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await getBoard(boardId);
+      dispatch(set_board(response));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const boardSlice = createSlice({
   name: 'board',
@@ -37,9 +56,12 @@ export const boardSlice = createSlice({
       return updatedBoard;
     },
     add_column_to_board: (state, action) => {
+      if (state.columns === undefined) {
+        state.columns = [];
+      }
       const updatedBoard = {
         ...state,
-        columns: [...state.columns!, action.payload]
+        columns: [...state.columns, action.payload]
       }
       return updatedBoard;
     },
@@ -48,7 +70,7 @@ export const boardSlice = createSlice({
       if (state.columns === undefined) {
         return state
       } else {
-        let newList = state.columns.filter(column => column.id != columnId);
+        let newList = state.columns.filter(column => column.id !== columnId);
         console.dir(newList);
         const updatedBoard = {
           ...state,

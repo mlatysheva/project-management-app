@@ -17,6 +17,7 @@ import {
 } from "../../services/apiUserProvider";
 import "./edit.css";
 import "../passwordShowHide/passwordField.css";
+import { baseUrl } from "../../App";
 
 function EditForm({ updateToken }: any) {
 	const [name, setName] = useState("");
@@ -72,7 +73,7 @@ function EditForm({ updateToken }: any) {
 		);
 		const token = localStorage.setItem("userToken", "");
 		updateToken(token);
-		navigate("/");
+		navigate(`/${baseUrl}`);
 		getAllUsers();
 	};
 

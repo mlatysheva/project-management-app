@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Boards } from "./components/Boards/Boards";
 import ErrorPage from "./components/ErrorPage";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { useAppSelector } from "./store/hooks";
 import Footer from "./components/Footer";
 import CreateBoard from "./components/Board/CreateBoard";
 import Header from "./components/Header/Header";
@@ -12,7 +13,6 @@ import Logout from "./components/Logout/Logout";
 import Signin from "./components/Signin/signin";
 import { EditProfile } from "./components/Edit/Edit";
 import { useCallback, useState } from "react";
-import { useAppSelector } from "./store/hooks";
 import EditBoard from "./components/Board/EditBoard";
 
 export const baseUrl = "project-management-app";
@@ -37,6 +37,7 @@ function useLocalStorage(key: string, initialState: string) {
 
 function App() {
 	let [localStorage, setToken] = useLocalStorage("userToken", "");
+  const boardId = useAppSelector((state) => state.board.id);
 	return (
 		<div className="App">
 			<ErrorBoundary>
@@ -54,8 +55,8 @@ function App() {
 						<Route path={`/${baseUrl}/signup`} element={<Register />} />
 						<Route path={`/${baseUrl}/logout`} element={<Logout updateToken={setToken} />} />
 						<Route path={`/${baseUrl}/boards`} element={<Boards />} />
-						<Route path={`/${baseUrl}/createboard`} element={<CreateBoard action={"Create"} />} />
-						<Route path={`/${baseUrl}/editboard`} element={<CreateBoard action={"Edit"} />} />
+						<Route path={`/${baseUrl}/createboard`} element={<CreateBoard />} />
+						<Route path={`/${baseUrl}/editboard`} element={<EditBoard />} />
 						<Route path={`/${baseUrl}/error`} element={<ErrorPage />} />
 						<Route path={`/${baseUrl}/*`} element={<ErrorPage />} />
 					</Routes>

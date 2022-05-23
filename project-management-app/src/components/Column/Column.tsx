@@ -7,7 +7,6 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
-import { delete_column } from '../../store/reducers/columnsSlice';
 import { deleteColumn } from '../../services/apiBoardProvider';
 import { delete_column_from_board } from '../../store/reducers/boardSlice';
 
@@ -22,7 +21,8 @@ export const Column = (props: BoardColumnProps) => {
   const boardId = useAppSelector((state) => state.board.id);
   const dispatch = useDispatch();
 
-  function handleDeleteColumn(columnId: string) {    
+  function handleDeleteColumn(columnId: string) {
+    alert(`Column ${columnId} will be deleted!`);  
     deleteColumn(boardId, columnId);
     dispatch(delete_column_from_board(columnId));
   }

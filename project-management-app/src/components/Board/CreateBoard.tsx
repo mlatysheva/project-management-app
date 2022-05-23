@@ -2,25 +2,20 @@ import AddColumn from '../Column/AddColumn';
 import { useAppSelector } from '../../store/hooks';
 import { Button} from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { clear_board, update_board } from '../../store/reducers/boardSlice';
+import { clear_board, ColumnProps, update_board } from '../../store/reducers/boardSlice';
 import EditField from './EditField';
 import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
-import { ColumnProps } from '../../store/reducers/columnsSlice';
 import { Column } from '../Column/Column';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
 
-interface CreateUpdateBoardProps {
-  action: string;
-}
-
-export default function CreateBoard(props: CreateUpdateBoardProps) {
+export default function CreateBoard() {
   const columns = useAppSelector((state) => state.board.columns);
   const board = useAppSelector((state) => state.board);
 
   const [state, setState] = useState({
-		isColumnSaved: false,
+		isBoardSaved: false,
 	});
 
   const dispatch = useDispatch();
@@ -40,7 +35,6 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
       boardId = board.id;
       boardApi = await updateBoard(boardId, body);
     }
-    // const boardApi = await createBoard(body);
     
     dispatch(update_board({
       ...body,
@@ -49,7 +43,7 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
 
     setState({
 			...state,
-			isColumnSaved: true,
+			isBoardSaved: true,
 		});
 
     alert(`The board was saved.`);
@@ -65,15 +59,15 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
 
   return (
     <div className="main">
-      <h1 className="page-title">{props.action} board</h1>
+      <h1 className="page-title">Create board</h1>
       <div className="add-section">
-        <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field={board.title} category="board" />
-        <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field={board.description} category="board" />
+        <EditField formOpen={true} placeholder="Enter title" type="title" field={board.title} />
+        <EditField formOpen={true} placeholder="Enter description" type="description" field={board.description} />
       </div>
 
-      {state.isColumnSaved ? (
+      {state.isBoardSaved ? (
         <div className="column-container">
-          {(columns != undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
+          {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
             { id: "01r",
               title: "Your sample task",
               description: "Visualise your elephant",
