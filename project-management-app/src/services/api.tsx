@@ -7,8 +7,7 @@ const instaceApi = axios.create({
 });
 
 export const userCredentials = {
-	// token: localStorage.getItem("userToken"),
-  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMDgwZGY1OC02YWYyLTQ0NmItODlhZi1kOWYyMDEyOTEzODMiLCJsb2dpbiI6Im1hcmkiLCJpYXQiOjE2NTMyMjY1ODJ9.nMevGvq70UXCJsFrHpTNCYpK-rn8fSHS7ECrp15VPKo"
+	token: localStorage.getItem("userToken"),
 };
 
 export const config = {

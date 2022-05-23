@@ -1,6 +1,6 @@
 import Icon from "@mui/material/Icon";
 import { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,36 +10,44 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 interface EditFieldProps {
   formOpen?: boolean;
-  buttonName: string; // Update
   placeholder: string; // Enter new title
   type: string; // Title
 	field: string; // Title value
-  onClick?: () => void;
-  category?: string; // Board/Column/Task
 }
 
 export function EditField(props: EditFieldProps) {
-  console.dir(props);
   const board = useAppSelector((state) => state.board);
   const dispatch = useAppDispatch();
   const boardId = board.id;
   let value: string;
+  setTimeout(() => {
+    if (props.type == "title") {
+      value = board.title;
+    } else {
+      value = board.description;
+    }
+    console.log(`value is ${value}`);
+  }, 0)
+  // useEffect(() => {
+  //   if (props.type == "title") {
+  //     value = board.title;
+  //   } else {
+  //     value = board.description;
+  //   }
+  //   console.log(`value is ${value}`);
+  // }, [board]);
   if (props.type == "title") {
     value = board.title;
   } else {
     value = board.description;
   }
+  
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
-    field: props.field,
+    // field: props.field,
+    field: value,
 	});
-
-  useEffect(() => {
-    if (board.id != '') {
-      closeForm();
-    }
-  }, [boardId]);
 
 	function openForm() {
 		setState({
@@ -78,12 +86,12 @@ export function EditField(props: EditFieldProps) {
       }
     }
     dispatch(update_board({...body}));
+    // closeForm();
   }
 
 	function renderField() {
 		return (
       <React.Fragment>
-        {/* <h2 style={{ textAlign: "left" }}>{state.field}</h2> */}
         <h2 style={{ textAlign: "left" }}>{value}</h2>
         <Tooltip title={`Edit ${props.type}`}>
           <EditIcon onClick={openForm}/>
@@ -98,6 +106,7 @@ export function EditField(props: EditFieldProps) {
         <TextField
           placeholder="Enter new title"
           autoFocus
+          // value={value}
           value={state.field}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
