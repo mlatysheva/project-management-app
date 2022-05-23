@@ -2,12 +2,11 @@ import AddColumn from '../Column/AddColumn';
 import { useAppSelector } from '../../store/hooks';
 import { Button} from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { clear_board, update_board } from '../../store/reducers/boardSlice';
+import { clear_board, ColumnProps, update_board } from '../../store/reducers/boardSlice';
 import EditField from './EditField';
 import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
-import { ColumnProps } from '../../store/reducers/columnsSlice';
 import { Column } from '../Column/Column';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
 
@@ -22,10 +21,6 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
   const [state, setState] = useState({
 		isBoardSaved: false,
 	});
-
-  // useEffect(() => {
-  //   dispatch(clear_board)
-  // }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,7 +39,6 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
       boardId = board.id;
       boardApi = await updateBoard(boardId, body);
     }
-    // const boardApi = await createBoard(body);
     
     dispatch(update_board({
       ...body,
@@ -71,8 +65,8 @@ export default function CreateBoard(props: CreateUpdateBoardProps) {
     <div className="main">
       <h1 className="page-title">{props.action} board</h1>
       <div className="add-section">
-        <EditField formOpen={true} buttonName="set" placeholder="Enter title" type="title" field={board.title} category="board" />
-        <EditField formOpen={true} buttonName="set" placeholder="Enter description" type="description" field={board.description} category="board" />
+        <EditField formOpen={true} placeholder="Enter title" type="title" field={board.title} />
+        <EditField formOpen={true} placeholder="Enter description" type="description" field={board.description} />
       </div>
 
       {state.isBoardSaved ? (

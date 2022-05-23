@@ -1,7 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getBoard } from "../../services/apiBoardProvider";
-import { ColumnProps } from "./columnsSlice";
+import { TaskProps } from "./tasksSlice";
 
+export interface ColumnProps {
+  id: string,
+  title: string,
+  order: number,
+  tasks?: TaskProps[];
+}
 export interface BoardProps {
   id: string;
   title: string;
@@ -21,7 +27,6 @@ export const fetchBoard = createAsyncThunk(
   async (boardId: string, { rejectWithValue, dispatch }) => {
     try {
       const response = await getBoard(boardId);
-      console.dir(response);
       dispatch(set_board(response));
     } catch (error) {
       console.log(error);
@@ -34,7 +39,6 @@ export const boardSlice = createSlice({
   initialState,
   reducers: {
     set_board: (state: BoardProps = initialState, action) => {
-      console.dir(action.payload);
       const board: BoardProps = action.payload;
       return board;
     },
