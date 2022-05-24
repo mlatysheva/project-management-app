@@ -10,28 +10,28 @@ interface ShortBoardProps {
 
 export const getAllBoards = () => { 
   return axios 
-    .get(`${BASE_URL}boards`, config) 
+    .get(`${BASE_URL}boards`, configWorking()) 
     .then(handleResponse) 
     .catch(handleError); 
 };
 
 export const createBoard = (board: ShortBoardProps) => {
   return axios 
-    .post(`${BASE_URL}boards`, board, config) 
+    .post(`${BASE_URL}boards`, board, configWorking()) 
     .then(handleResponse) 
     .catch(handleError);
 }
 
 export const getBoard = (boardId: string) => { 
   return axios 
-    .get(`${BASE_URL}boards/${boardId}`, config) 
+    .get(`${BASE_URL}boards/${boardId}`, configWorking()) 
     .then(handleResponse) 
     .catch(handleError); 
 }; 
 
 export const deleteBoard = (boardId: string) => {
   return axios
-    .delete(`${BASE_URL}boards/${boardId}`, config)
+    .delete(`${BASE_URL}boards/${boardId}`, configWorking())
     .then(handleResponse)
     .catch(handleError);
 }
@@ -43,7 +43,7 @@ interface UpdateBoardProps {
 
 export const updateBoard = (boardId: string, boardData: UpdateBoardProps) => { 
   return axios 
-    .put(`${BASE_URL}boards/${boardId}`, boardData, config) 
+    .put(`${BASE_URL}boards/${boardId}`, boardData, configWorking()) 
     .then(handleResponse) 
     .catch(handleError); 
 };
@@ -54,21 +54,21 @@ interface ColumnProps {
 
 export const createColumn = (boardId: string, columnData: ColumnProps) => {
   return axios 
-    .post(`${BASE_URL}boards/${boardId}/columns`, columnData, config)
+    .post(`${BASE_URL}boards/${boardId}/columns`, columnData, configWorking())
     .then(handleResponse) 
     .catch(handleError);
 }
 
 export const deleteColumn = (boardId: string, columnId: string) => {
   return axios 
-    .delete(`${BASE_URL}boards/${boardId}/columns/${columnId}`, config)
+    .delete(`${BASE_URL}boards/${boardId}/columns/${columnId}`, configWorking())
     .then(handleResponse) 
     .catch(handleError);
 }
 
 export const getColumns = (boardId: string) => { 
   return axios 
-    .get(`${BASE_URL}boards/${boardId}/columns`, config) 
+    .get(`${BASE_URL}boards/${boardId}/columns`, configWorking()) 
     .then(handleResponse) 
     .catch(handleError); 
 };
