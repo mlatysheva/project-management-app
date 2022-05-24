@@ -5,7 +5,7 @@ import { TaskProps } from "./tasksSlice";
 export interface ColumnProps {
   id: string,
   title: string,
-  order: number,
+  order?: number,
   tasks?: TaskProps[];
 }
 export interface BoardProps {
@@ -43,8 +43,7 @@ export const boardSlice = createSlice({
       return board;
     },
     clear_board: () => {
-      const newState = initialState; 
-      return newState;
+      return initialState;
     },
     update_board: (state, action) => {
       const updatedBoard = {

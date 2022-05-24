@@ -1,6 +1,5 @@
 import Icon from "@mui/material/Icon";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
@@ -8,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useTranslation } from "react-i18next";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -20,6 +20,7 @@ interface EditFieldProps {
 export function EditField(props: EditFieldProps) {
   const board = useAppSelector((state) => state.board);
   const dispatch = useAppDispatch();
+  const {t} = useTranslation();
   const boardId = board.id;
   let value: string;
   if (props.type === "title") {
@@ -27,6 +28,12 @@ export function EditField(props: EditFieldProps) {
   } else {
     value = board.description;
   }
+
+  useEffect(() => {
+    if (boardId !== '' && props.category === "create") {
+      closeForm();
+    }
+  }, [boardId]);
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
@@ -76,7 +83,6 @@ export function EditField(props: EditFieldProps) {
   }
 
 	function renderField() {
-    
 		return (
       <React.Fragment>
         <h2 style={{ textAlign: "left" }}>{value}</h2>
@@ -87,8 +93,7 @@ export function EditField(props: EditFieldProps) {
 		);
 	}
 
-	function RenderForm() {
-    const {t} = useTranslation();
+	function renderForm() {
 		return (
 			<React.Fragment>
         <TextField
@@ -115,7 +120,7 @@ export function EditField(props: EditFieldProps) {
 	return (
     <div className="title-description-wrapper-update">
       <label htmlFor={props.type}>{props.type}</label>
-      {state.formOpen ? RenderForm() : renderField()}
+      {state.formOpen ? renderForm() : renderField()}
     </div>
     );
 }
