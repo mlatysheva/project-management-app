@@ -1,9 +1,9 @@
-import elephant from '../../img/elephant.svg';
+//import elephant from '../../../assets/elephant.svg';
 import { useTranslation} from 'react-i18next';
 import "./Home.scss";
 
 export const Elefant = () => {
-  return ( <img className="elephant" src={elephant} alt="elephant" /> );
+  return ( <img className="elephant" src={process.env.PUBLIC_URL + "/assets/img/elephant.svg" } alt="elephant" /> );
 };
 
 type TitleProps = {
@@ -39,15 +39,15 @@ export function Home() {
       </a> {t('team')}</h2>
 			<div className="welcome-team">
 				<div className='developer'>
-					<img src={require("../../img/Julia.jpg")} alt="Julia" />
+					<img src={process.env.PUBLIC_URL + "/assets/img/Julia.jpg"} alt="Julia" />
 					<span>{t('name1')}</span>
 				</div>
 				<div className='developer'>
-					<img src={require("../../img/Maria.jpg")} alt="Maria" />
+					<img src={process.env.PUBLIC_URL + "/assets/img/Maria.jpg"} alt="Maria" />
 					<span>{t('name2')}</span>
 				</div>
 				<div className='developer'>
-					<img src={require("../../img/Lena.jpg")} alt="Olena" />
+					<img src={process.env.PUBLIC_URL + "/assets/img/Lena.jpg"} alt="Olena" />
 					<span>{t('name3')}</span>
 				</div>
 			</div>
