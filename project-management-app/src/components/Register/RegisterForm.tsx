@@ -12,6 +12,7 @@ import {
 import "./register.css";
 import { toServerRegister } from "../../services/apiUserProvider";
 import { AxiosError } from "axios";
+import { baseUrl } from "../../App";
 
 let disableBtnIn = true;
 
@@ -66,7 +67,7 @@ function SignupForm() {
 				alert(t("no_internet_connection"));
 			}
 		} else {
-			navigate("/signin");
+			navigate(`/${baseUrl}/signin`);
 			disableBtnIn = true;
 		}
 	};
@@ -125,7 +126,7 @@ function SignupForm() {
 				<button
 					className="toRegister__btn"
 					onClick={(e) => {
-						navigate("/signin");
+						navigate(`/${baseUrl}/signin`);
 					}}
 				>
 					{t("click")}
