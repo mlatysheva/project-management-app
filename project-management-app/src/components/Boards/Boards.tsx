@@ -1,9 +1,8 @@
-import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
+import { delete_board, get_allBoards, drag_and_drop } from '../../store/reducers/boardsSlice';
 import { BoardProps, fetchBoard, set_board } from '../../store/reducers/boardSlice';
 import AddBoard from '../Board/AddBoard';
 import { deleteBoard, getAllBoards, getColumns } from '../../services/apiBoardProvider';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -13,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import  { Modal } from '../Modal/Modal';
 
@@ -32,8 +32,9 @@ export function Title({ title = '' }: TitleProps) {
 export function Boards() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  let boards = useAppSelector((state) => state.boards);
-  
+  const { t } = useTranslation();
+
+  let boards = useAppSelector((state) => state.boards);  
 
   //drag-and-drop
   //const [board, setBoards] = useState(boards);
@@ -80,13 +81,6 @@ export function Boards() {
     alert(`Do you want to edit the board with id: ${boardId}?`);
     dispatch(fetchBoard(boardId));
     navigate(`/${baseUrl}/editboard`);
-    // const apiColumns = await getColumns(boardId);
-    // dispatch(set_board({
-    //   id: boardId,
-    //   title: title,
-    //   description: description,
-    //   columns: apiColumns,
-    // }));
   }
  //modal
 
@@ -107,7 +101,7 @@ const [showModal, setShowModal] = useState(false);
       <div className="modal">
         <section className="modal-main">
           <div className="title-container">
-            <Title title="Do you really want to delete your board?" />
+            <Title title={t('boards')}/>
           </div>
           <button
             className="modal-close"
@@ -142,7 +136,7 @@ const [showModal, setShowModal] = useState(false);
 
   return (    
     <div className="main" id="modal-root">
-      <Title title="Your boards" />
+      <Title title={t('boards')}/>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="droppable">
         {(provided) => (
@@ -171,7 +165,7 @@ const [showModal, setShowModal] = useState(false);
                 </Tooltip>
               </CardActions>
               </Card>
-              {modal} (id= {board.id})
+              {modal}
           </div>
           
             )}

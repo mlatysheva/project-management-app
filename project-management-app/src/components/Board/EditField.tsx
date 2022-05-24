@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useTranslation } from "react-i18next";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -19,9 +20,10 @@ interface EditFieldProps {
 export function EditField(props: EditFieldProps) {
   const board = useAppSelector((state) => state.board);
   const dispatch = useAppDispatch();
+  const {t} = useTranslation();
   const boardId = board.id;
   let value: string;
-  if (props.type == "title") {
+  if (props.type === "title") {
     value = board.title;
   } else {
     value = board.description;
@@ -95,7 +97,7 @@ export function EditField(props: EditFieldProps) {
 		return (
 			<React.Fragment>
         <TextField
-          placeholder="Enter new title"
+          placeholder={t('enter_new_title')}
           autoFocus
           defaultValue={value}
           onChange={handleFieldChange}
