@@ -7,6 +7,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { deleteColumn } from '../../services/apiBoardProvider';
 import { delete_column_from_board } from '../../store/reducers/boardSlice';
+import { EditField } from '../Board/EditField';
+import { useTranslation } from 'react-i18next';
+import EditTitle from './EditTitle';
 
 export interface BoardColumnProps {
   id: string;
@@ -19,6 +22,7 @@ export const Column = (props: BoardColumnProps) => {
   const board = useAppSelector((state) => state.board);
   const boardId = board.id;
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   function handleDeleteColumn(columnId: string) {
     alert(`Column ${columnId} will be deleted!`);  
@@ -31,10 +35,8 @@ export const Column = (props: BoardColumnProps) => {
         <Tooltip title="Delete column">
           <DeleteIcon onClick={() => handleDeleteColumn(props.id)}/>
         </Tooltip>
-        <h2>{props.title}</h2>
-        <Tooltip title="Edit title">
-          <EditIcon onClick={() => console.log(`column with id ${props.id} will be edited`)}/>
-        </Tooltip>
+        {/* <h2>{props.title}</h2> */}
+        <EditTitle placeholder={t('title_column')} type={'column_title'} value={props.title} columnId={props.id} />
       </div>
       
       { tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} title={task.title} description={task.description} done={task.done} />)}   

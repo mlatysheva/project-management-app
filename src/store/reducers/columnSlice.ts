@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { TaskProps } from "./tasksSlice";
 
 export interface ColumnProps {
+  boardId?: string,
   id?: string,
   title: string,
   order?: number,
