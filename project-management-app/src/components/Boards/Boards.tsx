@@ -179,7 +179,6 @@ const [showModal, setShowModal] = useState(false);
       </div>
       </>
       )}
-      
         </Droppable>
       </DragDropContext>
     </div>
