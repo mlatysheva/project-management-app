@@ -12,9 +12,9 @@ import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { clear_board } from "../../store/reducers/boardSlice";
-import { useDispatch } from "react-redux";
 import { baseUrl } from "../../App";
-import "./Header.scss";
+import './Header.scss';
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 export function CurrentPage() {
 	const location = useLocation();
@@ -72,7 +72,8 @@ function Header(localStorage: any) {
 			: header?.classList.remove("is-sticky");
 	};
 	const { t } = useTranslation();
-	const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const appParameters = useAppSelector((state) => state.app);
 
 	function handleCreateBoard() {
 		dispatch(clear_board());
@@ -81,20 +82,23 @@ function Header(localStorage: any) {
 
 	const isSmallScreen = (e: Event) => {
 		const menu = document.querySelector(".menu");
-		const nav = document.querySelector("nav");
-		if (window.innerWidth < 600) {
-			menu?.classList.remove("hidden");
-			nav?.classList.add("hidden");
-		} else {
-			menu?.classList.add("hidden");
-			nav?.classList.remove("hidden");
-			nav?.classList.remove("nav-active");
-		}
-	};
-	function handleNav() {
-		const nav = document.querySelector("nav");
-		nav?.classList.toggle("hidden");
-		nav?.classList.toggle("nav-active");
+	  const nav = document.querySelector("nav");
+	 	if (window.innerWidth < 600) {
+			 menu?.classList.remove('hidden');
+			 nav?.classList.add('hidden');
+
+		 }
+		 else {
+			 menu?.classList.add('hidden');
+			 nav?.classList.remove('hidden');
+			 nav?.classList.remove("nav-active");
+		 }			
+	}
+
+  function handleNav() {
+    const nav= document.querySelector("nav");
+    nav?.classList.toggle('hidden');
+    nav?.classList.toggle('nav-active');
 	}
 
 	function removeNav() {
@@ -106,7 +110,7 @@ function Header(localStorage: any) {
 			}
 		}
 	}
-
+	
 	useEffect(() => {
 		window.addEventListener("resize", isSmallScreen);
 		return () => {
@@ -150,25 +154,22 @@ function Header(localStorage: any) {
 						</NavLink>
 					</>
 				)}
-				{localStorage.token ? (
-					<>
-						<NavLink to={`${baseUrl}/boards`}>
-							<Typography
-								variant="h6"
-								component="div"
-								sx={{ flexGrow: 1 }}
-								onClick={removeNav}
-							>
-								{t("boards")}
-							</Typography>
-						</NavLink>
-						<NavLink to={`${baseUrl}/createboard`}>
-							<Tooltip title={t("add")}>
-								<AddBoxIcon fontSize="large" onClick={handleCreateBoard} />
-							</Tooltip>
-						</NavLink>
-					</>
-				) : null}
+				<NavLink to={`${baseUrl}/boards`}>
+				  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={removeNav}>
+				   {t('boards')}
+        	</Typography>
+				</NavLink>
+        { (appParameters.isBoardInEdit) ? 
+          <NavLink to={`${baseUrl}/editboard`}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={removeNav}>
+              {t('edit_board')}
+            </Typography>
+          </NavLink> : null }
+				<NavLink to={`${baseUrl}/createboard`}>
+					<Tooltip title={t("add")}>
+						<AddBoxIcon fontSize="large" onClick={handleCreateBoard} />
+					</Tooltip>
+				</NavLink>
 				<SelectLanguage />
 			</nav>
 			<div className="menu hidden">
