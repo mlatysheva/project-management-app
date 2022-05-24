@@ -29,7 +29,7 @@ export const getUser = (userId: string) => {
 export async function getUserByLogin(login: string) {
 	const users = await getAllUsers();
 	const soughtUser: UserIdProps = users.filter(
-		(user: UserIdProps) => user.login == login
+		(user: UserIdProps) => user.login === login
 	)[0];
 	console.log(`getUserByLogin = ${soughtUser.id}`);
 	return soughtUser.id;
