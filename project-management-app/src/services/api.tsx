@@ -7,8 +7,8 @@ const instaceApi = axios.create({
 });
 
 export const userCredentials = {
-	// token: localStorage.getItem("userToken"),
-  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZjk1NzIyZS1jOWVjLTRhMzAtOTI3Ny04ODZlYzkyOGMxOGIiLCJsb2dpbiI6Im1hcmkiLCJpYXQiOjE2NTMzMzEyMDR9.RNwZmrVuf1j51u5axJF5uc5UDbQ7pcN8QFTM8tKtzv8",
+	token: localStorage.getItem("userToken"),
+	// token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZjk1NzIyZS1jOWVjLTRhMzAtOTI3Ny04ODZlYzkyOGMxOGIiLCJsb2dpbiI6Im1hcmkiLCJpYXQiOjE2NTMzMzEyMDR9.RNwZmrVuf1j51u5axJF5uc5UDbQ7pcN8QFTM8tKtzv8",
 };
 
 export const config = {

@@ -37,7 +37,7 @@ function useLocalStorage(key: string, initialState: string) {
 
 function App() {
 	let [localStorage, setToken] = useLocalStorage("userToken", "");
-  const boardId = useAppSelector((state) => state.board.id);
+	const boardId = useAppSelector((state) => state.board.id);
 	return (
 		<div className="App">
 			<ErrorBoundary>
@@ -47,15 +47,23 @@ function App() {
 					<Header token={localStorage} />
 					<Routes>
 						<Route path={`/${baseUrl}`} element={<Home />} />
-						<Route path={`/${baseUrl}/signin`} element={<Signin updateToken={setToken} />} />
+						<Route
+							path={`/${baseUrl}/signin`}
+							element={<Signin updateToken={setToken} />}
+						/>
 						<Route
 							path={`/${baseUrl}/edit`}
 							element={<EditProfile updateToken={setToken} />}
 						/>
 						<Route path={`/${baseUrl}/signup`} element={<Register />} />
-						<Route path={`/${baseUrl}/logout`} element={<Logout updateToken={setToken} />} />
+						<Route
+							path={`/${baseUrl}/logout`}
+							element={<Logout updateToken={setToken} />}
+						/>
+						//TODO:скрыть если нет пользователя
 						<Route path={`/${baseUrl}/boards`} element={<Boards />} />
 						<Route path={`/${baseUrl}/createboard`} element={<CreateBoard />} />
+						//до скрыть если нет пользователя
 						<Route path={`/${baseUrl}/editboard`} element={<EditBoard />} />
 						<Route path={`/${baseUrl}/error`} element={<ErrorPage />} />
 						<Route path={`/${baseUrl}/*`} element={<ErrorPage />} />
