@@ -1,6 +1,5 @@
 import Icon from "@mui/material/Icon";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
@@ -22,11 +21,12 @@ export function EditField(props: EditFieldProps) {
   const dispatch = useAppDispatch();
   const boardId = board.id;
   let value: string;
-  if (props.type === "title") {
+  if (props.type == "title") {
     value = board.title;
   } else {
     value = board.description;
   }
+
   useEffect(() => {
     if (boardId !== '' && props.category === "create") {
       closeForm();
@@ -81,7 +81,6 @@ export function EditField(props: EditFieldProps) {
   }
 
 	function renderField() {
-    
 		return (
       <React.Fragment>
         <h2 style={{ textAlign: "left" }}>{value}</h2>
@@ -92,12 +91,11 @@ export function EditField(props: EditFieldProps) {
 		);
 	}
 
-	function RenderForm() {
-    const {t} = useTranslation();
+	function renderForm() {
 		return (
 			<React.Fragment>
         <TextField
-          placeholder={t('enter_new_title')}
+          placeholder="Enter new title"
           autoFocus
           defaultValue={value}
           onChange={handleFieldChange}
@@ -120,7 +118,7 @@ export function EditField(props: EditFieldProps) {
 	return (
     <div className="title-description-wrapper-update">
       <label htmlFor={props.type}>{props.type}</label>
-      {state.formOpen ? RenderForm() : renderField()}
+      {state.formOpen ? renderForm() : renderField()}
     </div>
     );
 }
