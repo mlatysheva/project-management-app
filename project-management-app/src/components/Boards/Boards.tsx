@@ -33,36 +33,13 @@ export function Boards() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-
   let boards = useAppSelector((state) => state.boards);  
 
-  //drag-and-drop
-  //const [board, setBoards] = useState(boards);
-
-  function handleOnDragEnd(result: DropResult, provided: ResponderProvided) {
-    const { destination, source } = result;
-    if (!destination) {
-      return;
-    }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-   
-    const newItems = [...boards];
-    const [removed] = newItems.splice(result.source.index, 1);
-    newItems.splice(destination.index, 0, removed);
-    //setBoards(newItems);
-    dispatch(set_board(newItems));
-  }
-
+  const [board, setBoards] = useState(boards);
  
   useEffect(() => {
     const fetchData = async () => {
       boards = await getAllBoards();
-      // console.log(...boards.map(board => board.id));
       if (boards.length === 0 ) {
         boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
       }
@@ -70,7 +47,7 @@ export function Boards() {
     }
     fetchData()
       .catch(console.error);
-  }, []);
+  }, [dispatch]);
 
   async function handleDeleteBoard(boardId: string) {
     dispatch(delete_board(boardId));
@@ -82,18 +59,25 @@ export function Boards() {
     dispatch(fetchBoard(boardId));
     navigate(`/${baseUrl}/editboard`);
   }
+
+  //drag-and-drop  
+
+  function handleOnDragEnd(result: DropResult, provided: ResponderProvided) {
+     dispatch(drag_and_drop(boards));
+    setBoards(boards);
+  }
+
  //modal
 
-const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
- const handleShow = () => {
-   setShowModal(true);
- };
+  const handleShow = () => {
+    setShowModal(true);
+  };
 
- const handleHide = () => {
-   setShowModal(false);
- };
-
+  const handleHide = () => {
+    setShowModal(false);
+  };
 
   const modal =  showModal? (
 
@@ -101,7 +85,7 @@ const [showModal, setShowModal] = useState(false);
       <div className="modal">
         <section className="modal-main">
           <div className="title-container">
-            <Title title={t('boards')}/>
+            <Title title="Do you really want to delete your board?" />
           </div>
           <button
             className="modal-close"
@@ -133,52 +117,50 @@ const [showModal, setShowModal] = useState(false);
     </Modal>
   ) : null;
 
-
   return (    
     <div className="main" id="modal-root">
       <Title title={t('boards')}/>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="droppable">
-        {(provided) => (
-          <>
-          <div className="boards-container"  id="droppable" {...provided.droppableProps} ref={provided.innerRef}>
+          {(provided) => (
             <>
-        {boards.map((board: BoardProps, index: number) =>
-            <Draggable key={board.id} draggableId={board.id} index={index}>
-            {(provided) => (
-              
-          <div className= "board" key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-            <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
-              <Card className="card"  sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id, board.title, board.description)}>
-                  {board.description}
-                </Typography>
-              </CardContent>
-              <CardActions className='button-wrapper'>
-                <Tooltip title="Delete board">
-                  {/* <DeleteIcon  onClick={() => handleShow()}/> */}
-                  <DeleteIcon onClick={() => handleDeleteBoard(board.id)} />
-                </Tooltip>
-                <Tooltip title="Edit board">
-                  <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
-                </Tooltip>
-              </CardActions>
-              </Card>
-              {modal}
-          </div>
-          
-            )}
-            </Draggable>
+            <div className="boards-container"  id="droppable" {...provided.droppableProps} ref={provided.innerRef}>
+              <>
+          {boards.map((board: BoardProps, index: number) =>
+              <Draggable key={board.id} draggableId={board.id} index={index}>
+              {(provided) => (
+                
+            <div className= "board" key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+              <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
+                <Card className="card"  sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id, board.title, board.description)}>
+                    {board.description}
+                  </Typography>
+                </CardContent>
+                <CardActions className='button-wrapper'>
+                  <Tooltip title="Delete board">
+                    {/* <DeleteIcon  onClick={() => handleShow()}/> */}
+                    <DeleteIcon onClick={() => handleDeleteBoard(board.id)} />
+                  </Tooltip>
+                  <Tooltip title="Edit board">
+                    <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
+                  </Tooltip>
+                </CardActions>
+                </Card>
+                {modal}  
+            </div>
             
-          )}
-        <AddBoard formOpen={false} toHide={false} />
-        {provided.placeholder}
-        {modal}
+              )}
+              </Draggable>              
+            )}
+          <AddBoard formOpen={false} toHide={false} />
+          {provided.placeholder}
+          {modal}
+          </>
+        </div>
         </>
-      </div>
-      </>
-      )}
+        )}      
         </Droppable>
       </DragDropContext>
     </div>
