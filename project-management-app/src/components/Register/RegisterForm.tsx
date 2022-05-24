@@ -58,10 +58,11 @@ function SignupForm() {
 			login,
 			password,
 		});
+		//TODO: закинуть ид
 		if (resultOfSignUpCallToServer instanceof AxiosError) {
 			if (resultOfSignUpCallToServer.response?.data?.message) {
 				//alert(resultOfSignUpCallToServer.response?.data.message);
-				alert("something goes wrong");
+				alert(t("smt_wrong"));
 				setLogin("");
 			} else {
 				alert(t("no_internet_connection"));

@@ -82,7 +82,7 @@ function EditForm({ updateToken }: any) {
 		<>
 			<form className="signup__form" onSubmit={(e) => handleSubmit(e)}>
 				<h1>{t("edit")} 👀:</h1>
-				{/*<input
+				<input
 					className="signup__input"
 					onKeyUp={applyColorName}
 					type="name"
@@ -91,13 +91,6 @@ function EditForm({ updateToken }: any) {
 					defaultValue={register.name?.toString()}
 					onChange={(e) => setName(e.target.value)}
 					//pattern="[A-Za-z]{2,}"
-					title="Just latin letters, min 2 symbols"
-				/>*/}
-				<TextField
-					id="outlined-name"
-					label={t("name")}
-					defaultValue={register.name?.toString()}
-					onChange={(e) => setName(e.target.value)}
 					title="Just latin letters, min 2 symbols"
 				/>
 				<input
