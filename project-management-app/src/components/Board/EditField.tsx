@@ -26,6 +26,11 @@ export function EditField(props: EditFieldProps) {
   } else {
     value = board.description;
   }
+  useEffect(() => {
+    if (boardId !== '' && props.category === "create") {
+      closeForm();
+    }
+  }, [boardId]);
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,

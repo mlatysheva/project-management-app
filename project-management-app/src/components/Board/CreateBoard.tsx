@@ -61,8 +61,8 @@ export default function CreateBoard() {
     <div className="main">
       <h1 className="page-title">Create board</h1>
       <div className="add-section">
-        <EditField formOpen={true} placeholder="Enter title" type="title" field={board.title} />
-        <EditField formOpen={true} placeholder="Enter description" type="description" field={board.description} />
+        <EditField formOpen={true} placeholder="Enter title" type="title" field={board.title} category="create" />
+        <EditField formOpen={true} placeholder="Enter description" type="description" field={board.description} category="create" />
       </div>
 
       {state.isBoardSaved ? (
