@@ -19,6 +19,8 @@ import {
 import "./edit.css";
 import "../passwordShowHide/passwordField.css";
 import { baseUrl } from "../../App";
+import { title } from "process";
+import InputField from "../inputField/inputField";
 
 function EditForm({ updateToken }: any) {
 	const [name, setName] = useState("");
@@ -26,6 +28,9 @@ function EditForm({ updateToken }: any) {
 	const [password, setPassword] = useState("");
 	const [show, setShow] = useState("🙈");
 	const [passwordShown, setPasswordShown] = useState(false);
+	const [nameError, setNameError] = useState(false);
+	const [loginError, setLoginError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -44,6 +49,11 @@ function EditForm({ updateToken }: any) {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setNameError(false);
+
+		if (name.length < 3) {
+			setNameError(true);
+		}
 		dispatch(
 			edit({
 				name: name,
@@ -93,12 +103,12 @@ function EditForm({ updateToken }: any) {
 					//pattern="[A-Za-z]{2,}"
 					title="Just latin letters, min 2 symbols"
 				/>*/}
-				<TextField
-					id="outlined-name"
+				<InputField
+					name={"name"}
 					label={t("name")}
-					defaultValue={register.name?.toString()}
+					value={register.name?.toString() || ""}
+					helperText={"Just latin letters, min 2 symbols"}
 					onChange={(e) => setName(e.target.value)}
-					title="Just latin letters, min 2 symbols"
 				/>
 				<input
 					className="signup__input"

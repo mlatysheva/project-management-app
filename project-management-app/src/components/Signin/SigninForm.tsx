@@ -47,11 +47,16 @@ function SigninForm({ updateToken }: any) {
 		disableBtnInSignin = true;
 
 		let signInResponse = await toServerSignin({ login, password });
+		console.log(signInResponse);
+
+		console.log("1");
 		if (!signInResponse) {
 			alert(t("no_register"));
 			setPassword("");
 			setLogin("");
+			console.log("2");
 		} else {
+			console.log("3");
 			const token = signInResponse.token;
 			updateToken(token);
 
