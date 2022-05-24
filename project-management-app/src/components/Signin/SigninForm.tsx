@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 
 import "./signin.css";
 import {
+	getAllUsers,
 	getUserByLogin,
 	getUserName,
 	toServerSignin,
@@ -55,6 +56,9 @@ function SigninForm({ updateToken }: any) {
 			const token = signInResponse.token;
 			updateToken(token);
 
+			//const allUsers = await getAllUsers();
+			//console.log(JSON.stringify(allUsers));
+
 			const userID = await getUserByLogin(login);
 			const userName = await getUserName(userID);
 
@@ -92,7 +96,7 @@ function SigninForm({ updateToken }: any) {
 					placeholder={t("login")}
 					id="login-signin"
 					value={login}
-					onChange={(e) => setLogin(e.target.value)}
+					onChange={async (e) => setLogin(e.target.value)}
 					pattern="{4,}"
 					title="login min 4 symbols..."
 					required
@@ -104,6 +108,7 @@ function SigninForm({ updateToken }: any) {
 					type="password"
 					placeholder={t("password")}
 					value={password}
+					//defaultValue={register.password || ""}
 					onChange={(e) => setPassword(e.target.value)}
 					pattern="{6,}"
 					title="Put minimum 6 symbols"

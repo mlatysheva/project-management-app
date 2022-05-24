@@ -81,7 +81,7 @@ i18n
 					label_title: "Title",
 					cancel: "Cancel",
 					save: "Save",
-					
+					smt_wrong: "something goes wrong",
 				},
 			},
 			ru: {
@@ -150,6 +150,7 @@ i18n
 					label_title: "Название",
 					cancel: "Отмена",
 					save: "Сохранить",
+					smt_wrong: "что-то пошло не так",
 				},
 			},
 		},

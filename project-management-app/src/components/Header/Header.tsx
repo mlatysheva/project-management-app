@@ -7,12 +7,11 @@ import Tooltip from "@mui/material/Tooltip";
 import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
 import SelectLanguage from "../SelectLanguage/SelectLanguage";
 import EditIcon from "@mui/icons-material/Edit";
-import MenuIcon from '@mui/icons-material/Menu';
-import Typography from '@mui/material/Typography';
+import MenuIcon from "@mui/icons-material/Menu";
+import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
-import { useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { clear_board } from "../../store/reducers/boardSlice";
-import { useDispatch } from "react-redux";
 import { baseUrl } from "../../App";
 import './Header.scss';
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -23,9 +22,9 @@ export function CurrentPage() {
 	const getCurrentPage = () => {
 		switch (location.pathname) {
 			case `/${baseUrl}`:
-				return t('home');
-      case `/${baseUrl}/`:
-				return t('home');
+				return t("home");
+			case `/${baseUrl}/`:
+				return t("home");
 			case `/${baseUrl}/signup`:
 				return t("signup");
 			case `/${baseUrl}/signin`:
@@ -36,7 +35,7 @@ export function CurrentPage() {
 				return t("boards");
 			case `/${baseUrl}/createboard`:
 				return t("create_board");
-      case `/${baseUrl}/editboard`:
+			case `/${baseUrl}/editboard`:
 				return t("edit_board");
 			case `/${baseUrl}/edit`:
 				return t("edit");
@@ -49,14 +48,13 @@ export function CurrentPage() {
 
 	return (
 		<div className="current-page-title">
-			<span className="here-text">{t('here_text')} </span>
+			<span className="here-text">{t("here_text")} </span>
 			{getCurrentPage()}
 		</div>
 	);
 }
 
 function Header(localStorage: any) {
-	
 	// Sticky Menu Area https://stackoverflow.com/questions/62970456/how-to-create-sticky-headers-on-scroll-with-react
 	useEffect(() => {
 		window.addEventListener("scroll", isSticky);
@@ -77,12 +75,12 @@ function Header(localStorage: any) {
   const dispatch = useAppDispatch();
   const appParameters = useAppSelector((state) => state.app);
 
-  function handleCreateBoard() {
-    dispatch(clear_board());
+	function handleCreateBoard() {
+		dispatch(clear_board());
 		removeNav();
-  }
+	}
 
-	const isSmallScreen =( e:Event) => { 
+	const isSmallScreen = (e: Event) => {
 		const menu = document.querySelector(".menu");
 	  const nav = document.querySelector("nav");
 	 	if (window.innerWidth < 600) {
@@ -94,8 +92,7 @@ function Header(localStorage: any) {
 			 menu?.classList.add('hidden');
 			 nav?.classList.remove('hidden');
 			 nav?.classList.remove("nav-active");
-		 }
-			
+		 }			
 	}
 
   function handleNav() {
@@ -103,13 +100,13 @@ function Header(localStorage: any) {
     nav?.classList.toggle('hidden');
     nav?.classList.toggle('nav-active');
 	}
-	
+
 	function removeNav() {
-		const nav= document.querySelector("nav");
+		const nav = document.querySelector("nav");
 		if (nav?.classList.contains("nav-active")) {
 			nav?.classList.remove("nav-active");
 			if (window.innerWidth < 600) {
-				nav?.classList.toggle('hidden');
+				nav?.classList.toggle("hidden");
 			}
 		}
 	}
@@ -124,22 +121,22 @@ function Header(localStorage: any) {
 	return (
 		<header className="header">
 			<CurrentPage />
-			<nav >
+			<nav>
 				<NavLink to={`/${baseUrl}`}>
-					<Tooltip title={t('home')}>
-						<HomeIcon fontSize="large" onClick={removeNav}/>
+					<Tooltip title={t("home")}>
+						<HomeIcon fontSize="large" onClick={removeNav} />
 					</Tooltip>
 				</NavLink>
 				{localStorage.token ? (
 					<>
 						<NavLink to={`${baseUrl}/logout`}>
 							<Tooltip title={t("logout")}>
-								<LogoutIcon fontSize="large" onClick={removeNav}/>
+								<LogoutIcon fontSize="large" onClick={removeNav} />
 							</Tooltip>
 						</NavLink>
 						<NavLink to={`${baseUrl}/edit`}>
 							<Tooltip title={t("edit")}>
-								<EditIcon fontSize="large" onClick={removeNav}/>
+								<EditIcon fontSize="large" onClick={removeNav} />
 							</Tooltip>
 						</NavLink>
 					</>
@@ -147,7 +144,7 @@ function Header(localStorage: any) {
 					<>
 						<NavLink to={`${baseUrl}/signin`}>
 							<Tooltip title={t("signin")}>
-								<LoginIcon fontSize="large" onClick={removeNav}/>
+								<LoginIcon fontSize="large" onClick={removeNav} />
 							</Tooltip>
 						</NavLink>
 						<NavLink to={`${baseUrl}/signup`}>
@@ -176,7 +173,7 @@ function Header(localStorage: any) {
 				<SelectLanguage />
 			</nav>
 			<div className="menu hidden">
-				<MenuIcon  fontSize="large" onClick= {handleNav}/>
+				<MenuIcon fontSize="large" onClick={handleNav} />
 			</div>
 		</header>
 	);
