@@ -16,9 +16,9 @@ import { useTranslation } from 'react-i18next';
 import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import  { Modal } from '../Modal/Modal';
 
-
 import './Board.scss';
 import { baseUrl } from '../../App';
+import { remove_editedBoard, set_editedBoard } from '../../store/reducers/appSlice';
 
 type TitleProps = {
   title: string;
@@ -47,17 +47,20 @@ export function Boards() {
     }
     fetchData()
       .catch(console.error);
-  }, [dispatch]);
+}, []);
 
   async function handleDeleteBoard(boardId: string) {
     dispatch(delete_board(boardId));
+    dispatch(remove_editedBoard());
     await deleteBoard(boardId);
   }
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
     alert(`Do you want to edit the board with id: ${boardId}?`);
-    dispatch(fetchBoard(boardId));
+    // dispatch(fetchBoard(boardId));
     navigate(`/${baseUrl}/editboard`);
+    dispatch(set_editedBoard({isBoardInEdit: true,
+      editedBoardId: boardId}));
   }
 
   //drag-and-drop  
@@ -133,20 +136,20 @@ export function Boards() {
             <div className= "board" key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
               <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
                 <Card className="card"  sx={{ minWidth: 275 }}>
-                <CardContent>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id, board.title, board.description)}>
-                    {board.description}
-                  </Typography>
-                </CardContent>
-                <CardActions className='button-wrapper'>
-                  <Tooltip title="Delete board">
-                    {/* <DeleteIcon  onClick={() => handleShow()}/> */}
-                    <DeleteIcon onClick={() => handleDeleteBoard(board.id)} />
-                  </Tooltip>
-                  <Tooltip title="Edit board">
-                    <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
-                  </Tooltip>
-                </CardActions>
+                  <CardContent>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id, board.title, board.description)}>
+                      {board.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions className='button-wrapper'>
+                    <Tooltip title="Delete board">
+                      {/* <DeleteIcon  onClick={() => handleShow()}/> */}
+                      <DeleteIcon onClick={() => handleDeleteBoard(board.id)} />
+                    </Tooltip>
+                    <Tooltip title="Edit board">
+                      <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
+                    </Tooltip>
+                  </CardActions>
                 </Card>
                 {modal}  
             </div>

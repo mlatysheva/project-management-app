@@ -4,32 +4,41 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { clear_board, ColumnProps, update_board } from '../../store/reducers/boardSlice';
+import { clear_board, ColumnProps, set_board, update_board } from '../../store/reducers/boardSlice';
 import { EditField } from './EditField';
-import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
+import { deleteBoard, getBoard, updateBoard } from '../../services/apiBoardProvider';
 import { baseUrl } from '../../App';
+import { useEffect } from 'react';
 
 export default function EditBoard() {
-  const board = useAppSelector((state) => state.board);
-  const columns = useAppSelector((state) => state.board.columns);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const boardId = board.id;
+  const boardId = useAppSelector((state) => state.app.editedBoardId);
+
+  useEffect(() => {
+    async function getBoardFromServer(id: string) {
+      const response = await getBoard(id);
+      console.dir(response);
+      dispatch(set_board({
+        id: id,
+        title: response.title,
+        description: response.description,
+        columns: response.columns,
+      }));
+    }
+    getBoardFromServer(boardId);    
+  }, [boardId]);
+  
+  
+  const board = useAppSelector((state) => state.board);
+  const columns = useAppSelector((state) => state.board.columns);
 
   async function handleBoardSave() {
     let body = {
       title: board.title,
       description: board.description,
     }
-    let boardApi;
-    let boardId;
-    if (board.id === '') {
-      boardApi = await createBoard(body);
-      boardId = boardApi.id;
-    } else {
-      boardId = board.id;
-      boardApi = await updateBoard(boardId, body);
-    }
+    await updateBoard(boardId, body);
     
     dispatch(update_board({
       ...body,
@@ -42,7 +51,9 @@ export default function EditBoard() {
 
   async function handleDeleteBoard() {    
     alert(`The board will be deleted`);
-    await deleteBoard(boardId);
+    if (boardId) {
+      await deleteBoard(boardId);
+    }
     dispatch(clear_board());
     navigate(`/${baseUrl}/boards`);
   }

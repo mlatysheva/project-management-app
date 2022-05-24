@@ -3,7 +3,7 @@ import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import TextField from "@mui/material/TextField";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { createColumn } from "../../services/apiBoardProvider";
 import { add_column_to_board } from "../../store/reducers/boardSlice";
 import React from "react";
@@ -18,7 +18,8 @@ export function AddColumn(props: AddColumnProps) {
 		title: "",
 	});
   let board = useAppSelector((state) => state.board);
-  const dispatch = useDispatch();
+
+  const dispatch = useAppDispatch();
 
 	function openForm() {
 		setState({

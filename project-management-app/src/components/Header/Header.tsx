@@ -15,6 +15,7 @@ import { clear_board } from "../../store/reducers/boardSlice";
 import { useDispatch } from "react-redux";
 import { baseUrl } from "../../App";
 import './Header.scss';
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 export function CurrentPage() {
 	const location = useLocation();
@@ -73,7 +74,8 @@ function Header(localStorage: any) {
 			: header?.classList.remove("is-sticky");
 	};
 	const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const appParameters = useAppSelector((state) => state.app);
 
   function handleCreateBoard() {
     dispatch(clear_board());
@@ -95,10 +97,11 @@ function Header(localStorage: any) {
 		 }
 			
 	}
- function handleNav() {
-	const nav= document.querySelector("nav");
-	nav?.classList.toggle('hidden');
-	nav?.classList.toggle('nav-active');
+
+  function handleNav() {
+    const nav= document.querySelector("nav");
+    nav?.classList.toggle('hidden');
+    nav?.classList.toggle('nav-active');
 	}
 	
 	function removeNav() {
@@ -110,7 +113,6 @@ function Header(localStorage: any) {
 			}
 		}
 	}
-
 	
 	useEffect(() => {
 		window.addEventListener("resize", isSmallScreen);
@@ -160,6 +162,12 @@ function Header(localStorage: any) {
 				   {t('boards')}
         	</Typography>
 				</NavLink>
+        { (appParameters.isBoardInEdit) ? 
+          <NavLink to={`${baseUrl}/editboard`}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={removeNav}>
+              {t('edit_board')}
+            </Typography>
+          </NavLink> : null }
 				<NavLink to={`${baseUrl}/createboard`}>
 					<Tooltip title={t("add")}>
 						<AddBoxIcon fontSize="large" onClick={handleCreateBoard} />
