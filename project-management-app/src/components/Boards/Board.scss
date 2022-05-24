@@ -1,8 +1,33 @@
 .board {
-  width: 300px;
+  max-width: 300px;
   margin: 10px;
   color: black;
   background-color: skyblue;
   border-radius: 3px;
   padding: 8px;
+}
+@media (max-width: 768px) {
+  .add-section {
+    width: 100%;
+    div {
+      flex-direction: column;
+      width: 100%;
+      label {
+        margin: 0 auto;
+        text-align: center;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .add-section {
+    width: 80%;
+  }
+}
+@media (max-width: 462px) {
+  .save-cancel-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 }

@@ -55,8 +55,7 @@ export function CurrentPage() {
 }
 
 function Header(localStorage: any) {
-	const menu = document.querySelector(".menu");
-	const nav = document.querySelector("nav");
+	
 	// Sticky Menu Area https://stackoverflow.com/questions/62970456/how-to-create-sticky-headers-on-scroll-with-react
 	useEffect(() => {
 		window.addEventListener("scroll", isSticky);
@@ -82,6 +81,8 @@ function Header(localStorage: any) {
   }
 
 	const isSmallScreen =( e:Event) => { 
+		const menu = document.querySelector(".menu");
+	  const nav = document.querySelector("nav");
 	 	if (window.innerWidth < 600) {
 			 menu?.classList.remove('hidden');
 			 nav?.classList.add('hidden');
@@ -101,6 +102,7 @@ function Header(localStorage: any) {
 	}
 	
 	function removeNav() {
+		const nav= document.querySelector("nav");
 		if (nav?.classList.contains("nav-active")) {
 			nav?.classList.remove("nav-active");
 			if (window.innerWidth < 600) {

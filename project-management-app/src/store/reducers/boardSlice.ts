@@ -55,7 +55,7 @@ export const boardSlice = createSlice({
       return updatedBoard;
     },
     add_column_to_board: (state, action) => {
-      if (state.columns == undefined) {
+      if (state.columns === undefined) {
         state.columns = [];
       }
       const updatedBoard = {
@@ -69,7 +69,7 @@ export const boardSlice = createSlice({
       if (state.columns === undefined) {
         return state
       } else {
-        let newList = state.columns.filter(column => column.id != columnId);
+        let newList = state.columns.filter(column => column.id !== columnId);
         const updatedBoard = {
           ...state,
           columns: newList,
