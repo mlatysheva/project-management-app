@@ -1,11 +1,15 @@
 {
 	"cSpell.words": [
 		"autosize",
+		"browserslist",
 		"Funct",
 		"inputcolor",
 		"instace",
+		"languagedetector",
+		"reduxjs",
 		"signin",
-		"Signup"
+		"Signup",
+		"uuidv"
 	],
 	"editor.tabSize": 2
 }
