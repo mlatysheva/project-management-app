@@ -8,11 +8,13 @@ import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardPr
 import { Column } from '../Column/Column';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation} from 'react-i18next';
 import { baseUrl } from '../../App';
 
 export default function CreateBoard() {
   const columns = useAppSelector((state) => state.board.columns);
   const board = useAppSelector((state) => state.board);
+  const { t } = useTranslation();
 
   const [state, setState] = useState({
 		isBoardSaved: false,
@@ -59,27 +61,27 @@ export default function CreateBoard() {
 
   return (
     <div className="main">
-      <h1 className="page-title">Create board</h1>
+      <h1 className="page-title">{t('create_title')}</h1>
       <div className="add-section">
-        <EditField formOpen={true} placeholder="Enter title" type="title" field={board.title} />
-        <EditField formOpen={true} placeholder="Enter description" type="description" field={board.description} />
+        <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={board.title} />
+        <EditField formOpen={true} placeholder={t('placeholder_description')} type="description" field={board.description} />
       </div>
 
       {state.isBoardSaved ? (
         <div className="column-container">
-          {(columns != undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
+          {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
             { id: "01r",
-              title: "Your sample task",
-              description: "Visualise your elephant",
+              title: t('title_task'),
+              description: t('description_task'),
               done: false,
             },      
           ]} />): null }
-          <AddColumn type="Add new column" />
+          <AddColumn type={t("add_column")} />
         </div>
       ) : null }
       <div className="save-cancel-section">
-        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>Cancel</Button>
-        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Save</Button>
+        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>{t('cancel')}</Button>
+        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>{t('save')}</Button>
       </div>
     </div>
   )

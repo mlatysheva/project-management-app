@@ -6,6 +6,7 @@ import { connect, useDispatch } from "react-redux";
 import { add_board } from "../../store/reducers/boardsSlice";
 import { TextField } from "@mui/material";
 import { createBoard } from "../../services/apiBoardProvider";
+import { useTranslation } from "react-i18next";
 
 export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 	const [state, setState] = useState({
@@ -17,6 +18,7 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 	});
 
   const dispatch = useDispatch();
+	const { t } = useTranslation();
 
 	function openForm() {
 		setState({
@@ -82,13 +84,13 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 				onClick={openForm}
 			>
 				<Icon>add</Icon>
-				<p>Add Board</p>
+				<p>{t("add_board")}</p>
 			</div>
 		);
 	}
 
 	function renderForm() {
-		const buttonTitle = "Add board";
+		const buttonTitle = t('add_board');
 
 		return (
 			<div>
@@ -105,7 +107,7 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 					}}
 				>
           <TextField
-            placeholder="Enter title"
+            placeholder={t('placeholder_title')}
 						autoFocus
 						value={state.title}
 						onChange={handleInputTitleChange}
@@ -116,7 +118,7 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 						}}
           />
           <TextField
-            placeholder="Enter description"
+            placeholder={t('placeholder_description')}
 						value={state.description}
 						onChange={handleInputDescriptionChange}
 						style={{
