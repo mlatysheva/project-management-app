@@ -29,7 +29,13 @@ function Logout({ updateToken }: any) {
 		<div className="main">
 			<div className="logout__form">
 				<h1>
-					<span className="logout__name"> {register.login?.toUpperCase()}</span>
+					<span className="logout__name">
+						{" "}
+						{
+							/*register.login?.toUpperCase()*/
+							localStorage.getItem("userLogin")
+						}
+					</span>
 					{t("logout_component")}
 				</h1>
 				<button

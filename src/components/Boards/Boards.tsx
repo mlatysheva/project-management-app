@@ -20,6 +20,9 @@ import './Board.scss';
 import { baseUrl } from '../../App';
 import { remove_editedBoard, set_editedBoard } from '../../store/reducers/appSlice';
 
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import arrayMove from 'array-move';
+
 type TitleProps = {
   title: string;
   children?: string;

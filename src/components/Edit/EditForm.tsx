@@ -88,7 +88,7 @@ function EditForm({ updateToken }: any) {
 					type="name"
 					placeholder={t("name")}
 					id="name"
-					defaultValue={register.name?.toString()}
+					defaultValue={localStorage.getItem("userName")?.toString()}
 					onChange={(e) => setName(e.target.value)}
 					//pattern="[A-Za-z]{2,}"
 					title="Just latin letters, min 2 symbols"
@@ -99,7 +99,7 @@ function EditForm({ updateToken }: any) {
 					type="text"
 					placeholder={t("login")}
 					id="login"
-					defaultValue={register.login?.toString()}
+					defaultValue={localStorage.getItem("userLogin")?.toString()}
 					//value={login}
 					onChange={(e) => setLogin(e.target.value)}
 					pattern="{4,}"
@@ -113,7 +113,7 @@ function EditForm({ updateToken }: any) {
 						type={passwordShown ? "text" : "password"}
 						id="password"
 						placeholder={t("password")}
-						defaultValue={register.password?.toString()}
+						defaultValue={localStorage.getItem("userPassword")?.toString()}
 						onChange={(e) => setPassword(e.target.value)}
 						pattern="{6,}"
 						title="Put minimum 6 symbols"
