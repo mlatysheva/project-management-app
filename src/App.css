@@ -66,6 +66,7 @@ nav {
 
 .main {
 	max-width: 1440px;
+	overflow-x: scroll;
 	min-height: calc(100vh - 160px);
 	flex: 1;
 	display: flex;
@@ -310,12 +311,6 @@ label {
 	padding: 0 !important;
 }
 
-.column-container {
-	display: flex;
-	flex-direction: row;
-  flex-wrap: wrap;
-  margin: 20px;
-}
 @media(max-width: 1100px) {
 	.boards-container {
 		grid-template-columns: repeat(2, 1fr);

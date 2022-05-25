@@ -20,9 +20,6 @@ import './Board.scss';
 import { baseUrl } from '../../App';
 import { remove_editedBoard, set_editedBoard } from '../../store/reducers/appSlice';
 
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import arrayMove from 'array-move';
-
 type TitleProps = {
   title: string;
   children?: string;
@@ -41,8 +38,8 @@ export function Boards() {
   const [board, setBoards] = useState(boards);
  
   useEffect(() => {
-    const fetchData = async () => {
-      boards = await getAllBoards();
+    async function fetchData () {
+     let boards = await getAllBoards();
       if (boards.length === 0 ) {
         boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
       }
@@ -50,7 +47,7 @@ export function Boards() {
     }
     fetchData()
       .catch(console.error);
-}, []);
+  }, [dispatch]);
 
   async function handleDeleteBoard(boardId: string) {
     dispatch(delete_board(boardId));
@@ -67,10 +64,33 @@ export function Boards() {
   }
 
   //drag-and-drop  
-
-  function handleOnDragEnd(result: DropResult, provided: ResponderProvided) {
-     dispatch(drag_and_drop(boards));
-    setBoards(boards);
+ 
+    function reorder(boards: BoardProps[], index: number, newIndex: number) {
+      const newBoards = [...boards];
+      console.log(boards);
+      const [removed] = newBoards.splice(index, 1);
+      newBoards.splice(newIndex, 0, removed);
+      console.log(index, removed, newBoards);
+      localStorage.setItem('boards', JSON.stringify(newBoards));
+      return newBoards;
+    }
+   
+    function handleOnDragEnd(result: DropResult) {
+  
+      if (!result.destination) {
+        return;
+      }
+      if (result.destination.index === result.source.index) {
+        return;
+      } else {
+        
+      const newBoard = reorder(
+        boards,
+        result.source.index,
+        result.destination.index
+      );
+      setBoards(newBoard);
+    }
   }
 
  //modal
@@ -172,3 +192,6 @@ export function Boards() {
     </div>
   );
 }
+
+
+ 
