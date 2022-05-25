@@ -14,6 +14,7 @@ export default function EditBoard() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const boardId = useAppSelector((state) => state.app.editedBoardId);
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function getBoardFromServer(id: string) {
@@ -56,15 +57,14 @@ export default function EditBoard() {
     dispatch(clear_board());
     navigate(`/${baseUrl}/boards`);
   }
-  const { t } = useTranslation();
 
   return (
     <div className="main">
-      <h1 className="page-title">Edit the board</h1>
+      <h1 className="page-title">Edit board</h1>
       <EditField placeholder="Enter new title" type="title" field={board.title} category="edit"/>
       <EditField placeholder="Enter new description" type="description" field={board.description} category="edit"/>
       <div className="column-container">
-        {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} tasks={[
+        {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} order={column.order} tasks={[
             { id: "01r",
               title:t('title_task'),
               description:t('description_task'),
