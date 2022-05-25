@@ -22,11 +22,12 @@ export function AddTask(props: AddTaskProps) {
 		title: "",
     description: "",
 	});
+  const board = useAppSelector((state) => state.board);
+  const column = useAppSelector((state) => state.column);
+  const task = useAppSelector((state) => state.task);
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const board = useAppSelector((state) => state.board);
-  const column = useAppSelector((state) => state.column);
 
 	function openForm() {
     console.log(`columns with id ${props.columnId} will be edited`);
@@ -55,11 +56,13 @@ export function AddTask(props: AddTaskProps) {
   async function handleAddTask () {
     console.log(`we are in handleAddTask`);
     const body = {
-      title: 'My title',
-      description: 'My description',
-      userId: localStorage.getItem('userId') || 'user123',
+      title: task.title,
+      description: task.description,
+      userId: task.userId,
     }
     if (column.id) {
+      console.log(`in handleAddTask body is:`);
+      console.dir(body);
       const apiTask = await createTask(board.id, column.id, body);
       console.dir(apiTask); 
     }
