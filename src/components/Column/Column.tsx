@@ -15,6 +15,7 @@ export interface BoardColumnProps {
   id: string;
 	title: string;
 	tasks: TaskProps[];
+  order?: number;
 }
 
 export const Column = (props: BoardColumnProps) => {
@@ -36,7 +37,7 @@ export const Column = (props: BoardColumnProps) => {
           <DeleteIcon onClick={() => handleDeleteColumn(props.id)}/>
         </Tooltip>
         {/* <h2>{props.title}</h2> */}
-        <EditTitle placeholder={t('title_column')} type={'column_title'} value={props.title} columnId={props.id} />
+        <EditTitle placeholder={t('title_column')} type={'column_title'} value={props.title} columnId={props.id} columnOrder={props.order}/>
       </div>
       
       { tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} title={task.title} description={task.description} done={task.done} />)}   

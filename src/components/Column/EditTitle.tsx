@@ -8,9 +8,11 @@ import React from "react";
 import { update_board, update_column_title } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useTranslation } from "react-i18next";
+import { updateColumn } from "../../services/apiBoardProvider";
 
 interface EditTitleProps {
   columnId: string;
+  columnOrder?: number;
   formOpen?: boolean;
   placeholder: string; // Enter title
   type: string; // column_title
@@ -50,7 +52,9 @@ export function EditTitle(props: EditTitleProps) {
 	}
 
   async function handleFieldUpdate() {
-    dispatch(update_column_title({title: state.field, columnId: props.columnId}));
+    const body = {columnId: props.columnId, title: state.field};
+   await updateColumn(board.id, props.columnId, {title: state.field, order: props.columnOrder});
+    dispatch(update_column_title(body));
       closeForm();
   }
 

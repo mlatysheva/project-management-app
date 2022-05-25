@@ -69,7 +69,7 @@ export default function CreateBoard() {
 
       {state.isBoardSaved ? (
         <div className="column-container">
-          {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} tasks={[
+          {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} order={column.order} tasks={[
             { id: "01r",
               title: t('title_task'),
               description: t('description_task'),

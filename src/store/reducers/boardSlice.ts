@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { Action } from "history";
 import { getBoard } from "../../services/apiBoardProvider";
 import { TaskProps } from "./tasksSlice";
@@ -79,19 +79,21 @@ export const boardSlice = createSlice({
       }
     },
     update_column_title: (state, action) => {
-      const columns = state.columns;
-      function replaceTitle(items: ColumnProps[], newTitle: string, itemId: string) {
-        return items.map((item) => {
-          if (item.id === itemId) {
-            item.title = newTitle;
-          }
-          return item;
-        });
-      }
+      const { columns } = current(state);
       if (columns) {
-        const updatedColumns = replaceTitle(columns, action.payload.title, action.payload.id);
-      return {...state,
-      columns: updatedColumns}
+        const updatedColumns = columns.map((column) => {
+          if(column.id === action.payload.columnId) {
+            return Object.assign({}, column, { title: action.payload.title });
+          } else { 
+            return column;
+          }          
+        }); 
+        return {
+          ...state,
+          columns: updatedColumns,
+        }
+      } else {
+        return state;
       }
     }
   }
