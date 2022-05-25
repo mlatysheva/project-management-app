@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TaskProps } from "./tasksSlice";
+import { TaskProps } from "./taskSlice";
 
 export interface ColumnProps {
   boardId?: string,
@@ -17,25 +17,17 @@ const initialState: ColumnProps =
     order: columnOrder,
   }
 
-let columnId = 2;
+export const columnSlice = createSlice({
+  name: 'column',
+  initialState,
+  reducers: {
+    set_column: (state: ColumnProps = initialState, action) => {
+      const column: ColumnProps = action.payload;
+      return column;
+    },
+  }
+});
 
-// export const columnSlice = createSlice({
-//   name: 'column',
-//   initialState,
-//   reducers: {
-//     add_column: (state: ColumnProps, action: { payload: { title: string; }; }) => {
-//       const newColumn = {
-//         id: columnId.toString(),
-//         title: action.payload.title,
-//         order: columnOrder,
-//       }
-//       columnId++;
-//       columnOrder++;
-//       return newColumn;
-//     }
-//   }
-// });
+export const { set_column } = columnSlice.actions;
 
-// export const { add_column } = columnSlice.actions;
-
-// export default columnSlice.reducer;
+export default columnSlice.reducer;

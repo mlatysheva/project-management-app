@@ -1,32 +1,29 @@
 import Icon from "@mui/material/Icon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
-import { update_board, update_column_title } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useTranslation } from "react-i18next";
-import { updateColumn } from "../../services/apiBoardProvider";
+import { update_task_description, update_task_title } from "../../store/reducers/taskSlice";
 
-interface EditTitleProps {
-  columnId: string;
-  columnOrder?: number;
+interface TaskTitleProps {
   formOpen?: boolean;
   placeholder: string; // Enter title
   type: string; // column_title
 	value: string; // Title value, for example "To do"
 }
 
-export function EditTitle(props: EditTitleProps) {
-  const board = useAppSelector((state) => state.board);
+export function TaskTitle(props: TaskTitleProps) {
+  const column = useAppSelector((state) => state.column);
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
-  const boardId = board.id;
+  const columnId = column.id;
 
   const [state, setState] = useState({
-		formOpen: false,
+		formOpen: props.formOpen,
     field: props.value,
 	});
 
@@ -52,16 +49,24 @@ export function EditTitle(props: EditTitleProps) {
 	}
 
   async function handleFieldUpdate() {
-    const body = {columnId: props.columnId, title: state.field};
-   await updateColumn(board.id, props.columnId, {title: state.field, order: props.columnOrder});
-    dispatch(update_column_title(body));
-      closeForm();
+    console.log('we are in field update');
+    if (props.type === "task_title") {
+      dispatch(update_task_title(state.field));
+    } else if (props.type === "task_description") {
+      dispatch(update_task_description(state.field));
+    }
+    
+    
+    // const body = {columnId: props.columnId, title: state.field};
+    // await updateColumn(board.id, props.columnId, {title: state.field, order: props.columnOrder});
+    // dispatch(update_column_title(body));
+    closeForm();
   }
 
 	function renderField() {
 		return (
       <React.Fragment>
-        <h2 style={{ textAlign: "left" }}>{props.value}</h2>
+        <h2 className="task-title">{state.field}</h2>
         <Tooltip title="Edit title">
           <EditIcon onClick={openForm}/>
         </Tooltip>
@@ -73,8 +78,8 @@ export function EditTitle(props: EditTitleProps) {
 		return (
 			<React.Fragment>
         <TextField
-          placeholder={t('enter_new_title')}
-          autoFocus
+          placeholder={props.placeholder}
+          // autoFocus
           defaultValue={props.value}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
@@ -94,10 +99,10 @@ export function EditTitle(props: EditTitleProps) {
 	}
 
 	return (
-    <div className="title-description-wrapper-update">
+    <div className="task-field">
       {state.formOpen ? renderForm() : renderField()}
     </div>
     );
 }
 
-export default connect()(EditTitle);
+export default connect()(TaskTitle);

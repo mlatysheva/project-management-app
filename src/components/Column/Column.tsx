@@ -1,15 +1,13 @@
-import { TaskProps } from '../../store/reducers/tasksSlice';
-import { AddTaskButton } from '../Task/AddTaskButton';
+import { TaskProps } from '../../store/reducers/taskSlice';
+import { AddTask } from '../Task/AddTask';
 import { Task } from '../Task/Task';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import { deleteColumn } from '../../services/apiBoardProvider';
 import { delete_column_from_board } from '../../store/reducers/boardSlice';
-import { EditField } from '../Board/EditField';
 import { useTranslation } from 'react-i18next';
-import EditTitle from './EditTitle';
+import ColumnTitle from './ColumnTitle';
 
 export interface BoardColumnProps {
   id: string;
@@ -19,8 +17,8 @@ export interface BoardColumnProps {
 }
 
 export const Column = (props: BoardColumnProps) => {
-  const tasks = useAppSelector((state) => state.tasks);
   const board = useAppSelector((state) => state.board);
+  const tasks = props.tasks;
   const boardId = board.id;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -30,18 +28,18 @@ export const Column = (props: BoardColumnProps) => {
     deleteColumn(boardId, columnId);
     dispatch(delete_column_from_board(columnId));
   }
+
   return (
     <div className="column-wrapper">
       <div className="button-wrapper">
         <Tooltip title="Delete column">
           <DeleteIcon onClick={() => handleDeleteColumn(props.id)}/>
         </Tooltip>
-        {/* <h2>{props.title}</h2> */}
-        <EditTitle placeholder={t('title_column')} type={'column_title'} value={props.title} columnId={props.id} columnOrder={props.order}/>
+        <ColumnTitle placeholder={t('title_column')} type={'column_title'} value={props.title} columnId={props.id} columnOrder={props.order}/>
       </div>
       
-      { tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} title={task.title} description={task.description} done={task.done} />)}   
-      <AddTaskButton type="Add new task"/>
+      { tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} title={task.title} description={task.description}  userId={localStorage.getItem('userID') || ''} />)}   
+      <AddTask columnId={props.id} columnTitle={props.title} />
     </div>
   )
 };

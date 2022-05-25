@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./reducers/index";
 import boardsReducer from "./reducers/boardsSlice";
 import boardReducer from "./reducers/boardSlice";
-import { tasksReducer } from "./reducers/tasksSlice";
+import taskReducer from "./reducers/taskSlice";
+import columnReducer from "./reducers/columnSlice";
 import registerReducer from "./signup/userOptions";
 import appReducer from "./reducers/appSlice";
 
@@ -14,7 +15,8 @@ export const store = configureStore({
     // user: userReducer,
     boards: boardsReducer,
     board: boardReducer,
-    tasks: tasksReducer,
+    column: columnReducer,
+    task: taskReducer,
     app: appReducer,
 	},
 });

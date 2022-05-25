@@ -143,6 +143,7 @@ button:active {
 }
 
 .button-wrapper {
+  height: 100px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -158,8 +159,24 @@ button:active {
 	padding-left: 1rem;
 }
 
+.task-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.5rem;
+}
+
+.task-title {
+  text-align: left;
+  justify-self: flex-start;
+  padding: 0;
+  padding-left: 1rem;
+}
+
 .column-wrapper {
 	width: 300px;
+  min-height: 350px;
 	margin: 10px;
 	color: black;
 	background-color: skyblue;
