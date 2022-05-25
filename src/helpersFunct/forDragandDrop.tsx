@@ -25,8 +25,8 @@ export function setUpAllBoardsToLS(boards: Array<BoardProps>) {
 	let previousOrder = localStorage.getItem("boardsOrder");
 
 	if (previousOrder) {
-		removeObsoleteBoardsFromOrder(boards);
-		addNewBoardsToOrder(boards);
+		//removeObsoleteBoardsFromOrder(boards);
+		//addNewBoardsToOrder(boards);
 	} else {
 		localStorage.setItem(
 			"boardsOrder",
@@ -66,12 +66,13 @@ export function recalculateOrder(prevIndex: number, newIndex: number) {
 	putOrder(ordersArray);
 }
 
-function addNewBoardsToOrder(boards: Array<BoardProps>) {
+export function addNewBoardsToOrder(newBoard: BoardProps) {
 	const previousOrder = getOrder();
 
-	const newBoards = boards.filter(
-		(b) => !previousOrder.map((p) => p.id).includes(b.id)
-	);
+	const newLastIndex =
+		previousOrder.map((o) => o.order).sort((a, b) => b - a)[0] + 1;
+	previousOrder.push(new BoardOrder(newBoard.id, newLastIndex));
+	putOrder(previousOrder);
 }
 
 function removeObsoleteBoardsFromOrder(boards: Array<BoardProps>) {

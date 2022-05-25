@@ -7,17 +7,18 @@ import { add_board } from "../../store/reducers/boardsSlice";
 import { TextField } from "@mui/material";
 import { createBoard } from "../../services/apiBoardProvider";
 import { useTranslation } from "react-i18next";
+import { addNewBoardsToOrder } from "../../helpersFunct/forDragandDrop";
 
-export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
+export function AddBoard(props: { formOpen: boolean; toHide: boolean }) {
 	const [state, setState] = useState({
 		formOpen: props.formOpen,
-    toHide: props.toHide,
-    id: "",
+		toHide: props.toHide,
+		id: "",
 		title: "",
-    description: "",
+		description: "",
 	});
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const { t } = useTranslation();
 
 	function openForm() {
@@ -41,39 +42,41 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 		});
 	}
 
-  function handleInputDescriptionChange(e: { target: { value: string } }) {
+	function handleInputDescriptionChange(e: { target: { value: string } }) {
 		setState({
 			...state,
 			description: e.target.value,
 		});
 	}
 
-  async function handleAddBoard () {
-    const { title, description } = state;
+	async function handleAddBoard() {
+		const { title, description } = state;
 
-    if (title) {
-      const boardApi = await createBoard({
-        title: title,
-        description: description,
-      });
-      const boardId = boardApi.id;
-      dispatch(add_board({
-        id: boardId,
-        title: title,
-        description: description,
-      })); 
-      setState({
-        ...state,
-        title: '',
-        description: '',
-        formOpen: false,
-        toHide: props.toHide,
-      });
-    }
-  }
+		if (title) {
+			const boardApi = await createBoard({
+				title: title,
+				description: description,
+			});
+			const boardId = boardApi.id;
+			const b = {
+				id: boardId,
+				title: title,
+				description: description,
+			};
+			dispatch(add_board(b));
+			setState({
+				...state,
+				title: "",
+				description: "",
+				formOpen: false,
+				toHide: props.toHide,
+			});
+			addNewBoardsToOrder(b);
+		}
+	}
 
 	function renderButton() {
-    return state.toHide ? null : (
+		return state.toHide ? null : (
 			<div
 				className="add-button"
 				style={{
@@ -90,24 +93,24 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 	}
 
 	function renderForm() {
-		const buttonTitle = t('add_board');
+		const buttonTitle = t("add_board");
 
 		return (
 			<div>
 				<Card
 					style={{
-            display: "flex",
-            flexDirection: "column",
+						display: "flex",
+						flexDirection: "column",
 						overflow: "visible",
 						minHeight: 80,
 						minWidth: 250,
 						padding: "6px 8px 2px",
-            border: "none",
-            boxShadow: "none",
+						border: "none",
+						boxShadow: "none",
 					}}
 				>
-          <TextField
-            placeholder={t('placeholder_title')}
+					<TextField
+						placeholder={t("placeholder_title")}
 						autoFocus
 						value={state.title}
 						onChange={handleInputTitleChange}
@@ -116,9 +119,9 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 							width: "100%",
 							paddingTop: 5,
 						}}
-          />
-          <TextField
-            placeholder={t('placeholder_description')}
+					/>
+					<TextField
+						placeholder={t("placeholder_description")}
 						value={state.description}
 						onChange={handleInputDescriptionChange}
 						style={{
@@ -126,16 +129,25 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 							width: "100%",
 							paddingTop: 5,
 						}}
-          />
+					/>
 				</Card>
 				<div className="add-button-container">
-					<Button						
-						style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 8 }}
-            onClick={handleAddBoard}
+					<Button
+						style={{
+							color: "white",
+							backgroundColor: "midnightblue",
+							marginLeft: 8,
+						}}
+						onClick={handleAddBoard}
 					>
 						{buttonTitle}{" "}
 					</Button>
-          <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
+					<Icon
+						style={{ marginLeft: 8, cursor: "pointer" }}
+						onClick={closeForm}
+					>
+						close
+					</Icon>
 				</div>
 			</div>
 		);
