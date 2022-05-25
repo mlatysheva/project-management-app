@@ -81,3 +81,15 @@ export const getColumns = (boardId: string) => {
     .catch(handleError); 
 };
 
+interface TaskProps {
+  title: string,
+  description: string,
+  userId: string;
+}
+
+export const createTask = (boardId: string, columnId: string, taskData: TaskProps) => {
+  return axios 
+    .post(`${BASE_URL}boards/${boardId}/columns/${columnId}/tasks`, taskData, configWorking())
+    .then(handleResponse) 
+    .catch(handleError);
+}

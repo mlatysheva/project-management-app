@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { Action } from "history";
 import { getBoard } from "../../services/apiBoardProvider";
-import { TaskProps } from "./tasksSlice";
+import { TaskProps } from "./taskSlice";
 
 export interface ColumnProps {
   id: string,

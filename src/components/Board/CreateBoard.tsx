@@ -73,7 +73,7 @@ export default function CreateBoard() {
             { id: "01r",
               title: t('title_task'),
               description: t('description_task'),
-              done: false,
+              userId: localStorage.getItem('userID') || '',
             },      
           ]} />): null }
           <AddColumn type={t("add_column")} />
