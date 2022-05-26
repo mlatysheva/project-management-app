@@ -43,7 +43,8 @@ export function Boards() {
       if (boards.length === 0 ) {
         boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
       }
-       dispatch(get_allBoards(boards));      
+       dispatch(get_allBoards(boards));   
+          
     }
     fetchData()
       .catch(console.error);
