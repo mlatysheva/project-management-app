@@ -3,7 +3,7 @@ import { useTranslation} from 'react-i18next';
 import "./Home.scss";
 
 export const Elefant = () => {
-  return ( <img className="elephant" src={process.env.PUBLIC_URL + "/assets/img/elephant.svg" } alt="elephant" /> );
+  return ( <img className="elephant" src={process.env.PUBLIC_URL + "/assets/icons/elephant.svg" } alt="elephant" /> );
 };
 
 type TitleProps = {
