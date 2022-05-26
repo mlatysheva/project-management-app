@@ -13,8 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
-import  { Modal } from '../Modal/Modal';
+import { DragDropContext, Droppable, Draggable, DropResult} from 'react-beautiful-dnd';
 
 import './Board.scss';
 import { baseUrl } from '../../App';
@@ -99,17 +98,18 @@ export function Boards() {
   const [showModal, setShowModal] = useState(false);
 
   const handleShow = () => {
-    setShowModal(true);
+     setShowModal(true);
   };
 
   const handleHide = () => {
     setShowModal(false);
   };
 
-  const modal =  showModal? (
-
-    <Modal show={false} >
-      <div className="modal">
+  function AddModal(props: {showModal: boolean, toHide: boolean, id: string}) {
+    
+    function renderModal(): JSX.Element | null {
+      return (
+        <div className="modal">
         <section className="modal-main">
           <div className="title-container">
             <Title title="Do you really want to delete your board?" />
@@ -120,7 +120,7 @@ export function Boards() {
               e.preventDefault();
               e.stopPropagation();
               handleHide();
-              // handleDeleteBoard(board.id);
+             
             }}
           >
             ×
@@ -132,6 +132,7 @@ export function Boards() {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
+                  handleDeleteBoard(props.id);
                   handleHide();
                 }}
               >
@@ -141,10 +142,13 @@ export function Boards() {
           </div>
         </section>
       </div>
-    </Modal>
-  ) : null;
-
-  return (    
+      );
+    }
+  
+  return  renderModal() 
+ 
+  }
+    return (    
     <div className="main" id="modal-root">
       <Title title={t('boards')}/>
       <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -167,23 +171,22 @@ export function Boards() {
                   </CardContent>
                   <CardActions className='button-wrapper'>
                     <Tooltip title="Delete board">
-                      {/* <DeleteIcon  onClick={() => handleShow()}/> */}
-                      <DeleteIcon onClick={() => handleDeleteBoard(board.id)} />
-                    </Tooltip>
+                      <DeleteIcon  onClick={() => handleShow()}/>
+                     </Tooltip>
                     <Tooltip title="Edit board">
                       <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
                     </Tooltip>
                   </CardActions>
                 </Card>
-                {modal}  
+                {showModal? <AddModal showModal={showModal} toHide={true} id={board.id}/>: null}
             </div>
             
               )}
               </Draggable>              
             )}
           <AddBoard formOpen={false} toHide={false} />
+          
           {provided.placeholder}
-          {modal}
           </>
         </div>
         </>
@@ -193,6 +196,3 @@ export function Boards() {
     </div>
   );
 }
-
-
- 
