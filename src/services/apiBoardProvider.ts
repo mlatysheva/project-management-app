@@ -49,7 +49,8 @@ export const updateBoard = (boardId: string, boardData: UpdateBoardProps) => {
 };
 
 interface ColumnProps {
-  title: string;
+  title?: string;
+  order?: number;
 }
 
 export const createColumn = (boardId: string, columnData: ColumnProps) => {
@@ -66,6 +67,13 @@ export const deleteColumn = (boardId: string, columnId: string) => {
     .catch(handleError);
 }
 
+export const updateColumn = (boardId: string, columnId: string, columnData: ColumnProps) => { 
+  return axios 
+    .put(`${BASE_URL}boards/${boardId}/columns/${columnId}`, columnData, configWorking()) 
+    .then(handleResponse) 
+    .catch(handleError); 
+};
+
 export const getColumns = (boardId: string) => { 
   return axios 
     .get(`${BASE_URL}boards/${boardId}/columns`, configWorking()) 
@@ -73,3 +81,15 @@ export const getColumns = (boardId: string) => {
     .catch(handleError); 
 };
 
+interface TaskProps {
+  title: string,
+  description: string,
+  userId: string;
+}
+
+export const createTask = (boardId: string, columnId: string, taskData: TaskProps) => {
+  return axios 
+    .post(`${BASE_URL}boards/${boardId}/columns/${columnId}/tasks`, taskData, configWorking())
+    .then(handleResponse) 
+    .catch(handleError);
+}

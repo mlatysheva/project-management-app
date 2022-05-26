@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import boardsReducer from "./boardsSlice";
-import { tasksReducer } from "./tasksSlice";
+import taskReducer from "./taskSlice";
 import appReducer from "./appSlice";
 import registerReducer from "../signup/userOptions";
 
@@ -8,6 +8,6 @@ import registerReducer from "../signup/userOptions";
 export const rootReducer = combineReducers({
   register: registerReducer,
   boards: boardsReducer,
-  tasks: tasksReducer,
+  task: taskReducer,
   app: appReducer,
 });

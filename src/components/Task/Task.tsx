@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TaskProps } from '../../store/reducers/tasksSlice';
+import { TaskProps } from '../../store/reducers/taskSlice';
 
 export const Task = (props: TaskProps) => {
   return (
@@ -15,9 +15,6 @@ export const Task = (props: TaskProps) => {
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {props.description}
-        </Typography>
-        <Typography variant="body2">
-          Done: {props.done}
         </Typography>
       </CardContent>
       <CardActions>

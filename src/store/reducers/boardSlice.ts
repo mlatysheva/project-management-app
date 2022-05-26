@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { getBoard } from "../../services/apiBoardProvider";
-import { TaskProps } from "./tasksSlice";
+import { TaskProps } from "./taskSlice";
 
 export interface ColumnProps {
   id: string,
@@ -77,9 +77,27 @@ export const boardSlice = createSlice({
         return updatedBoard;
       }
     },
+    update_column_title: (state, action) => {
+      const { columns } = current(state);
+      if (columns) {
+        const updatedColumns = columns.map((column) => {
+          if(column.id === action.payload.columnId) {
+            return Object.assign({}, column, { title: action.payload.title });
+          } else { 
+            return column;
+          }          
+        }); 
+        return {
+          ...state,
+          columns: updatedColumns,
+        }
+      } else {
+        return state;
+      }
+    }
   }
 });
 
-export const { set_board, clear_board, update_board, add_column_to_board, delete_column_from_board } = boardSlice.actions;
+export const { set_board, clear_board, update_board, add_column_to_board, delete_column_from_board, update_column_title } = boardSlice.actions;
 
 export default boardSlice.reducer;
