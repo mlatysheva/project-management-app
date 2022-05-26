@@ -6,6 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteColumn } from '../../services/apiBoardProvider';
 import { delete_column_from_board } from '../../store/reducers/boardSlice';
+import './Column.scss';
 import { useTranslation } from 'react-i18next';
 import ColumnTitle from './ColumnTitle';
 
