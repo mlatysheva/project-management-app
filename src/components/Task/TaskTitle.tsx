@@ -80,7 +80,7 @@ export function TaskTitle(props: TaskTitleProps) {
         <TextField
           placeholder={props.placeholder}
           // autoFocus
-          defaultValue={props.value}
+          defaultValue={state.field}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
           style={{
