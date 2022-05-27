@@ -100,3 +100,10 @@ export const createTask = (boardId: string, columnId: string, taskData: TaskProp
     .then(handleResponse) 
     .catch(handleError);
 }
+
+export const deleteTask = (boardId: string, columnId: string, taskId: string) => {
+  return axios 
+    .delete(`${BASE_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`, configWorking())
+    .then(handleResponse) 
+    .catch(handleError);
+}

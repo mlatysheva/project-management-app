@@ -39,7 +39,7 @@ export const Column = (props: ColumnProps) => {
         <ColumnTitle placeholder={t('title_column')} type={'column_title'} value={props.title} columnId={props.id} columnOrder={props.order}/>
       </div>
       
-      { (tasks != undefined) ? tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} title={task.title} description={task.description} userId={localStorage.getItem('userID') || ''} /> ) : null}   
+      { (tasks != undefined) ? tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} columnId={props.id} boardId={board.id} title={task.title} description={task.description} userId={localStorage.getItem('userID') || ''} /> ) : null}   
       <AddTask columnId={props.id} columnTitle={props.title} tasks={props.tasks} />
     </div>
   )

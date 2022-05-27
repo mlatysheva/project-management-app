@@ -13,6 +13,7 @@ let columnOrder = 0;
 
 const initialState: ColumnProps =
   {
+    id: '',
     title: '',
     order: columnOrder,
     tasks: [],
@@ -25,6 +26,9 @@ export const columnSlice = createSlice({
     set_column: (state: ColumnProps = initialState, action: { payload: ColumnProps; }) => {
       const column: ColumnProps = action.payload;
       return column;
+    },
+    clear_column: () => {
+      return initialState;
     },
     add_task_to_column: (state: ColumnProps, action: { payload: any; }) => {
       if (state.tasks === undefined) {
@@ -39,6 +43,6 @@ export const columnSlice = createSlice({
   }
 });
 
-export const { set_column, add_task_to_column } = columnSlice.actions;
+export const { set_column, clear_column, add_task_to_column } = columnSlice.actions;
 
 export default columnSlice.reducer;

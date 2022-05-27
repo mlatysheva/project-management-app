@@ -65,6 +65,11 @@ export function AddTask(props: AddTaskProps) {
         order: response.order,
         tasks: response.tasks,
       }));
+			setState({
+				...state,
+				title: '',
+				description: '',
+			});
 			closeForm();
     }
   }
@@ -98,8 +103,8 @@ export function AddTask(props: AddTaskProps) {
 						padding: "6px 8px 2px",
 					}}
 				>
-          <TaskTitle formOpen={true} placeholder='Enter title' type='task_title' value={task.title} />
-          <TaskTitle formOpen={true} placeholder='Enter description' type='task_description' value={task.description} />
+          <TaskTitle formOpen={true} placeholder='Enter title' type='task_title' value={state.title} />
+          <TaskTitle formOpen={true} placeholder='Enter description' type='task_description' value={state.description} />
 				</Card>
 				<div className="add-button-container">
 					<Button						

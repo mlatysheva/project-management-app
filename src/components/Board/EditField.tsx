@@ -98,7 +98,7 @@ export function EditField(props: EditFieldProps) {
 			<React.Fragment>
         <TextField
           placeholder={t('enter_new_title')}
-          autoFocus
+          // autoFocus
           defaultValue={value}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
