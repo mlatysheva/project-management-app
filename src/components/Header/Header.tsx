@@ -15,6 +15,8 @@ import { clear_board } from "../../store/reducers/boardSlice";
 import { baseUrl } from "../../App";
 import "./Header.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { clear_task } from "../../store/reducers/taskSlice";
+import { clear_column } from "../../store/reducers/columnSlice";
 
 export function CurrentPage() {
 	const location = useLocation();
@@ -77,6 +79,8 @@ function Header(localStorage: any) {
 
 	function handleCreateBoard() {
 		dispatch(clear_board());
+		dispatch(clear_column());
+		dispatch(clear_task());
 		removeNav();
 	}
 

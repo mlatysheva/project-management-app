@@ -1,12 +1,12 @@
 import AddColumn from '../Column/AddColumn';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Button} from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { clear_board, ColumnProps, update_board } from '../../store/reducers/boardSlice';
+import { clear_board, ColumnProps, set_board, update_board } from '../../store/reducers/boardSlice';
 import EditField from './EditField';
-import { createBoard, deleteBoard, updateBoard } from '../../services/apiBoardProvider';
+import { createBoard, deleteBoard, getBoard, updateBoard } from '../../services/apiBoardProvider';
 import { Column } from '../Column/Column';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation} from 'react-i18next';
 import { baseUrl } from '../../App';
@@ -14,14 +14,32 @@ import { baseUrl } from '../../App';
 export default function CreateBoard() {
   const columns = useAppSelector((state) => state.board.columns);
   const board = useAppSelector((state) => state.board);
+  const task = useAppSelector((state) => state.task);
+  
   const { t } = useTranslation();
-
   const [state, setState] = useState({
 		isBoardSaved: false,
 	});
-
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  
+  let taskId = task.id;
+
+  useEffect(() => {
+    async function getBoardFromServer(id: string) {
+      const response = await getBoard(id);
+      dispatch(set_board({
+        id: id,
+        title: response.title,
+        description: response.description,
+        columns: response.columns,
+      }));
+    }
+    if (board.id !== '') {
+      console.log('we are in if');
+      getBoardFromServer(board.id); 
+    }   
+  }, [board.id, taskId]);
 
   async function handleBoardSave() {
     let body = {
@@ -52,9 +70,8 @@ export default function CreateBoard() {
   }
 
   async function handleDeleteBoard() {
-    const boardId = board.id;
     alert(`The board will not be saved`);
-    await deleteBoard(boardId);
+    await deleteBoard(board.id);
     dispatch(clear_board());
     navigate(`/${baseUrl}/boards`);
   }
@@ -69,13 +86,7 @@ export default function CreateBoard() {
 
       {state.isBoardSaved ? (
         <div className="column-container">
-          {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} order={column.order} tasks={[
-            { id: "01r",
-              title: t('title_task'),
-              description: t('description_task'),
-              userId: localStorage.getItem('userID') || '',
-            },      
-          ]} />): null }
+          {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column id={column.id} key={column.id} title={column.title} order={column.order} tasks={column.tasks || []} />): null }
           <AddColumn />
         </div>
       ) : null }

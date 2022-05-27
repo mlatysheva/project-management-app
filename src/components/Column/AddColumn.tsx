@@ -8,6 +8,7 @@ import { createColumn } from "../../services/apiBoardProvider";
 import { add_column_to_board } from "../../store/reducers/boardSlice";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { set_column } from "../../store/reducers/columnSlice";
 
 export function AddColumn() {
 	const [state, setState] = useState({
@@ -48,6 +49,7 @@ export function AddColumn() {
       }
       const apiData = await createColumn(board.id, body);
       dispatch(add_column_to_board({id: apiData.id, title: apiData.title, order: apiData.order}));
+			// dispatch(set_column({id: apiData.id, title: apiData.title, order: apiData.order, tasks: apiData.tasks}));
     }
     setState({
       ...state,

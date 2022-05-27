@@ -26,6 +26,9 @@ export const taskSlice = createSlice({
     set_task: (state: TaskProps, action: { payload: any; }) =>{
       return action.payload;
     },
+    clear_task: () => {
+      return initialState;
+    },
     update_task_title: (state: TaskProps, action: { payload: any; }) => {
       return {
         ...state,
@@ -47,6 +50,6 @@ export const taskSlice = createSlice({
   }
 });
 
-export const { set_task, update_task_title, update_task_description, update_task_id } = taskSlice.actions;
+export const { set_task, clear_task, update_task_title, update_task_description, update_task_id } = taskSlice.actions;
 
 export default taskSlice.reducer;
