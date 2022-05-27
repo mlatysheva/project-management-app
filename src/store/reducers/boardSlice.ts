@@ -38,14 +38,14 @@ export const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    set_board: (state: BoardProps = initialState, action) => {
+    set_board: (state: BoardProps = initialState, action: { payload: BoardProps; }) => {
       const board: BoardProps = action.payload;
       return board;
     },
     clear_board: () => {
       return initialState;
     },
-    update_board: (state, action) => {
+    update_board: (state: BoardProps, action: { payload: { title: string; description: string; id: string; }; }) => {
       const updatedBoard = {
         ...state,
         title: action.payload.title,
@@ -54,7 +54,7 @@ export const boardSlice = createSlice({
       }
       return updatedBoard;
     },
-    add_column_to_board: (state, action) => {
+    add_column_to_board: (state: BoardProps, action: { payload: any; }) => {
       if (state.columns === undefined) {
         state.columns = [];
       }
@@ -64,7 +64,7 @@ export const boardSlice = createSlice({
       }
       return updatedBoard;
     },
-    delete_column_from_board: (state, action) => {
+    delete_column_from_board: (state: BoardProps, action: { payload: any; }) => {
       const columnId = action.payload;
       if (state.columns === undefined) {
         return state
@@ -77,7 +77,7 @@ export const boardSlice = createSlice({
         return updatedBoard;
       }
     },
-    update_column_title: (state, action) => {
+    update_column_title: (state: BoardProps, action: { payload: { columnId: string; title: string; }; }) => {
       const { columns } = current(state);
       if (columns) {
         const updatedColumns = columns.map((column) => {

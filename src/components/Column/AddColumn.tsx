@@ -1,22 +1,20 @@
 import Button from "@mui/material/Button";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { createColumn } from "../../services/apiBoardProvider";
 import { add_column_to_board } from "../../store/reducers/boardSlice";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
-interface AddColumnProps {
-	type: string;
-}
-
-export function AddColumn(props: AddColumnProps) {
+export function AddColumn() {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
 	});
+	const { t } = useTranslation();
   let board = useAppSelector((state) => state.board);
 
   const dispatch = useAppDispatch();
@@ -59,7 +57,6 @@ export function AddColumn(props: AddColumnProps) {
   }
 
 	function renderButton() {
-		const { type } = props;
 		return (
 			<div
 				className="add-button"
@@ -71,7 +68,7 @@ export function AddColumn(props: AddColumnProps) {
 				onClick={openForm}
 			>
 				<Icon>add</Icon>
-				<p>{type}</p>
+				<p>{t("add_column")}</p>
 			</div>
 		);
 	}

@@ -17,6 +17,9 @@ export default function EditBoard() {
   const { t } = useTranslation();
   const board = useAppSelector((state) => state.board);
   const columns = useAppSelector((state) => state.board.columns);
+  const task = useAppSelector((state) => state.task);
+
+  let taskId = task.id;
 
   useEffect(() => {
     async function getBoardFromServer(id: string) {
@@ -29,7 +32,7 @@ export default function EditBoard() {
       }));
     }
     getBoardFromServer(boardId);    
-  }, [boardId]);
+  }, [boardId, taskId]);
   
   async function handleBoardSave() {
     let body = {
@@ -59,12 +62,14 @@ export default function EditBoard() {
   return (
     <div className="main">
       <h1 className="page-title">Edit board</h1>
-      <EditField placeholder="Enter new title" type="title" field={board.title} category="edit"/>
-      <EditField placeholder="Enter new description" type="description" field={board.description} category="edit"/>
+      <div className="add-section">
+        <EditField placeholder="Enter new title" type="title" field={board.title} category="edit"/>
+        <EditField placeholder="Enter new description" type="description" field={board.description} category="edit"/>
+      </div>
       <div className="column-container">
         {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} order={column.order} tasks={column.tasks || []} />
         ) : null }
-        <AddColumn type="Add new column" />
+        <AddColumn />
       </div>
       <div className="save-cancel-section">
         <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>Delete board</Button>

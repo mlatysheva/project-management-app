@@ -76,7 +76,7 @@ export default function CreateBoard() {
               userId: localStorage.getItem('userID') || '',
             },      
           ]} />): null }
-          <AddColumn type={t("add_column")} />
+          <AddColumn />
         </div>
       ) : null }
       <div className="save-cancel-section">

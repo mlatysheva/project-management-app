@@ -20,7 +20,6 @@ export function TaskTitle(props: TaskTitleProps) {
   const column = useAppSelector((state) => state.column);
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
-  const columnId = column.id;
 
   const [state, setState] = useState({
 		formOpen: props.formOpen,
@@ -49,17 +48,11 @@ export function TaskTitle(props: TaskTitleProps) {
 	}
 
   async function handleFieldUpdate() {
-    console.log('we are in field update');
     if (props.type === "task_title") {
       dispatch(update_task_title(state.field));
     } else if (props.type === "task_description") {
       dispatch(update_task_description(state.field));
     }
-    
-    
-    // const body = {columnId: props.columnId, title: state.field};
-    // await updateColumn(board.id, props.columnId, {title: state.field, order: props.columnOrder});
-    // dispatch(update_column_title(body));
     closeForm();
   }
 
@@ -80,7 +73,7 @@ export function TaskTitle(props: TaskTitleProps) {
         <TextField
           placeholder={props.placeholder}
           // autoFocus
-          defaultValue={props.value}
+          defaultValue={state.field}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
           style={{
