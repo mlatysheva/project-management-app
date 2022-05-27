@@ -8,9 +8,6 @@ import { TaskProps } from '../../store/reducers/taskSlice';
 import { deleteTask, getBoard } from '../../services/apiBoardProvider';
 import { useAppDispatch } from '../../store/hooks';
 import { set_board } from '../../store/reducers/boardSlice';
-import { useEffect } from 'react';
-
-
 
 export const Task = (props: TaskProps) => {
   const dispatch = useAppDispatch();
