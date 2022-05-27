@@ -54,19 +54,19 @@ export default function CreateBoard() {
     } else {
       boardId = board.id;
       boardApi = await updateBoard(boardId, body);
-    }
-    
+    }    
     dispatch(update_board({
       ...body,
       id: boardId,
     }));
-
+    alert(`The board was saved.`);
+    if (state.isBoardSaved) {
+      navigate(`/${baseUrl}/boards`);
+    }
     setState({
 			...state,
 			isBoardSaved: true,
 		});
-
-    alert(`The board was saved.`);
   }
 
   async function handleDeleteBoard() {
