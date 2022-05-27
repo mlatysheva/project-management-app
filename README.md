@@ -18,10 +18,24 @@ With the Swagger to it living here:
 
 ## App structure
 
-- Home page
-- User signup/login and logout
-- Main page that shows previews of all your boards and allows your to delete or edit a board
+- Home page: contains the advantages of our app and brief information about the developers
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_home.png)
+
+- User signup/login and logout: only registered users can use the functionality of the app in full. To start using the upp, please create a new account or sign in, if you already have an account
+
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_signin.png)
+
+- Main page: shows previews of all your boards and allows you to delete or edit a board
+
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_boardroute.png)
+
 - Icon to create a new board which opens a new page with the functionality to create the board
+
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_mainroute.png)
+
 - Slider to choose the language: the user can choose between English and Russian
 
-![](https://docs.rs.school/images/fancy-weather.png)
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_language_localisation.png)
+
+
+
