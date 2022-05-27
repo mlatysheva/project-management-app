@@ -4,13 +4,11 @@ import { Task } from '../Task/Task';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteColumn, getColumn } from '../../services/apiBoardProvider';
+import { deleteColumn} from '../../services/apiBoardProvider';
 import { delete_column_from_board } from '../../store/reducers/boardSlice';
 import './Column.scss';
 import { useTranslation } from 'react-i18next';
 import ColumnTitle from './ColumnTitle';
-import { useEffect } from 'react';
-import { set_column } from '../../store/reducers/columnSlice';
 
 export interface ColumnProps {
   id: string;
@@ -21,27 +19,10 @@ export interface ColumnProps {
 
 export const Column = (props: ColumnProps) => {
   const board = useAppSelector((state) => state.board);
-  // const tasks = useAppSelector((state) => state.column.tasks);
   const tasks = props.tasks;
   const boardId = board.id;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  let columnId = props.id;
-
-  // useEffect(() => {
-  //   console.log('we are in useEffect')
-  //   async function getColumnFromServer(bId: string, cId: string) {
-  //     const response = await getColumn(bId, cId);
-  //     dispatch(set_column({
-  //       id: response.id,
-  //       title: response.title,
-  //       order: response.order,
-  //       tasks: response.tasks,
-  //     }));
-  //     columnId = response.id
-  //   }
-  //   getColumnFromServer(boardId, columnId);    
-  // }, []);
 
   function handleDeleteColumn(columnId: string) {
     alert(`Column ${columnId} will be deleted!`);  

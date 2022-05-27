@@ -24,7 +24,6 @@ export default function EditBoard() {
   useEffect(() => {
     async function getBoardFromServer(id: string) {
       const response = await getBoard(id);
-      console.dir(response);
       dispatch(set_board({
         id: id,
         title: response.title,

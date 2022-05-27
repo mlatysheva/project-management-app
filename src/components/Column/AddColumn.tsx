@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import Icon from "@mui/material/Icon";
 import { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { createColumn } from "../../services/apiBoardProvider";
