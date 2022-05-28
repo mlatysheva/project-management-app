@@ -23,7 +23,7 @@ export function EditField(props: EditFieldProps) {
   const {t} = useTranslation();
   const boardId = board.id;
   let value: string;
-  if (props.type === "title") {
+  if (props.type === "title" || props.type === "название") {
     value = board.title;
   } else {
     value = board.description;
@@ -86,7 +86,7 @@ export function EditField(props: EditFieldProps) {
 		return (
       <React.Fragment>
         <h2 style={{ textAlign: "left" }}>{value}</h2>
-        <Tooltip title={`Edit ${props.type}`}>
+        <Tooltip title={`${t('editBtn')} ${props.type}`}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
       </React.Fragment>			
@@ -97,7 +97,7 @@ export function EditField(props: EditFieldProps) {
 		return (
 			<React.Fragment>
         <TextField
-          placeholder={t('enter_new_title')}
+          placeholder={t('placeholder_title')}
           // autoFocus
           defaultValue={value}
           onChange={handleFieldChange}

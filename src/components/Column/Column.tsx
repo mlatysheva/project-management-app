@@ -9,6 +9,8 @@ import { delete_column_from_board } from '../../store/reducers/boardSlice';
 import './Column.scss';
 import { useTranslation } from 'react-i18next';
 import ColumnTitle from './ColumnTitle';
+import { AddModalInfo } from '../Modal/Modal';
+import { useEffect, useState } from 'react';
 
 export interface ColumnProps {
   id: string;
@@ -23,9 +25,15 @@ export const Column = (props: ColumnProps) => {
   const boardId = board.id;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const [showInfo, setShowInfo] = useState(false);
+
+  const handleShowInfo = (columnId: string) => {
+      setShowInfo(true);
+      }
+    
 
   function handleDeleteColumn(columnId: string) {
-    alert(`Column ${columnId} will be deleted!`);  
+    handleShowInfo(columnId); 
     deleteColumn(boardId, columnId);
     dispatch(delete_column_from_board(columnId));
   }
@@ -33,14 +41,15 @@ export const Column = (props: ColumnProps) => {
   return (
     <div className="column-wrapper">
       <div className="button-wrapper">
-        <Tooltip title="Delete column">
-          <DeleteIcon onClick={() => handleDeleteColumn(props.id)}/>
+        <Tooltip title={t('delete_column')}>
+          <DeleteIcon onClick={() => handleShowInfo (props.id)}/>
         </Tooltip>
         <ColumnTitle placeholder={t('title_column')} type={'column_title'} value={props.title} columnId={props.id} columnOrder={props.order}/>
       </div>
       
-      { (tasks != undefined) ? tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} columnId={props.id} boardId={board.id} title={task.title} description={task.description} userId={localStorage.getItem('userID') || ''} /> ) : null}   
+      { (tasks !== undefined) ? tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} columnId={props.id} boardId={board.id} title={task.title} description={task.description} userId={localStorage.getItem('userID') || ''} /> ) : null}   
       <AddTask columnId={props.id} columnTitle={props.title} tasks={props.tasks} />
+      {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {`Column ${props.title} will be deleted!`} function={()=>{handleDeleteColumn(props.id)}}/>: null}
     </div>
   )
 };

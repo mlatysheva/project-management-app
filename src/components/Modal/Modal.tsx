@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../App";
 
 
-export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: string, id: string}) {
+export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: string, id: string, function: () => void}) {
   
   const [showInfo, setShowInfo] = useState(false);
    
@@ -27,6 +27,7 @@ export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: 
             e.stopPropagation();
             navigate(`/${baseUrl}/boards`);
             handleHide();
+            props.function();
           }}
         >
           ×

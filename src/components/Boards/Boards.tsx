@@ -122,7 +122,7 @@ export function Boards() {
         <div className="modal" >
         <section className="modal-main">
           <div className="title-container">
-            <Title title="Do you really want to delete your board?"/>
+            <Title title={t('question_delete_board')}/>
           </div>
           <button
             className="modal-close"
@@ -148,7 +148,7 @@ export function Boards() {
                     
                 }}
               >
-                DELETE
+                {t('delete')}
               </button>
             </div>
           </div>
@@ -185,15 +185,15 @@ export function Boards() {
                     </Typography>
                   </CardContent>
                   <CardActions className='button-wrapper'>
-                    <Tooltip title="Delete board">
+                    <Tooltip title={t("delete_board")}>
                       <DeleteIcon  className='delete-board' id={board.id} onClick={() => handleShow()}/>
                      </Tooltip>
-                    <Tooltip title="Edit board">
+                    <Tooltip title={t('edit_title')}>
                       <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
                     </Tooltip>
                   </CardActions>
                 </Card>
-                {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {"Do you really want to delete your board?"}/>: null}
+                {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {t('question_delete_board')}/>: null}
             </div>
             
               )}

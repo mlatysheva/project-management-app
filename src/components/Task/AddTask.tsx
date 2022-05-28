@@ -87,7 +87,7 @@ export function AddTask(props: AddTaskProps) {
 				onClick={openForm}
 			>
 				<Icon>add</Icon>
-				<p>Add new task</p>
+				<p>{t('add_task')}</p>
 			</div>
 		);
 	}
@@ -111,7 +111,7 @@ export function AddTask(props: AddTaskProps) {
 						style={{ color: "white", backgroundColor: "midnightblue" }}
             onClick={handleAddTask}
 					>
-						Save task
+						{t("save_task")}
 					</Button>
           <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 				</div>

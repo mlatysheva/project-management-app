@@ -78,7 +78,7 @@ export default function EditBoard() {
                     
                 }}
               >
-                DELETE
+                {t('delete')}
               </button>
             </div>
           </div>
@@ -133,10 +133,10 @@ export default function EditBoard() {
 
   return (
     <div className="main" id="modal-root">
-      <h1 className="page-title">Edit board</h1>
+      <h1 className="page-title">{t('edit_title')}</h1>
       <div className="add-section">
-        <EditField placeholder="Enter new title" type="title" field={board.title} category="edit"/>
-        <EditField placeholder="Enter new description" type="description" field={board.description} category="edit"/>
+        <EditField placeholder="Enter new title" type={t("placeholder_title")} field={board.title} category="edit"/>
+        <EditField placeholder="Enter new description" type={t("placeholder_description")}field={board.description} category="edit"/>
       </div>
       <div className="column-container">
         {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} order={column.order} tasks={column.tasks || []} />
@@ -144,10 +144,10 @@ export default function EditBoard() {
         <AddColumn />
       </div>
       <div className="save-cancel-section">
-        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleShow}>Delete board</Button>
+        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleShow}>{t('delete_board')}</Button>
         {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {"Do you really want to delete your board?"}/>: null}
-        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Save board</Button>
-        {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {"The board was saved."}/>: null}
+        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>{t('save_board')}</Button>
+        {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {"The board was saved."} function= {() => {}} />: null}
       </div>
     </div>
   )

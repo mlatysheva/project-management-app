@@ -8,9 +8,12 @@ import { TaskProps } from '../../store/reducers/taskSlice';
 import { deleteTask, getBoard } from '../../services/apiBoardProvider';
 import { useAppDispatch } from '../../store/hooks';
 import { set_board } from '../../store/reducers/boardSlice';
+import { useTranslation } from 'react-i18next';
 
 export const Task = (props: TaskProps) => {
   const dispatch = useAppDispatch();
+  const {t}= useTranslation();
+  
 
   async function handleDeleteTask (boardId: string | undefined, columnId: string | undefined, taskId: string | undefined) {
     alert(`Task ${taskId} will be deleted!`);
@@ -25,7 +28,7 @@ export const Task = (props: TaskProps) => {
       }));
     }
   }
-
+  
   return (
     <Card className="card" sx={{ minWidth: 275, minHeight: 150, marginBottom: 1.5 }}>
       <CardContent>
@@ -37,7 +40,7 @@ export const Task = (props: TaskProps) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Tooltip title="Delete task">
+        <Tooltip title={t('delete_task')}>
           <DeleteIcon onClick={() => handleDeleteTask(props.boardId, props.columnId, props.id)} />
         </Tooltip>
       </CardActions>
