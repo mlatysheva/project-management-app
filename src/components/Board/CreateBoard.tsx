@@ -59,7 +59,7 @@ export default function CreateBoard() {
       ...body,
       id: boardId,
     }));
-    alert(`The board was saved.`);
+    //alert(`The board was saved.`);
     if (state.isBoardSaved) {
       navigate(`/${baseUrl}/boards`);
     }
@@ -70,7 +70,7 @@ export default function CreateBoard() {
   }
 
   async function handleDeleteBoard() {
-    alert(`The board will not be saved`);
+    //alert(`The board will not be saved`);
     await deleteBoard(board.id);
     dispatch(clear_board());
     navigate(`/${baseUrl}/boards`);

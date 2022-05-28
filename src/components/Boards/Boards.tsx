@@ -59,8 +59,6 @@ export function Boards() {
   
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
-    alert(`Do you want to edit the board with id: ${boardId}?`);
-    // dispatch(fetchBoard(boardId));
     navigate(`/${baseUrl}/editboard`);
     dispatch(set_editedBoard({isBoardInEdit: true,
       editedBoardId: boardId}));
