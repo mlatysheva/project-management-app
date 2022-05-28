@@ -39,7 +39,7 @@ export default function CreateBoard() {
       console.log('we are in if');
       getBoardFromServer(board.id); 
     }   
-  }, [board.id, taskId]);
+  }, [board.id, dispatch, taskId]);
 
   async function handleBoardSave() {
     let body = {
