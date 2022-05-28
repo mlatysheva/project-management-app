@@ -51,7 +51,6 @@ export function ColumnTitle(props: ColumnTitleProps) {
 			field: e.target.value,
 		});
     if (e.target.value.length === 0) {
-      console.log('we are in if');
       setState({
         ...state,
         field: e.target.value,
