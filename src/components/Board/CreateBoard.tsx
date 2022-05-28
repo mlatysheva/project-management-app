@@ -29,14 +29,13 @@ export default function CreateBoard() {
     async function getBoardFromServer(id: string) {
       const response = await getBoard(id);
       dispatch(set_board({
-        id: id,
+        id: response.id,
         title: response.title,
         description: response.description,
         columns: response.columns,
       }));
     }
     if (board.id !== '') {
-      console.log('we are in if');
       getBoardFromServer(board.id); 
     }   
   }, [board.id, taskId]);
@@ -46,27 +45,31 @@ export default function CreateBoard() {
       title: board.title,
       description: board.description,
     }
-    let boardApi;
-    let boardId;
-    if (board.id === '') {
-      boardApi = await createBoard(body);
-      boardId = boardApi.id;
+    if (body.title && body.description) {
+      let boardApi;
+      let boardId;
+      if (board.id === '') {
+        boardApi = await createBoard(body);
+        boardId = boardApi.id;
+      } else {
+        boardId = board.id;
+        boardApi = await updateBoard(boardId, body);
+      }    
+      dispatch(update_board({
+        ...body,
+        id: boardId,
+      }));
+      alert(`The board was saved.`);
+      setState({
+        ...state,
+        isBoardSaved: true,
+      });
     } else {
-      boardId = board.id;
-      boardApi = await updateBoard(boardId, body);
-    }    
-    dispatch(update_board({
-      ...body,
-      id: boardId,
-    }));
-    alert(`The board was saved.`);
+      alert(`Please fill in the required fields of title and description`);
+    }
     if (state.isBoardSaved) {
       navigate(`/${baseUrl}/boards`);
     }
-    setState({
-			...state,
-			isBoardSaved: true,
-		});
   }
 
   async function handleDeleteBoard() {

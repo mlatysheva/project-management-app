@@ -23,11 +23,12 @@ export function ColumnTitle(props: ColumnTitleProps) {
   const board = useAppSelector((state) => state.board);
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
-  const boardId = board.id;
 
   const [state, setState] = useState({
 		formOpen: false,
     field: props.value,
+    error: false,
+    errorMessage: '',
 	});
 
 	function openForm() {
@@ -49,6 +50,21 @@ export function ColumnTitle(props: ColumnTitleProps) {
 			...state,
 			field: e.target.value,
 		});
+    if (e.target.value.length === 0) {
+      setState({
+        ...state,
+        field: e.target.value,
+        error: true,
+        errorMessage: 'Title may not be empty',
+      });
+    } else {
+      setState({
+        ...state,
+        field: e.target.value,
+        error: false,
+        errorMessage: '',
+      });
+    }
 	}
 
   async function handleFieldUpdate() {
@@ -78,6 +94,7 @@ export function ColumnTitle(props: ColumnTitleProps) {
           defaultValue={props.value}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
+          helperText={state.errorMessage}
           style={{
             resize: "none",
             width: "100%",

@@ -25,7 +25,7 @@ export default function EditBoard() {
     async function getBoardFromServer(id: string) {
       const response = await getBoard(id);
       dispatch(set_board({
-        id: id,
+        id: response.id,
         title: response.title,
         description: response.description,
         columns: response.columns,
@@ -40,14 +40,18 @@ export default function EditBoard() {
       description: board.description,
     }
     await updateBoard(boardId, body);
-    
-    dispatch(update_board({
-      ...body,
-      id: boardId,
-    }));
 
-    alert(`The board was saved.`);
-    navigate(`/${baseUrl}/boards`);
+    if (body.title && body.description) {
+      dispatch(update_board({
+        ...body,
+        id: boardId,
+      }));
+      alert(`The board was saved.`);
+      navigate(`/${baseUrl}/boards`);
+    }
+    else {
+      alert(`Please fill in the required fields of title and description`);
+    }    
   }
 
   async function handleDeleteBoard() {    
