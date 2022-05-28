@@ -40,14 +40,18 @@ export default function EditBoard() {
       description: board.description,
     }
     await updateBoard(boardId, body);
-    
-    dispatch(update_board({
-      ...body,
-      id: boardId,
-    }));
 
-    alert(`The board was saved.`);
-    navigate(`/${baseUrl}/boards`);
+    if (body.title && body.description) {
+      dispatch(update_board({
+        ...body,
+        id: boardId,
+      }));
+      alert(`The board was saved.`);
+      navigate(`/${baseUrl}/boards`);
+    }
+    else {
+      alert(`Please fill in the required fields of title and description`);
+    }    
   }
 
   async function handleDeleteBoard() {    
