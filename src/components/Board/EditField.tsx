@@ -101,7 +101,7 @@ export function EditField(props: EditFieldProps) {
 		return (
       <React.Fragment>
         <h2 style={{ textAlign: "left" }}>{value}</h2>
-        <Tooltip title={`Edit ${props.type}`}>
+        <Tooltip title={`${t('editBtn')} ${props.type}`}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
       </React.Fragment>			
@@ -112,7 +112,7 @@ export function EditField(props: EditFieldProps) {
 		return (
 			<React.Fragment>
         <TextField
-          placeholder={t('enter_new_title')}
+          placeholder={t('placeholder_title')}
           // autoFocus
           defaultValue={value}
           onChange={handleFieldChange}

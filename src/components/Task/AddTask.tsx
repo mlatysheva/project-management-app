@@ -1,11 +1,12 @@
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { set_column } from "../../store/reducers/columnSlice";
+
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Icon from "@mui/material/Icon";
 import TaskTitle from "./TaskTitle";
+import { set_column } from "../../store/reducers/columnSlice";
 import { useAppSelector } from "../../store/hooks";
 import { createTask, getColumn } from "../../services/apiBoardProvider";
 import { TaskProps, update_task_id} from "../../store/reducers/taskSlice";
@@ -87,7 +88,7 @@ export function AddTask(props: AddTaskProps) {
 				onClick={openForm}
 			>
 				<Icon>add</Icon>
-				<p>Add new task</p>
+				<p>{t('add_task')}</p>
 			</div>
 		);
 	}
@@ -103,15 +104,15 @@ export function AddTask(props: AddTaskProps) {
 						padding: "6px 8px 2px",
 					}}
 				>
-          <TaskTitle formOpen={true} placeholder='Enter title' type='task_title' value={state.title} />
-          <TaskTitle formOpen={true} placeholder='Enter description' type='task_description' value={state.description} />
+          <TaskTitle formOpen={true} placeholder={t('placeholder_title')} type='task_title' value={state.title} />
+          <TaskTitle formOpen={true} placeholder={t('placeholder_description')} type='task_description' value={state.description} />
 				</Card>
 				<div className="add-button-container">
 					<Button						
 						style={{ color: "white", backgroundColor: "midnightblue" }}
             onClick={handleAddTask}
 					>
-						Save task
+						{t("save_task")}
 					</Button>
           <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 				</div>

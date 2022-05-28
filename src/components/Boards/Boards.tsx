@@ -1,5 +1,5 @@
 import { delete_board, get_allBoards, drag_and_drop } from '../../store/reducers/boardsSlice';
-import { BoardProps, fetchBoard, set_board } from '../../store/reducers/boardSlice';
+import { BoardProps, clear_board, fetchBoard, set_board } from '../../store/reducers/boardSlice';
 import AddBoard from '../Board/AddBoard';
 import { deleteBoard, getAllBoards, getColumns } from '../../services/apiBoardProvider';
 import { useEffect, useState } from 'react';
@@ -14,6 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { DragDropContext, Droppable, Draggable, DropResult} from 'react-beautiful-dnd';
+
 
 import './Board.scss';
 import { baseUrl } from '../../App';
@@ -53,11 +54,11 @@ export function Boards() {
     dispatch(delete_board(boardId));
     dispatch(remove_editedBoard());
     await deleteBoard(boardId);
+   
   }
+  
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
-    alert(`Do you want to edit the board with id: ${boardId}?`);
-    // dispatch(fetchBoard(boardId));
     navigate(`/${baseUrl}/editboard`);
     dispatch(set_editedBoard({isBoardInEdit: true,
       editedBoardId: boardId}));
@@ -105,22 +106,29 @@ export function Boards() {
     setShowModal(false);
   };
 
-  function AddModal(props: {showModal: boolean, toHide: boolean, id: string}) {
+  function AddModal(props: {showModal: boolean, toHide: boolean, id: string, title: string}) {
+    document.body.addEventListener('click', (e) => {
+      if (e) {
+        if ((e.target as HTMLElement).className === 'delete-board' && (e.target as HTMLElement).id === props.id) {
+          handleShow();
+        }
+      }
+    });
     
     function renderModal(): JSX.Element | null {
       return (
-        <div className="modal">
+        <div className="modal" >
         <section className="modal-main">
           <div className="title-container">
-            <Title title="Do you really want to delete your board?" />
+            <Title title={t('question_delete_board')}/>
           </div>
           <button
             className="modal-close"
+            id={props.id}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               handleHide();
-             
             }}
           >
             ×
@@ -129,14 +137,16 @@ export function Boards() {
             <div className="modal-buttons">
               <button
                 className="modal-button"
+                id={props.id}
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
                   handleDeleteBoard(props.id);
                   handleHide();
+                    
                 }}
               >
-                DELETE
+                {t('delete')}
               </button>
             </div>
           </div>
@@ -144,10 +154,13 @@ export function Boards() {
       </div>
       );
     }
+   
   
-  return  renderModal() 
- 
-  }
+  return  renderModal() ;
+  
+}
+
+
     return (    
     <div className="main" id="modal-root">
       <Title title={t('boards')}/>
@@ -170,15 +183,15 @@ export function Boards() {
                     </Typography>
                   </CardContent>
                   <CardActions className='button-wrapper'>
-                    <Tooltip title="Delete board">
-                      <DeleteIcon  onClick={() => handleShow()}/>
+                    <Tooltip title={t("delete_board")}>
+                      <DeleteIcon  className='delete-board' id={board.id} onClick={() => handleShow()}/>
                      </Tooltip>
-                    <Tooltip title="Edit board">
+                    <Tooltip title={t('edit_title')}>
                       <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
                     </Tooltip>
                   </CardActions>
                 </Card>
-                {showModal? <AddModal showModal={showModal} toHide={true} id={board.id}/>: null}
+                {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {t('question_delete_board').concat(" ", board.title)}/>: null}
             </div>
             
               )}
@@ -196,3 +209,5 @@ export function Boards() {
     </div>
   );
 }
+
+

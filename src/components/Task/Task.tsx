@@ -8,12 +8,22 @@ import { TaskProps } from '../../store/reducers/taskSlice';
 import { deleteTask, getBoard } from '../../services/apiBoardProvider';
 import { useAppDispatch } from '../../store/hooks';
 import { set_board } from '../../store/reducers/boardSlice';
+import { useTranslation } from 'react-i18next';
+import { AddModalInfo } from '../Modal/Modal';
+import { useState } from 'react';
 
 export const Task = (props: TaskProps) => {
   const dispatch = useAppDispatch();
+  const {t}= useTranslation();
+  const [showInfo, setShowInfo] = useState(false);
+
+    const handleShowInfo = () => {
+      setShowInfo(true);
+    };
+
 
   async function handleDeleteTask (boardId: string | undefined, columnId: string | undefined, taskId: string | undefined) {
-    alert(`Task ${taskId} will be deleted!`);
+    
     if (boardId && columnId && taskId) {
       await deleteTask(boardId, columnId, taskId);
       const updateBoard = await getBoard(boardId);
@@ -25,7 +35,7 @@ export const Task = (props: TaskProps) => {
       }));
     }
   }
-
+  
   return (
     <Card className="card" sx={{ minWidth: 275, minHeight: 150, marginBottom: 1.5 }}>
       <CardContent>
@@ -37,10 +47,11 @@ export const Task = (props: TaskProps) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Tooltip title="Delete task">
-          <DeleteIcon onClick={() => handleDeleteTask(props.boardId, props.columnId, props.id)} />
+        <Tooltip title={t('delete_task')}>
+          <DeleteIcon onClick={() => handleShowInfo()} />
         </Tooltip>
       </CardActions>
+      {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={" "} title = {t('task').concat(` ${props.title} `).concat(t('will_be_deleted'))} function= {() => {handleDeleteTask(props.boardId, props.columnId, props.id)}} style={{display:'block'}} />: null}
     </Card>
   )
 };

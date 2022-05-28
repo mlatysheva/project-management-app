@@ -78,7 +78,7 @@ export function ColumnTitle(props: ColumnTitleProps) {
 		return (
       <React.Fragment>
         <h2 style={{ textAlign: "left" }}>{props.value}</h2>
-        <Tooltip title="Edit title">
+        <Tooltip title={t("enter_new_title")}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
       </React.Fragment>			

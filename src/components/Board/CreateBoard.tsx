@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation} from 'react-i18next';
 import { baseUrl } from '../../App';
+import { AddModalInfo } from '../Modal/Modal';
+import '../Boards/Board.scss';
 
 export default function CreateBoard() {
   const columns = useAppSelector((state) => state.board.columns);
@@ -22,6 +24,22 @@ export default function CreateBoard() {
 	});
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const [showInfo, setShowInfo] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleHide = () => {
+    setShowInfo(false);
+    setShowModal(false);
+    };
+  const handleShow = () => {
+    setShowModal(true);
+    };
+
+    const handleShowInfo = () => {
+      setShowInfo(true);
+    };
+
   
   let taskId = task.id;
 
@@ -38,7 +56,7 @@ export default function CreateBoard() {
     if (board.id !== '') {
       getBoardFromServer(board.id); 
     }   
-  }, [board.id, taskId]);
+  }, [board.id, dispatch, taskId]);
 
   async function handleBoardSave() {
     let body = {
@@ -59,7 +77,8 @@ export default function CreateBoard() {
         ...body,
         id: boardId,
       }));
-      alert(`The board was saved.`);
+     
+      handleHide();
       setState({
         ...state,
         isBoardSaved: true,
@@ -68,19 +87,19 @@ export default function CreateBoard() {
       alert(`Please fill in the required fields of title and description`);
     }
     if (state.isBoardSaved) {
+      
       navigate(`/${baseUrl}/boards`);
     }
   }
 
   async function handleDeleteBoard() {
-    alert(`The board will not be saved`);
     await deleteBoard(board.id);
     dispatch(clear_board());
     navigate(`/${baseUrl}/boards`);
   }
 
   return (
-    <div className="main">
+    <div className="main" id="modal-root">
       <h1 className="page-title">{t('create_title')}</h1>
       <div className="add-section">
         <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={board.title} category="create" />
@@ -94,8 +113,10 @@ export default function CreateBoard() {
         </div>
       ) : null }
       <div className="save-cancel-section">
-        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleDeleteBoard}>{t('cancel')}</Button>
-        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>{t('save')}</Button>
+        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleShow}>{t('cancel')}</Button>
+        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleShowInfo}>{t('save')}</Button>
+        {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {t("board_will_be_saved").concat(" ", board.title)} function= {() => {handleBoardSave()}} style={{display:'block'}} />: null}
+        {showModal? <AddModalInfo showInfo={showModal} toHide={true} id={board.id} title = {t("board_will_not_be_saved").concat(" ", board.title)} function= {() => {handleDeleteBoard()}} style={{display:'block'}} />: null}
       </div>
     </div>
   )
