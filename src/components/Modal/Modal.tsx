@@ -46,7 +46,7 @@ export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: 
                     
                 }}
               >
-                {t('delete')}
+                {t('confirm')}
               </button>
             </div>
           </div>
