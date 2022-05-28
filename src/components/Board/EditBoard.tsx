@@ -9,6 +9,7 @@ import { EditField } from './EditField';
 import { deleteBoard, getBoard, updateBoard } from '../../services/apiBoardProvider';
 import { baseUrl } from '../../App';
 import { useEffect, useState } from 'react';
+import { AddModalInfo } from '../Modal/Modal';
 import '../Boards/Board.scss';
 
 export default function EditBoard() {
@@ -21,6 +22,7 @@ export default function EditBoard() {
   const task = useAppSelector((state) => state.task);
 
   const [showModal, setShowModal] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const handleShow = () => {
      setShowModal(true);
@@ -28,7 +30,13 @@ export default function EditBoard() {
 
   const handleHide = () => {
     setShowModal(false);
-  };
+    setShowInfo(false);
+    };
+
+    const handleShowInfo = () => {
+      setShowInfo(true);
+    };
+
   
   function AddModal(props: {showModal: boolean, toHide: boolean, id: string, title: string}) {
     document.body.addEventListener('click', (e) => {
@@ -97,7 +105,7 @@ export default function EditBoard() {
       }));
     }
     getBoardFromServer(boardId);    
-  }, [boardId, taskId]);
+  }, [boardId, dispatch, taskId]);
   
   async function handleBoardSave() {
     let body = {
@@ -110,9 +118,9 @@ export default function EditBoard() {
       ...body,
       id: boardId,
     }));
-    
-    alert(`The board was saved.`);
-    navigate(`/${baseUrl}/boards`);
+   
+    handleShowInfo();
+   
   }
 
   async function handleDeleteBoard() {    
@@ -139,6 +147,7 @@ export default function EditBoard() {
         <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleShow}>Delete board</Button>
         {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {"Do you really want to delete your board?"}/>: null}
         <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>Save board</Button>
+        {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {"The board was saved."}/>: null}
       </div>
     </div>
   )

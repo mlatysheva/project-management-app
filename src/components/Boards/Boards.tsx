@@ -14,7 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { DragDropContext, Droppable, Draggable, DropResult} from 'react-beautiful-dnd';
-import  { AddModal } from '../Modal/Modal';
+
 
 import './Board.scss';
 import { baseUrl } from '../../App';
