@@ -8,6 +8,7 @@ import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useTranslation } from "react-i18next";
+import { current } from "@reduxjs/toolkit";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -28,17 +29,22 @@ export function EditField(props: EditFieldProps) {
   } else {
     value = board.description;
   }
+  console.log(`value is ${value}`);
 
-  useEffect(() => {
-    if (boardId !== '' && props.category === "create") {
-      closeForm();
-    }
-  }, [boardId]);
+  // useEffect(() => {
+  //   if (boardId !== '' && props.category === "create") {
+  //     closeForm();
+  //   }
+  // }, [boardId]);
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
     field: value,
+    error: false,
+    errorMessage: '',
 	});
+  console.log(`state is`);
+  console.dir(state);
 
 	function openForm() {
 		setState({
@@ -59,27 +65,61 @@ export function EditField(props: EditFieldProps) {
 			...state,
 			field: e.target.value,
 		});
+    if (e.target.value.length === 0) {
+      setState({
+        ...state,
+        error: true,
+        errorMessage: 'Field may not be empty',
+      });
+    }
 	}
 
   async function handleFieldUpdate() {
-    let body: {id: string; title: string; description: string; };
+    let body: {
+      id: string;
+      title: string;
+      description: string;
+    };
     if (props.type === "title") {
-      body = {
-        id: board.id,
-        title: state.field,
-        description: board.description,
+      console.log(`state.field length is ${state.field.length}`);
+      if (state.field.length === 0) {
+        console.log(`we are in if`);
+        setState({
+          ...state,
+          error: true,
+          errorMessage: 'Title may not be empty',
+        });
+      } else {
+        console.log(`we are in else`);
+          body = {
+          id: board.id,
+          title: state.field,
+          description: board.description,
+        }
+        dispatch(update_board({...body}));
       }
-    } else {
-      body = {
-        id: board.id,
-        title: board.title,
-        description: state.field,
+    } 
+    if (props.type === "description") {
+      console.log(`state.field length is ${state.field.length}`);
+      if (state.field.length === 0) {
+        setState({
+          ...state,
+          error: true,
+          errorMessage: 'Description may not be empty',
+        });
+      } else {
+        body = {
+          id: board.id,
+          title: board.title,
+          description: state.field,
+        }
+        dispatch(update_board({...body}));
       }
     }
-    dispatch(update_board({...body}));
-    if (props.category === 'edit') {
+    
+    // if (props.category === 'edit') {
       closeForm();
-    }
+    // }
   }
 
 	function renderField() {
@@ -102,6 +142,7 @@ export function EditField(props: EditFieldProps) {
           defaultValue={value}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
+          helperText={state.errorMessage}
           style={{
             resize: "none",
             width: "100%",
