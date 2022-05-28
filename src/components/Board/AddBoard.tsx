@@ -12,11 +12,15 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 	const [state, setState] = useState({
 		formOpen: props.formOpen,
     toHide: props.toHide,
-    id: "",
-		title: "",
-    description: "",
+    id: '',
+		title: '',
+    description: '',
+		errorTitle: false,
+		errorDescription: false,
+		errorMessageTitle: '',
+		errorMessageDescription: '',
 	});
-
+	
   const dispatch = useDispatch();
 	const { t } = useTranslation();
 
@@ -50,8 +54,24 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 
   async function handleAddBoard () {
     const { title, description } = state;
+		if (title.length === 0) {
+			setState({
+				...state,
+				errorTitle: true,
+				errorMessageTitle: 'Title may not be empty',
+				errorDescription: false,
+				errorMessageDescription: '',
 
-    if (title) {
+			});
+		} else if (description.length === 0) {
+			setState({
+				...state,
+				errorTitle: false,
+				errorMessageTitle: '',
+				errorDescription: true,
+				errorMessageDescription: 'Description may not be empty',
+			});
+		} else {
       const boardApi = await createBoard({
         title: title,
         description: description,
@@ -66,6 +86,10 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
         ...state,
         title: '',
         description: '',
+				errorTitle: false,
+				errorDescription: false,
+				errorMessageTitle: '',
+				errorMessageDescription: '',
         formOpen: false,
         toHide: props.toHide,
       });
@@ -111,6 +135,7 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 						autoFocus
 						value={state.title}
 						onChange={handleInputTitleChange}
+						helperText={state.errorMessageTitle}
 						style={{
 							resize: "none",
 							width: "100%",
@@ -121,6 +146,7 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
             placeholder={t('placeholder_description')}
 						value={state.description}
 						onChange={handleInputDescriptionChange}
+						helperText={state.errorMessageDescription}
 						style={{
 							resize: "none",
 							width: "100%",
