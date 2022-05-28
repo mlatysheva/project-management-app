@@ -1,5 +1,5 @@
 import Icon from "@mui/material/Icon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
@@ -8,7 +8,6 @@ import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useTranslation } from "react-i18next";
-import { current } from "@reduxjs/toolkit";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -59,8 +58,16 @@ export function EditField(props: EditFieldProps) {
     if (e.target.value.length === 0) {
       setState({
         ...state,
+        field: e.target.value,
         error: true,
         errorMessage: 'Field may not be empty',
+      });
+    } else {
+      setState({
+        ...state,
+        field: e.target.value,
+        error: false,
+        errorMessage: '',
       });
     }
 	}

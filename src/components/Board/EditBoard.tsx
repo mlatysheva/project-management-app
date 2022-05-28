@@ -25,7 +25,7 @@ export default function EditBoard() {
     async function getBoardFromServer(id: string) {
       const response = await getBoard(id);
       dispatch(set_board({
-        id: id,
+        id: response.id,
         title: response.title,
         description: response.description,
         columns: response.columns,

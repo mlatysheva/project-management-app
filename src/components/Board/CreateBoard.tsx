@@ -29,14 +29,13 @@ export default function CreateBoard() {
     async function getBoardFromServer(id: string) {
       const response = await getBoard(id);
       dispatch(set_board({
-        id: id,
+        id: response.id,
         title: response.title,
         description: response.description,
         columns: response.columns,
       }));
     }
     if (board.id !== '') {
-      console.log('we are in if');
       getBoardFromServer(board.id); 
     }   
   }, [board.id, taskId]);
