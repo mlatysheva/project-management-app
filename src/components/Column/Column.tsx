@@ -10,7 +10,8 @@ import './Column.scss';
 import { useTranslation } from 'react-i18next';
 import ColumnTitle from './ColumnTitle';
 import { AddModalInfo } from '../Modal/Modal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
 
 export interface ColumnProps {
   id: string;
@@ -37,6 +38,7 @@ export const Column = (props: ColumnProps) => {
     deleteColumn(boardId, columnId);
     dispatch(delete_column_from_board(columnId));
   }
+  
 
   return (
     <div className="column-wrapper">
@@ -49,7 +51,7 @@ export const Column = (props: ColumnProps) => {
       
       { (tasks !== undefined) ? tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} columnId={props.id} boardId={board.id} title={task.title} description={task.description} userId={localStorage.getItem('userID') || ''} /> ) : null}   
       <AddTask columnId={props.id} columnTitle={props.title} tasks={props.tasks} />
-      {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {`Column ${props.title} will be deleted!`} style={{display:'block'}} function={()=>{handleDeleteColumn(props.id)}}/>: null}
+      {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {t('column').concat(` ${props.title} `).concat(t('will_be_deleted'))  } style={{display:'block'}} function={()=>{handleDeleteColumn(props.id)}}/>: null}
     </div>
   )
 };

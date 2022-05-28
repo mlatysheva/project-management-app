@@ -193,7 +193,7 @@ export function Boards() {
                     </Tooltip>
                   </CardActions>
                 </Card>
-                {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {t('question_delete_board')}/>: null}
+                {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {t('question_delete_board').concat(" ", board.title)}/>: null}
             </div>
             
               )}
