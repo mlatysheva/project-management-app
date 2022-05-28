@@ -147,7 +147,7 @@ export default function EditBoard() {
         <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleShow}>{t('delete_board')}</Button>
         {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {"Do you really want to delete your board?"}/>: null}
         <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>{t('save_board')}</Button>
-        {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {"The board was saved."} function= {() => {}} />: null}
+        {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {"The board was saved."} function= {() => {}} style={{display:'none'}} />: null}
       </div>
     </div>
   )

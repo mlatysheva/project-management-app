@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../App";
+import {useTranslation} from "react-i18next";
 
 
-export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: string, id: string, function: () => void}) {
+export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: string, id: string, style: CSSProperties | undefined, function: () => void}, ) {
   
   const [showInfo, setShowInfo] = useState(false);
+  const {t}=useTranslation();
    
   const handleHide = () => {
      setShowInfo(false);
@@ -27,11 +29,27 @@ export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: 
             e.stopPropagation();
             navigate(`/${baseUrl}/boards`);
             handleHide();
-            props.function();
+            
           }}
         >
           ×
         </button>
+        <div className="main-container" style={props.style}>
+            <div className="modal-buttons">
+              <button
+                className="modal-button"
+                id={props.id}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  props.function();
+                    
+                }}
+              >
+                {t('delete')}
+              </button>
+            </div>
+          </div>
        
       </section>
     </div>

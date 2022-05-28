@@ -49,7 +49,7 @@ export const Column = (props: ColumnProps) => {
       
       { (tasks !== undefined) ? tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} columnId={props.id} boardId={board.id} title={task.title} description={task.description} userId={localStorage.getItem('userID') || ''} /> ) : null}   
       <AddTask columnId={props.id} columnTitle={props.title} tasks={props.tasks} />
-      {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {`Column ${props.title} will be deleted!`} function={()=>{handleDeleteColumn(props.id)}}/>: null}
+      {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {`Column ${props.title} will be deleted!`} style={{display:'block'}} function={()=>{handleDeleteColumn(props.id)}}/>: null}
     </div>
   )
 };
