@@ -8,13 +8,15 @@ import { createColumn } from "../../services/apiBoardProvider";
 import { add_column_to_board } from "../../store/reducers/boardSlice";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { set_column } from "../../store/reducers/columnSlice";
 
 export function AddColumn() {
 	const [state, setState] = useState({
 		formOpen: false,
 		title: "",
+		error: false,
+    errorMessage: '',
 	});
+
 	const { t } = useTranslation();
   let board = useAppSelector((state) => state.board);
 
@@ -39,6 +41,21 @@ export function AddColumn() {
 			...state,
 			title: e.target.value,
 		});
+		if (e.target.value.length === 0) {
+      setState({
+        ...state,
+        title: e.target.value,
+        error: true,
+        errorMessage: 'Title may not be empty',
+      });
+    } else {
+      setState({
+        ...state,
+        title: e.target.value,
+        error: false,
+        errorMessage: '',
+      });
+    }
 	}
 
   async function handleAddColumn () {
@@ -49,12 +66,13 @@ export function AddColumn() {
       }
       const apiData = await createColumn(board.id, body);
       dispatch(add_column_to_board({id: apiData.id, title: apiData.title, order: apiData.order}));
-			// dispatch(set_column({id: apiData.id, title: apiData.title, order: apiData.order, tasks: apiData.tasks}));
     }
     setState({
       ...state,
       title: '',
       formOpen: false,
+			error: false,
+      errorMessage: '',
     });
   }
 
@@ -83,6 +101,7 @@ export function AddColumn() {
           autoFocus
           value={state.title}
           onChange={handleInputChange}
+					helperText={state.errorMessage}
           style={{
             resize: "none",
             width: "100%",

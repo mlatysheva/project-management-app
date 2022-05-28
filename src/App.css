@@ -272,6 +272,10 @@ label {
 	box-shadow: 0 0 5px 0px blue inset;
 }
 
+.MuiTextField-root p {
+	color:red;
+}
+
 .error-message {
 	color: red;
 	display: block;

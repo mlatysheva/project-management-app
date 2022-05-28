@@ -1,5 +1,5 @@
 import Icon from "@mui/material/Icon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
@@ -29,17 +29,13 @@ export function EditField(props: EditFieldProps) {
     value = board.description;
   }
 
-  useEffect(() => {
-    if (boardId !== '' && props.category === "create") {
-      closeForm();
-    }
-  }, [boardId]);
-
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
     field: value,
+    error: false,
+    errorMessage: '',
 	});
-
+  
 	function openForm() {
 		setState({
 			...state,
@@ -59,27 +55,46 @@ export function EditField(props: EditFieldProps) {
 			...state,
 			field: e.target.value,
 		});
+    if (e.target.value.length === 0) {
+      setState({
+        ...state,
+        field: e.target.value,
+        error: true,
+        errorMessage: 'Field may not be empty',
+      });
+    } else {
+      setState({
+        ...state,
+        field: e.target.value,
+        error: false,
+        errorMessage: '',
+      });
+    }
 	}
 
   async function handleFieldUpdate() {
-    let body: {id: string; title: string; description: string; };
+    let body: {
+      id: string;
+      title: string;
+      description: string;
+    };
     if (props.type === "title") {
-      body = {
+        body = {
         id: board.id,
         title: state.field,
         description: board.description,
       }
-    } else {
+      dispatch(update_board({...body}));
+    }
+    if (props.type === "description") {
       body = {
         id: board.id,
         title: board.title,
         description: state.field,
       }
+      dispatch(update_board({...body}));
     }
-    dispatch(update_board({...body}));
-    if (props.category === 'edit') {
-      closeForm();
-    }
+    closeForm();
   }
 
 	function renderField() {
@@ -102,6 +117,7 @@ export function EditField(props: EditFieldProps) {
           defaultValue={value}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
+          helperText={state.errorMessage}
           style={{
             resize: "none",
             width: "100%",
