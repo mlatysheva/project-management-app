@@ -135,8 +135,8 @@ export default function EditBoard() {
     <div className="main" id="modal-root">
       <h1 className="page-title">{t('edit_title')}</h1>
       <div className="add-section">
-        <EditField placeholder="Enter new title" type={t("placeholder_title")} field={board.title} category="edit"/>
-        <EditField placeholder="Enter new description" type={t("placeholder_description")}field={board.description} category="edit"/>
+        <EditField placeholder="Enter new title" type="title" field={board.title} category="edit"/>
+        <EditField placeholder="Enter new description" type="description" field={board.description} category="edit"/>
       </div>
       <div className="column-container">
         {(columns !== undefined) ? columns.map((column: ColumnProps) => <Column key={column.id} id={column.id} title={column.title} order={column.order} tasks={column.tasks || []} />

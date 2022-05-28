@@ -79,7 +79,7 @@ export function AddColumn() {
 		return (
 			<div className="column-form">
         <TextField
-          placeholder="Enter title"
+          placeholder={t("enter_title")}
           autoFocus
           value={state.title}
           onChange={handleInputChange}
@@ -97,7 +97,7 @@ export function AddColumn() {
 						style={{ color: "white", backgroundColor: "midnightblue" }}
             onClick={handleAddColumn}
 					>
-						Add column
+						{t("add_column")}
 					</Button>
           <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
 				</div>

@@ -95,6 +95,7 @@ i18n
 					column: "Column",
 					will_be_deleted: "will be deleted",
 					board_was_saved: "tThe board was saved",
+					enter_title: "Enter title",
 				},
 			},
 			ru: {
@@ -178,6 +179,7 @@ i18n
 					column: "Колонка",
 					will_be_deleted: "будет удалена",
 					board_was_saved: "Доска сохранена",
+					enter_title: "Введите название",
 				},
 			},
 		},

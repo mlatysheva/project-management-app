@@ -46,7 +46,7 @@ export const Column = (props: ColumnProps) => {
         <Tooltip title={t('delete_column')}>
           <DeleteIcon onClick={() => handleShowInfo (props.id)}/>
         </Tooltip>
-        <ColumnTitle placeholder={t('title_column')} type={'column_title'} value={props.title} columnId={props.id} columnOrder={props.order}/>
+        <ColumnTitle placeholder={t('enter_title')} type={'column_title'} value={props.title} columnId={props.id} columnOrder={props.order}/>
       </div>
       
       { (tasks !== undefined) ? tasks.map((task: TaskProps) => <Task key={task.id} id={task.id} columnId={props.id} boardId={board.id} title={task.title} description={task.description} userId={localStorage.getItem('userID') || ''} /> ) : null}   

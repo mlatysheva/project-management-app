@@ -23,7 +23,7 @@ export function EditField(props: EditFieldProps) {
   const {t} = useTranslation();
   const boardId = board.id;
   let value: string;
-  if (props.type === "title" || props.type === "название") {
+  if (props.type === "title") {
     value = board.title;
   } else {
     value = board.description;
