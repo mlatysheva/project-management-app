@@ -29,13 +29,6 @@ export function EditField(props: EditFieldProps) {
   } else {
     value = board.description;
   }
-  console.log(`value is ${value}`);
-
-  // useEffect(() => {
-  //   if (boardId !== '' && props.category === "create") {
-  //     closeForm();
-  //   }
-  // }, [boardId]);
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
@@ -43,9 +36,7 @@ export function EditField(props: EditFieldProps) {
     error: false,
     errorMessage: '',
 	});
-  console.log(`state is`);
-  console.dir(state);
-
+  
 	function openForm() {
 		setState({
 			...state,
@@ -81,45 +72,22 @@ export function EditField(props: EditFieldProps) {
       description: string;
     };
     if (props.type === "title") {
-      console.log(`state.field length is ${state.field.length}`);
-      if (state.field.length === 0) {
-        console.log(`we are in if`);
-        setState({
-          ...state,
-          error: true,
-          errorMessage: 'Title may not be empty',
-        });
-      } else {
-        console.log(`we are in else`);
-          body = {
-          id: board.id,
-          title: state.field,
-          description: board.description,
-        }
-        dispatch(update_board({...body}));
-      }
-    } 
-    if (props.type === "description") {
-      console.log(`state.field length is ${state.field.length}`);
-      if (state.field.length === 0) {
-        setState({
-          ...state,
-          error: true,
-          errorMessage: 'Description may not be empty',
-        });
-      } else {
         body = {
-          id: board.id,
-          title: board.title,
-          description: state.field,
-        }
-        dispatch(update_board({...body}));
+        id: board.id,
+        title: state.field,
+        description: board.description,
       }
+      dispatch(update_board({...body}));
     }
-    
-    // if (props.category === 'edit') {
-      closeForm();
-    // }
+    if (props.type === "description") {
+      body = {
+        id: board.id,
+        title: board.title,
+        description: state.field,
+      }
+      dispatch(update_board({...body}));
+    }
+    closeForm();
   }
 
 	function renderField() {
