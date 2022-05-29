@@ -40,9 +40,18 @@ export const columnSlice = createSlice({
       }
       // return updatedColumn;
     },
+    update_column: (state: ColumnProps, action: { payload: { title: string; id: string; order: number }; }) => {
+      const updatedColumn = {
+        ...state,
+        title: action.payload.title,
+        id: action.payload.id,
+        order: action.payload.order,
+      }
+      return updatedColumn;
+    }
   }
 });
 
-export const { set_column, clear_column, add_task_to_column } = columnSlice.actions;
+export const { set_column, clear_column, add_task_to_column, update_column } = columnSlice.actions;
 
 export default columnSlice.reducer;

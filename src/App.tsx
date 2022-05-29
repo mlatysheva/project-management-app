@@ -61,7 +61,7 @@ function App() {
 							element={<Logout updateToken={setToken} />}
 						/>
 						{/* //TODO:скрыть если нет пользователя */}
-						<Route path={`/${baseUrl}/boards`} element={<Boards />} />
+						<Route path={`/${baseUrl}/boards`} element={<Boards  />} />
 						<Route path={`/${baseUrl}/createboard`} element={<CreateBoard />} />
 						{/* //до скрыть если нет пользователя */}
 						<Route path={`/${baseUrl}/editboard`} element={<EditBoard />} />

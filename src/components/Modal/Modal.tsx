@@ -10,7 +10,8 @@ export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: 
   const {t}=useTranslation();
    
   const handleHide = () => {
-     setShowInfo(false);
+    showInfo ? setShowInfo(false) : setShowInfo(true);
+     
   };
 
     
@@ -29,7 +30,6 @@ export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: 
             e.stopPropagation();
             navigate(`/${baseUrl}/boards`);
             handleHide();
-            
           }}
         >
           ×

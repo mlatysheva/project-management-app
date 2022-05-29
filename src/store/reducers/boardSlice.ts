@@ -7,6 +7,7 @@ export interface ColumnProps {
   title: string,
   order?: number,
   tasks?: TaskProps[];
+  
 }
 export interface BoardProps {
   id: string;
