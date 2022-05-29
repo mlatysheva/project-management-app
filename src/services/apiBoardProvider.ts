@@ -92,6 +92,9 @@ interface TaskProps {
   title: string,
   description: string,
   userId: string;
+  order?: number,
+  boardId?: string,
+  columndId?: string,
 }
 
 export const createTask = (boardId: string, columnId: string, taskData: TaskProps) => {
@@ -107,3 +110,17 @@ export const deleteTask = (boardId: string, columnId: string, taskId: string) =>
     .then(handleResponse) 
     .catch(handleError);
 }
+
+export const getTask = (boardId: string, columnId: string, taskId: string) => {
+  return axios 
+    .get(`${BASE_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`, configWorking()) 
+    .then(handleResponse) 
+    .catch(handleError); 
+}
+
+export const updateTask = (boardId: string, columnId: string, taskId: string, taskData: TaskProps) => { 
+  return axios 
+    .put(`${BASE_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`, taskData, configWorking()) 
+    .then(handleResponse) 
+    .catch(handleError); 
+};
