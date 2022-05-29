@@ -53,10 +53,8 @@ export function Boards() {
   async function handleDeleteBoard(boardId: string) {
     dispatch(delete_board(boardId));
     dispatch(remove_editedBoard());
-    await deleteBoard(boardId);
-   
-  }
-  
+    await deleteBoard(boardId);   
+  }  
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
     navigate(`/${baseUrl}/editboard`);
