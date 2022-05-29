@@ -142,11 +142,10 @@ export default function EditBoard() {
  
 function reorder(columns: ColumnProps[], index: number, newIndex: number) {
   const newColumns = [...columns];
-  //console.log(columns);
+  
   const [removed] = newColumns.splice(index, 1);
   newColumns.splice(newIndex, 0, removed);
-  //console.log(index, removed, newColumns);
-  //localStorage.setItem('columns', JSON.stringify(newColumns));
+  
   
   return newColumns;
 }
@@ -174,7 +173,7 @@ function handleOnDragEnd(result: DropResult) {
       id: newColumn[result.destination.index].id,
       title: newColumn[result.destination.index].title,
       order: result.destination.index,
-      //tasks: newColumn[result.destination.index].tasks,
+      
     }));
 }
 }
