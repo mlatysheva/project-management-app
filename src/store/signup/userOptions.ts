@@ -42,7 +42,11 @@ export const registerSlice = createSlice({
 
 export const { signup, signin, logout, edit } = registerSlice.actions;
 
-export const selectUser = (state: { register: { register: registerProps } }) =>
-	state.register.register;
+export const selectUser = (state: {
+	register: { register: registerProps };
+}) => {
+	console.log(`state = ${JSON.stringify(state)}`);
+	return state.register.register;
+};
 
 export default registerSlice.reducer;
