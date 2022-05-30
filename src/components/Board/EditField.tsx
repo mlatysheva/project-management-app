@@ -71,59 +71,26 @@ export function EditField(props: EditFieldProps) {
 	}
 
   async function handleFieldUpdate() {
-    if (props.category === "board") {
-      let body: {
-        id: string;
-        title: string;
-        description: string;
-      };
-      if (props.type === "title") {
-        body = {
-          id: board.id,
-          title: state.field,
-          description: board.description,
-        }
-        dispatch(update_board({...body}));
+    let body: {
+      id: string;
+      title: string;
+      description: string;
+    };
+    if (props.type === "title") {
+      body = {
+        id: board.id,
+        title: state.field,
+        description: board.description,
       }
-      if (props.type === "description") {
-        body = {
-          id: board.id,
-          title: board.title,
-          description: state.field,
-        }
-        dispatch(update_board({...body}));
-      }
+      dispatch(update_board({...body}));
     }
-    
-    if (props.category === "task") {
-      let taskBody = {
-        id: task.id,
-        boardId: board.id,
-        columnId: column.id,
-        userId: localStorage.getItem("userID") || '',
-        order: task.order,
-        title: task.title,
-        description: task.description,
-      };
-      if (props.type === "title") {
-        taskBody = {
-          ...taskBody,
-          title: state.field,
-        }
-        if (board.id && column.id && task.id) {
-          const updatedTask = await updateTask(board.id, column.id, task.id, taskBody);
-          dispatch(set_task(taskBody));
-        }        
-      } else if (props.type === "description") {
-        taskBody = {
-          ...taskBody,
-          description: state.field,
-        }
-        if (board.id && column.id && task.id) {
-          const updatedTask = await updateTask(board.id, column.id, task.id, taskBody);
-          dispatch(set_task(taskBody));
-        }
+    if (props.type === "description") {
+      body = {
+        id: board.id,
+        title: board.title,
+        description: state.field,
       }
+      dispatch(update_board({...body}));
     }
     closeForm();
   }

@@ -103,10 +103,8 @@ export const Task = (props: TaskProps) => {
             </button>
             <div className="main-container">
               <div className="add-section">
-                {/* <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={task.title} category="task" />
-                <EditField formOpen={true} placeholder={t('placeholder_description')} type="description" field={task.description} category="task" /> */}
-                <TaskTitle formOpen={true} placeholder={t('placeholder_title')} type='task_title' value={task.title} />
-                <TaskTitle formOpen={true} placeholder={t('placeholder_description')} type='task_description' value={task.description} />
+                <TaskTitle formOpen={false} placeholder={t('placeholder_title')} type='task_title' value={task.title} />
+                <TaskTitle formOpen={false} placeholder={t('placeholder_description')} type='task_description' value={task.description} />
               </div>
             </div>
             <div className="save-cancel-section">
