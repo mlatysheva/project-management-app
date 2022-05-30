@@ -10,12 +10,13 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { set_board } from '../../store/reducers/boardSlice';
 import { useTranslation } from 'react-i18next';
 import { AddModalInfo } from '../Modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import EditField from '../Board/EditField';
 import Button from '@mui/material/Button';
 import { set_column } from '../../store/reducers/columnSlice';
 import { takeCoverage } from 'v8';
+import TaskTitle from './TaskTitle';
 
 
 export const Task = (props: TaskProps) => {
@@ -33,6 +34,7 @@ export const Task = (props: TaskProps) => {
   const [showEditModal, setShowEditModal] = useState(false);
 
   const handleShowEditModal = async () => {
+    setShowEditModal(true);
     let apiTask;
     let apiColumn;
     if (props.boardId && props.columnId && props.id) {
@@ -45,11 +47,11 @@ export const Task = (props: TaskProps) => {
       description: apiTask.description,
       order: apiTask.order,
       userId: apiTask.userId,
-      }));
-    setShowEditModal(true);
+      }));    
   };
 
   const handleHideEditModal = () => {
+    console.log(`we are in handleHideEditModal`);
     setShowEditModal(false);
   };
 
@@ -64,13 +66,25 @@ export const Task = (props: TaskProps) => {
     }
     if (props.boardId && props.columnId && props.id) {
       const updatedTask = await updateTask(props.boardId, props.columnId, props.id, body);
+      console.dir(`updated task is`);
+      console.dir(updatedTask);
     }
+    if (board.id && column.id) {
+      const response = await getColumn(board.id, column.id);
+      dispatch(set_column({
+        id: response.id,
+        title: response.title,
+        order: response.order,
+        tasks: response.tasks,
+      }));	
+    }   
     setShowEditModal(false);
   }
 
   function AddEditModal(props: {showModal: boolean, toHide: boolean, columnId: string, taskId: string}) {
-   
-    setShowEditModal(true);
+    useEffect(() => {
+      setShowEditModal(true);
+    }, []);
     
     function renderModal(): JSX.Element | null {
       return (
@@ -89,8 +103,10 @@ export const Task = (props: TaskProps) => {
             </button>
             <div className="main-container">
               <div className="add-section">
-                <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={task.title} category="task" />
-                <EditField formOpen={true} placeholder={t('placeholder_description')} type="description" field={task.description} category="task" />
+                {/* <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={task.title} category="task" />
+                <EditField formOpen={true} placeholder={t('placeholder_description')} type="description" field={task.description} category="task" /> */}
+                <TaskTitle formOpen={true} placeholder={t('placeholder_title')} type='task_title' value={task.title} />
+                <TaskTitle formOpen={true} placeholder={t('placeholder_description')} type='task_description' value={task.description} />
               </div>
             </div>
             <div className="save-cancel-section">

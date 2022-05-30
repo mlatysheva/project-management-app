@@ -34,6 +34,7 @@ export function TaskTitle(props: TaskTitleProps) {
 	}
 
 	function closeForm() {
+    console.log(`we are in close form`);
 		setState({
 			...state,
 			formOpen: false,
@@ -50,10 +51,19 @@ export function TaskTitle(props: TaskTitleProps) {
   async function handleFieldUpdate() {
     if (props.type === "task_title") {
       dispatch(update_task_title(state.field));
+      setState({
+        ...state,
+        formOpen: false,
+      });
     };
     if (props.type === "task_description") {
       dispatch(update_task_description(state.field));
+      setState({
+        ...state,
+        formOpen: false,
+      });
     }
+    
     closeForm();
   }
 
@@ -87,7 +97,7 @@ export function TaskTitle(props: TaskTitleProps) {
             marginBottom: 10,
           }}
         />
-        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={handleFieldUpdate}>close</Icon>
+        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={() =>{handleFieldUpdate(); closeForm()}}>close</Icon>
 			</React.Fragment>
 		);
 	}
