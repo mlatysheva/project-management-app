@@ -20,14 +20,14 @@ import TaskTitle from './TaskTitle';
 export const Task = (props: TaskProps) => {
   const dispatch = useAppDispatch();
   const {t}= useTranslation();
-  const [showInfo, setShowInfo] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const column = useAppSelector((state) => state.column);
   const task = useAppSelector((state) => state.task);
 
-  const handleShowInfo = () => {
-    setShowInfo(true);
-  };
-
-  const [showEditModal, setShowEditModal] = useState(false);
+  const handleShowDeleteModal = () => {
+    setShowDeleteModal(true);
+  };  
 
   const handleShowEditModal = async () => {
     setShowEditModal(true);
@@ -64,15 +64,6 @@ export const Task = (props: TaskProps) => {
       const updatedTask = await updateTask(props.boardId, props.columnId, props.id, body);
       
     }
-    // if (board.id && column.id) {
-    //   const response = await getColumn(board.id, column.id);
-    //   dispatch(set_column({
-    //     id: response.id,
-    //     title: response.title,
-    //     order: response.order,
-    //     tasks: response.tasks,
-    //   }));	
-    // }
     if (props.boardId) {
       const updateBoard = await getBoard(props.boardId);
       dispatch(set_board({
@@ -85,7 +76,63 @@ export const Task = (props: TaskProps) => {
     setShowEditModal(false);
   }
 
-  function AddEditModal(props: {showModal: boolean, toHide: boolean, columnId: string, taskId: string}) {
+  async function handleDeleteTask (boardId: string | undefined, columnId: string | undefined, taskId: string | undefined) {
+    
+    if (boardId && columnId && taskId) {
+      await deleteTask(boardId, columnId, taskId);
+      const updateBoard = await getBoard(boardId);
+      dispatch(set_board({
+        id: updateBoard.id,
+        title: updateBoard.title,
+        description: updateBoard.description,
+        columns: updateBoard.columns,
+      }));
+    }
+  }
+
+  function AddDeleteModal(props: {showDeleteModal: boolean, toHide: boolean, boardId: string, columnId: string, taskId: string, taskTitle: string}) {
+    useEffect(() => {
+      setShowDeleteModal(true);
+    }, []);
+    
+    function renderModal(): JSX.Element | null {
+      return (
+        <div className="modal" >
+          <section className="modal-main">
+            <button
+              className="modal-close"
+              id={props.taskId}
+              onClick={(e) => {
+                e.preventDefault();
+                setShowDeleteModal(false);
+              }}
+            >
+              ×
+            </button>
+            <div className="main-container">
+              <p>{t('task').concat(` ${props.taskTitle} `).concat(t('will_be_deleted'))} </p>
+              <div className="modal-buttons">
+                <button
+                  className="modal-button"
+                  id={task.id}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleDeleteTask(props.boardId, props.columnId, props.taskId);                      
+                  }}
+                >
+                  {t('confirm')}
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      );
+    }
+    return renderModal();  
+  }
+
+  function AddEditModal(props: {showEditModal: boolean, toHide: boolean, columnId: string, taskId: string}) {
     useEffect(() => {
       setShowEditModal(true);
     }, []);
@@ -99,8 +146,7 @@ export const Task = (props: TaskProps) => {
               id={props.taskId}
               onClick={(e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                handleHideEditModal();
+                setShowEditModal(false);
               }}
             >
               ×
@@ -119,23 +165,9 @@ export const Task = (props: TaskProps) => {
         </div>
       );
     }
-  return renderModal();  
-}
-
-  async function handleDeleteTask (boardId: string | undefined, columnId: string | undefined, taskId: string | undefined) {
-    
-    if (boardId && columnId && taskId) {
-      await deleteTask(boardId, columnId, taskId);
-      const updateBoard = await getBoard(boardId);
-      dispatch(set_board({
-        id: updateBoard.id,
-        title: updateBoard.title,
-        description: updateBoard.description,
-        columns: updateBoard.columns,
-      }));
-    }
+    return renderModal();  
   }
-  
+
   return (
     <Card className="card" sx={{ minWidth: 275, minHeight: 150, marginBottom: 1.5 }}>
       <CardContent>
@@ -148,14 +180,14 @@ export const Task = (props: TaskProps) => {
       </CardContent>
       <CardActions className='button-wrapper'>
         <Tooltip title={t('delete_task')}>
-          <DeleteIcon onClick={() => handleShowInfo()} />
+          <DeleteIcon onClick={() => handleShowDeleteModal()} />
         </Tooltip>
         <Tooltip title={t("edit_task")}>
           <EditIcon onClick={handleShowEditModal}/>
         </Tooltip>
       </CardActions>
-      {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={" "} title = {t('task').concat(` ${props.title} `).concat(t('will_be_deleted'))} function= {() => {handleDeleteTask(props.boardId, props.columnId, props.id)}} style={{display:'block'}} />: null}
-      {showEditModal? <AddEditModal showModal={true} toHide={false} columnId={''} taskId={''} />: null}
+      {showDeleteModal? <AddDeleteModal showDeleteModal={showDeleteModal} toHide={true} boardId={props.boardId || ''} columnId={props.columnId || ''} taskId={props.id || ''} taskTitle={task.title} />: null}
+      {showEditModal? <AddEditModal showEditModal={true} toHide={false} columnId={props.columnId || ''} taskId={props.id || ''} />: null}
     </Card>
   )
 };
