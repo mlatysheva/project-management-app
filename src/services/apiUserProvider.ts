@@ -31,7 +31,6 @@ export async function getUserByLogin(login: string) {
 	const soughtUser: UserIdProps = users.filter(
 		(user: UserIdProps) => user.login === login
 	)[0];
-	console.log(`getUserByLogin = ${soughtUser.id}`);
 	return soughtUser.id;
 }
 

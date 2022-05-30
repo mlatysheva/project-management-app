@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch} from "../../store/hooks";
 import { useTranslation } from "react-i18next";
 import { update_task_description, update_task_title } from "../../store/reducers/taskSlice";
 
@@ -17,7 +17,6 @@ interface TaskTitleProps {
 }
 
 export function TaskTitle(props: TaskTitleProps) {
-  const column = useAppSelector((state) => state.column);
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
 
@@ -78,7 +77,7 @@ export function TaskTitle(props: TaskTitleProps) {
 		return (
       <React.Fragment>
         <h2 className="task-title">{state.field}</h2>
-        <Tooltip title="Edit title">
+        <Tooltip title={t('enter_new_title')}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
       </React.Fragment>			

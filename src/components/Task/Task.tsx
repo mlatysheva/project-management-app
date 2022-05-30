@@ -14,7 +14,6 @@ import { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import { set_column } from '../../store/reducers/columnSlice';
-import { takeCoverage } from 'v8';
 import TaskTitle from './TaskTitle';
 
 
@@ -22,8 +21,6 @@ export const Task = (props: TaskProps) => {
   const dispatch = useAppDispatch();
   const {t}= useTranslation();
   const [showInfo, setShowInfo] = useState(false);
-  const board = useAppSelector((state) => state.board);
-  const column = useAppSelector((state) => state.column);
   const task = useAppSelector((state) => state.task);
 
   const handleShowInfo = () => {
@@ -50,7 +47,7 @@ export const Task = (props: TaskProps) => {
   };
 
   const handleHideEditModal = () => {
-    console.log(`we are in handleHideEditModal`);
+ 
     setShowEditModal(false);
   };
 
@@ -65,8 +62,7 @@ export const Task = (props: TaskProps) => {
     }
     if (props.boardId && props.columnId && props.id) {
       const updatedTask = await updateTask(props.boardId, props.columnId, props.id, body);
-      console.dir(`updated task is`);
-      console.dir(updatedTask);
+      
     }
     // if (board.id && column.id) {
     //   const response = await getColumn(board.id, column.id);

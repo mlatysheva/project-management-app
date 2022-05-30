@@ -10,8 +10,6 @@ export const userCredentials = {
 	token: localStorage.getItem("userToken"),
 };
 
-console.log(`token is ${userCredentials.token}`);
-
 export const config = {
 	headers: { Authorization: `Bearer ${userCredentials.token}` },
 };

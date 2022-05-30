@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { TextField } from "@mui/material";
 import { AddModalInfo } from '../Modal/Modal';
 
 import {
@@ -10,8 +9,7 @@ import {
 	applyColorName,
 	applyColorPasswordShow,
 } from "../../helpersFunct/inputcolor";
-import instaceApi from "../../services/api";
-import { edit, selectUser, signup } from "../../store/signup/userOptions";
+import { edit, selectUser } from "../../store/signup/userOptions";
 import {
 	deleteUserPermanently,
 	getAllUsers,

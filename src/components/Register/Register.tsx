@@ -1,8 +1,5 @@
 import SignupForm from "./RegisterForm";
 
-function openRegister() {
-	console.log("Have to register");
-}
 
 function Register() {
 	return (

@@ -177,7 +177,6 @@ function Header(localStorage: any) {
 				) : null}
 				{appParameters.isBoardInEdit ? (
 					<>
-						{console.log(appParameters.isBoardInEdit)}
 						<NavLink to={`${baseUrl}/editboard`}>
 							<Typography
 								variant="h6"

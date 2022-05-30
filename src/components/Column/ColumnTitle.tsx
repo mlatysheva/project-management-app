@@ -9,7 +9,7 @@ import { update_column_title } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useTranslation } from "react-i18next";
 import { updateColumn } from "../../services/apiBoardProvider";
-import { fetchColumn, set_column } from "../../store/reducers/columnSlice";
+import { fetchColumn } from "../../store/reducers/columnSlice";
 
 interface ColumnTitleProps {
   columnId: string;
