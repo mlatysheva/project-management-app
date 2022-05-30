@@ -24,6 +24,8 @@ export function TaskTitle(props: TaskTitleProps) {
   const [state, setState] = useState({
 		formOpen: props.formOpen,
     field: props.value,
+    error: false,
+    errorMessage: '',
 	});
 
 	function openForm() {
@@ -45,16 +47,30 @@ export function TaskTitle(props: TaskTitleProps) {
 			...state,
 			field: e.target.value,
 		});
+    if (e.target.value.length === 0) {
+      setState({
+        ...state,
+        field: e.target.value,
+        error: true,
+        errorMessage: 'Field may not be empty',
+      });
+    } else {
+      setState({
+        ...state,
+        field: e.target.value,
+        error: false,
+        errorMessage: '',
+      });
+    }
 	}
 
   async function handleFieldUpdate() {
-    if (props.type === "task_title") {
+    if (props.type === "task_title" && !state.error) {
       dispatch(update_task_title(state.field));
     }
-    if (props.type === "task_description") {
+    if (props.type === "task_description" && !state.error) {
       dispatch(update_task_description(state.field));
-    }
-    
+    }    
     closeForm();
   }
 
@@ -78,6 +94,7 @@ export function TaskTitle(props: TaskTitleProps) {
           defaultValue={state.field}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
+          helperText={state.errorMessage}
           style={{
             resize: "none",
             width: "100%",

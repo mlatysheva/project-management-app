@@ -76,7 +76,7 @@ export function EditField(props: EditFieldProps) {
       title: string;
       description: string;
     };
-    if (props.type === "title") {
+    if (props.type === "title" && !state.error) {
       body = {
         id: board.id,
         title: state.field,
@@ -84,7 +84,7 @@ export function EditField(props: EditFieldProps) {
       }
       dispatch(update_board({...body}));
     }
-    if (props.type === "description") {
+    if (props.type === "description" && !state.error) {
       body = {
         id: board.id,
         title: board.title,

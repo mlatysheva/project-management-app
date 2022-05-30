@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getColumn } from "../../services/apiBoardProvider";
 import { TaskProps } from "./taskSlice";
 
 export interface ColumnProps {
@@ -18,6 +19,22 @@ const initialState: ColumnProps =
     order: columnOrder,
     tasks: [],
   }
+
+interface ColumnParameters {
+  columnId: string,
+  boardId: string,
+}
+export const fetchColumn = createAsyncThunk(
+  'column/fetchColumn',
+  async (body: ColumnParameters, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await getColumn(body.boardId, body.columnId);
+      dispatch(set_column(response));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const columnSlice = createSlice({
   name: 'column',
