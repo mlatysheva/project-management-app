@@ -31,7 +31,6 @@ export function AddTask(props: AddTaskProps) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-	let columnId = props.columnId;
 	let taskId: string;
 
 	function openForm() {

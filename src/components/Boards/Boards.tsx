@@ -45,8 +45,7 @@ export function Boards() {
       if (boards.length === 0 ) {
         boards = [{id: '02', title: 'Your sample board', description: 'Your sample description'}];
       }
-       dispatch(get_allBoards(boards));   
-          
+      dispatch(get_allBoards(boards));          
     }
     fetchData()
       .catch(console.error);
@@ -60,7 +59,7 @@ export function Boards() {
     dispatch(clear_task());
   }  
 
-  async function handleEditBoard(boardId: string, title: string, description: string) {
+  async function handleEditBoard(boardId: string) {
     navigate(`/${baseUrl}/editboard`);
     dispatch(set_editedBoard({isBoardInEdit: true,
       editedBoardId: boardId}
@@ -103,8 +102,9 @@ export function Boards() {
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleShow = () => {
-     setShowModal(true);
+  const handleShow = (id: string) => {
+    dispatch(fetchBoard(id));
+    setShowModal(true);
   };
 
   const handleHide = () => {
@@ -112,10 +112,11 @@ export function Boards() {
   };
 
   function AddModal(props: {showModal: boolean, toHide: boolean, id: string, title: string}) {
+    const board = useAppSelector((state) => state.board);
     document.body.addEventListener('click', (e) => {
       if (e) {
         if ((e.target as HTMLElement).className === 'delete-board' && (e.target as HTMLElement).id === props.id) {
-          handleShow();
+          handleShow(board.id);
         }
       }
     });
@@ -146,7 +147,7 @@ export function Boards() {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  handleDeleteBoard(props.id);
+                  handleDeleteBoard(board.id);
                   handleHide();
                     
                 }}
@@ -158,11 +159,9 @@ export function Boards() {
         </section>
       </div>
       );
-    }
-   
+    }   
   
-  return  renderModal() ;
-  
+  return  renderModal();  
 }
 
 
@@ -180,19 +179,19 @@ export function Boards() {
               {(provided) => (
                 
             <div className= "board" key={board.id}  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-              <h2 onClick={() => handleEditBoard(board.id, board.title, board.description)}>{board.title}</h2>
+              <h2 onClick={() => handleEditBoard(board.id)}>{board.title}</h2>
                 <Card className="card"  sx={{ minWidth: 275 }}>
                   <CardContent>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id, board.title, board.description)}>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => handleEditBoard(board.id)}>
                       {board.description}
                     </Typography>
                   </CardContent>
                   <CardActions className='button-wrapper'>
                     <Tooltip title={t("delete_board")}>
-                      <DeleteIcon  className='delete-board' id={board.id} onClick={() => handleShow()}/>
+                      <DeleteIcon  className='delete-board' id={board.id} onClick={() => handleShow(board.id)}/>
                      </Tooltip>
                     <Tooltip title={t('edit_title')}>
-                      <EditIcon onClick={() => handleEditBoard(board.id, board.title, board.description)}/>
+                      <EditIcon onClick={() => handleEditBoard(board.id)}/>
                     </Tooltip>
                   </CardActions>
                 </Card>
