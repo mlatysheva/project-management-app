@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AddModalInfo } from '../Modal/Modal';
+import { AddModalInfo } from "../Modal/Modal";
 
 import {
 	applyColorLogin,
@@ -19,10 +19,14 @@ import "./edit.css";
 import "../passwordShowHide/passwordField.css";
 import { baseUrl } from "../../App";
 
-function EditForm({ updateToken }: any) {
-	const [name, setName] = useState("");
-	const [login, setLogin] = useState("");
-	const [password, setPassword] = useState("");
+function EditForm({ updateToken }: { updateToken: (a: string) => void }) {
+	const [name, setName] = useState(localStorage.getItem("userName") as string);
+	const [login, setLogin] = useState(
+		localStorage.getItem("userLogin") as string
+	);
+	const [password, setPassword] = useState(
+		localStorage.getItem("userPassword") as string
+	);
 	const [show, setShow] = useState("🙈");
 	const [passwordShown, setPasswordShown] = useState(false);
 	const [showAlert, setShowAlert] = useState(false);
@@ -30,7 +34,7 @@ function EditForm({ updateToken }: any) {
 	const handleAlert = () => {
 		setShowAlert(true);
 	};
-	
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const register = useSelector(selectUser);
@@ -57,8 +61,12 @@ function EditForm({ updateToken }: any) {
 		);
 		//send it to the server
 		if (register.id) {
-			await toServerEdit(register.id, { name, login, password });
+			const result = await toServerEdit(register.id, { name, login, password });
+			//console.log(result);
 		}
+		localStorage.setItem("userName", name);
+		localStorage.setItem("userLogin", login);
+		localStorage.setItem("userPassword", password);
 		//await getAllUsers();
 	};
 
@@ -75,15 +83,15 @@ function EditForm({ updateToken }: any) {
 				name: null,
 			})
 		);
-		const token = localStorage.setItem("userToken", "");
-		updateToken(token);
+		localStorage.setItem("userToken", "");
+		updateToken("");
 		navigate(`/${baseUrl}`);
 		getAllUsers();
 	};
 
 	return (
 		<>
-			<form className="signup__form"  onSubmit={(e) => handleSubmit(e)}>
+			<form className="signup__form" onSubmit={(e) => handleSubmit(e)}>
 				<h1>{t("edit")} 👀:</h1>
 				<input
 					className="signup__input"
@@ -132,7 +140,18 @@ function EditForm({ updateToken }: any) {
 			<button className="delete_user" onClick={handleAlert}>
 				{t("deleteBtn")}
 			</button>
-			{showAlert? <AddModalInfo showInfo={showAlert} toHide={true} id={' '} title = {t('alert_delete_user')} function= {() => {deleteUserById()}} style={{display:'block'}} />: null}
+			{showAlert ? (
+				<AddModalInfo
+					showInfo={showAlert}
+					toHide={true}
+					id={" "}
+					title={t("alert_delete_user")}
+					function={() => {
+						deleteUserById();
+					}}
+					style={{ display: "block" }}
+				/>
+			) : null}
 		</>
 	);
 }
