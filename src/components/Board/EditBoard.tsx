@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { add_column_to_board, clear_board, ColumnProps, set_board, update_board } from '../../store/reducers/boardSlice';
+import { clear_board, ColumnProps, set_board, update_board } from '../../store/reducers/boardSlice';
 import{ update_column } from '../../store/reducers/columnSlice';
 import { EditField } from './EditField';
 import { deleteBoard, getBoard, updateBoard } from '../../services/apiBoardProvider';
