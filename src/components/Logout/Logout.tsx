@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -5,13 +6,13 @@ import { baseUrl } from "../../App";
 import { logout } from "../../store/signup/userOptions";
 import "./logout.css";
 
-function Logout({ updateToken }: any) {
+function Logout({ updateToken }:any) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	
 	const { t } = useTranslation();
 
-	const handleLogout = (e: any) => {
+	const handleLogout = (e: MouseEvent) => {
 		e.preventDefault();
 		dispatch(logout());
 		navigate(`/${baseUrl}`);
@@ -39,7 +40,7 @@ function Logout({ updateToken }: any) {
 				<button
 					className="logout__btn"
 					id="logout"
-					onClick={(e) => handleLogout(e)}
+					onClick={handleLogout}
 				>
 					{t("logout_btn")}
 				</button>

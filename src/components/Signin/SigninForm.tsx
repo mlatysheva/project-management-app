@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
 	applyColorLogin,
 	applyColorPassword,
 } from "../../helpersFunct/inputcolor";
-import { signin } from "../../store/signup/userOptions";
+import { selectUser, signin } from "../../store/signup/userOptions";
 import { useTranslation } from "react-i18next";
 
 import "./signin.css";
@@ -21,7 +21,7 @@ let disableBtnInSignin = true;
 function SigninForm({ updateToken }: any) {
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
-	
+	const register = useSelector(selectUser);
 
 	const isDisabledSignin = () => {
 		const loginPut = (
