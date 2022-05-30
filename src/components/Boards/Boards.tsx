@@ -1,7 +1,7 @@
-import { delete_board, get_allBoards, drag_and_drop } from '../../store/reducers/boardsSlice';
-import { BoardProps, clear_board, fetchBoard, set_board } from '../../store/reducers/boardSlice';
+import { delete_board, get_allBoards } from '../../store/reducers/boardsSlice';
+import { BoardProps, fetchBoard } from '../../store/reducers/boardSlice';
 import AddBoard from '../Board/AddBoard';
-import { deleteBoard, getAllBoards, getColumns } from '../../services/apiBoardProvider';
+import { deleteBoard, getAllBoards } from '../../services/apiBoardProvider';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Card from '@mui/material/Card';
@@ -72,10 +72,8 @@ export function Boards() {
  
     function reorder(boards: BoardProps[], index: number, newIndex: number) {
       const newBoards = [...boards];
-      console.log(boards);
       const [removed] = newBoards.splice(index, 1);
       newBoards.splice(newIndex, 0, removed);
-      console.log(index, removed, newBoards);
       localStorage.setItem('boards', JSON.stringify(newBoards));
       return newBoards;
     }

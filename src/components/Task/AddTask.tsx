@@ -55,8 +55,7 @@ export function AddTask(props: AddTaskProps) {
       description: task.description,
       userId: task.userId,
     }
-    console.log(`in handleAdd Task body is`);
-    console.dir(body);
+    
     if (column.id) {
       const apiTask = await createTask(board.id, column.id, body);
 			taskId = apiTask.id;

@@ -37,8 +37,7 @@ export const appSlice = createSlice({
       return newState;
     },
     set_createdBoard: (state: AppProps = initialState, action) => {
-      console.dir(action);
-      const newState = {
+       const newState = {
         ...state,
         isBoardInCreate: action.payload.isBoardInCreate,
         createdBoardId: action.payload.createdBoardId,

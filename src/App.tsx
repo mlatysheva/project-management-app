@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Boards } from "./components/Boards/Boards";
 import ErrorPage from "./components/ErrorPage";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { useAppSelector } from "./store/hooks";
 import Footer from "./components/Footer";
 import CreateBoard from "./components/Board/CreateBoard";
 import Header from "./components/Header/Header";
@@ -33,17 +32,16 @@ function useLocalStorage(key: string, initialState: string) {
 	return [value, updatedSetValue];
 }
 
-//localStorage.removeItem("userToken");
+
 
 function App() {
 	let [localStorage, setToken] = useLocalStorage("userToken", "");
-	const boardId = useAppSelector((state) => state.board.id);
+
 	return (
 		<div className="App">
 			<ErrorBoundary>
 				<Router>
-					{/*localStorage.getItem("userToken") ? <HeaderIfSignin /> : <Header />}
-					<HeaderIfSignin />*/}
+				
 					<Header token={localStorage} />
 					<Routes>
 						<Route path={`/${baseUrl}`} element={<Home />} />
