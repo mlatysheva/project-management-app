@@ -21,13 +21,7 @@ export function EditField(props: EditFieldProps) {
   const board = useAppSelector((state) => state.board);
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
-  const boardId = board.id;
-  let value: string;
-  if (props.type === "title") {
-    value = board.title;
-  } else {
-    value = board.description;
-  }
+  const value = props.field;
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,

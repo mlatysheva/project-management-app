@@ -4,8 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { set_task, TaskProps } from '../../store/reducers/taskSlice';
-import { deleteTask, getBoard, getTask } from '../../services/apiBoardProvider';
+import { set_task, TaskProps, update_task_title } from '../../store/reducers/taskSlice';
+import { deleteTask, getBoard, getColumn, getTask, updateTask } from '../../services/apiBoardProvider';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { set_board } from '../../store/reducers/boardSlice';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditField from '../Board/EditField';
 import Button from '@mui/material/Button';
 import { set_column } from '../../store/reducers/columnSlice';
+import { takeCoverage } from 'v8';
 
 
 export const Task = (props: TaskProps) => {
@@ -33,10 +34,19 @@ export const Task = (props: TaskProps) => {
   const [showEditModal, setShowEditModal] = useState(false);
 
   const handleShowEditModal = async () => {
+    let apiTask;
+    let apiColumn;
     if (props.boardId && props.columnId && props.id) {
-      const apiTask = await getTask(props.boardId, props.columnId, props.id);
-    }    
-    // dispatch(set_task())
+      apiTask = await getTask(props.boardId, props.columnId, props.id);
+      console.dir(apiTask);
+      apiColumn = await getColumn(props.boardId, props.columnId);
+    }
+    dispatch(set_column({id: apiColumn.id, title: apiColumn.title, order: apiColumn.order}));
+    dispatch(set_task({id: apiTask.id,
+      title: apiTask.title,
+      description: apiTask.description,
+      order: apiTask.order,
+      }));
     setShowEditModal(true);
   };
 
@@ -44,23 +54,27 @@ export const Task = (props: TaskProps) => {
     setShowEditModal(false);
   };
 
-  const handleUpdateTask = () => {
+  const handleUpdateTask = async () => {
     const body = {
-      title: "Task: pet the cat",
-      order: 1,
-      description: "Domestic cat needs to be stroked gently",
-      userId: localStorage.getItem("userID"),
+      title: task.title,
+      order: task.order,
+      description: task.description,
+      userId: task.userId,
       boardId: props.boardId,
       columnId: props.columnId,
+    }
+    if (props.boardId && props.columnId && props.id) {
+      const updatedTask = await updateTask(props.boardId, props.columnId, props.id, body);
+      console.dir(updatedTask);
     }
   }
 
   function AddEditModal(props: {showModal: boolean, toHide: boolean, columnId: string, taskId: string}) {
    
-    handleShowEditModal();
+    setShowEditModal(true);
     
     function renderModal(): JSX.Element | null {
-      console.log(`we are in renderModal`);
+      console.log(`we are in renderModal, task title is ${task.title}, task description is ${task.description}`);
       return (
         <div className="modal" >
           <section className="modal-main">
