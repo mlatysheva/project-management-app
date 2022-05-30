@@ -25,7 +25,6 @@ export const Task = (props: TaskProps) => {
   const board = useAppSelector((state) => state.board);
   const column = useAppSelector((state) => state.column);
   const task = useAppSelector((state) => state.task);
-  console.log(`task title is ${task.title}, task descriptio is ${task.description}`);
 
   const handleShowInfo = () => {
     setShowInfo(true);
@@ -38,7 +37,6 @@ export const Task = (props: TaskProps) => {
     let apiColumn;
     if (props.boardId && props.columnId && props.id) {
       apiTask = await getTask(props.boardId, props.columnId, props.id);
-      console.dir(apiTask);
       apiColumn = await getColumn(props.boardId, props.columnId);
     }
     dispatch(set_column({id: apiColumn.id, title: apiColumn.title, order: apiColumn.order}));
@@ -46,6 +44,7 @@ export const Task = (props: TaskProps) => {
       title: apiTask.title,
       description: apiTask.description,
       order: apiTask.order,
+      userId: apiTask.userId,
       }));
     setShowEditModal(true);
   };
@@ -59,14 +58,14 @@ export const Task = (props: TaskProps) => {
       title: task.title,
       order: task.order,
       description: task.description,
-      userId: task.userId,
+      userId: localStorage.getItem("userID") || '',
       boardId: props.boardId,
       columnId: props.columnId,
     }
     if (props.boardId && props.columnId && props.id) {
       const updatedTask = await updateTask(props.boardId, props.columnId, props.id, body);
-      console.dir(updatedTask);
     }
+    setShowEditModal(false);
   }
 
   function AddEditModal(props: {showModal: boolean, toHide: boolean, columnId: string, taskId: string}) {
@@ -74,7 +73,6 @@ export const Task = (props: TaskProps) => {
     setShowEditModal(true);
     
     function renderModal(): JSX.Element | null {
-      console.log(`we are in renderModal, task title is ${task.title}, task description is ${task.description}`);
       return (
         <div className="modal" >
           <section className="modal-main">
@@ -91,13 +89,13 @@ export const Task = (props: TaskProps) => {
             </button>
             <div className="main-container">
               <div className="add-section">
-                <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={task.title} category="create" />
-                <EditField formOpen={true} placeholder={t('placeholder_description')} type="description" field={task.description} category="create" />
+                <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={task.title} category="task" />
+                <EditField formOpen={true} placeholder={t('placeholder_description')} type="description" field={task.description} category="task" />
               </div>
             </div>
             <div className="save-cancel-section">
               <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleHideEditModal}>{t('cancel')}</Button>
-              <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={() => console.log('The task will be saved')}>{t('save')}</Button>
+              <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleUpdateTask}>{t('save')}</Button>
             </div>
           </section>
         </div>
