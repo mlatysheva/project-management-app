@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { set_task, TaskProps, update_task_title } from '../../store/reducers/taskSlice';
+import { set_task, TaskProps } from '../../store/reducers/taskSlice';
 import { deleteTask, getBoard, getColumn, getTask, updateTask } from '../../services/apiBoardProvider';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { set_board } from '../../store/reducers/boardSlice';
@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import { AddModalInfo } from '../Modal/Modal';
 import { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import EditField from '../Board/EditField';
 import Button from '@mui/material/Button';
 import { set_column } from '../../store/reducers/columnSlice';
 import { takeCoverage } from 'v8';
@@ -69,15 +68,24 @@ export const Task = (props: TaskProps) => {
       console.dir(`updated task is`);
       console.dir(updatedTask);
     }
-    if (board.id && column.id) {
-      const response = await getColumn(board.id, column.id);
-      dispatch(set_column({
-        id: response.id,
-        title: response.title,
-        order: response.order,
-        tasks: response.tasks,
-      }));	
-    }   
+    // if (board.id && column.id) {
+    //   const response = await getColumn(board.id, column.id);
+    //   dispatch(set_column({
+    //     id: response.id,
+    //     title: response.title,
+    //     order: response.order,
+    //     tasks: response.tasks,
+    //   }));	
+    // }
+    if (props.boardId) {
+      const updateBoard = await getBoard(props.boardId);
+      dispatch(set_board({
+        id: updateBoard.id,
+        title: updateBoard.title,
+        description: updateBoard.description,
+        columns: updateBoard.columns,
+      }));
+    }    
     setShowEditModal(false);
   }
 
