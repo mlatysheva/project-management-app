@@ -29,16 +29,14 @@ export const Column = (props: ColumnProps) => {
   const [showInfo, setShowInfo] = useState(false);
 
   const handleShowInfo = (columnId: string) => {
-      setShowInfo(true);
-      }
-    
+    setShowInfo(true);
+  }    
 
   function handleDeleteColumn(columnId: string) {
     handleShowInfo(columnId); 
     deleteColumn(boardId, columnId);
     dispatch(delete_column_from_board(columnId));
-  }
-  
+  }  
 
   return (
     <div className="column-wrapper">

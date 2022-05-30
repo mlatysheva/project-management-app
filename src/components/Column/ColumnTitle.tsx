@@ -9,6 +9,7 @@ import { update_column_title } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useTranslation } from "react-i18next";
 import { updateColumn } from "../../services/apiBoardProvider";
+import { fetchColumn, set_column } from "../../store/reducers/columnSlice";
 
 interface ColumnTitleProps {
   columnId: string;
@@ -32,6 +33,11 @@ export function ColumnTitle(props: ColumnTitleProps) {
 	});
 
 	function openForm() {
+    const body = {
+      boardId: board.id,
+      columnId: props.columnId,
+    }
+    dispatch(fetchColumn(body));
 		setState({
 			...state,
 			formOpen: true,
@@ -77,7 +83,7 @@ export function ColumnTitle(props: ColumnTitleProps) {
 	function renderField() {
 		return (
       <React.Fragment>
-        <h2 style={{ textAlign: "left" }}>{props.value}</h2>
+        <h2 style={{ textAlign: "left" }}>{state.field}</h2>
         <Tooltip title={t("enter_new_title")}>
           <EditIcon onClick={openForm}/>
         </Tooltip>
