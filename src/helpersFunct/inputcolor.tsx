@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 
-export function applyColorLogin(e: any) {
-	let text = e.target.value;
+export function applyColorLogin(e: FormEvent<HTMLFormElement | HTMLInputElement>) {
+	let text = (e.target as HTMLInputElement).value;
 	let isGreen = new RegExp(/[A-Za-zА-Яа-я0-9]{4}/g);
 	if (isGreen.test(text)) {
 		(e.target as HTMLInputElement).className = "signup__input green";
