@@ -1,4 +1,5 @@
 import { StringMap } from "i18next";
+import { KeyboardEventHandler, SyntheticEvent } from "react";
 
 export function applyColorLogin(e: any) {
 	let text = e.target.value;
@@ -36,7 +37,7 @@ export function applyColorPasswordShow(e: any) {
 	}
 }
 
-export function applyColorName(e: { target: { value: string; className: string; }; }) {
+export function applyColorName(e: any) {
 	let text = e.target.value;
 	let isGreen = new RegExp(/[A-Za-zА-Яа-я]{2}/g);
 	if (isGreen.test(text)) {
