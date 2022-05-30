@@ -89,7 +89,6 @@ export default function CreateBoard() {
         isBoardSaved: true,
       });
     } else {
-      //alert(`Please fill in the required fields of title and description`);
       handleAlert();
      
     }
