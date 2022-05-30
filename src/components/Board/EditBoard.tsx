@@ -185,8 +185,8 @@ function handleOnDragEnd(result: DropResult) {
     <div className="main" id="modal-root">
       <h1 className="page-title">{t('edit_title')}</h1>
       <div className="add-section">
-        <EditField placeholder="Enter new title" type="title" field={board.title} category="edit"/>
-        <EditField placeholder="Enter new description" type="description" field={board.description} category="edit"/>
+        <EditField placeholder="Enter new title" type="title" field={board.title} category="board"/>
+        <EditField placeholder="Enter new description" type="description" field={board.description} category="board"/>
       </div>
 
  <DragDropContext onDragEnd={handleOnDragEnd}>

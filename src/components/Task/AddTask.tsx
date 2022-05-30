@@ -9,7 +9,7 @@ import TaskTitle from "./TaskTitle";
 import { set_column } from "../../store/reducers/columnSlice";
 import { useAppSelector } from "../../store/hooks";
 import { createTask, getColumn } from "../../services/apiBoardProvider";
-import { TaskProps, update_task_id} from "../../store/reducers/taskSlice";
+import { clear_task, TaskProps, update_task_id} from "../../store/reducers/taskSlice";
 
 interface AddTaskProps {
 	columnId: string,
@@ -36,6 +36,7 @@ export function AddTask(props: AddTaskProps) {
 
 	function openForm() {
     dispatch(set_column({id: props.columnId, title: props.columnTitle}));
+    dispatch(clear_task());
 		setState({
 			...state,
 			formOpen: true,
@@ -55,11 +56,13 @@ export function AddTask(props: AddTaskProps) {
       description: task.description,
       userId: task.userId,
     }
+    console.log(`in handleAdd Task body is`);
+    console.dir(body);
     if (column.id) {
       const apiTask = await createTask(board.id, column.id, body);
 			taskId = apiTask.id;
 			dispatch(update_task_id(taskId));
-			const response = await getColumn(board.id, columnId);
+			const response = await getColumn(board.id, column.id);
       dispatch(set_column({
         id: response.id,
         title: response.title,

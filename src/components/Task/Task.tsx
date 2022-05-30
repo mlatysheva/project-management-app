@@ -4,17 +4,19 @@ import CardContent from '@mui/material/CardContent';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { set_task, TaskProps } from '../../store/reducers/taskSlice';
-import { deleteTask, getBoard, getTask } from '../../services/apiBoardProvider';
+import { set_task, TaskProps, update_task_title } from '../../store/reducers/taskSlice';
+import { deleteTask, getBoard, getColumn, getTask, updateTask } from '../../services/apiBoardProvider';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { set_board } from '../../store/reducers/boardSlice';
 import { useTranslation } from 'react-i18next';
 import { AddModalInfo } from '../Modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import EditField from '../Board/EditField';
 import Button from '@mui/material/Button';
 import { set_column } from '../../store/reducers/columnSlice';
+import { takeCoverage } from 'v8';
+import TaskTitle from './TaskTitle';
 
 
 export const Task = (props: TaskProps) => {
@@ -24,7 +26,6 @@ export const Task = (props: TaskProps) => {
   const board = useAppSelector((state) => state.board);
   const column = useAppSelector((state) => state.column);
   const task = useAppSelector((state) => state.task);
-  console.log(`task title is ${task.title}, task descriptio is ${task.description}`);
 
   const handleShowInfo = () => {
     setShowInfo(true);
@@ -33,34 +34,59 @@ export const Task = (props: TaskProps) => {
   const [showEditModal, setShowEditModal] = useState(false);
 
   const handleShowEditModal = async () => {
-    if (props.boardId && props.columnId && props.id) {
-      const apiTask = await getTask(props.boardId, props.columnId, props.id);
-    }    
-    // dispatch(set_task())
     setShowEditModal(true);
+    let apiTask;
+    let apiColumn;
+    if (props.boardId && props.columnId && props.id) {
+      apiTask = await getTask(props.boardId, props.columnId, props.id);
+      apiColumn = await getColumn(props.boardId, props.columnId);
+    }
+    dispatch(set_column({id: apiColumn.id, title: apiColumn.title, order: apiColumn.order}));
+    dispatch(set_task({id: apiTask.id,
+      title: apiTask.title,
+      description: apiTask.description,
+      order: apiTask.order,
+      userId: apiTask.userId,
+      }));    
   };
 
   const handleHideEditModal = () => {
+    console.log(`we are in handleHideEditModal`);
     setShowEditModal(false);
   };
 
-  const handleUpdateTask = () => {
+  const handleUpdateTask = async () => {
     const body = {
-      title: "Task: pet the cat",
-      order: 1,
-      description: "Domestic cat needs to be stroked gently",
-      userId: localStorage.getItem("userID"),
+      title: task.title,
+      order: task.order,
+      description: task.description,
+      userId: localStorage.getItem("userID") || '',
       boardId: props.boardId,
       columnId: props.columnId,
     }
+    if (props.boardId && props.columnId && props.id) {
+      const updatedTask = await updateTask(props.boardId, props.columnId, props.id, body);
+      console.dir(`updated task is`);
+      console.dir(updatedTask);
+    }
+    if (board.id && column.id) {
+      const response = await getColumn(board.id, column.id);
+      dispatch(set_column({
+        id: response.id,
+        title: response.title,
+        order: response.order,
+        tasks: response.tasks,
+      }));	
+    }   
+    setShowEditModal(false);
   }
 
   function AddEditModal(props: {showModal: boolean, toHide: boolean, columnId: string, taskId: string}) {
-   
-    handleShowEditModal();
+    useEffect(() => {
+      setShowEditModal(true);
+    }, []);
     
     function renderModal(): JSX.Element | null {
-      console.log(`we are in renderModal`);
       return (
         <div className="modal" >
           <section className="modal-main">
@@ -77,13 +103,13 @@ export const Task = (props: TaskProps) => {
             </button>
             <div className="main-container">
               <div className="add-section">
-                <EditField formOpen={true} placeholder={t('placeholder_title')} type="title" field={task.title} category="create" />
-                <EditField formOpen={true} placeholder={t('placeholder_description')} type="description" field={task.description} category="create" />
+                <TaskTitle formOpen={false} placeholder={t('placeholder_title')} type='task_title' value={task.title} />
+                <TaskTitle formOpen={false} placeholder={t('placeholder_description')} type='task_description' value={task.description} />
               </div>
             </div>
             <div className="save-cancel-section">
               <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleHideEditModal}>{t('cancel')}</Button>
-              <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={() => console.log('The task will be saved')}>{t('save')}</Button>
+              <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleUpdateTask}>{t('save')}</Button>
             </div>
           </section>
         </div>

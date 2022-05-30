@@ -19,6 +19,8 @@ import { DragDropContext, Droppable, Draggable, DropResult} from 'react-beautifu
 import './Board.scss';
 import { baseUrl } from '../../App';
 import { remove_editedBoard, set_editedBoard } from '../../store/reducers/appSlice';
+import { clear_column } from '../../store/reducers/columnSlice';
+import { clear_task } from '../../store/reducers/taskSlice';
 
 type TitleProps = {
   title: string;
@@ -53,13 +55,18 @@ export function Boards() {
   async function handleDeleteBoard(boardId: string) {
     dispatch(delete_board(boardId));
     dispatch(remove_editedBoard());
-    await deleteBoard(boardId);   
+    await deleteBoard(boardId);
+    dispatch(clear_column());
+    dispatch(clear_task());
   }  
 
   async function handleEditBoard(boardId: string, title: string, description: string) {
     navigate(`/${baseUrl}/editboard`);
     dispatch(set_editedBoard({isBoardInEdit: true,
-      editedBoardId: boardId}));
+      editedBoardId: boardId}
+    ));
+    dispatch(clear_column());
+    dispatch(clear_task());
   }
 
   //drag-and-drop  
