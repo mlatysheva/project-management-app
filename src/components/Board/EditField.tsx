@@ -5,11 +5,9 @@ import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
-import { add_column_to_board, set_board, update_board } from "../../store/reducers/boardSlice";
+import { update_board } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useTranslation } from "react-i18next";
-import { getBoard, updateTask } from "../../services/apiBoardProvider";
-import { set_task, TaskProps } from "../../store/reducers/taskSlice";
 
 interface EditFieldProps {
   formOpen?: boolean;
@@ -21,8 +19,6 @@ interface EditFieldProps {
 
 export function EditField(props: EditFieldProps) {
   const board = useAppSelector((state) => state.board);
-  const column = useAppSelector((state) => state.column);
-  const task = useAppSelector((state) => state.task);
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
   const value = props.field;

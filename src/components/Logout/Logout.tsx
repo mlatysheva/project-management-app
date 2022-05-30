@@ -1,16 +1,14 @@
-import { t } from "i18next";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../App";
-import { logout, selectUser } from "../../store/signup/userOptions";
+import { logout } from "../../store/signup/userOptions";
 import "./logout.css";
 
 function Logout({ updateToken }: any) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const register = useSelector(selectUser);
+	
 	const { t } = useTranslation();
 
 	const handleLogout = (e: any) => {

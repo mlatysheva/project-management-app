@@ -46,8 +46,6 @@ export default function SelectLanguage() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
               >
-        {/* <MenuItem onClick={handleClose}>English</MenuItem>
-        <MenuItem onClick={handleClose}>Russian</MenuItem> */}
         {Object.keys(lngs).map((lng: string) => (
             <MenuItem key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} href='#' type="submit" onClick={() => {
               i18n.changeLanguage(lng);

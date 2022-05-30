@@ -1,6 +1,5 @@
 import { BoardProps } from './boardSlice';
 import { createSlice } from '@reduxjs/toolkit';
-import { DropResult, ResponderProvided } from 'react-beautiful-dnd';
 
 export interface AllBoardsProps {
   boards: BoardProps[];

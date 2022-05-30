@@ -1,7 +1,6 @@
 import AddColumn from '../Column/AddColumn';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Button} from "@mui/material";
-import { useDispatch } from 'react-redux';
 import { clear_board, ColumnProps, set_board, update_board } from '../../store/reducers/boardSlice';
 import EditField from './EditField';
 import { createBoard, deleteBoard, getBoard, updateBoard } from '../../services/apiBoardProvider';

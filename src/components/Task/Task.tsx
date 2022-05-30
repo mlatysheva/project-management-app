@@ -14,7 +14,6 @@ import { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import { set_column } from '../../store/reducers/columnSlice';
-import { takeCoverage } from 'v8';
 import TaskTitle from './TaskTitle';
 
 
@@ -48,7 +47,7 @@ export const Task = (props: TaskProps) => {
   };
 
   const handleHideEditModal = () => {
-    console.log(`we are in handleHideEditModal`);
+ 
     setShowEditModal(false);
   };
 
@@ -63,8 +62,7 @@ export const Task = (props: TaskProps) => {
     }
     if (props.boardId && props.columnId && props.id) {
       const updatedTask = await updateTask(props.boardId, props.columnId, props.id, body);
-      console.dir(`updated task is`);
-      console.dir(updatedTask);
+      
     }
     if (props.boardId) {
       const updateBoard = await getBoard(props.boardId);
