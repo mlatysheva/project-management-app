@@ -47,7 +47,7 @@ export const columnSlice = createSlice({
     clear_column: () => {
       return initialState;
     },
-    add_task_to_column: (state: ColumnProps, action: { payload: any; }) => {
+    add_task_to_column: (state: ColumnProps, action: { payload: TaskProps }) => {
       if (state.tasks === undefined) {
         state.tasks = [];
       }

@@ -23,25 +23,25 @@ export const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    set_task: (state: TaskProps, action: { payload: any; }) =>{
+    set_task: (state: TaskProps, action: { payload: TaskProps; }) =>{
       return action.payload;
     },
     clear_task: () => {
       return initialState;
     },
-    update_task_title: (state: TaskProps, action: { payload: any; }) => {
+    update_task_title: (state: TaskProps, action: { payload: string; }) => {
       return {
         ...state,
         title: action.payload,
       }
     },
-    update_task_description: (state: TaskProps, action: { payload: any; }) => {
+    update_task_description: (state: TaskProps, action: { payload: string; }) => {
       return {
         ...state,
         description: action.payload,
       }
     },
-    update_task_id: (state: TaskProps, action: { payload: any; }) => {
+    update_task_id: (state: TaskProps, action: { payload: string; }) => {
       return {
         ...state,
         id: action.payload,
