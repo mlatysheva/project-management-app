@@ -27,10 +27,12 @@ export default function CreateBoard() {
 
   const [showInfo, setShowInfo] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleHide = () => {
     setShowInfo(false);
     setShowModal(false);
+    setShowAlert(false);
     };
   const handleShow = () => {
     setShowModal(true);
@@ -38,6 +40,9 @@ export default function CreateBoard() {
 
     const handleShowInfo = () => {
       setShowInfo(true);
+    };
+    const handleAlert = () => {
+      setShowAlert(true);
     };
 
   
@@ -84,7 +89,8 @@ export default function CreateBoard() {
         isBoardSaved: true,
       });
     } else {
-      alert(`Please fill in the required fields of title and description`);
+      handleAlert();
+     
     }
     if (state.isBoardSaved) {
       
@@ -117,6 +123,7 @@ export default function CreateBoard() {
         <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleShowInfo}>{t('save')}</Button>
         {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {t("board_will_be_saved").concat(" ", board.title)} function= {() => {handleBoardSave()}} style={{display:'block'}} />: null}
         {showModal? <AddModalInfo showInfo={showModal} toHide={true} id={board.id} title = {t("board_will_not_be_saved").concat(" ", board.title)} function= {() => {handleDeleteBoard()}} style={{display:'block'}} />: null}
+        {showAlert? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {t('alert')} function= {() => {handleHide()}} style={{display:'block'}} />: null}
       </div>
     </div>
   )

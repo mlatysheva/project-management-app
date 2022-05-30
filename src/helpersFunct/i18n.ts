@@ -100,6 +100,8 @@ i18n
 					board_will_not_be_saved: "The board will not be saved",
 					enter_title: "Enter title",
 					confirm: "Confirm",
+					edit_task: "Edit task",
+					alert:'Please fill in the required fields of title and description',
 				},
 			},
 			ru: {
@@ -188,6 +190,8 @@ i18n
 					board_will_not_be_saved: "Доска не будет сохранена",
 					enter_title: "Введите название",
 					confirm: "Подтвердить",
+					edit_task: "Редактировать задачу",
+					alert: "Пожалуйста, заполните необходимые поля: название и описание",
 				},
 			},
 		},
