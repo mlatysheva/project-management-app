@@ -62,7 +62,7 @@ function EditForm({ updateToken }: { updateToken: (a: string) => void }) {
 		//send it to the server
 		if (register.id) {
 			const result = await toServerEdit(register.id, { name, login, password });
-			console.log(result);
+			//console.log(result);
 		}
 		localStorage.setItem("userName", name);
 		localStorage.setItem("userLogin", login);
