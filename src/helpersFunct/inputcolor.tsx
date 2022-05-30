@@ -1,3 +1,5 @@
+import { StringMap } from "i18next";
+
 export function applyColorLogin(e: any) {
 	let text = e.target.value;
 	let isGreen = new RegExp(/[A-Za-zА-Яа-я0-9]{4}/g);
@@ -34,7 +36,7 @@ export function applyColorPasswordShow(e: any) {
 	}
 }
 
-export function applyColorName(e: any) {
+export function applyColorName(e: { target: { value: string; className: string; }; }) {
 	let text = e.target.value;
 	let isGreen = new RegExp(/[A-Za-zА-Яа-я]{2}/g);
 	if (isGreen.test(text)) {

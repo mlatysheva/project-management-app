@@ -55,7 +55,7 @@ export const boardSlice = createSlice({
       }
       return updatedBoard;
     },
-    add_column_to_board: (state: BoardProps, action: { payload: any; }) => {
+    add_column_to_board: (state: BoardProps, action: { payload: ColumnProps; }) => {
       if (state.columns === undefined) {
         state.columns = [];
       }
@@ -65,7 +65,7 @@ export const boardSlice = createSlice({
       }
       return updatedBoard;
     },
-    delete_column_from_board: (state: BoardProps, action: { payload: any; }) => {
+    delete_column_from_board: (state: BoardProps, action: { payload: string; }) => {
       const columnId = action.payload;
       if (state.columns === undefined) {
         return state

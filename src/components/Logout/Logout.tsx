@@ -1,3 +1,4 @@
+import { SyntheticEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -5,13 +6,13 @@ import { baseUrl } from "../../App";
 import { logout } from "../../store/signup/userOptions";
 import "./logout.css";
 
-function Logout({ updateToken }: any) {
+function Logout({ updateToken }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	
 	const { t } = useTranslation();
 
-	const handleLogout = (e: any) => {
+	const handleLogout = (e: SyntheticEvent) => {
 		e.preventDefault();
 		dispatch(logout());
 		navigate(`/${baseUrl}`);
