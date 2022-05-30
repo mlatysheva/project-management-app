@@ -45,7 +45,7 @@ export const { signup, signin, logout, edit } = registerSlice.actions;
 export const selectUser = (state: {
 	register: { register: registerProps };
 }) => {
-	console.log(`state = ${JSON.stringify(state)}`);
+	//console.log(`state = ${JSON.stringify(state)}`);
 	return state.register.register;
 };
 
