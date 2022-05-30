@@ -5,29 +5,27 @@ import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
-import { update_board } from "../../store/reducers/boardSlice";
+import { add_column_to_board, set_board, update_board } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useTranslation } from "react-i18next";
+import { getBoard, updateTask } from "../../services/apiBoardProvider";
+import { set_task, TaskProps } from "../../store/reducers/taskSlice";
 
 interface EditFieldProps {
   formOpen?: boolean;
   placeholder: string; // Enter new title
   type: string; // Title
 	field: string; // Title value
-  category?: string; // create or edit
+  category?: string; // board, column or task
 }
 
 export function EditField(props: EditFieldProps) {
   const board = useAppSelector((state) => state.board);
+  const column = useAppSelector((state) => state.column);
+  const task = useAppSelector((state) => state.task);
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
-  const boardId = board.id;
-  let value: string;
-  if (props.type === "title") {
-    value = board.title;
-  } else {
-    value = board.description;
-  }
+  const value = props.field;
 
   const [state, setState] = useState({
 		formOpen: props.formOpen || false,
@@ -79,7 +77,7 @@ export function EditField(props: EditFieldProps) {
       description: string;
     };
     if (props.type === "title") {
-        body = {
+      body = {
         id: board.id,
         title: state.field,
         description: board.description,

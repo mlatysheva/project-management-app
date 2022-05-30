@@ -50,9 +50,11 @@ export function TaskTitle(props: TaskTitleProps) {
   async function handleFieldUpdate() {
     if (props.type === "task_title") {
       dispatch(update_task_title(state.field));
-    } else if (props.type === "task_description") {
+    }
+    if (props.type === "task_description") {
       dispatch(update_task_description(state.field));
     }
+    
     closeForm();
   }
 
@@ -86,7 +88,7 @@ export function TaskTitle(props: TaskTitleProps) {
             marginBottom: 10,
           }}
         />
-        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={closeForm}>close</Icon>
+        <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={() => handleFieldUpdate()}>close</Icon>
 			</React.Fragment>
 		);
 	}
