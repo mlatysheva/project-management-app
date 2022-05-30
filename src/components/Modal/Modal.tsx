@@ -7,10 +7,14 @@ import {useTranslation} from "react-i18next";
 export function AddModalInfo(props: {showInfo: boolean, toHide: boolean, title: string, id: string, style: CSSProperties | undefined, function: () => void}, ) {
   
   const [showInfo, setShowInfo] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const {t}=useTranslation();
    
   const handleHide = () => {
     showInfo ? setShowInfo(false) : setShowInfo(true);
+    showModal ? setShowModal(false) : setShowModal(true);
+    showAlert ? setShowAlert(false) : setShowAlert(true);
      
   };
 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
+import { AddModalInfo } from '../Modal/Modal';
 
 import {
 	applyColorLogin,
@@ -26,7 +27,12 @@ function EditForm({ updateToken }: any) {
 	const [password, setPassword] = useState("");
 	const [show, setShow] = useState("🙈");
 	const [passwordShown, setPasswordShown] = useState(false);
+	const [showAlert, setShowAlert] = useState(false);
 
+	const handleAlert = () => {
+		setShowAlert(true);
+	};
+	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const register = useSelector(selectUser);
@@ -59,7 +65,6 @@ function EditForm({ updateToken }: any) {
 	};
 
 	const deleteUserById = async () => {
-		alert(t("alert_delete_user"));
 		if (register.id) {
 			deleteUserPermanently(register.id);
 		}
@@ -80,7 +85,7 @@ function EditForm({ updateToken }: any) {
 
 	return (
 		<>
-			<form className="signup__form" onSubmit={(e) => handleSubmit(e)}>
+			<form className="signup__form"  onSubmit={(e) => handleSubmit(e)}>
 				<h1>{t("edit")} 👀:</h1>
 				<input
 					className="signup__input"
@@ -126,9 +131,10 @@ function EditForm({ updateToken }: any) {
 					{t("editBtn")}
 				</button>
 			</form>
-			<button className="delete_user" onClick={deleteUserById}>
+			<button className="delete_user" onClick={handleAlert}>
 				{t("deleteBtn")}
 			</button>
+			{showAlert? <AddModalInfo showInfo={showAlert} toHide={true} id={' '} title = {t('alert_delete_user')} function= {() => {deleteUserById()}} style={{display:'block'}} />: null}
 		</>
 	);
 }
