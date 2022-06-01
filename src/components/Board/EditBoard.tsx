@@ -178,7 +178,7 @@ function handleOnDragEnd(result: DropResult) {
       order: result.destination.index,
       
     }));
-}
+  }
 }
 
   return (
@@ -200,11 +200,11 @@ function handleOnDragEnd(result: DropResult) {
           {(provided) => (
         <div  {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
         <Column 
-        key={column.id} 
-        id={column.id} 
-        title={column.title} 
-        order={column.order} 
-        tasks={column.tasks || []} 
+          key={column.id} 
+          id={column.id} 
+          title={column.title} 
+          order={column.order} 
+          tasks={column.tasks || []} 
          />
         </div>
         )}

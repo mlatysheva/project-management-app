@@ -158,6 +158,7 @@ export function AddBoard(props: {formOpen: boolean, toHide: boolean}) {
 					<Button						
 						style={{ color: "white", backgroundColor: "midnightblue", marginLeft: 8 }}
             onClick={handleAddBoard}
+						onMouseEnter={handleAddBoard}
 					>
 						{buttonTitle}{" "}
 					</Button>

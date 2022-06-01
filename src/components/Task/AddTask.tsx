@@ -60,13 +60,6 @@ export function AddTask(props: AddTaskProps) {
       const apiTask = await createTask(board.id, column.id, body);
 			taskId = apiTask.id;
 			dispatch(update_task_id(taskId));
-			// const response = await getColumn(board.id, column.id);
-      // dispatch(set_column({
-      //   id: response.id,
-      //   title: response.title,
-      //   order: response.order,
-      //   tasks: response.tasks,
-      // }));
 			setState({
 				...state,
 				title: '',
