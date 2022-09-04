@@ -11,8 +11,9 @@ import Register from "./components/Register/Register";
 import Logout from "./components/Logout/Logout";
 import Signin from "./components/Signin/signin";
 import { EditProfile } from "./components/Edit/Edit";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import EditBoard from "./components/Board/EditBoard";
+import { useLocation } from "react-router-dom";
 
 export const baseUrl = "project-management-app";
 
@@ -32,16 +33,13 @@ function useLocalStorage(key: string, initialState: string) {
 	return [value, updatedSetValue];
 }
 
-
-
 function App() {
 	let [localStorage, setToken] = useLocalStorage("userToken", "");
 
 	return (
 		<div className="App">
 			<ErrorBoundary>
-				<Router>
-				
+				<Router>				
 					<Header token={localStorage} />
 					<Routes>
 						<Route path={`/${baseUrl}`} element={<Home />} />

@@ -3,16 +3,24 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface AppProps {
   isBoardInEdit: boolean,
   editedBoardId: string,
+  editedBoardTitle?: string,
+  editedBoardDescription?: string,
   isBoardInCreate: boolean,
   createdBoardId: string,
+  createdBoardTitle?: string,
+  createdBoardDescription?: string,
 }
 
 const initialState: AppProps =
   {
     isBoardInEdit: false,
     editedBoardId: '',
+    editedBoardTitle: '',
+    editedBoardDescription: '',
     isBoardInCreate: false,
     createdBoardId: '',
+    createdBoardTitle: '',
+    createdBoardDescription: '',
   }
 
 
@@ -20,11 +28,13 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    set_editedBoard: (state: AppProps = initialState, action) => {
+    set_editedBoard: (state: AppProps = initialState, action: { payload: any }) => {
       const newState = {
         ...state,
         isBoardInEdit: action.payload.isBoardInEdit,
         editedBoardId: action.payload.editedBoardId,
+        editedBoardTitle: action.payload.editedBoardTitle,
+        editedBoardDescription: action.payload.editedBoardDescription,
       }
       return newState;
     },
@@ -33,14 +43,18 @@ export const appSlice = createSlice({
         ...state,
         isBoardInEdit: false,
         editedBoardId: '',
+        editedBoardTitle: '',
+        editedBoardDescription: '',
       }
       return newState;
     },
-    set_createdBoard: (state: AppProps = initialState, action) => {
+    set_createdBoard: (state: AppProps = initialState, action: { payload: any}) => {
        const newState = {
         ...state,
         isBoardInCreate: action.payload.isBoardInCreate,
         createdBoardId: action.payload.createdBoardId,
+        createdBoardTitle: action.payload.createdBoardTitle,
+        createdBoardDescription: action.payload.createdBoardDescription,
       }
       return newState;
     },
@@ -49,6 +63,8 @@ export const appSlice = createSlice({
         ...state,
         isBoardInCreate: false,
         createdBoardId: '',
+        createdBoardTitle: '',
+        createdBoardDescription: '',
       }
       return newState;
     }

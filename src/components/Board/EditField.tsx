@@ -91,6 +91,12 @@ export function EditField(props: EditFieldProps) {
     closeForm();
   }
 
+  function handleEnter(event: { key: string; }) {
+    if (event.key === 'Enter') {
+      handleFieldUpdate();
+    }
+  }
+
 	function renderField() {
 		return (
       <React.Fragment>
@@ -111,6 +117,7 @@ export function EditField(props: EditFieldProps) {
           defaultValue={value}
           onChange={handleFieldChange}
           onBlur={handleFieldUpdate}
+          onKeyDown={handleEnter}
           helperText={state.errorMessage}
           style={{
             resize: "none",
