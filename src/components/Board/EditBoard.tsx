@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { AddModalInfo } from '../Modal/Modal';
 import { DragDropContext, Droppable, Draggable, DropResult} from 'react-beautiful-dnd';
 import '../Boards/Board.scss';
+import { remove_editedBoard } from '../../store/reducers/appSlice';
 
 export default function EditBoard() {
   const dispatch = useAppDispatch();
@@ -126,6 +127,7 @@ export default function EditBoard() {
         id: boardId,
       }));
       handleShowInfo();
+      dispatch(remove_editedBoard());
       navigate(`/${baseUrl}/boards`);
     }
     else {
@@ -138,6 +140,7 @@ export default function EditBoard() {
       await deleteBoard(boardId);
     }
     dispatch(clear_board());
+    dispatch(remove_editedBoard());
     navigate(`/${baseUrl}/boards`);
   }
 
@@ -147,8 +150,7 @@ function reorder(columns: ColumnProps[], index: number, newIndex: number) {
   const newColumns = [...columns];
   
   const [removed] = newColumns.splice(index, 1);
-  newColumns.splice(newIndex, 0, removed);
-  
+  newColumns.splice(newIndex, 0, removed);  
   
   return newColumns;
 }
@@ -162,21 +164,19 @@ function handleOnDragEnd(result: DropResult) {
   }
   if (result.destination.index === result.source.index) {
     return;
-  } else {
+  } else {    
+    const newColumn = reorder(
+      columns || [],
+      result.source.index,
+      result.destination.index
+    );
     
-  const newColumn = reorder(
-    columns || [],
-    result.source.index,
-    result.destination.index
-  );
-  
     setColumn(newColumn);
    
     dispatch(update_column({
       id: newColumn[result.destination.index].id,
       title: newColumn[result.destination.index].title,
-      order: result.destination.index,
-      
+      order: result.destination.index,      
     }));
   }
 }
@@ -208,16 +208,10 @@ function handleOnDragEnd(result: DropResult) {
          />
         </div>
         )}
-
-        </Draggable>
-
-
-        
+        </Draggable>        
         ) : null }
         <AddColumn />
-      </div>
-
-      
+      </div>      
       {provided.placeholder}
     </>
   )}
