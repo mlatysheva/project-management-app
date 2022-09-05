@@ -3,7 +3,8 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
-import EditIcon from '@mui/icons-material/Edit';
+// import EditIcon from '@mui/icons-material/Edit';
+import PersonIcon from '@mui/icons-material/Person';
 import React from "react";
 import { update_board } from "../../store/reducers/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -102,7 +103,7 @@ export function EditField(props: EditFieldProps) {
       <React.Fragment>
         <h2 style={{ textAlign: "left" }}>{value}</h2>
         <Tooltip title={`${t('editBtn')} ${props.type}`}>
-          <EditIcon onClick={openForm}/>
+          <PersonIcon onClick={openForm}/>
         </Tooltip>
       </React.Fragment>			
 		);

@@ -40,14 +40,17 @@ export function Home() {
           <h2>{t('h2_instructions')}</h2>
           <div className='instructions'>
             <div className='instruction'>
+              <img className="instruction-icon" src={process.env.PUBLIC_URL + "/assets/icons/number1.png" } alt="step 1" />
               <p className='instruction-text'>{t('instruction1')}</p>
               <img className="instruction-image" src={process.env.PUBLIC_URL + "/assets/instructions/signin.jpg"} alt="signup" />
             </div>
             <div className='instruction'>
+              <img className="instruction-icon" src={process.env.PUBLIC_URL + "/assets/icons/number2.png" } alt="step 2" />
               <p className='instruction-text'>{t('instruction2')}</p>
               <img className="instruction-image" src={process.env.PUBLIC_URL + "/assets/instructions/addboard.jpg"} alt="create a board" />
             </div>
             <div className='instruction'>
+              <img className="instruction-icon" src={process.env.PUBLIC_URL + "/assets/icons/number3.png" } alt="step 3" />
               <p className='instruction-text'>{t('instruction3')}</p>
               <img className="instruction-image" src={process.env.PUBLIC_URL + "/assets/instructions/yourboards.jpg"} alt="your boards" />
             </div>

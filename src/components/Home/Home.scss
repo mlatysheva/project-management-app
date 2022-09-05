@@ -66,20 +66,31 @@ h2 {
   flex-direction: column;
   justify-content: center;
 }
+.instructions {
+  display: flex;
+  flex-direction: row;
+}
 .instruction {
   width: 100%;
-  max-width: 800px;
+  max-width: 300px;
+  margin: 1rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+}
+.instruction-icon {
+  align-self: center;
+  width: 2rem;
+  height: 2rem;
 }
 .instruction-text {
   width: 100%;
   max-width: 400px;
+  height: 3rem;
   text-align: left;
   margin-right: 1rem;
 }
 .instruction-image {
-  width: 150px;
+  width: 200px;
 }
 .elephant {
   width: 8rem;
@@ -136,8 +147,17 @@ h2 {
       flex-wrap: wrap;
       flex-direction: column;
       font-size: 22px;
-      }
     }
+    .instructions {
+      flex-direction: column;
+    }
+    .instruction {
+      align-items: center;
+    }
+    .instruction-text {
+      text-align: center;
+    }
+  }
   
   @media (max-width: 600px) {
     footer {

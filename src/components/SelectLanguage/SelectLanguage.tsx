@@ -24,7 +24,18 @@ export default function SelectLanguage() {
 
   const handleClose = () => {
     setAnchorEl(null);
+    removeNav();
   };
+
+  function removeNav() {
+		const nav = document.querySelector("nav");
+		if (nav?.classList.contains("nav-active")) {
+			nav?.classList.remove("nav-active");
+			if (window.innerWidth < 600) {
+				nav?.classList.toggle("hidden");
+			}
+		}
+	}
 
   return (
     <div>
