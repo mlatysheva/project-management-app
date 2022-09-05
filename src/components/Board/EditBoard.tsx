@@ -219,9 +219,9 @@ function handleOnDragEnd(result: DropResult) {
 </DragDropContext>
 
       <div className="save-cancel-section">
-        <Button style={{ marginRight: 20, minWidth: 100, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleShow}>{t('delete_board')}</Button>
+        <Button style={{ marginRight: 20, minWidth: 100, minHeight: 60, backgroundColor: "lightgrey", color: "midnightblue"}} onClick={handleShow}>{t('delete_board')}</Button>
         {showModal? <AddModal showModal={showModal} toHide={true} id={board.id} title = {t('question_delete_board').concat(" ", board.title, " ?")}/>: null}
-        <Button style={{ minWidth: 100, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>{t('save_board')}</Button>
+        <Button style={{ minWidth: 100, minHeight: 60, backgroundColor: "midnightblue", color: "white"}} onClick={handleBoardSave}>{t('save_board')}</Button>
         {showInfo? <AddModalInfo showInfo={showInfo} toHide={true} id={board.id} title = {t("board_was_saved").concat(" ", board.title)} function= {() => {}} style={{display:'none'}} />: null}
         {showAlert? <AddModalInfo showInfo={showAlert} toHide={true} id={board.id} title = {t('alert')} function= {() => {handleHide()}} style={{display:'block'}} />: null}
       </div>

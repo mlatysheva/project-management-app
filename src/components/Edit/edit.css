@@ -1,7 +1,7 @@
 .delete_user {
 	min-width: 350px;
 	margin-left: 10%;
-	background-color: brown;
+	border:solid 3px brown;
 }
 
 .delete_user:hover {
