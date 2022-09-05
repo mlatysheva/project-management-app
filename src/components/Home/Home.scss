@@ -26,6 +26,7 @@ h2 {
 .quote_container {
   align-self: flex-end;
   margin-right: 3rem;
+  margin-left: 3rem;
 }
 .quote {
   font-size: medium;
@@ -63,7 +64,7 @@ h2 {
   margin-bottom: 4rem;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
+  // flex-direction: column;
   justify-content: center;
 }
 .instructions {
@@ -115,7 +116,7 @@ h2 {
     width: 12rem;
     height: 16rem;
     img {
-      width: 100%;
+      max-height: 150px;
       object-fit: cover;
       @include shadow;
       }
@@ -148,14 +149,17 @@ h2 {
       flex-direction: column;
       font-size: 22px;
     }
-    .instructions {
-      flex-direction: column;
-    }
     .instruction {
       align-items: center;
     }
     .instruction-text {
       text-align: center;
+    }
+  }
+
+  @media(max-width: 700px) {
+    .instructions {
+      flex-direction: column;
     }
   }
   

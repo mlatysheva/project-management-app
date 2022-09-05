@@ -16,8 +16,9 @@
 	position: absolute;
 	top:3%;
 	left:0;
-	height: 100%;
-	width: 200px;
+	height: 100vh;
+  width: 100%;
+	// width: 200px;
 	flex-direction: column;
 	background-color: midnightblue;
 	z-index: 20;
@@ -26,14 +27,17 @@
 .menu {
 	cursor: pointer;
 }
+.language-icon {
+  padding: 1rem;
+}
 
 @media (max-width: 600px) {
-.current-page-title {
-	margin-right: 2rem;
-}
+  .current-page-title {
+    margin-right: 2rem;
+  }
 }
 @media (max-width: 768px) {
 	.current-page-title {
-	font-size: small;
+	  font-size: small;
 	}
-	}
+}

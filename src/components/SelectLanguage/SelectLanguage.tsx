@@ -23,22 +23,29 @@ export default function SelectLanguage() {
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    const languageMenu = document.getElementById('menu-appbar');
+    languageMenu?.classList.add('hidden');
     removeNav();
-  };
+    setAnchorEl(null);
+  }
 
   function removeNav() {
 		const nav = document.querySelector("nav");
 		if (nav?.classList.contains("nav-active")) {
+      console.log(`we are in selectlanguage`);
 			nav?.classList.remove("nav-active");
 			if (window.innerWidth < 600) {
 				nav?.classList.toggle("hidden");
 			}
 		}
 	}
+  function changeLanguage(lng: string) {
+    i18n.changeLanguage(lng);
+    handleClose();
+  }
 
   return (
-    <div>
+    <div className="language-icon">
       <Tooltip title={t("language")}>
         <LanguageIcon style={{cursor: 'pointer'}} fontSize="large" onClick={handleMenu}></LanguageIcon>
       </Tooltip>
@@ -48,18 +55,18 @@ export default function SelectLanguage() {
         anchorOrigin={{
           vertical: "top",
           horizontal: "right"
-                }}
+        }}
         keepMounted
         transformOrigin={{
           vertical: "top",
           horizontal: "right"
-                }}
+        }}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
-              >
+        onClose={() => handleClose()}
+      >
         {Object.keys(lngs).map((lng: string) => (
             <MenuItem key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} href='#' type="submit" onClick={() => {
-              i18n.changeLanguage(lng);
+              changeLanguage(lng);
               
             }}>
               {lngs[lng]}

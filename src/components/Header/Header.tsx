@@ -59,11 +59,12 @@ export function CurrentPage() {
 function Header(localStorage: any) {
 	// Sticky Menu Area https://stackoverflow.com/questions/62970456/how-to-create-sticky-headers-on-scroll-with-react
 	useEffect(() => {
+    isSmallScreen();
 		window.addEventListener("scroll", isSticky);
 		return () => {
 			window.removeEventListener("scroll", isSticky);
 		};
-	});
+	}, []);
 
 	/* Method that will fix header after a specific scrollable */
 	const isSticky = (e: Event) => {
@@ -84,7 +85,7 @@ function Header(localStorage: any) {
 		removeNav();
 	}
 
-	const isSmallScreen = (e: Event) => {
+	const isSmallScreen = () => {
 		const menu = document.querySelector(".menu");
 		const nav = document.querySelector("nav");
 		if (window.innerWidth < 600) {
