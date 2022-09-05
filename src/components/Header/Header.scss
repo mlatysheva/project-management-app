@@ -16,12 +16,12 @@
 	position: absolute;
 	top:3%;
 	left:0;
-	height: 50%;
+	height: 100%;
 	max-width: 300px;
 	flex-direction: column;
 	background-color: midnightblue;
 	z-index: 20;
-
+  border-radius: 5px;
 }
 .menu {
 	cursor: pointer;

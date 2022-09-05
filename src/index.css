@@ -1,7 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, 'Graduate', 'Montserrat' , sans-serif;
-   
+  font-family: -apple-system, 'Montserrat' , sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
@@ -9,7 +8,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: 'Courier New',
     monospace;
 }
 
