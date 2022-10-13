@@ -1,6 +1,7 @@
 # Elephant
 
 The deployed version is here: https://mlatysheva.github.io/project-management-app/
+The source code is kept in the `develop` branch: https://github.com/mlatysheva/project-management-app/tree/develop 
 ## Your favourite app to track the progress of your projects
 
 This app was created by our team as part of the React course from Rolling Scopes School:
