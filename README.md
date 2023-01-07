@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Elephant
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The deployed app is here: https://mlatysheva.github.io/project-management-app/
+<br>
+The source code is kept in the `develop` branch: https://github.com/mlatysheva/project-management-app/tree/develop 
+## Your favourite app to track the progress of your projects
 
-## Available Scripts
+This app was created by our team as part of the React course from Rolling Scopes School:
+- Maria Latysheva: https://github.com/mlatysheva 
+- Olena Honcharuk: https://github.com/olena-web 
+- Julia Mironova: https://github.com/julia-mironova 
+### Backend
 
-In the project directory, you can run:
+The app is using backend that was provided by: 
+https://github.com/vitaly-sazonov/kanban-rest  
 
-### `npm start`
+We deployed the backend on Heroku:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* https://project-management-app-back15.herokuapp.com
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+With the Swagger to it living here:
 
-### `npm test`
+* https://project-management-app-back15.herokuapp.com/docs/ 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## App structure
 
-### `npm run build`
+- Home page: contains the advantages of our app and brief information about the developers
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_home.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- User signup/login and logout: only registered users can use the functionality of the app in full. To start using the upp, please create a new account or sign in, if you already have an account
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_signin.png)
 
-### `npm run eject`
+- Main page: shows previews of all your boards and allows you to delete or edit a board
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_mainroute.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Icon to create a new board which opens a new page with the functionality to create the board
 
-## Learn More
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_boardroute.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Slider to choose the language: the user can choose between English and Russian
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_language_localisation.png)
