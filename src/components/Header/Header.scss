@@ -1,0 +1,43 @@
+.is-sticky {
+	position: sticky;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+	box-shadow: 0 5px 10px 2px rgb(50 68 93 / 72%);
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.hidden {
+	display: none;
+}
+.nav-active {
+	display: flex;
+	position: absolute;
+	top:3%;
+	left:0;
+	height: 100vh;
+  width: 100%;
+	// width: 200px;
+	flex-direction: column;
+	background-color: midnightblue;
+	z-index: 20;
+  border-radius: 5px;
+}
+.menu {
+	cursor: pointer;
+}
+.language-icon {
+  padding: 1rem;
+}
+
+@media (max-width: 600px) {
+  .current-page-title {
+    margin-right: 2rem;
+  }
+}
+@media (max-width: 768px) {
+	.current-page-title {
+	  font-size: small;
+	}
+}

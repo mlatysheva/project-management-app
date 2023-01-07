@@ -45,6 +45,3 @@ With the Swagger to it living here:
 - Slider to choose the language: the user can choose between English and Russian
 
 ![](https://raw.githubusercontent.com/mlatysheva/project-management-app/main/screenshot_language_localisation.png)
-
-
-

@@ -1,0 +1,25 @@
+.signup__form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 6%;
+}
+
+.signup__input {
+	margin: 10px;
+	padding: 10px;
+	font-size: medium;
+}
+
+.signup__btn {
+	border: 2px solid green;
+	min-width: 250px;
+	margin-left: 30%;
+}
+
+.red {
+	border: 3px solid red;
+}
+
+.green {
+	border: 3px solid greenyellow;
+}
